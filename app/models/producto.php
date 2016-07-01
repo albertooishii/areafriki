@@ -1,0 +1,636 @@
+<?php
+    require_once 'app/helpers/database.php';
+
+    class Producto_Model extends Database{
+
+        var $id, $nombre, $descripcion, $beneficio, $user, $creador, $design, $categoria, $category_parent, $color, $modelo, $tag, $tags, $valor, $codigo, $height, $width, $top, $left, $scale, $usado, $stock, $preparacion, $gastos_envio, $tiempo_envio, $comentario, $coment_parent,  $token_lista, $nombre_lista;
+
+        function __construct(){
+           parent::__construct();
+        }
+
+// Lectura-----------------------------------------------------//
+
+        function getProductos($limit=false)
+        {
+            if(isset($this->category_parent)){
+                $query = "SELECT * FROM productos WHERE categoria =$this->category_parent OR categoria IN(SELECT id FROM categorias WHERE parent = $this->category_parent) ORDER BY fecha_publicacion DESC";
+            }elseif($limit){
+                $query = "SELECT * FROM productos ORDER BY fecha_publicacion DESC LIMIT $limit";
+            }else{
+                $query = "SELECT * FROM productos ORDER BY fecha_publicacion DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function get()
+        {
+            $query = "SELECT * FROM productos WHERE id= ".$this->id;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
+        function getProductosUser($limit=false)
+        {
+            if($limit){
+                $query = "SELECT * FROM productos WHERE design IN (SELECT token FROM designs WHERE user= ".$this->creador.") AND active=1 ORDER BY fecha_publicacion DESC LIMIT ".$limit;
+            }else{
+                $query = "SELECT * FROM productos WHERE design IN (SELECT token FROM designs WHERE user= ".$this->creador.") AND active=1 ORDER BY fecha_publicacion DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getProductosCategoria($limit=false)
+        {
+            $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC LIMIT $limit";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getProductosCategoryUser()
+        {
+            $query="SELECT * FROM productos WHERE categoria=$this->category_parent AND design IN(SELECT token FROM designs WHERE user=$this->creador)";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+
+        }
+
+        function getProductosCategoryParentUser()
+        {
+            $query="SELECT * FROM productos WHERE categoria IN (SELECT id FROM categorias WHERE parent=$this->category_parent) AND design IN(SELECT token FROM designs WHERE user=$this->creador)";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+
+        }
+
+        function getProductosTag($limit=false)
+        {
+            $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') LIMIT $limit";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getProductoWhereToken()
+        {
+            $query = "SELECT * FROM productos WHERE design = '$this->token'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
+        function isRevisado()
+        {
+            $query="SELECT revisado FROM productos WHERE id='$this->id'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer["revisado"]==1)
+            return true;
+            return false;
+        }
+
+        function isActive()
+        {
+            $query="SELECT active FROM productos WHERE id='$this->id'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer["active"]==1)
+            return true;
+            return false;
+        }
+
+        function getLikes()
+        {
+            $query = "SELECT count(user) as 'likes' FROM likes WHERE producto= ".$this->id;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["likes"];
+        }
+
+        function userLikeProducto()
+        {
+            $query = "SELECT * FROM likes WHERE producto= ".$this->id." AND user= ".$this->user;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return true;
+            return false;
+        }
+
+        function getMasVendidos($limit=false){
+            if($limit){
+                $query = "SELECT * FROM productos WHERE stock>1 OR preparacion>0 ORDER BY ventas DESC limit $limit";
+            }else{
+                $query = "SELECT * FROM productos ORDER BY ventas DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getMasLikes($limit=false){
+            if(!empty($limit)){
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto GROUP BY id ORDER BY likes DESC LIMIT ".$limit;
+            }else{
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto GROUP BY id ORDER BY likes DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function userNotLikeProducto($limit)//recogemos los productos a los que no se les ha dado like
+        {
+            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND revisado=1 AND active=1 ORDER by fecha_publicacion DESC LIMIT $limit";
+            $lista_not_like=array();
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getNewRuletaItem($id1, $id2, $id3, $id4, $id5)
+        {
+            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND id!=$id1  AND id!=$id2 AND id!=$id3 AND id!=$id4 AND id!=$id5 AND revisado=1 AND active=1 ORDER by fecha_publicacion DESC LIMIT 1";
+            //echo $query;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
+        function getShares()
+        {
+            $query = "SELECT shares FROM productos WHERE id= ".$this->id;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["shares"];
+        }
+
+        function getViews()
+        {
+            $query = "SELECT visitas FROM productos WHERE id= ".$this->id;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["visitas"];
+        }
+
+        function getColores(){
+            $query="SELECT valor, codigo FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='color' AND categoria=$this->categoria) ORDER BY orden";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_colores[]=$fila;
+                }
+                if(!empty($lista_colores)){
+                    return $lista_colores;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getNombreColor(){
+            $query="SELECT valor FROM valores WHERE codigo= '$this->codigo' AND atributo=(SELECT id FROM atributos WHERE tipo='color' AND categoria=$this->categoria) ORDER BY orden";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer["valor"];
+            return false;
+        }
+
+        function getSizes(){
+            $query="SELECT valor, codigo, orden FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='size' AND categoria=$this->categoria) ORDER BY orden";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_sizes[]=$fila;
+                }
+                if(!empty($lista_sizes)){
+                    return $lista_sizes;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getValoresModelo(){
+            $query="SELECT valor, codigo, orden FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='modelo' AND nombre='$this->modelo' AND categoria=$this->categoria) ORDER BY orden";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_sizes[]=$fila;
+                }
+                if(!empty($lista_sizes)){
+                    return $lista_sizes;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getTags(){
+            $query="SELECT tag FROM producto_tag WHERE producto = $this->id";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_tags[]=$fila;
+                }
+                if(isset($lista_tags)){
+                    return $lista_tags;
+                }
+            }
+            return false;
+        }
+
+        function search($string){
+            $query="SELECT * FROM productos WHERE nombre LIKE '%$string%' OR id=(SELECT producto FROM producto_tag WHERE tag LIKE '%$string%')";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                return $lista_productos;
+            }
+            return false;
+        }
+// Escritura -----------------------------------------------------//
+
+        function setDesign()
+        {
+            $fecha=date ("Y-m-d H:i:s");
+
+            //print_r($this->beneficio);
+            if(is_array($this->beneficio)){
+                 $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, color, modelo, fecha_publicacion, height, width, top_pos, left_pos, scale) VALUES('$this->nombre', '$this->descripcion', NULL, '$this->design', '$this->categoria', '$this->color', '$this->modelo', '$fecha', '$this->height', '$this->width', '$this->top', '$this->left', '$this->scale')";
+            }else{
+                $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, color, modelo, fecha_publicacion, height, width, top_pos, left_pos, scale) VALUES('$this->nombre', '$this->descripcion', '$this->beneficio', '$this->design', '$this->categoria', '$this->color', '$this->modelo', '$fecha', '$this->height', '$this->width', '$this->top', '$this->left', '$this->scale')";
+            }
+
+            //echo $query;
+            if ($this->_db->query($query)){
+                $this->id=mysqli_insert_id($this->_db);
+
+                $this->setProductoLista();
+
+                if(is_array($this->beneficio)){
+                    $this->setBeneficioProducto();
+                }
+
+                foreach($this->tags as $tag){
+                    $tag=str_replace(" ", "-", trim(strtolower($tag)));
+                    $query = "INSERT INTO tags (nombre) VALUES ('$tag')";$this->_db->query($query);
+                    $this->_db->query($query);
+                    $query = "INSERT INTO producto_tag (producto, tag) VALUES ('$this->id','$tag')";
+                    $this->_db->query($query);
+                }
+
+                return $this->id;
+            }else{
+                return false;
+            }
+        }
+
+        function setCraft()
+        {
+            $fecha=date ("Y-m-d H:i:s");
+            $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, fecha_publicacion, usado, stock, preparacion, gastos_envio, tiempo_envio) VALUES('$this->nombre', '$this->descripcion', '$this->beneficio', '$this->design', '$this->categoria', '$fecha', '$this->usado', '$this->stock', '$this->preparacion', '$this->gastos_envio', '$this->tiempo_envio')";
+            //echo $query;
+            if ($this->_db->query($query)){
+                $this->id=mysqli_insert_id($this->_db);
+                $this->setProductoLista();
+                foreach($this->tags as $tag){
+                    $tag=str_replace(" ", "-", trim(strtolower($tag)));
+                    $query = "INSERT INTO tags (nombre) VALUES ('$tag')";$this->_db->query($query);
+                    $this->_db->query($query);
+                    $query = "INSERT INTO producto_tag (producto, tag) VALUES ('$this->id','$tag')";
+                    $this->_db->query($query);
+                }
+
+                return $this->id;
+            }else{
+                return false;
+            }
+        }
+
+        function like()
+        {
+            $query="INSERT INTO likes (producto, user) VALUES('$this->id', '$this->user')";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function setBeneficioProducto()
+        {
+            $orden=0;
+            foreach ($this->beneficio as $beneficio){
+                $orden++;
+                $query="INSERT INTO beneficio_valor (producto, valor, beneficio) VALUES('$this->id', (SELECT id FROM valores WHERE atributo=(SELECT id FROM atributos WHERE categoria=".$this->categoria." AND tipo='size') AND orden=".$orden."), '$beneficio') ON DUPLICATE KEY UPDATE beneficio='$beneficio'";
+                //echo $query;
+                if ( !$this->_db->query($query) ){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+// Actualizado -----------------------------------------------------//
+
+        function revisar()
+        {
+            $query="UPDATE productos SET revisado='1' WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function shares()
+        {
+            $query="UPDATE productos SET shares=shares+1 WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function visitar()
+        {
+            $query="UPDATE productos SET visitas=visitas+1 WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function update()
+        {
+            $fecha=date ("Y-m-d H:i:s");
+            if(is_array($this->beneficio)){
+                $query="UPDATE productos SET nombre='$this->nombre', descripcion='$this->descripcion', fecha_actualizacion='$fecha' WHERE id='$this->id'";
+            }elseif(!empty($this->stock)){
+                $query="UPDATE productos SET nombre='$this->nombre', descripcion='$this->descripcion', fecha_actualizacion='$fecha', beneficio='$this->beneficio', stock='$this->stock', gastos_envio='$this->gastos_envio', tiempo_envio='$this->tiempo_envio' WHERE id='$this->id'";
+            }elseif(!empty($this->preparacion)){
+                 $query="UPDATE productos SET nombre='$this->nombre', descripcion='$this->descripcion', fecha_actualizacion='$fecha', beneficio='$this->beneficio', preparacion='$this->preparacion', gastos_envio='$this->gastos_envio', tiempo_envio='$this->tiempo_envio' WHERE id='$this->id'";
+            }else{
+                $query="UPDATE productos SET nombre='$this->nombre', descripcion='$this->descripcion', fecha_actualizacion='$fecha', beneficio='$this->beneficio' WHERE id='$this->id'";
+            }
+
+            //echo $query;
+            $this->setProductoLista();
+
+            if ($this->_db->query($query)){
+
+                if(is_array($this->beneficio)){
+                    $this->setBeneficioProducto();
+                }
+
+                $query="DELETE FROM producto_tag WHERE producto='$this->id'";
+                $this->_db->query($query);
+                foreach($this->tags as $tag){
+                    $tag=str_replace(" ", "-", trim(strtolower($tag)));
+                    $query = "INSERT INTO tags (nombre) VALUES ('$tag')";
+                    $this->_db->query($query);
+                    $query = "INSERT INTO producto_tag (producto, tag) VALUES ('$this->id','$tag')";
+                    $this->_db->query($query);
+                }
+
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function unlike()
+        {
+            $query="DELETE FROM likes WHERE producto='$this->id' AND user='$this->user'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+//Delete y desactivado
+
+        function deactivate()
+        {
+            $query="UPDATE productos SET active=0 WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function delete(){
+            $query="DELETE FROM productos WHERE id='".$this->id."'";
+             if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+//Comentarios
+
+        function comentar(){
+            $fecha=date ("Y-m-d H:i:s");
+            if (preg_match( "/^([d]{1,3}).([d]{1,3}).([d]{1,3}).([d]{1,3})$/", getenv('HTTP_X_FORWARDED_FOR'))){
+                $ip=getenv('HTTP_X_FORWARDED_FOR');
+            }else{
+                $ip=getenv('REMOTE_ADDR');
+            }
+
+            if(isset($this->coment_parent)){
+                $query="INSERT INTO comentarios (fecha, producto, user, comentario, ip, parent) VALUES ('$fecha', '$this->id', '$this->user', '$this->comentario', '$ip', '$this->comment_parent')";
+            }else{
+                $query="INSERT INTO comentarios (fecha, producto, user, comentario, ip) VALUES ('$fecha', '$this->id', '$this->user', '$this->comentario', '$ip')";
+            }
+            if ($this->_db->query($query)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function getComentarios(){
+            $query="SELECT * FROM comentarios WHERE producto='$this->id' ORDER BY id DESC";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_comentarios[]=$fila;
+                }
+                if(!empty($lista_comentarios)){
+                    return $lista_comentarios;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getContComentarios(){
+            $query="SELECT count(*) as contador FROM comentarios WHERE producto='$this->id' ORDER BY id DESC";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer["contador"];
+            return false;
+        }
+
+//Listas de productos
+        function setLista(){
+            $date=date ("Y-m-d H:i:s");
+            $chars = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z');
+
+            $long = 8;
+
+            $this->token_lista = '';
+            for($i = 0; $i < $long; $i++) {
+                $this->token_lista .= $chars[rand(0, count($chars)-1)];
+            }
+
+            $query="INSERT INTO listas (token, user, nombre, fecha_creacion, fecha_update) VALUES ('$this->token_lista', $this->user, '$this->nombre_lista', '$date', '$date')";
+            if ( $this->_db->query($query) )
+            return true;
+        }
+
+        function getListas(){
+            $query="SELECT * FROM listas WHERE user=$this->user";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $listas[]=$fila;
+                }
+                if(!empty($listas)){
+                    return $listas;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+
+        function getLista(){
+            $query="SELECT * FROM listas WHERE token='$this->token_lista'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
+        function getListasUsadas(){
+            $query="SELECT listas.token as token, listas.nombre as nombre, productos.id as producto FROM listas INNER JOIN productos ON listas.token=productos.lista WHERE user=$this->creador AND productos.active=1 AND productos.revisado=1 GROUP BY token";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $listas[]=$fila;
+                }
+                if(!empty($listas)){
+                    return $listas;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function getListaProducto(){
+            $query="SELECT lista FROM productos WHERE producto='$this->id'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer["lista"];
+            return false;
+        }
+
+        function getProductosLista(){
+            $query="SELECT * FROM productos WHERE lista='$this->token_lista'";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function setProductoLista(){
+            if(!empty($this->token_lista)){
+                $query="UPDATE productos SET lista='$this->token_lista' WHERE id='$this->id'";
+            }else{
+                $query="UPDATE productos SET lista=NULL WHERE id='$this->id'";
+            }
+            //echo $query;
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+    }
+
+?>

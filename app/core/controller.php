@@ -1,0 +1,179 @@
+<?php
+    class Controller {
+        private $view = null;
+        private $folder = null;
+        private $data = array();
+        private $modelName;
+
+        public function __construct()
+        {
+            $this->loadModel('user');
+            $this->u = new Users_Model();
+            if(isset($_COOKIE["user"]) && isset($_COOKIE["pass"])){
+                $this->u->user=$_COOKIE["user"];
+                $this->u->pass=$_COOKIE["pass"];
+                if(!$this->u->coincideUserAndPassword()){
+                    $this->u->logout();
+                }elseif(!isset($_SESSION["login"])){
+                    $this->u->login();
+                }
+            }
+            if(isset($_SESSION["login"])){
+                $this->u->user=$_SESSION["login"]["user"];
+                $this->u->id=$this->u->getUser()["id"];
+            }
+        }
+
+        public function loadModel($modelName){
+            include_once DIR."/app/models/$modelName.php";
+        }
+
+        public function loadHelper($file){
+            require DIR."/app/helpers/$file.php";
+        }
+
+        public function loadView($folder,$view,$data=false){
+            @extract($data);
+            ob_start();                      // start capturing output
+            include DIR."/app/views/".$folder."/".$view.".php";   // execute the file
+            $page = ob_get_contents();    // get the contents from the buffer
+            ob_end_clean();
+            return $page;
+        }
+
+        public function render($folder, $view, $data=false){
+            if(@$_GET["section"]=='simbiosis'){
+                $page=$this->loadView($folder, $view, $data);
+                include_once 'app/templates/backoffice/page.php';
+            }else{
+                #ETIQUETAS DEL HEADER POR DEFECTO#
+                if(!isset($data["page_title"])){
+                    $data["page_title"]=PAGE_NAME;
+                }
+                if(!isset($data["meta_tags"])){
+                    $data["meta_tags"]=$this->loadView("meta","meta",$data);
+                }
+
+                require_once 'app/controllers/minificar.php';
+                $m = new MinificarController();
+                $data["min_js"]=$m->js();
+                $data["min_css"]=$m->css();
+
+                $this->loadModel("carrito");
+                $car = new Carrito_Model();
+                $this->loadModel("categoria");
+                $cat = new Categoria_Model();
+
+                $cat->parent=1;
+                $lista_categorias=$cat->getChilds();
+                $data["categorias_designer_header"]="";
+                foreach($lista_categorias as $categoria){
+                    $data["categorias_designer_header"].=$this->loadView("header","categories",$categoria["nombre"]);
+                }
+
+                $car->user=$this->u->id;
+                $data["contador-carrito"]=$car->countCarrito();
+                if(!$this->u->getUser_activeaccount() && isset($_SESSION["login"])){
+                    $data["header_advertencia"]=$this->loadView("header","advertencia");
+                }
+                $page=$this->loadView($folder, $view, $data);
+                $page=$this->minifyHtml($page);
+                include_once 'app/templates/frontoffice/page.php';
+            }
+        }
+
+        public function getIP(){
+            if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARTDED_FOR'] != '') {
+                return $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                return $_SERVER['REMOTE_ADDR'];
+            }
+        }
+
+        public function getURL(){
+            return PAGE_DOMAIN.$_SERVER["REQUEST_URI"];
+        }
+
+        public function format_date($datetime){
+            setlocale(LC_TIME,"spanish");
+            $now = date('Y-m-d H:i:s');
+            $year = date('Y');
+            $month = date('m');
+            $day = date('d');
+            $hour = date('H');
+            $minute = date('i');
+
+            $datetime_year = strftime("%Y",strtotime($datetime));
+            $datetime_month = strftime("%m",strtotime($datetime));
+            $datetime_day = strftime("%d",strtotime($datetime));
+            $datetime_hour = strftime("%H",strtotime($datetime));
+            $datetime_minute = strftime("%M",strtotime($datetime));
+
+            $days_diff = $day - $datetime_day;
+            $minutes_diff = $minute - $datetime_minute;
+
+            if ($datetime_year == $year){ //Este año
+                if (($datetime_month == $month) && ($days_diff == 0)){ //Hoy
+                    if (($datetime_hour == $hour) && ($minutes_diff < 2)){
+                        $datetime="Ahora mismo"; //Hoy hace menos de dos minutos
+                    }else if(($datetime_hour == $hour) && ($minutes_diff < 59)){
+                        $datetime="Hace ". $minutes_diff ." minutos"; //Hoy hace menos de una hora
+                    }
+                    else{
+                        $datetime=utf8_encode(strftime("Hoy a las %H:%M",strtotime($datetime))); //Hoy hace más de una hora
+                    }
+                }elseif (($datetime_month == $month) && ($days_diff == 1)){
+                    $datetime=utf8_encode(strftime("Ayer a las %H:%M",strtotime($datetime))); //Ayer
+                }elseif (($datetime_month == $month) && ($days_diff <= 7)){
+                    $datetime=utf8_encode(strftime("El %a. a las %H:%M",strtotime($datetime))); //Esta semana
+                }else{
+                    $datetime=utf8_encode(strftime("El %e de %b. a las %H:%M",strtotime($datetime))); //Más de una semana
+                }
+            }else{
+                $datetime=utf8_encode(strftime("%e %b. %Y a las %H:%M",strtotime($datetime))); //Más de un año
+            }
+            return $datetime;
+        }
+
+        public function minifyHtml($buffer){
+            $search = array(
+                '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+                '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+                '/(\s)+/s'       // shorten multiple whitespace sequences
+            );
+
+            $replace = array(
+                '>',
+                '<',
+                '\\1'
+            );
+
+            $buffer = preg_replace($search, $replace, $buffer);
+
+            return $buffer;
+        }
+
+        public function minifyCss($css){
+            include_once 'min/utils.php';
+            $cssUri = Minify_getUri([
+                $css
+            ]);
+            return "<link rel=stylesheet href='{$cssUri}'>";
+        }
+
+        public function minifyJs($js){
+            include_once 'min/utils.php';
+            $jsUri = Minify_getUri([
+                $js
+            ]);
+            return "<script src='{$jsUri}'></script>";
+        }
+
+        public function rmrf($source){
+            foreach(glob($source."/*.*") as $archivos_carpeta){
+                unlink($archivos_carpeta);
+            }
+            rmdir($source);
+        }
+    }
+?>

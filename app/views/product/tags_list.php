@@ -1,0 +1,1 @@
+<a class="tag" href="/tag/<?=$data["tag_url"]?>" title="<?=$data["tag"]?>"><?=str_replace("-"," ",$data["tag"])?></a>

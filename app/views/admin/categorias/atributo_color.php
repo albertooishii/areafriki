@@ -1,0 +1,1 @@
+<?=$data["valor_codigo"]?><div style="background-color:<?=$data["valor_codigo"]?>; height:20px; width:20px; border:1px solid #777; float:right"></div>

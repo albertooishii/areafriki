@@ -1,0 +1,1 @@
+<img src="<?=PAGE_DOMAIN?>/designs/<?=$data["nombre_creador"]?>/<?=$data["dg_token"]?>/dg-<?=$data["dg_token"]?>.png" title="<?=$data["dg_nombre"]?>" data-parameters='{"removable": true, "draggable": true, "rotatable": false, "resizable": true, "copyable": false, "boundingBox": "Bounding", "x":350, "y":350, "z":2}' />

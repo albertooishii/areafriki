@@ -1,0 +1,33 @@
+    var $fpd=$('#fpd'),
+        pluginOpts = {
+        //editorMode: true,
+        stageHeight: 700,
+        width:700,
+        hideDialogOnAdd:true,
+        customImageParameters: {
+            colors: false,
+            autoCenter: true,
+            removable: true,
+            maxH:7000,
+            maxW:7000,
+            minH:500,
+            minW:500,
+            resizeToH:400,
+            resizable:true,
+            draggable:true,
+            boundingBox: "Bounding",
+            boundingBoxMode: "clipping",
+            z:1,
+        },
+        elementParameters:{
+            draggable:false,
+            removable:false,
+            resizable:false,
+            rotatable:false,
+            opacity:1,
+        },
+        mainBarModules: ['products','images'],
+        langJSON: '/vendor/fancy_product_designer/source/lang/es.json',
+        templatesDirectory: '/vendor/fancy_product_designer/source/html/'
+    },
+    fpd = new FancyProductDesigner($fpd, pluginOpts);
