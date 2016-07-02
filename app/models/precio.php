@@ -9,20 +9,15 @@
            parent::__construct();
         }
 
-        function get()
+        function get($orden=false)
         {
-            $query = "SELECT beneficio, categoria FROM productos WHERE id= ".$this->producto;
-            $answer = $this->_db->query($query)->fetch_assoc();
-            $beneficio=$answer["beneficio"];
-            if($this->categoria==2 || $this->categoria==30){
-                $precio_base=$beneficio*7.5/100;
-            }elseif(empty($this->modelo)){
-                $query = "SELECT precio_base FROM categorias WHERE id=".$answer["categoria"];
-                $answer = $this->_db->query($query)->fetch_assoc();
-                $precio_base=$answer["precio_base"];
-            }else{
-                $precio_base=$this->getPrecioBaseModelo();
-            }
+            //primero hayamos el beneficio
+            $beneficio=$this->getBeneficio($orden);
+
+            //segundo hayamos el precio base
+            $precio_base=$this->getPrecioBase($orden);
+
+            //devolvemos la suma
             return $precio_base + $beneficio;
         }
 
@@ -42,7 +37,41 @@
             return $precio;
         }
 
-        function getPrecioBaseModelo()
+        function getBeneficio($orden=false)
+        {
+            if($orden==false){$orden=1;}
+            $query = "SELECT beneficio, categoria FROM productos WHERE id= ".$this->producto;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if($answer["beneficio"]==NULL){
+                $query = "SELECT beneficio FROM beneficio_valor WHERE valor IN (SELECT id FROM valores WHERE orden=$orden) AND producto=$this->producto";
+                $answer = $this->_db->query($query)->fetch_assoc();
+            }
+            return $answer["beneficio"];
+        }
+
+        function getPrecioBase($orden=false){
+            if($this->categoria==2 || $this->categoria==30){
+                $precio_base=$this->getBeneficio()*7.5/100;
+            }else{
+                if(!$precio_base=$this->getPrecioBaseCategoria()){
+                    if(!$precio_base=$this->getPrecioBaseSize($orden)){
+                        $precio_base=$this->getPrecioBaseModelo();
+                    }
+                }
+            }
+            return $precio_base;
+        }
+
+//FUNCIONES PRIVADAS INTERNAS
+
+        private function getPrecioBaseCategoria()
+        {
+            $query = "SELECT precio_base FROM categorias WHERE id=$this->categoria";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["precio_base"];
+        }
+
+        private function getPrecioBaseModelo()
         {
             if(!isset($this->codigo)){
                  $query = "SELECT precio_base FROM valores WHERE atributo=(SELECT id FROM atributos WHERE nombre='$this->modelo' AND categoria=$this->categoria) AND orden = 1";
@@ -53,18 +82,12 @@
             return $answer["precio_base"];
         }
 
-        function getPrecioBaseSize($orden)
+        private function getPrecioBaseSize($orden=false)
         {
+            if($orden==false){$orden=1;}
             $query = "SELECT precio_base FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='size' AND categoria=$this->categoria) AND orden = $orden";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["precio_base"];
-        }
-
-        function getBeneficioValor($orden)
-        {
-            $query = "SELECT beneficio FROM beneficio_valor WHERE valor IN (SELECT id FROM valores WHERE orden=$orden) AND producto=$this->producto";
-            $answer = $this->_db->query($query)->fetch_assoc();
-            return $answer["beneficio"];
         }
     }
 ?>

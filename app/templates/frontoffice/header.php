@@ -52,9 +52,6 @@
                         <div class="collapse navbar-collapse navbar-responsive-collapse" id="menu">
                             <ul class="nav navbar-nav navbar-left">
                                 <li><a href="/"><i class="material-icons">home</i>PORTADA</a></li>
-    <?php
-    if(isset($_SESSION["login"])){
-    ?>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     DISEÑOS<b class="caret"></b>
@@ -77,13 +74,7 @@
                             <div id="vender-mobile" class="nodesktop">
                                 <a href="/upload" class="btn btn-warning btn-fab"><i class="material-icons">add</i></a>
                             </div>
-    <?php
-    }else{
-    ?>
-                            </ul>
-    <?php
-    }
-    ?>                  </div>
+                 </div>
                     </nav>
                 </div>
             </div>

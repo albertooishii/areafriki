@@ -19,13 +19,17 @@
         <!-- Tumblr -->
         <a href="http://www.tumblr.com/share/link?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="blank_" class="btn btn-share btn-tumblr"><i class="fa fa-tumblr"></i> Tumblr</a>
     </div>
+    <div class="col-xs-12">
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>&title=¡<?=$data["dg-text"]?>!&summary=<?=$data["dg-descripcion"]?>" title="Share on LinkedIn" target="_blank" class="btn btn-share btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+    </div>
     <div class="col-xs-12 nodesktop">
         <!-- WhatsApp -->
         <a href="whatsapp://send?text=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="_blank" class="btn btn-share btn-whatsapp" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i> WhatsApp</a>
     </div>
     <div class="col-xs-12">
-        <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>&title=¡<?=$data["dg-text"]?>!&summary=<?=$data["dg-descripcion"]?>" title="Share on LinkedIn" target="_blank" class="btn btn-share btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <!-- Telegram -->
+        <a href="https://telegram.me/share/url?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="_blank" class="btn btn-share btn-telegram"><i class="fa fa-paper-plane" aria-hidden="true"></i> Telegram</a>
     </div>
     <span id="info_creador" data-user="<?=$data["dg-user"]?>"></span>
 </div>
@@ -118,6 +122,18 @@
     }
     .btn-linkedin:active, .btn-linkedin:hover {
         background: #0b6087 !important;
+        color: #fff
+    }
+    .btn-telegram {
+        background: #2ca5e0;
+        border-radius: 0;
+        color: #fff
+    }
+    .btn-telegram:link, .btn-telegram:visited {
+        color: #fff
+    }
+    .btn-telegram:active, .btn-telegram:hover {
+        background: #2a96cc !important;
         color: #fff
     }
 </style>

@@ -85,8 +85,8 @@ RewriteRule ^pago/$ index.php?section=pago [QSA,L]
 RewriteRule ^myorders$ index.php?section=user&action=myorders [QSA,L]
 RewriteRule ^myorders/$ index.php?section=user&action=myorders [QSA,L]
 
-RewriteRule ^myuploads$ index.php?section=user&action=myuploads [QSA,L]
-RewriteRule ^myuploads/$ index.php?section=user&action=myuploads [QSA,L]
+RewriteRule ^myuploads$ index.php?section=producto&action=myuploads [QSA,L]
+RewriteRule ^myuploads/$ index.php?section=producto&action=myuploads [QSA,L]
 
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&categoria=$1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1 [QSA,L]

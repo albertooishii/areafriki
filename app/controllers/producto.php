@@ -22,17 +22,15 @@
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $pre->producto=$pr->id=$_POST["id"];
                         $producto=$pr->get();
+
                         $pre->categoria=$producto["categoria"];
                         $pre->codigo=$_POST["size"];
                         $orden=$_POST["orden"];
-                        if(empty($producto["precio_base"])){
-                            if($precio=$pre->getPrecioBaseSize($orden)){
-                                echo number_format( $precio + $producto["beneficio"] ,2,',','')."€";
-                            }else{
-                                echo number_format( $pre->get() ,2,',','')."€";
-                            }
+
+                        if($precio=$pre->get($orden)){
+                            echo number_format( $precio ,2,',','')."€";
                         }else{
-                            echo number_format( $pre->get() ,2,',','')."€";
+                            echo "error";
                         }
                     }
                 break;
@@ -209,7 +207,7 @@
                                 $data["beneficio"]="";
                                 foreach($valores as $valor){
                                     $data["orden"]=$valor["orden"];
-                                    $data["beneficio_valor"]=$pre->getBeneficioValor($data["orden"]);
+                                    $data["beneficio_valor"]=$pre->getBeneficio($data["orden"]);
                                     $data["valor"]=$valor["valor"];
                                     $data["beneficio_max"]=$valor["beneficio"];
                                     $data["precio_base"]=$valor["precio_base"];
@@ -283,6 +281,68 @@
                     }
                 break;
 
+                case 'myuploads':
+                    $this->loadModel("producto");
+                    $pr = New Producto_Model();
+                    $this->loadModel("design");
+                    $dg = New Design_Model();
+                    $this->loadModel("categoria");
+                    $cat = New Categoria_Model();
+                    $this->loadModel("precio");
+                    $pre = New Precio_Model();
+                    $pr->creador=$this->u->id;
+                    if($lista_productos=$pr->getProductosUser()){
+                        $data["lista_productos"]="";
+                        foreach($lista_productos as $producto){
+                            $data["producto"]=$pre->producto=$pr->id=$producto["id"];
+                            $data["dg_token"]=$dg->token=$producto["design"];
+                            $design=$dg->get();
+                            $pre->categoria=$cat->id=$pr->categoria=$pr->categoria=$producto["categoria"];
+                            $data["dg_categoria"]=$cat->get()["nombre"];
+                            $data["dg_nombre"]=$producto["nombre"];
+
+                            $lista_tags=$pr->getTags();
+                            $data["tags"]="";
+
+                            if($lista_tags){
+                                foreach($lista_tags as $tag){
+                                    $data["tag"]=$tag["tag"];
+                                    $data["tag_url"]=urlencode($tag["tag"]);
+                                    $data["tags"].=$this->loadView('product','tags_list', $data).', ';
+                                }
+                                $data["tags"]=trim($data["tags"], ', ');
+                            }
+
+                            $creador->id=$design["user"];
+                            $data["dg_autor"]=$creador->getUserFromID()["user"];
+
+                            $pr->modelo="";
+                            if(!empty($producto["modelo"])){
+                                $pr->modelo=$producto["modelo"];
+                            }
+
+                            if(!empty($producto["beneficio"])){
+                                $data["beneficio"]=number_format($pre->getBeneficio(), 2, ',', ' ')."€";
+                                $data["precio_venta"]=number_format($pre->get(), 2, ',', ' ')."€";
+                            }else{
+                                $data["beneficio"]=$data["precio_venta"]="";
+                                $orden=0;
+                                $sizes=$pr->getSizes();
+                                foreach($sizes as $size){
+                                    $orden++;
+                                    $data["beneficio"].=$size["valor"].": ".number_format($pre->getBeneficio($orden), 2, ',', ' ')."€<br>";
+                                    $data["precio_venta"].= $size["valor"].": ".number_format($pre->get(), 2, ',', ' ')."€<br>";
+                                }
+                            }
+
+                            $data["lista_productos"].=$this->loadView("user","myuploads_card", $data);
+                        }
+                    }else{
+                        $data["lista_productos"]=$this->loadView("error","form_error","No hay productos subidos");
+                    }
+                    $this->render("user","myuploads",$data);
+                break;
+
                 default:
                     if (isset($_GET["categoria"])){
                         $data["nombre_categoria"]=$cat->nombre=$categoria=$_GET["categoria"];
@@ -295,7 +355,7 @@
 
                                     $data["dg-token"]=$pr->token=$dg->token=$_GET["token"];
                                     if($producto=$pr->getProductoWhereToken()){
-                                        $data["id_producto"]=$dg->id=$pr->id=$producto["id"];
+                                        $data["id_producto"]=$dg->id=$pr->id=$pre->producto=$producto["id"];
                                         $pr->visitar();
                                         $design=$dg->get();
                                         $producto=$pr->get();
@@ -358,24 +418,17 @@
                                                     $data["color"]=$producto["color"];
                                                     $data["atributos"].=$this->loadView('product','color_selector',$data);
                                                 }
-                                                if(!empty($producto["modelo"])){
-                                                    $pre->modelo=$pr->modelo=$producto["modelo"];
-                                                    if($precio_base=$pre->getPrecioBaseSize(1)){
-                                                        $data["precio_float"]=$precio_base + $producto["beneficio"];
-                                                        $data["precio"] = number_format($data["precio_float"] ,2,',','');
-                                                    }else{
-                                                        $data["precio_float"]=$categoria["precio_base"] + $producto["beneficio"];
-                                                        $data["precio"] = number_format($data["precio_float"] ,2,',','');
-                                                    }
-                                                }else{
-                                                    $data["precio_float"]=$categoria["precio_base"] + $producto["beneficio"];
-                                                    $data["precio"] = number_format($data["precio_float"],2,',','');
+                                                if($precio=$pre->get()){
+                                                    $data["precio_float"]=number_format($precio, 2);
+                                                    $data["precio"] = number_format($data["precio_float"] ,2,',','');
                                                 }
+
                                                 if($lista_sizes=$pr->getValoresModelo()){
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
                                                 }elseif($lista_sizes=$pr->getSizes()){
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
                                                 }
+                                                $data["condition"]="new";
 
                                                 $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/design_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";
@@ -393,15 +446,19 @@
                                                     $data["thumbnail-number"]++;
                                                 }
 
-                                                $data["precio"] = number_format($producto["beneficio"]*1.075,2,',','');
+                                                $data["precio_float"]=number_format($pre->get(),2);
+                                                $data["precio"] = number_format($data["precio_float"],2,',','');
 
                                                 if($cat->id==30){
                                                     if($producto["usado"]){
+                                                        $data["condition"]="used";
                                                         $data["usado"]="¡Segunda mano!";
                                                     }else{
+                                                        $data["condition"]="new";
                                                         $data["usado"]="¡Nuevo!";
                                                     }
                                                 }else{
+                                                    $data["condition"]="new";
                                                     $data["usado"]="";
                                                 }
 

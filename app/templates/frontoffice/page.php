@@ -55,6 +55,23 @@
             ga('create', 'UA-78536667-1', 'auto');
             ga('send', 'pageview');
         </script>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '1215279765157571',
+              xfbml      : true,
+              version    : 'v2.6'
+            });
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
 	</head>
 	<body>
       <!-- header -->

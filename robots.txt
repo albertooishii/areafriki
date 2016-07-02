@@ -1,10 +1,5 @@
-User-Agent: *
-Disallow: /*?
-Disallow: /vendor/
-Disallow: /designs/
-Disallow: /login/
-Disallow: /*.js$ 
-Disallow: /*.css$ 
-Disallow: /*.php$
+User-agent: Googlebot
+Disallow: /
 
-Sitemap: https://areafriki.com/sitemap.xml
+User-agent: Twitterbot
+Allow: *

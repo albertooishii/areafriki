@@ -7,7 +7,7 @@
 
     //print_r($_REQUEST);
 
-    if (isset($_GET["section"]) && (isset($_SESSION["login"]) || isset($_COOKIE["user"]))){
+    if (isset($_GET["section"])){
         $section=$_GET['section'];
 
         switch ($section){
@@ -72,22 +72,9 @@
             break;
         }
     }else{
-        if(isset($_SESSION["login"]) || isset($_COOKIE["user"])){
-            $section='home';
-            include_once 'app/controllers/home.php';
-            $h = new Home();
-            $h->index_home();
-        }else{
-            if(@$_GET["section"]=="user"){
-                include_once 'app/controllers/user.php';
-                $u = new User();
-                $u->index_users();
-            }else{
-                $_GET["section"]='beta_home';
-                include_once 'app/controllers/beta.php';
-                $h = new Beta();
-                $h->index_beta();
-            }
-        }
+        $section='home';
+        include_once 'app/controllers/home.php';
+        $h = new Home();
+        $h->index_home();
     }
 ?>

@@ -159,9 +159,22 @@ $(document).ready(function() {
         var selected=$(this);
         var categoria= $(this).closest(".product_card").data("categoria");
         var token= $(this).closest(".product_card").data("token");
+        $(".modal-dialog").removeClass("modal-lg").addClass("modal-sm");
         $(".modal-title").html("Compartir");
         $(".modal-body").html("<p>Comparte este producto en las redes sociales</p>");
-        sharePublicacion(categoria,token);
+        var parametros={
+            "categoria": categoria,
+            "token": token
+        };
+        $.ajax({
+            method: "POST",
+            url: "/index.php?section=producto&action=share",
+            data: parametros,
+            success: function (response){
+                $(".modal-body").append(response);
+                $('#modalDg').modal({backdrop: 'static', keyboard: false}) ;
+            }
+        });
 
     });
 
@@ -225,22 +238,6 @@ function productoPublicado(){
 $('#modalDg').on('hidden.bs.modal', function () {
     $(".modal-footer").html("<button type='button' class='btn btn-default close-modal btn-raised' data-dismiss='modal'>Cerrar</button>");
 })
-
-function sharePublicacion(categoria, token){
-    var parametros={
-        "categoria": categoria,
-        "token": token
-    };
-    $.ajax({
-        method: "POST",
-        url: "/index.php?section=producto&action=share",
-        data: parametros,
-        success: function (response){
-            $(".modal-body").append(response);
-            $('#modalDg').modal({backdrop: 'static', keyboard: false}) ;
-        }
-    });
-}
 
 function dataURLtoBlob(dataurl) {
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],

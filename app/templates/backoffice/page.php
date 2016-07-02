@@ -35,7 +35,7 @@
       rel="stylesheet">
 
         <!--Colorpicker -->
-        <link href="/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css">
+        <link rel="stylesheet" href="/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
 
         <!--FormValidation-------------------------->
 		<script src="<?=PAGE_DOMAIN?>/vendor/formvalidation/js/formValidation.min.js"></script>
@@ -90,7 +90,7 @@
     <script src="/app/templates/backoffice/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!--Colorpicker JavaScript-->
-    <script src="/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+    <script src="/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
     <!--Lightbox2------------>
     <script src="<?=PAGE_DOMAIN?>/vendor/lightbox2/src/js/lightbox.js"></script>

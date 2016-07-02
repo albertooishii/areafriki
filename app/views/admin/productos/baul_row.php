@@ -1,6 +1,6 @@
 <tr class="producto <?=$data["trclass"]?>" data-id="<?=$data["id"]?>">
     <td data-order="<?=strtotime($data["fecha"])?>"><?=$data["fecha"]?></td>
-    <td><?=$data["token"]?></td>
+    <td><a target="_blank" href="<?=PAGE_DOMAIN?>/<?=$data["categoria"]?>/<?=$data["token"]?>"><?=$data["token"]?></a></td>
     <td><?=$data["categoria"]?></td>
     <td><a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>"><?=$data["username"]?></a></td>
     <td><a href="mailto:<?=$data["email"]?>"><?=$data["email"]?></a></td>

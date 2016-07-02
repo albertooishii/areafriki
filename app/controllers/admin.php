@@ -14,6 +14,8 @@
                     $c = New Categoria_Model;
                     $this->loadModel('design');
                     $dg = New Design_Model;
+                    $this->loadModel('precio');
+                    $pre = New Precio_Model;
                     $creador = New Users_Model;
 
                     @$node=$_GET["node"];
@@ -83,19 +85,30 @@
                             $p->category_parent=1;
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
-                                    $data["id"]=$producto["id"];
+                                    $data["id"]=$pre->producto=$producto["id"];
                                     $data["fecha"]=$producto["fecha_publicacion"];
                                     $data["token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
-                                    $c->id=$producto["categoria"];
+                                    $p->categoria=$c->id=$producto["categoria"];
                                     $creador->id=$design["user"];
                                     $infocreador=$creador->getUserFromID();
                                     $data["username"]=$infocreador["user"];
                                     $data["email"]=$infocreador["email"];
-                                    $data["categoria"]=$c->get()["nombre"];
+                                    $categoria=$c->get();
+                                    $data["categoria"]=$categoria["nombre"];
                                     $data["nombre"]=$producto["nombre"];
                                     $data["descripcion"]=$producto["descripcion"];
-                                    $data["beneficio"]=$producto["beneficio"];
+                                    if(!empty($producto["beneficio"])){
+                                        $data["beneficio"]=number_format($pre->getBeneficio(), 2, ',', ' ')."€";
+                                    }else{
+                                        $data["beneficio"]="";
+                                        $orden=0;
+                                        $sizes=$p->getSizes();
+                                        foreach($sizes as $size){
+                                            $orden++;
+                                            $data["beneficio"].=$size["valor"].": ".number_format($pre->getBeneficio($orden), 2, ',', ' ')."€<br>";
+                                        }
+                                    }
 
                                     if($producto["revisado"]==1){$data["trclass"]="success";}
                                     else{$data["trclass"]="";}
@@ -173,6 +186,19 @@
                             $action=$_GET["action"];
                             switch($action){
                                 case 'edit':
+                                    $data["mensaje"]="";
+                                    if(!empty($_POST)){
+                                        $c->valor_id=$_POST["id"];
+                                        $c->valor=$_POST["valor"];
+                                        $c->codigo=$_POST["codigo"];
+                                        $c->precio_base=$_POST["precio_base"];
+                                        $c->beneficio=$_POST["beneficio"];
+                                        if($c->updateValor()){
+                                            $data["mensaje"]=$this->loadView('success','form_success','Valor modificado correctamente');
+                                        }else{
+                                            $data["mensaje"]=$this->loadView('error','form_error','Error al modificar el valor');
+                                        }
+                                    }
                                     $data["id"]=$c->valor_id=$_GET["id"];
                                     $valor=$c->getValor();
                                     $c->atributo=$valor["atributo"];
@@ -181,16 +207,8 @@
                                     $data["codigo"]=$valor["codigo"];
                                     $data["precio_base"]=$valor["precio_base"];
                                     $data["beneficio"]=$valor["beneficio"];
+                                    $data["cat_id"]=$valor["categoria"];
                                     $this->render('admin','categorias/atributos_edit',$data);
-                                break;
-                                case 'save':
-                                    $c->valor_id=$_POST["id"];
-                                    $c->valor=$_POST["valor"];
-                                    $c->codigo=$_POST["codigo"];
-                                    $c->precio_base=$_POST["precio_base"];
-                                    $c->beneficio=$_POST["beneficio"];
-                                    $c->updateValor();
-                                    header("Location:".$_SERVER['HTTP_REFERER']);
                                 break;
                             }
                         break;
@@ -210,13 +228,41 @@
                                 break;
 
                                 case 'edit':
-                                    $data["id"]=$c->id=$_GET["id"];
+                                    $data["mensaje"]="";
+                                    if(!empty($_POST)){
+                                        $c->nombre=$_POST["nombre"];
+                                        $c->descripcion=$_POST["descripcion"];
+                                        $c->descripcion_corta=$_POST["descripcion_corta"];
+                                        if(!empty($_POST["precio_base"])){
+                                            $c->precio_base=$_POST["precio_base"];
+                                            $c->beneficio=$_POST["beneficio"];
+                                        }
+                                        if(empty($_POST["id"])){
+                                            if($c->set()){
+                                                $data["mensaje"]=$this->loadView('success','form_success','Categoría añadida correctamente');
+                                            }else{
+                                                $data["mensaje"]=$this->loadView('error','form_error','Error al añadir la categoría');
+                                            }
+                                        }else{
+                                            $c->id=$_POST["id"];
+                                            if($c->update()){
+                                                $data["mensaje"]=$this->loadView('success','form_success','Categoría modificada correctamente');
+                                            }else{
+                                                $data["mensaje"]=$this->loadView('error','form_error','Error al modificar la categoría');
+                                            }
+                                        }
+                                    }
+
+                                    $data["id"]=$c->parent=$c->id=$_GET["id"];
                                     $categoria=$c->get();
                                     $data["cat_nombre"]=$categoria["nombre"];
                                     $data["cat_descripcion"]=$categoria["descripcion"];
                                     $data["cat_descripcion_corta"]=$categoria["descripcion_corta"];
-                                    $data["cat_precio_base"]=$categoria["precio_base"];
-                                    $data["cat_beneficio"]=$categoria["beneficio"];
+
+                                    if(empty($c->getChilds('all'))){
+                                        $data["cat_precio_base"]=$categoria["precio_base"];
+                                        $data["cat_beneficio"]=$categoria["beneficio"];
+                                    }
 
                                     $data["atributos"]="";
                                     if($lista_atributos=$c->getAtributos()){
@@ -233,16 +279,19 @@
                                                 if($atributo["tipo"]=='color'){
                                                     $data["valor_codigo"]=$this->loadView("admin","categorias/atributo_color",$data);
                                                 }
-                                                $data["valor_precio_base"]=$valor["precio_base"];
-                                                $data["valor_beneficio"]=$valor["beneficio"];
-                                                $data["valor_precio_total"]=$valor["beneficio"]+$valor["precio_base"];
+                                                if((!empty($valor["precio_base"]) || $valor["precio_base"]!=0) && (!empty($valor["beneficio"]) && $valor["beneficio"]!=0)){
+                                                    $data["valor_precio_base"]=$valor["precio_base"];
+                                                    $data["valor_beneficio"]=$valor["beneficio"];
+                                                    $data["valor_precio_total"]=$valor["beneficio"]+$valor["precio_base"];
+                                                }else{
+                                                    $data["valor_precio_base"]=$data["valor_beneficio"]=$data["valor_precio_total"]="-";
+                                                }
                                                 $data["valores"].=$this->loadView("admin","categorias/atributos_row",$data);
                                             }
                                             $data["atributos"].=$this->loadView("admin","categorias/atributos",$data);
                                         }
                                     }
 
-                                    $c->parent=$c->id;
                                     $data["subcategorias"]="";
                                     if($lista_subcategorias=$c->getChilds('all')){
                                         $data["datos_subcategorias"]="";
@@ -261,30 +310,13 @@
                                         }
                                         $data["subcategorias"]=$this->loadView("admin","categorias/subcategorias",$data);
                                     }
+                                    $data["parent_id"]=$categoria["parent"];
                                     $this->render('admin','categorias/categorias_edit',$data);
                                 break;
 
                                 default:
                                     $data["mensaje"]="";
-                                    if($action=='save'){
-                                        $c->nombre=$_POST["nombre"];
-                                        $c->descripcion=$_POST["descripcion"];
-                                        $c->descripcion_corta=$_POST["descripcion_corta"];
-                                        if(empty($_POST["id"])){
-                                            if($c->set()){
-                                                $data["mensaje"]=$this->loadView('success','form_success','Categoría añadida correctamente');
-                                            }else{
-                                                $data["mensaje"]=$this->loadView('error','form_error','Error al añadir la categoría');
-                                            }
-                                        }else{
-                                            $c->id=$_POST["id"];
-                                            if($c->update()){
-                                                $data["mensaje"]=$this->loadView('success','form_success','Categoría modificada correctamente');
-                                            }else{
-                                                $data["mensaje"]=$this->loadView('error','form_error','Error al modificar la categoría');
-                                            }
-                                        }
-                                    }elseif($action=='delete'){
+                                    if($action=='delete'){
                                         $data["id"]=$c->id=$_GET["id"];
                                         if($c->delete()){
                                             $data["mensaje"]=$this->loadView('success','form_success','Categoría borrada correctamente');

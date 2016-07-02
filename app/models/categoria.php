@@ -70,7 +70,7 @@
                 default:
                     $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visible FROM categorias WHERE visible=1 AND parent = ".$this->parent." ORDER by orden ASC";
             }
-
+//echo $query;
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_categorias[]=$fila;
@@ -145,7 +145,7 @@
 
         function getValor()
         {
-            $query = "SELECT valor, codigo, precio_base, beneficio, orden, atributo FROM valores WHERE id=".$this->valor_id;
+            $query = "SELECT valor, codigo, precio_base, beneficio, valores.orden as orden, atributo, atributos.categoria as categoria FROM valores INNER JOIN atributos ON valores.atributo=atributos.id WHERE valores.id=".$this->valor_id;
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL)
             return $answer;
@@ -154,7 +154,12 @@
 
         function updateValor()
         {
-            $query="UPDATE valores SET valor='$this->valor', codigo='$this->codigo', precio_base='$this->precio_base', beneficio='$this->beneficio' WHERE id='$this->valor_id'";
+            if(!empty($this->precio_base) && !empty($this->beneficio)){
+                $query="UPDATE valores SET valor='$this->valor', codigo='$this->codigo', precio_base='$this->precio_base', beneficio='$this->beneficio' WHERE id='$this->valor_id'";
+            }else{
+                $query="UPDATE valores SET valor='$this->valor', codigo='$this->codigo', precio_base=NULL, beneficio=NULL WHERE id='$this->valor_id'";
+            }
+
             if ( $this->_db->query($query) )
             //return mysqli_insert_id($this->_db);
             return true;

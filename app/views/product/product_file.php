@@ -10,7 +10,7 @@
                 </div>
                 <div class="product_buttons col-xl-2 col-md-2 col-sm-2 col-xs-2">
                     <ul>
-                        <li class="<?=$data["like_class"]?>-button">
+                        <li class="<?=$data["like_class"]?>-button fb-like">
                             <a href="#"><i class="fa fa-heart"></i></a>
                             <p class="contador"><?=$data["contador_likes"]?></p>
                         </li>
