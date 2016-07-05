@@ -1,4 +1,4 @@
-<article class="product_card zoom col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
+<article class="product_card zoom col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="row">
         <div class="product_design col-xl-9 col-md-9 col-sm-10 col-xs-10">
             <a href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>">

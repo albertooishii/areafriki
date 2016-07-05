@@ -1,4 +1,4 @@
-<article class="product_card col-xs-12 col-sm-12 col-md-4 col-xl-3" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
+<article class="product_card col-xs-12 col-sm-6 col-md-4 col-xl-3" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
     <a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/<?=$data["list_token"]?>">
         <div class="row">
             <div class="product_design col-xl-12 col-md-12 col-sm-12 col-xs-12">

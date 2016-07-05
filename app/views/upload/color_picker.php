@@ -1,4 +1,5 @@
-<div id="color_selector" class="aligncenter inner">
+<div id="color_selector" class="aligncenter">
+        <label class="control-label"><p><i class="material-icons">color_lens</i> Selecciona el color:</p></label><br>
     <?php
         foreach($data["lista_colores"] as $color){
     ?>

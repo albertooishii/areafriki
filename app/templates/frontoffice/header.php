@@ -26,9 +26,11 @@
                                 <li class="dropdown pull-right" id="header-login">
                                     <a class='dropdown-toggle' href="#" data-toggle="dropdown"><img class="img-circle" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>"><span id="login_user"><?=$_SESSION["login"]["user"]?></span><b class="caret"></b></a>
                                     <ul class="dropdown-menu dropdown-dark">
-                                        <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">account_circle</i> Mi perfil</a></li>
+                                        <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">account_circle</i> Mi tienda</a></li>
                                         <!--<li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>-->
-                                        <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis subidas</a></li>
+                                        <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/settings"><i class="material-icons">settings</i> Configuración</a></li>
                                     <?php
                                         if($this->u->isAdmin()){
                                     ?>
@@ -67,14 +69,14 @@
                                     <a href="/baul">BAÚL</a>
                                 </li>
                             </ul>
-                            </div>
+
                             <div id="vender" class="nomobile">
                                 <a href="/upload" class="btn btn-raised btn-warning">VENDE TUS CREACIONES</a>
                             </div>
                             <div id="vender-mobile" class="nodesktop">
                                 <a href="/upload" class="btn btn-warning btn-fab"><i class="material-icons">add</i></a>
                             </div>
-                 </div>
+                        </div>
                     </nav>
                 </div>
             </div>

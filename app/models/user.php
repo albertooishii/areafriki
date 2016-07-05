@@ -55,21 +55,29 @@
             return false;
         }
 
+        function updateUserInformation()
+        {
+            $query="UPDATE users SET email='$this->email', address='$this->address', cp='$this->cp', localidad='$this->localidad', provincia='$this->provincia', phone='$this->phone' WHERE id='$this->id'";
+            if ( $this->_db->query($query))
+            return true;
+            return false;
+        }
+
+        function updateUserCash()
+        {
+            $query="UPDATE users SET birthday='$this->birthday', idnum='$this->idnum', paypal='$this->paypal' WHERE id='$this->id'";
+            if ( $this->_db->query($query))
+            return true;
+            return false;
+        }
+
         // Update user password -- Actualizar contraseña usuario
-        function updateUserPassword($name, $newpassword, $oldpassword){
-            $oldpassword=sha1($this->global_token . $oldpassword);
-            $newpassword=sha1($this->global_token . $newpassword);
-            $query = "SELECT password FROM users WHERE name='$name'";
-            $answer = $this->_db->query($query)->fetch_row();
-            if ($answer[0] == $oldpassword){
-                $query = "UPDATE users SET password='$newpassword' WHERE name='$name'";
-                if ( $this->_db->query($query))
-                return true;
-                return false;
-            }
-            else{
-                return false;
-            }
+        function updatePassword(){
+            $pass=sha1(GLOBAL_TOKEN.$this->pass);
+            $query="UPDATE users SET pass=UNHEX('$pass') WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
         }
 
         function convertirVendedor(){
@@ -143,89 +151,6 @@
         function deleteBanner($id){
             $query = "UPDATE users SET banner = 0 WHERE user='$this->user'";
             if ( $this->_db->query($query) )
-            return true;
-            return false;
-        }
-
-    //Friends functions-----------------------------------------------------//
-
-        // Send friendly petition -- Enviar solicitud de amistad
-        function sendUser_friendly($iduser, $idfriend){
-            $query = "INSERT INTO friends VALUES ('$iduser', '$idfriend', default)";
-            if ( $this->_db->query($query))
-            return true;
-            return false;
-        }
-
-        // Confirm user friendly -- Confirmar amistad
-        function confirmUser_friendly($iduser, $idfriend){
-            $date=date ("Y-m-d H:i:s");
-
-            $query = "UPDATE friends SET friendly_date = '$date' WHERE (user1='$idfriend' AND user2='$iduser')";
-            if ( $this->_db->query($query))
-            return true;
-            return false;
-        }
-
-        // Count friends -- contar amigos
-        function countUser_friends($iduser)
-        {
-            $query = "SELECT count(*) FROM friends WHERE ((user1='$iduser' OR user2='$iduser') AND friendly_date IS NOT NULL)";
-            $answer = $this->_db->query($query)->fetch_row();
-            if ($answer!=NULL)
-            return $answer[0];
-            return false;
-        }
-
-        // Read friends -- leer amigos
-        function readUser_friends($iduser, $limit)
-        {
-            $query = "SELECT * FROM friends WHERE ((user1='$iduser' OR user2='$iduser') AND friendly_date IS NOT NULL) ORDER BY friendly_date DESC LIMIT $limit";
-            if($answer=$this->_db->query($query)){
-                while($fila = $answer->fetch_row()){
-                    if($fila[0]!=$iduser){ //vemos si el id del amigo es distinto del id del perfil, si es el mismo se coge $fila[1]
-                        $friends_list[]=$fila[0];
-                    }else{
-                        $friends_list[]=$fila[1];
-                    }
-                }
-                return $friends_list;
-            }
-            return false;
-        }
-
-        // Are friends -- Son amigos
-        function areFriends($iduser, $idfriend)
-        {
-            $query = "SELECT * FROM friends WHERE (((user1='$iduser' AND user2='$idfriend') OR (user1='$idfriend' AND user2='$iduser')) AND friendly_date IS NOT NULL)";
-            $answer = $this->_db->query($query)->fetch_row();
-            if ($answer!=NULL) //are friends
-            return true;
-            return false;
-        }
-
-        function iHaventConfirmedFriendly($iduser,$idfriend){
-            $query = "SELECT * FROM friends WHERE ((user1='$idfriend' AND user2='$iduser') AND friendly_date IS NULL)";
-            $answer = $this->_db->query($query)->fetch_row();
-            if ($answer!=NULL)
-            return true;
-            return false;
-        }
-
-        function iSendFriendlyPetition($iduser,$idfriend){
-            $query = "SELECT * FROM friends WHERE ((user1='$iduser' AND user2='$idfriend') AND friendly_date IS NULL)";
-            $answer = $this->_db->query($query)->fetch_assoc();
-            if ($answer!=NULL)
-            return true;
-            return false;
-        }
-
-        //Delete friendly -- Borrar amistad
-        function cancelFriendly($iduser, $idfriend)
-        {
-            $query = "DELETE FROM friends WHERE ((user1='$iduser' AND user2='$idfriend') OR (user1='$idfriend' AND user2='$iduser'))";
-            $answer = $this->_db->query($query)->fetch_assoc();
-            if ($answer!=NULL)
             return true;
             return false;
         }

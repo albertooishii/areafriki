@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <div class="user_info_ocupacion">
-                            <i class="material-icons">business_center</i><span placeholder="Trabajo u ocupación"><?=$data["ocupacion"]?></span>
+                            <i class="material-icons">work</i><span placeholder="Trabajo u ocupación"><?=$data["ocupacion"]?></span>
                         </div>
                     </li>
                     <li>

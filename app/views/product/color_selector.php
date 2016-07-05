@@ -1,5 +1,5 @@
 <div id="color_selector">
-<label>Selecciona el color:</label><br>
+    <label class="control-label"><p><i class="material-icons">color_lens</i> Selecciona el color:</p></label><br>
 
 <?php
     foreach($data["lista_colores"] as $color){

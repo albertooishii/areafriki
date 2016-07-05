@@ -554,6 +554,96 @@
                     echo "hola";
                 break;
 
+                case 'updatepassword':
+                    if(!empty($_POST)){
+                        $this->u->pass=md5($_POST["oldpassword"]);
+                        if($this->u->coincideUserAndPassword()){
+                            $this->u->pass=md5($_POST["password"]);
+                            if($this->u->updatePassword()){
+                                if(isset($_COOKIE["user"]) && isset($_COOKIE["pass"])){
+                                    $this->u->login(1);
+                                }else{
+                                    $this->u->login();
+                                }
+                                $data["titulo_mensaje"]="¡Contraseña actualizada!";
+                                $data["texto_mensaje"]="Se ha actualizado tu contraseña correctamente. Recuerda que para volver a entrar tienes que introducir la nueva contraseña.";
+                            }else{
+                                $data["titulo_mensaje"]="Error";
+                                $data["texto_mensaje"]="Ha ocurrido un error al actualizar la contraseña.";
+                            }
+                        }else{
+                            $data["titulo_mensaje"]="Error";
+                            $data["texto_mensaje"]="Tu contraseña anterior no es correcta. Revísala y vuelve a intentarlo, gracias.";
+                        }
+                        $this->render('mensaje','mensaje',$data);
+                    }else{
+                        $this->render("error","404",$data);
+                    }
+                break;
+
+                case 'updatecash':
+                    if(!empty($_POST)){
+                        $this->u->idnum=trim($_POST["idnum"]);
+                        $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
+                        $this->u->paypal=trim($_POST["paypal"]);
+                        if(!empty($_POST["idnum"]) && !empty($_POST["birthday"]) && !empty($_POST["paypal"])){
+                            if($this->u->updateUserCash()){
+                                $data["titulo_mensaje"]="¡Información de pago actualizada!";
+                                $data["texto_mensaje"]="Tus información sobre pagos se ha actualizado correctamente.";
+                            }else{
+                                $data["titulo_mensaje"]="Error";
+                                $data["texto_mensaje"]="Ha ocurrido un error al actualizar la información sobre pagos.";
+                            }
+                        }else{
+                            $data["titulo_mensaje"]="Error";
+                            $data["texto_mensaje"]="Faltan datos obligatorios por rellenar.";
+                        }
+                        $this->render("mensaje","mensaje",$data);
+                    }else{
+                        $this->render("error","404",$data);
+                    }
+                break;
+
+                case 'settings':
+                    $data["mensaje"]="";
+                    if(!empty($_POST)){
+                        $this->u->email=trim($_POST["email"]);
+                        $this->u->address=trim($_POST["address"]);
+                        $this->u->cp=trim($_POST["cp"]);
+                        $this->u->localidad=trim($_POST["localidad"]);
+                        $this->u->provincia=trim($_POST["provincia"]);
+                        $this->u->phone=trim($_POST["phone"]);
+                        if(!empty($_POST["email"]) && !empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
+                            if($this->u->updateUserInformation()){
+                                $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
+                            }else{
+                                $data["mensaje"]=$this->loadView('error','form_error','Error al guardar los datos');
+                            }
+                        }else{
+                            $data["mensaje"]=$this->loadView('error','form_error','Faltan datos por rellenar');
+                        }
+                    }
+
+                    $user=$this->u->getUser();
+                    $data["nombre"]=$user["name"];
+                    $data["email"]=$user["email"];
+                    $data["idnum"]=$user["idnum"];
+                    if(!empty($user["idnum"])){
+                        $data["idnum"]=$data["idnum"]."\" readonly \" ";
+                    }
+                    $data["birthday"]=date("d/m/Y", strtotime($user["birthday"]));
+                    $data["address"]=$user["address"];
+                    $data["cp"]=$user["cp"];
+                    $data["localidad"]=$user["localidad"];
+                    $data["phone"]=$user["phone"];
+                    $data["paypal"]=$user["paypal"];
+                    $data["credit"]=number_format($user["credit"], 2, ',', ' ');
+                    $data["provincia_selected"]=$user["provincia"];
+                    $data["provincia"]=$this->loadView("forms","provincia",$data);
+                    $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                    $this->render("user","settings",$data);
+                break;
+
                 default:
                     if(isset($_GET["user"])){
 
