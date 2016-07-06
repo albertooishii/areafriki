@@ -36,9 +36,7 @@
                 </header>
             </div>
             <div class="col-md-7"><?=$data["ruleta"]?></div>
-            <div class="col-md-5">
-                <div id="showcard"></div>
-            </div>
+            <div class="col-md-5" id="showcard"></div>
         </div>
     </div>
 </div>

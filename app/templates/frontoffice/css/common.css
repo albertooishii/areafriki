@@ -382,6 +382,11 @@ footer p{
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
 }
 
+#ruleta #showcard{
+    padding-right: 0;
+    overflow: hidden;
+}
+
 .ruleta_item{
     padding: 4px;
 }

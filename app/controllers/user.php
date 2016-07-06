@@ -460,7 +460,8 @@
                         $design=$dg->get();
                         $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
-                        $data["creador_user"]=$infocreador["user"];
+                        $data["username"]=$creador->user=$infocreador["user"];
+                        $data["avatar"]=$creador->getAvatar();
 
                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                             $data["like_class"]='like';
@@ -471,7 +472,7 @@
                         $data["contador_shares"]=$pr->getShares();
                         $data["contador_comments"]=$pr->getContComentarios();
                         $data["animate"]="animated zoomIn";
-                        echo $this->loadView('product','carousel_card',$data);
+                        echo $this->loadView('product','product_card',$data);
                     }else{
                         echo "";
                     }
@@ -504,7 +505,8 @@
                             $data["id_producto"]=$producto["id"];
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["creador_user"]=$infocreador["user"];
+                            $data["username"]=$creador->user=$infocreador["user"];
+                            $data["avatar"]=$creador->getAvatar();
                             $data["animate"]="animated bounceIn";
                             echo $this->loadView("home","ruleta",$data);
                         }else{
