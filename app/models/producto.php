@@ -171,11 +171,30 @@
             return false;
         }
 
+         function getUltimosProductos($limit=false){
+            if($limit){
+                $query = "SELECT * FROM productos WHERE active=1 and revisado=1 ORDER BY fecha_publicacion DESC LIMIT ".$limit;
+            }else{
+                $query = "SELECT * FROM productos WHERE active=1 and revisado=1 ORDER BY fecha_publicacion DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
         function getMasVendidos($limit=false){
             if($limit){
-                $query = "SELECT * FROM productos WHERE stock>1 OR preparacion>0 ORDER BY ventas DESC limit $limit";
+                $query = "SELECT * FROM productos WHERE ventas > 1 AND  active=1 and revisado=1 ORDER BY ventas DESC limit $limit";
             }else{
-                $query = "SELECT * FROM productos ORDER BY ventas DESC";
+                $query = "SELECT * FROM productos WHERE ventas > 1 AND  active=1 and revisado=1 ORDER BY ventas DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -192,9 +211,9 @@
 
         function getMasLikes($limit=false){
             if(!empty($limit)){
-                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto GROUP BY id ORDER BY likes DESC LIMIT ".$limit;
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE (stock>1 OR preparacion>0) AND  active=1 and revisado=1 GROUP BY id ORDER BY likes DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto GROUP BY id ORDER BY likes DESC";
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE (stock>1 OR preparacion>0) AND  active=1 and revisado=1 GROUP BY id ORDER BY likes DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){

@@ -109,7 +109,7 @@ $(document).ready(function() {
     $("body").on("click", ".unlike-button a", function(event){
         var selected=$(this);
         var parametros = {
-            producto: $(this).closest(".product_card").data('id'),
+            producto: $(this).closest(".product").data('id'),
         }
 
         $.ajax({
@@ -119,7 +119,7 @@ $(document).ready(function() {
             success: function (response){
                 if(response){
                     $(selected).parent().removeClass("unlike-button").addClass("like-button");
-                    $(selected).siblings('.contador').html((parseInt($(selected).siblings('.contador').html()) + 1));
+                    $(selected).find('.contador').html((parseInt($(selected).find('.contador').html()) + 1));
                 }else{
                     $(".modal-title").html("¡Aviso!");
                     $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
@@ -135,7 +135,7 @@ $(document).ready(function() {
         event.preventDefault();
         var selected=$(this);
         var parametros = {
-            producto: $(this).closest(".product_card").data('id'),
+            producto: $(this).closest(".product").data('id'),
         }
 
         $.ajax({
@@ -145,7 +145,7 @@ $(document).ready(function() {
             success: function (response){
                 if(response){
                     $(selected).parent().removeClass("like-button").addClass("unlike-button");
-                    $(selected).siblings('.contador').html((parseInt($(selected).siblings('.contador').html()) -1 ));
+                    $(selected).find('.contador').html((parseInt($(selected).find('.contador').html()) -1 ));
                 }else{
                     alert("Tienes que estar registrado/a para hacer esta acción");
                 }
@@ -157,8 +157,8 @@ $(document).ready(function() {
     $("body").on("click", ".share-button a", function(event){
         event.preventDefault();
         var selected=$(this);
-        var categoria= $(this).closest(".product_card").data("categoria");
-        var token= $(this).closest(".product_card").data("token");
+        var categoria= $(this).closest(".product").data("categoria");
+        var token= $(this).closest(".product").data("token");
         $(".modal-dialog").removeClass("modal-lg").addClass("modal-sm");
         $(".modal-title").html("Compartir");
         $(".modal-body").html("<p>Comparte este producto en las redes sociales</p>");
@@ -201,12 +201,15 @@ $(document).ready(function() {
                 items:1
             },
             480:{
-                items:2
+                items:1
             },
             768:{
                 items:2
             },
             992:{
+                items:3
+            },
+            1200:{
                 items:4
             }
         },

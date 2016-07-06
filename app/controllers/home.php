@@ -39,11 +39,12 @@
                             $design=$dg->get();
                             $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
-
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["username"]=$infocreador["user"];
+                            $creador->user=$data["username"]=$infocreador["user"];
+                            $data["avatar"]=$creador->getAvatar();
                             $data["dg-nombre"]=$producto["nombre"];
+                            $data["dg-descripcion"]=$producto["descripcion"];
 
                             if($pr->userLikeProducto()){
                                 $data["like_class"]='like';
@@ -53,7 +54,8 @@
                             $data["contador_likes"]=$pr->getLikes();
                             $data["contador_shares"]=$pr->getShares();
                             $data["contador_comments"]=0;
-                            $product_cards.=$this->loadView('product','product_card',$data);
+                            $data["product_card"]=$this->loadView('product','product_card',$data);
+                            $product_cards.=$this->loadView('product','product_card_col',$data);
                         }
                     }
                     $data["last_uploads"]=$product_cards;
@@ -68,31 +70,31 @@
 
                 //Los últimos productos
                 $data["carousel_item"]="";
-                if($lista_ultimos_productos=$pr->getProductos(8)){
+                if($lista_ultimos_productos=$pr->getUltimosProductos(8)){
                     foreach ($lista_ultimos_productos as $producto){
                         $pr->id=$producto["id"];
-                        if($pr->isActive() && $pr->isRevisado()){
-                            $creador = New Users_Model();
-                            $data["dg-token"]=$dg->token=$producto["design"];
-                            $design=$dg->get();
-                            $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
-                            $infocreador=$creador->getUserFromID();
-                            $data["id_producto"]=$pr->id;
-                            $data["cat_id"]=$cat->id=$producto["categoria"];
-                            $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["username"]=$infocreador["user"];
-                            $data["dg-nombre"]=$producto["nombre"];
-                            if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
-                                $data["like_class"]='like';
-                            }else{
-                                $data["like_class"]='unlike';
-                            }
-                            $data["contador_likes"]=$pr->getLikes();
-                            $data["contador_shares"]=$pr->getShares();
-                            $data["contador_comments"]=$pr->getContComentarios();
-                            $data["product_card"]=$this->loadView("product","carousel_card", $data);
-                            $data["carousel_item"].=$this->loadView("carousel","carousel_item", $data);
+                        $creador = New Users_Model();
+                        $data["dg-token"]=$dg->token=$producto["design"];
+                        $design=$dg->get();
+                        $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                        $infocreador=$creador->getUserFromID();
+                        $data["id_producto"]=$pr->id;
+                        $data["cat_id"]=$cat->id=$producto["categoria"];
+                        $data["cat_nombre"]=$cat->get()["nombre"];
+                        $data["username"]=$creador->user=$infocreador["user"];
+                        $data["avatar"]=$creador->getAvatar();
+                        $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
+                        $data["dg-nombre"]=$producto["nombre"];
+                        if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
+                            $data["like_class"]='like';
+                        }else{
+                            $data["like_class"]='unlike';
                         }
+                        $data["contador_likes"]=$pr->getLikes();
+                        $data["contador_shares"]=$pr->getShares();
+                        $data["contador_comments"]=$pr->getContComentarios();
+                        $data["product_card"]=$this->loadView("product","product_card", $data);
+                        $data["carousel_item"].=$this->loadView("carousel","carousel_item", $data);
                     }
                     $data["ultimos_productos"]=$this->loadView("carousel","home_carousel8",$data);
                 }else{
@@ -112,7 +114,9 @@
                             $data["id_producto"]=$pr->id;
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["username"]=$infocreador["user"];
+                            $data["username"]=$creador->user=$infocreador["user"];
+                            $data["avatar"]=$creador->getAvatar();
+                            $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                             $data["dg-nombre"]=$producto["nombre"];
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                                 $data["like_class"]='like';
@@ -122,7 +126,7 @@
                             $data["contador_likes"]=$pr->getLikes();
                             $data["contador_shares"]=$pr->getShares();
                             $data["contador_comments"]=$pr->getContComentarios();
-                            $data["product_card"]=$this->loadView("product","carousel_card", $data);
+                            $data["product_card"]=$this->loadView("product","product_card", $data);
                             $data["carousel_item"].=$this->loadView("carousel","carousel_item", $data);
                         }
                     }
@@ -145,7 +149,9 @@
                             $data["id_producto"]=$pr->id;
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["username"]=$infocreador["user"];
+                            $data["username"]=$creador->user=$infocreador["user"];
+                            $data["avatar"]=$creador->getAvatar();
+                            $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                             $data["dg-nombre"]=$producto["nombre"];
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                                 $data["like_class"]='like';
@@ -155,7 +161,7 @@
                             $data["contador_likes"]=$pr->getLikes();
                             $data["contador_shares"]=$pr->getShares();
                             $data["contador_comments"]=$pr->getContComentarios();
-                            $data["product_card"]=$this->loadView("product","carousel_card", $data);
+                            $data["product_card"]=$this->loadView("product","product_card", $data);
                             $data["carousel_item"].=$this->loadView("carousel","carousel_item", $data);
                         }
                     }

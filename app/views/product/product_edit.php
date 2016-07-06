@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="select-list" class="col-lg-2 col-xs-2 control-label"><i class="material-icons">playlist_add</i> Añadir a una lista</label>
+                    <label for="select-list" class="col-lg-2 col-xs-2 control-label"><i class="material-icons">library_add</i> Añadir a una lista</label>
                     <div class="col-lg-10 col-xs-10">
                         <select class="form-control" id="select-list" name="listas_productos" data-style="btn-warning" data-width="300px">
                             <option disabled selected>Selecciona una lista</option>

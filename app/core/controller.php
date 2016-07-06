@@ -169,6 +169,14 @@
             return "<script src='{$jsUri}'></script>";
         }
 
+        public function cutText($text,$num){
+            if(strlen($text)>$num){
+                return substr ($text, 0, $num)."...";
+            }else{
+                return $text;
+            }
+        }
+
         public function rmrf($source){
             foreach(glob($source."/*.*") as $archivos_carpeta){
                 unlink($archivos_carpeta);

@@ -55,7 +55,7 @@
                                 <li><a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/baul">Baúl</a></li>
                             </ul>
                         </div>
-                        <a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/lists" class="btn btn-raised btn-default option-button"><i class="material-icons">list</i> LISTAS</a>
+                        <a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/lists" class="btn btn-raised btn-default option-button"><i class="material-icons">library_books</i> LISTAS</a>
                     </div>
                     <div id="user_products">
                         <header>

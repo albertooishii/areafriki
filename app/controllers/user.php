@@ -454,13 +454,13 @@
                         $data["dg-token"]=$dg->token=$producto["design"];
                         $design=$dg->get();
                         $data["dg-nombre"]=$producto["nombre"];
+                        $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
 
                         $creador = New Users_Model();
                         $design=$dg->get();
                         $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
-                        $data["username"]=$infocreador["user"];
-
+                        $data["creador_user"]=$infocreador["user"];
 
                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                             $data["like_class"]='like';
@@ -504,7 +504,7 @@
                             $data["id_producto"]=$producto["id"];
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["username"]=$infocreador["user"];
+                            $data["creador_user"]=$infocreador["user"];
                             $data["animate"]="animated bounceIn";
                             echo $this->loadView("home","ruleta",$data);
                         }else{
@@ -657,13 +657,13 @@
                             $cat = New Categoria_Model();
 
                             $data["userid"]=$pr->creador=$creador->id=$infocreador["id"];
-                            $data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
+                            $data["creador_user"]=$data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
                             $data["edit_button"]="";
                             $data['description']=$infocreador["description"];
                             $data['id']=$infocreador["id"];
                             $data['ocupacion']=$infocreador["ocupacion"];
                             $data['intereses']=$infocreador["intereses"];
-                            $data['avatar']=$creador->getAvatar();
+                            $data["creador_avatar"]=$data['avatar']=$creador->getAvatar();
                             $data['banner']=$creador->getBanner();
                             if(isset($_SESSION["login"])){
                                 if($creador->user==$this->u->user){
@@ -702,6 +702,7 @@
                                             $data["dg-token"]=$dg->token=$producto["design"];
                                             $design=$dg->get();
                                             $data["dg-nombre"]=$producto["nombre"];
+                                            $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                                             $lists.=$this->loadView('user','list_card',$data);
                                             $data["nombre_lista"]="LISTAS PERSONALIZADAS";
                                         }
@@ -710,7 +711,7 @@
 
                                 case 'viewlist':
                                     $pr->token_lista=$_GET["tokenlist"];
-                                    $data['avatar']=$creador->getAvatar();
+                                    $data["creador_avatar"]=$data['avatar']=$creador->getAvatar();
                                     $data['banner']=$creador->getBanner();
                                     $lista=$pr->getLista();
                                     $data["nombre_lista"]=$lista["nombre"];
@@ -733,6 +734,7 @@
                                         $data["dg-token"]=$dg->token=$producto["design"];
                                         $design=$dg->get();
                                         $data["dg-nombre"]=$producto["nombre"];
+                                        $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
 
                                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                                             $data["like_class"]='like';
@@ -743,9 +745,11 @@
                                         $data["contador_shares"]=$pr->getShares();
                                         $data["contador_comments"]=$pr->getContComentarios();
                                         if($producto["revisado"]==1){
-                                            $data["lista_productos"].=$this->loadView('product','product_card',$data);
+                                            $data["product_card"]=$this->loadView('product','product_card',$data);
+                                            $data["lista_productos"].=$this->loadView('product','product_card_col',$data);
                                         }else{
-                                             $data["lista_productos"].=$this->loadView('product','product_card_norevisado',$data);
+                                            $data["product_card"]=$this->loadView('product','product_card_norevisado',$data);
+                                            $data["lista_productos"].=$this->loadView('product','product_card_col',$data);
                                         }
                                     }
                                 }
