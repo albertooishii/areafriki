@@ -155,6 +155,20 @@
             return false;
         }
 
+        function countProductos()
+        {
+            $query="SELECT count(*) as count FROM productos WHERE active=1 AND revisado=1";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
+        function countNoRevisados()
+        {
+            $query="SELECT count(*) as count FROM productos WHERE revisado=0";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
         function getLikes()
         {
             $query = "SELECT count(user) as 'likes' FROM likes WHERE producto= ".$this->id;

@@ -429,7 +429,9 @@
                         break;
 
                         default:
-                            $this->render('admin','index');
+                            $data["count_productos"]=$p->countProductos();
+                            $data["count_newproductos"]=$p->countNoRevisados();
+                            $this->render('admin','index',$data);
                     }
                 }else{
                     $_GET["section"]='home';

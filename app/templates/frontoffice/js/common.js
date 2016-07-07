@@ -1,17 +1,17 @@
 if ('serviceWorker' in navigator) {
     // Override the default scope of '/' with './', so that the registration applies
     // to the current directory and everything underneath it.
-navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function(registration) {
-  // At this point, registration has taken place.
-  // The service worker will not handle requests until this page and any
-  // other instances of this page (in other tabs, etc.) have been
-  // closed/reloaded.
-  console.log('succeeded');
-}).catch(function(error) {
-  // Something went wrong during registration. The service-worker.js file
-  // might be unavailable or contain a syntax error.
-  console.log(error);
-});
+    navigator.serviceWorker.register('/service-worker.js', {scope: './'}).then(function(registration) {
+      // At this point, registration has taken place.
+      // The service worker will not handle requests until this page and any
+      // other instances of this page (in other tabs, etc.) have been
+      // closed/reloaded.
+      console.log('succeeded');
+    }).catch(function(error) {
+      // Something went wrong during registration. The service-worker.js file
+      // might be unavailable or contain a syntax error.
+      console.log(error);
+    });
 } else {
     // The current browser doesn't support service workers.
     var aElement = document.createElement('a');
@@ -19,6 +19,21 @@ navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(functi
     aElement.textContent = 'unavailable';
     console.log(aElement);
 }
+
+if(screen.width<=500){
+    $('head').append('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">');
+} else {
+    $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0">');
+}
+$(window).on("orientationchange",function(){
+  if(window.orientation == 0) // Portrait
+  {
+    $('head').append('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">');
+  } else // Landscape
+  {
+    $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0">');
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function(event) {
     cookieChoices.showCookieConsentBar('Utilizamos cookies para proporcionarle un mejor servicio', 'Cerrar mensaje', 'Más información', '/info/cookies');
