@@ -18,10 +18,16 @@
         <header><h2 class="subhead aligncenter inner">LOS ÚLTIMOS PRODUCTOS</h2></header>
         <?=$data["ultimos_productos"]?>
     </div>
+<?php
+    if(!empty($data["mas_vendidos"])){
+?>
     <div>
         <header><h2 class="subhead aligncenter inner">LOS MÁS VENDIDOS</h2></header>
         <?=$data["mas_vendidos"]?>
     </div>
+<?php
+    }
+?>
     <div>
         <header><h2 class="subhead aligncenter inner">LOS MÁS POPULARES</h2></header>
         <?=$data["mas_populares"]?>

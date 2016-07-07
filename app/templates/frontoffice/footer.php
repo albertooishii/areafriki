@@ -1,6 +1,6 @@
 <footer>
     <div class="container">
-        <div id="feedback">
+        <div id="feedback" class="nomobile">
             <a href="/contacto">ERRORES O SUGERENCIAS</a>
         </div>
         <div class="row">

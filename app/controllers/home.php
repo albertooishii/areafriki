@@ -132,7 +132,7 @@
                     }
                     $data["mas_vendidos"]=$this->loadView("carousel","home_carousel8",$data);
                 }else{
-                     $data["mas_vendidos"]=$this->loadView("error", "form_error", "No hay productos más vendidos");
+                     $data["mas_vendidos"]="";
                 }
 
                 /*LOS MÁS POPULARES*/
