@@ -431,6 +431,8 @@
                         default:
                             $data["count_productos"]=$p->countProductos();
                             $data["count_newproductos"]=$p->countNoRevisados();
+                            $data["count_users"]=$creador->countUsers();
+                            $data["count_newusers"]=$creador->countNewUsers();
                             $this->render('admin','index',$data);
                     }
                 }else{

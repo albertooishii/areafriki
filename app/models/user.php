@@ -44,6 +44,19 @@
             return $answer["rol"];
             return false;
         }
+
+        function countUsers(){
+            $query="SELECT count(*) as count FROM users WHERE active=1";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
+        function countNewUsers(){
+            $query="SELECT count(*) as count FROM users WHERE active=1 AND DATE(creation_date) = DATE(NOW())";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
     // Write functions-----------------------------------------------------//
 
         // Update user info -- Actualizar información de usuario
