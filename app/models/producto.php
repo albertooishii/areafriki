@@ -211,9 +211,9 @@
 
         function getMasLikes($limit=false){
             if(!empty($limit)){
-                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE (stock>1 OR preparacion>0) AND  active=1 and revisado=1 GROUP BY id ORDER BY likes DESC LIMIT ".$limit;
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(likes.user) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE active=1 and revisado=1 GROUP BY id ORDER BY likes DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(DISTINCT(likes.user)) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE (stock>1 OR preparacion>0) AND  active=1 and revisado=1 GROUP BY id ORDER BY likes DESC";
+                $query="SELECT productos.id as id, productos.nombre as nombre, productos.descripcion as descripcion, productos.design as design, productos.categoria as categoria, count(likes.user) as likes FROM productos INNER JOIN likes ON productos.id=likes.producto WHERE active=1 and revisado=1 GROUP BY id ORDER BY likes DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){

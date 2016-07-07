@@ -36,7 +36,7 @@
     "https://twitter.com/frikiarea",
     "https://plus.google.com/113929769526461516040",
     "https://www.facebook.com/frikiarea",
-    https://www.instagram.com/areafriki/
+    "https://www.instagram.com/areafriki/"
  ]
 }
 </script>
