@@ -4,9 +4,21 @@
         <div class="col-md-6 col-sm-12 col-xs-12 img-design">
             <div class="product_container">
                 <div class="montaje">
+<?php
+    if($data["cat_parent"]==1){
+?>
+                    <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["dg-token"]?>.png" data-lightbox="image-1" data-title="<?=$data["dg-nombre"]?>">
+                        <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/MONTAJE-<?=$data["dg-token"]?>.jpg">
+                    </a>
+<?php
+    }else{
+?>
                     <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
                         <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
                     </a>
+<?php
+    }
+?>
                 </div>
                 <figcaption class="product_autor">
                     <a href="/user/<?=$data["username"]?>"><img class='img-circle avatar_thumb' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>"><?=$data["username"]?></a>
@@ -49,10 +61,13 @@
            <p><?=$data["dg-descripcion"]?></p>
            <h3 id="precio"><?=$data["precio"]?>€</h3>
            <p>Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["nombre_categoria"]?></a> Etiquetas: <?=$data["tags"]?></p>
+            <div class="atributos">
+                <?=$data["atributos"]?>
+           </div>
 <?php
     if(empty($data["stock"]) || $data["stock"]>1){
 ?>
-           <h4>Cantidad:</h4>
+            <label class="control-label"><p><i class="material-icons">add_circle</i> Cantidad:</p></label>
             <input type="number" min="1" max="<?=$data["stock"]?>" name="cantidad" step="1" id="cantidad" class="form-control" value="1" style="width:100px;"
                 data-fv-lessthan-message="El máximo de unidades de este producto es <?=$data["stock"]?>"
                    data-fv-greaterthan="true"
@@ -77,7 +92,13 @@
     }
 ?>
             <p>Tiempo de envío: <?=$data["tiempo_envio"]?> días aprox.</p>
+<?php
+    if(isset($data["gastos_envio"])){
+?>
             <p>Gastos de envío: <?=$data["gastos_envio"]?></p>
+<?php
+    }
+?>
             <!--<button id="add-cart" type="submit" class="btn btn-primary btn-raised"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Añadir al carrito</button>-->
             </form>
         </div>
@@ -113,9 +134,9 @@
                 </div>
             </section>
         </div>
-        <div class="col-md-6">
+        <!--<div class="col-md-6">
             Sugerencias
-        </div>
+        </div>-->
     </div>
 </article>
 </div>

@@ -46,9 +46,9 @@
         </div>
     </div>
 </div>
-<div class="container wrapper">
+<!--<div class="container wrapper">
     <div>
         <header><h2 class="subhead aligncenter inner">LOS MÁS POPULARES</h2></header>
         <?=$data["mas_populares"]?>
     </div>
-</div>
+</div>-->

@@ -411,6 +411,7 @@
                                                 }
                                             }
 
+                                            $data["cat_parent"]=$categoria["parent"];
                                             if($categoria["parent"]==1){
                                                 $data["atributos"]="";
 
@@ -430,11 +431,13 @@
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
                                                 }
                                                 $data["condition"]="new";
-
-                                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/design_file.js'></script>";
+                                                $data["preparacion"]=2;
+                                                $data["tiempo_envio"]=3;
+                                                $data["thumbnails"]="";
+                                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
-                                                $this->render('product', 'design_file', $data);
+                                                $this->render('product', 'product_file', $data);
                                             }else{
                                                 $data["thumbnails"]="";
                                                 $source_folder="designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"];
@@ -471,7 +474,7 @@
                                                     $data["gastos_envio"] = "¡Envío gratuíto!";
                                                 }
                                                 $data["tiempo_envio"]=$producto["tiempo_envio"];
-
+                                                $data["atributos"]="";
                                                 $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);

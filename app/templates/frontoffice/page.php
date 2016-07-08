@@ -34,13 +34,13 @@
 		<![endif]-->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
         <!--Bootstrap -->
-        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/material-kit-pro/css/bootstrap.min.css">
 
-        <!-- Bootstrap Material Design -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.9/css/bootstrap-material-design.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.9/css/ripples.min.css">
+        <!-- Material Kit -->
+        <link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>
+
         <!--Bootstrap range slider -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
         <?=$data["min_css"]?>
@@ -95,15 +95,15 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
 
         <!--Bootstrap-->
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/vendor/material-kit-pro/js/bootstrap.min.js"></script>
 
         <!--Material design bootstrap-->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.9/js/material.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.9/js/ripples.min.js"></script>
-        <script type="text/javascript" src="/vendor/dropdownjs/jquery.dropdown.js"></script>
+        <script type="text/javascript" src="/vendor/material-kit-pro/js/material.min.js"></script>
+        <script type="text/javascript" src="/vendor/material-kit-pro/js/jquery.dropdown.js"></script>
         <script type="text/javascript" src="/vendor/cookiechoices/cookiechoices.js"></script>
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
         <script type="text/javascript" src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script type="text/javascript" src="/vendor/material-kit-pro/js/material-kit.js"></script>
         <?=$data["min_js"]?>
         <?=@$data["custom_js"]?>
         <script type="text/javascript" src="/app/templates/frontoffice/js/common.js"></script>

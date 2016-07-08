@@ -16,7 +16,7 @@
                                 </a>
                             </div>
                             <ul class="nav navbar-nav pull-right navbar-right">
-                                <li><a href="#"><i class="material-icons">search</i></a></li>
+                                <li><a href="#" id="header_search"><i class="material-icons">search</i></a></li>
                                 <!--<li>
                                     <a href="/carrito"><i class="material-icons">shopping_cart</i> <span id="header-count-carrito">(<?=$data["contador-carrito"]?>)</span></a>
                                 </li>-->

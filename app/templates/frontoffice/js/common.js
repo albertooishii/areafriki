@@ -20,21 +20,6 @@ if ('serviceWorker' in navigator) {
     console.log(aElement);
 }
 
-if(screen.width<=500){
-    $('head').append('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">');
-} else {
-    $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0">');
-}
-$(window).on("orientationchange",function(){
-  if(window.orientation == 0) // Portrait
-  {
-    $('head').append('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">');
-  } else // Landscape
-  {
-    $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0">');
-  }
-});
-
 document.addEventListener('DOMContentLoaded', function(event) {
     cookieChoices.showCookieConsentBar('Utilizamos cookies para proporcionarle un mejor servicio', 'Cerrar mensaje', 'Más información', '/info/cookies');
 });
@@ -45,6 +30,11 @@ $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 
     $('form').formValidation();
+
+    //SISTEMA DE BÚSQUEDA
+    /*$("#header_search").click(function(){
+        $(this).append("prueba");
+    });*/
 
     //SISTEMA DE ETIQUETAS
     var engine = new Bloodhound({
