@@ -244,7 +244,7 @@
 
         function userNotLikeProducto($limit)//recogemos los productos a los que no se les ha dado like
         {
-            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND revisado=1 AND active=1 ORDER by fecha_publicacion DESC LIMIT $limit";
+            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND revisado=1 AND active=1 ORDER by RAND() LIMIT $limit";
             $lista_not_like=array();
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -261,7 +261,7 @@
 
         function getNewRuletaItem($id1, $id2, $id3, $id4, $id5)
         {
-            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND id!=$id1  AND id!=$id2 AND id!=$id3 AND id!=$id4 AND id!=$id5 AND revisado=1 AND active=1 ORDER by fecha_publicacion DESC LIMIT 1";
+            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND id!=$id1  AND id!=$id2 AND id!=$id3 AND id!=$id4 AND id!=$id5 AND revisado=1 AND active=1 ORDER by RAND() LIMIT 1";
             //echo $query;
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL)
