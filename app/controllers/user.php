@@ -11,43 +11,6 @@
             $data["reg_msg"]=$data["login_msg"]="";
             switch($action){
 
-                case 'genera_codigos_registro':
-                    for($i=0;$i<=100;$i++){
-                        $this->u->genera_codigos_registro();
-                    }
-                    echo "todo perfect";
-                break;
-
-                case 'solicitar_codigo':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if($_POST){
-                        $email=$_POST["email"];
-                        $informacion=$_POST["informacion"];
-
-                        $this->loadModel("email");
-                        $mail = new Email();
-                        $mail->to = "beta@areafriki.com";
-                        $mail->from = $email;
-                        $mail->from_name = $email;
-                        $mail->reply_to = $email;
-                        $mail->reply_to_name = $email;
-                        $mail->subject = "Solicitud de código en ". PAGE_NAME;
-                        $mail->body="<p>Un usuario ha solicitado un código de acceso a áreafriki.</p>
-                        <p>Email: ".$email."</p>
-                        <p>Información: ".$informacion."</p>";
-                        if ($mail->sendEmail()){
-                            $data["titulo_mensaje"]="Muchas gracias.";
-                            $data["texto_mensaje"]="Nos pondremos en contacto contigo por correo electrónico en plazo máximo de 48horas.";
-                        }else{
-                            $data["titulo_mensaje"]="Error";
-                            $data["texto_mensaje"]="El email solicitado no es válido. Revisa la información y vuelve a intentarlo. Gracias.";
-                        }
-                        $this->render('mensaje','mensaje',$data);
-                    }else{
-                        $this->render("error","404",$data);
-                    }
-                break;
-
                 case 'register_comprador':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
                     if($_POST){
@@ -76,111 +39,26 @@
                     }
                 break;
 
-                case 'register_vendedor':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if($_POST){
-                        $data["code"]=$this->u->codigo_beta=$_POST["codigo_beta"];
-                        $this->u->user=$_POST["username"];
-                        $data["email"]=$this->u->email=$_POST["email"];
-                        $this->u->pass=md5($_POST["password"]);
-                        $this->u->name=$_POST["firstName"]." ".$_POST["lastName"];
-                        $this->u->idnum=$_POST["idnum"];
-                        $this->u->phone=$_POST["phone"];
-                        $this->u->address=$_POST["direccion"];
-                        $this->u->cp=$_POST["cp"];
-                        $this->u->localidad=$_POST["localidad"];
-                        $this->u->provincia=$_POST["provincia"];
-                        $this->u->paypal=$_POST["paypal"];
-                        $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
-                        $this->u->rol="vendedor";
-                        $this->u->ip=$this->getIP();
-                        if($this->u->validateCodigoBeta()){
-                            if($this->u->register()){
-                                $this->u->validarBeta();
-                                header ("Location: ".PAGE_DOMAIN);
-                            }else{
-                                $data["provincia"]=$this->loadView("forms","provincia",$data);
-                                $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email, nombre de usuario, teléfono o NIF).");
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                                $this->render('user','vendedor_form',$data);
-                            }
-                        }else{
-                            $data["provincia"]=$this->loadView("forms","provincia",$data);
-                            //$data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos. Si estás registrado como comprador puedes entrar y convertir tu cuenta a \"Cuenta de vendedor\".");
-                            $data["reg_msg"]=$this->loadView('error','form_error',"El código de registro beta introducido no es válido o ya ha sido utilizado.");
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                            $this->render('user','vendedor_form',$data);
-                        }
-                    }else{
-                        if(isset($_GET["email"]) && isset($_GET["code"])){
-                            $data["email"]=$_GET["email"];
-                            $data["code"]=$_GET["code"];
-                            $data["provincia"]=$this->loadView("forms","provincia",$data);
-                            $data["reg_msg"]=$this->loadView('error','form_error',"Faltan datos obligatorios en el formulario.");
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                            $this->render('user','vendedor_form',$data);
-                        }else{
-                            $this->render("error","404",$data);
-                        }
-                    }
-                break;
-
                 case 'register':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
                     if($_POST){
-                        $data["code"]=$this->u->codigo_beta=$_POST["codigo_beta"];
                         $this->u->name=$_POST["nombre"];
                         $this->u->user=$_POST["username"];
-                        $data["email"]=$this->u->email=$_POST["email"];
+                        $this->u->email=$_POST["email"];
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->name=$_POST["nombre"];
                         $this->u->rol="vendedor";
                         $this->u->ip=$this->getIP();
-                        if($this->u->validateCodigoBeta()){
-                            if($this->u->register()){
-                                $this->u->validarBeta();
-                                header ("Location: ".PAGE_DOMAIN);
-                            }else{
-                                $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                                $this->render('user','register',$data);
-                            }
-                        }else{
-                            $data["reg_msg"]=$this->loadView('error','form_error',"El código de registro beta introducido no es válido o ya ha sido utilizado.");
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                            $this->render('user','register',$data);
-                        }
-                    }else{
-                        if(isset($_GET["code"])){
-                            if(isset($_GET["email"])){
-                                $data["email"]=$_GET["email"];
-                            }else{
-                                $data["email"]="";
-                            }
-                            $data["code"]=$_GET["code"];
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                            $this->render('user','register',$data);
-                        }else{
-                            $this->render("error","404",$data);
-                        }
-                    }
-                break;
-
-                case 'convertir_vendedor':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if($_POST){
-                        $this->u->idnum=$_POST["idnum"];
-                        $this->u->paypal=$_POST["paypal"];
-                        $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
-                        if($this->u->convertirVendedor()){
+                        if($this->u->register()){
                             header ("Location: ".PAGE_DOMAIN);
                         }else{
-                            $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos.");
-                            $this->render('user','convertir_vendedor',$data);
+                            $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
+                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                            $this->render('user','register',$data);
                         }
                     }else{
-                        $data["reg_msg"]=$this->loadView('error','form_error',"Faltan datos obligatorios en el formulario.");
-                        $this->render('user','convertir_vendedor',$data);
+                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                        $this->render('user','register',$data);
                     }
                 break;
 
@@ -201,7 +79,7 @@
                                 Header("Location: ".PAGE_DOMAIN);
                             }else{
                                 $data["login_msg"]=$this->loadView('error','form_error',"El nombre de usuario o la contraseña no son válidos.");
-                                $this->render('user','login_form',$data);
+                                $this->render('user','login',$data);
                             }
                         }else{
                             if($this->u->activate($_REQUEST["activation_key"])){
@@ -218,39 +96,9 @@
                             }
                         }
                     }else{
-                        $this->render('user','login_form',$data);
+                        $this->render('user','login',$data);
                     }
 
-                break;
-
-                case 'login_form':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if(!isset($_REQUEST["activation_key"])){
-                        $this->render('user','login_form',$data);
-                    }else{
-                        $data["activation_key"]=$_REQUEST["activation_key"];
-                        $this->render('user','activation_form',$data);
-                    }
-                break;
-
-                case 'register_comprador_form':
-
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    $data["provincia"]=$this->loadView("forms","provincia",$data);
-                    $this->render('user','comprador_form',$data);
-                break;
-
-                case 'register_vendedor_form':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if(isset($_GET["email"]) && isset($_GET["code"])){
-                        $data["email"]=$_GET["email"];
-                        $data["code"]=$_GET["code"];
-                        $data["provincia"]=$this->loadView("forms","provincia",$data);
-                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
-                        $this->render('user','vendedor_form',$data);
-                    }else{
-                        $this->render("error","404",$data);
-                    }
                 break;
 
                 case 'recoverpass':
@@ -288,6 +136,7 @@
                         }
                     }elseif(isset($_GET["recoverpasskey"])){
                         if($this->u->validarRecoverpasskey($_GET["recoverpasskey"])){
+                            $data["recoverpasskey"]=$_GET["recoverpasskey"];
                             $data["email"]=$this->u->email;
                             $this->render("user","new_password",$data);
                         }else{
@@ -295,13 +144,13 @@
                             $data["texto_mensaje"]="No se ha podido generar una nueva contraseña. Si tienes algún problema con la recuperación de la contraseña ponte en contacto con nosotros a través de esta dirección: <a href='mailto:<?=CONTACT_EMAIL?>'><?=CONTACT_EMAIL?></a>. Muchas gracias.";
                             $this->render('mensaje','mensaje',$data);
                         }
-                    }elseif(isset($_POST["email"]) && isset($_POST["password"])){
+                    }elseif(isset($_POST["password"]) && isset($_POST["recoverpasskey"])){
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->email=$_POST["email"];
                         if($this->u->recoverPassword()){
                             $data["titulo_mensaje"]="¡Enhorabuena!";
                             $data["texto_mensaje"]="Se ha cambiado la contraseña correctamente. Ya puedes iniciar sesión con la nueva clave que has configurado.";
-                            $this->render('mensaje','mensaje',$data);
+                            //$this->render('mensaje','mensaje',$data);
                         }else{
                             $data["titulo_mensaje"]="Error";
                             $data["texto_mensaje"]="No se ha podido generar una nueva contraseña. Si tienes algún problema con la recuperación de la contraseña ponte en contacto con nosotros a través de esta dirección: <a href='mailto:".CONTACT_EMAIL."'>".CONTACT_EMAIL."</a>. Muchas gracias.";
@@ -669,7 +518,7 @@
                             $data['banner']=$creador->getBanner();
                             if(isset($_SESSION["login"])){
                                 if($creador->user==$this->u->user){
-                                    $data["edit_button"]="<a id='edit_profile' class='btn btn-raised btn-warning' href='#'>Editar perfil</a>";
+                                    $data["edit_button"]="<a id='edit_profile' class='btn btn-round btn-primary' href='#'>Editar perfil</a>";
                                 }
                             }
 

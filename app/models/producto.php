@@ -350,12 +350,16 @@
         }
 
         function search($string){
-            $query="SELECT * FROM productos WHERE nombre LIKE '%$string%' OR id=(SELECT producto FROM producto_tag WHERE tag LIKE '%$string%')";
+            $query="SELECT * FROM productos WHERE (nombre LIKE '%$string%' OR id IN (SELECT producto FROM producto_tag WHERE tag LIKE '%$string%')) AND active=1 AND revisado=1 LIMIT 10";
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_productos[]=$fila;
                 }
-                return $lista_productos;
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
             }
             return false;
         }

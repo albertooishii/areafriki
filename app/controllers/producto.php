@@ -281,15 +281,34 @@
                     }
                 break;
 
+                case 'search':
+                    if(!empty($_POST["string"])){
+                        $string=$_POST["string"];
+                        if($resultados=$pr->search($string)){
+                            $lista_productos="";
+                            foreach($resultados as $producto){
+                                $creador = New Users_Model();
+                                $data["dg-token"]=$dg->token=$producto["design"];
+                                $design=$dg->get();
+                                $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                                $infocreador=$creador->getUserFromID();
+                                $data["id_producto"]=$pr->id;
+                                $data["cat_id"]=$cat->id=$producto["categoria"];
+                                $data["cat_nombre"]=$cat->get()["nombre"];
+                                $data["username"]=$creador->user=$infocreador["user"];
+                                $data["avatar"]=$creador->getAvatar();
+                                $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
+                                $data["dg-nombre"]=$producto["nombre"];
+                                $lista_productos.=$this->loadView("header", "search", $data);
+                            }
+                        }else{
+                            $lista_productos="<li>No hay resultados</li>";
+                        }
+                        echo $lista_productos;
+                    }
+                break;
+
                 case 'myuploads':
-                    $this->loadModel("producto");
-                    $pr = New Producto_Model();
-                    $this->loadModel("design");
-                    $dg = New Design_Model();
-                    $this->loadModel("categoria");
-                    $cat = New Categoria_Model();
-                    $this->loadModel("precio");
-                    $pre = New Precio_Model();
                     $pr->creador=$this->u->id;
                     if($lista_productos=$pr->getProductosUser()){
                         $data["lista_productos"]="";

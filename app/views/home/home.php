@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<div class="container wrapper">
+<div class="container">
     <div>
         <header><h2 class="subhead aligncenter inner">LOS ÚLTIMOS PRODUCTOS</h2></header>
         <?=$data["ultimos_productos"]?>

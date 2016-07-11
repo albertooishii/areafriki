@@ -103,7 +103,7 @@
    <div class="precio">
         <header><h4><i class="fa fa-coffee"></i> CONFIGURA TU BENEFICIO</h4></header>
         <label>
-            <p>Ajusta el precio de venta para los diferentes tamaños.</p>
+            <p>Ajusta el precio de venta para los diferentes tamaños.<span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Al beneficio marcado se descontará el impuesto sobre el valor añadido correspondiente según la legislación vigente."><i class="material-icons">info_outline</i></span></p>
        </label>
        <div id="precios_sizes">
             <?=$data["precios_sizes"]?>
@@ -119,5 +119,5 @@
             </label>
         </div>
     </div>
-   <button type="submit" id="form-submit" class="btn btn-warning btn-lg aligncentermobile btn-raised"><i class="fa fa-paper-plane"></i> Publicar</button>
+   <button type="submit" id="form-submit" class="btn btn-primary btn-lg aligncentermobile btn-round btn-raised"><i class="fa fa-paper-plane"></i> Publicar</button>
 </div>

@@ -306,9 +306,8 @@
                 $data['page_title']="Verifica tu cuenta";
                 $this->render('user', 'cuenta_no_verificada', $data);
             }else{
-                //No te has logueado
-                $data['page_title']="Sube tus diseños";
-                $this->render('upload', 'upload_info', $data);
+                //Redireccionamos a página de registro
+                Header("Location: ".PAGE_DOMAIN."/register");
             }
         }
 

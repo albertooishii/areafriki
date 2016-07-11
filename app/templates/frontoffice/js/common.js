@@ -32,9 +32,52 @@ $(document).ready(function() {
     $('form').formValidation();
 
     //SISTEMA DE BÚSQUEDA
-    /*$("#header_search").click(function(){
-        $(this).append("prueba");
-    });*/
+    $("#header-search").click(function(e){
+        $(this).removeClass("btn-fab");
+        $(".masthead").addClass("searchmode");
+        $(this).find("input").show().focus();
+        e.stopPropagation();
+    });
+
+    $("body").click(function(){
+        $("#header-search").addClass("btn-fab");
+        $(".masthead").removeClass("searchmode");
+        $("#header-search input").hide();
+        $("#search-results").hide();
+    });
+
+    var timer;
+    $("#header-search input").keyup(function(e){
+        clearTimeout(timer);
+        var ms = 500; //milliseconds
+        var string=$(this).val();
+        $("#search-results").show();
+        $("#search-results ul").html("<li>Buscando...</li>");
+        timer = setTimeout(function(){
+            search(string);
+        }, ms);
+    });
+
+    function search(string){
+        if(string!=''){
+            var parametros={
+                "string":string
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "?section=producto&action=search",
+                data: parametros,
+                success: function (response){
+                    $("#search-results").addClass("open");
+                    $("#search-results ul").html(response);
+                }
+            });
+        }else{
+            $("#search-results").hide();
+        }
+    }
+
 
     //SISTEMA DE ETIQUETAS
     var engine = new Bloodhound({
@@ -223,6 +266,8 @@ $(document).ready(function() {
 
 
     $('.owl-carousel').owlCarousel({
+        stagePadding: 30,
+        margin:10,
         responsive:{
             0:{
                 items:1
@@ -235,15 +280,9 @@ $(document).ready(function() {
             },
             992:{
                 items:3
-            },
-            1200:{
-                items:4
             }
         },
     });
-
-
-
 });
 
 function notify(string){

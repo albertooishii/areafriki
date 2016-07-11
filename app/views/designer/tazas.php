@@ -76,7 +76,7 @@
            <p>
                 <span class="precio_base" style="display:none"><?=$data["precio_base"]?></span>
                 Tu beneficio: <span class="beneficio"><input type="number" name="beneficio" step="0.05" min="0" max="<?=$data["beneficio_max"]?>" class="form-control" value="0.00"
-                data-fv-lessthan-message="El beneficio debe ser como máximo de <?=$data["beneficio_max"]?>">€</span><br>
+                data-fv-lessthan-message="El beneficio debe ser como máximo de <?=$data["beneficio_max"]?>">€</span><span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Al beneficio marcado se descontará el impuesto sobre el valor añadido correspondiente según la legislación vigente."><i class="material-icons">info_outline</i></span><br>
                 <input type="text" class="slider beneficio_range" data-slider-min="0" data-slider-max="<?=$data["beneficio_max"]?>" data-slider-step="0.05" data-slider-value="0.00" style="padding-left:10px;" maxlength="4"
                 data-fv-between-message="El beneficio debe ser como máximo de <?=$data["beneficio_max"]?>"><br>
                 Precio de venta: <span class="precio_venta"><?=$data["precio_base"]?>€</span>
@@ -93,5 +93,5 @@
             </label>
         </div>
     </div>
-   <button type="submit" id="form-submit" class="btn btn-warning btn-lg aligncentermobile btn-raised"><i class="fa fa-paper-plane"></i> Publicar</button>
+   <button type="submit" id="form-submit" class="btn btn-primary btn-lg aligncentermobile btn-round btn-raised"><i class="fa fa-paper-plane"></i> Publicar</button>
 </div>

@@ -19,8 +19,8 @@ RewriteRule ^user/$ index.php?section=user [QSA,L]
 RewriteRule ^register$ index.php?section=user&action=register [QSA,L]
 RewriteRule ^register/$ index.php?section=user&action=register [QSA,L]
 
-RewriteRule ^login$ index.php?section=user&action=login_form [QSA,L]
-RewriteRule ^login/$ index.php?section=user&action=login_form [QSA,L]
+RewriteRule ^login$ index.php?section=user&action=login [QSA,L]
+RewriteRule ^login/$ index.php?section=user&action=login [QSA,L]
 
 RewriteRule ^logout$ index.php?section=user&action=logout [QSA,L]
 RewriteRule ^logout/$ index.php?section=user&action=logout [QSA,L]

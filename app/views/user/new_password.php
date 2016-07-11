@@ -1,62 +1,59 @@
-<div class="container wrapper">
-     <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
-            <?=$data["reg_msg"]?>
-            <form id="newpassword" class="form-horizontal" method="post" action="/user?action=recoverpass"
-                data-fv-framework="bootstrap"
-                data-fv-icon-valid="glyphicon glyphicon-ok"
-                data-fv-icon-invalid="glyphicon glyphicon-remove"
-                data-fv-icon-validating="glyphicon glyphicon-refresh">
+<div class="signup-page">
+    <div class="page-header header-filter" style="background-image: url('<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/af_gamer_girl.jpg'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
 
-                <header class="subhead aligncenter">
-                    <h4>INTRODUCE LA NUEVA CONTRASEÑA</h4>
-                </header>
+                    <div class="card card-signup">
+                        <h2 class="text-center">Introduce la nueva contraseña</h2>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="registrationForm" method="post" action="/login/recoverpass"
+                                    data-fv-framework="bootstrap"
+                                    data-fv-icon-valid="glyphicon glyphicon-ok"
+                                    data-fv-icon-invalid="glyphicon glyphicon-remove"
+                                    data-fv-icon-validating="glyphicon glyphicon-refresh">
+                                    <div class="content">
+                                        <?=$data["login_msg"]?>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password" placeholder="Contraseña"
+                                                data-fv-notempty="true"
+                                                data-fv-notempty-message="La contraseña es obligatoria"
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Correo electrónico</label>
-                    <div class="col-md-8">
-                        <input type="email" class="form-control" name="email" readonly value="<?=$data["email"]?>"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="El e-mail es obligatorio"
-                            data-fv-emailaddress="true"
-                            data-fv-emailaddress-message="No has introducido una dirección de e-mail válida" />
+                                                data-fv-stringlength="true"
+                                                data-fv-stringlength-min="6"
+                                                data-fv-stringlength-message="La contraseña tiene que tener como mínimo 6 caracteres"
+
+                                                data-fv-different="true"
+                                                data-fv-different-field="user"
+                                                data-fv-different-message="La contraseña no puede ser igual que el nombre de usuario" />
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <input type="password" class="form-control" name="confirmPassword" placeholder="Repite la contraseña"
+                                                data-fv-notempty="true"
+                                                data-fv-notempty-message="Repite la contraseña"
+                                                data-fv-identical="true"
+                                                data-fv-identical-field="password"
+                                                data-fv-identical-message="Las contraseñas deben coincidir" />
+                                        </div>
+                                        <input type="hidden" value="<?=$data["recoverpasskey"]?>" name="recoverpasskey">
+                                        <input type="hidden" value="<?=$data["email"]?>" name="email">
+                                    </div>
+                                    <div class="footer text-center">
+                                        <button type="submit" class="btn btn-primary btn-round" name="signup" value="Sign up">CONFIRMAR</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Contraseña</label>
-                    <div class="col-md-8">
-                        <input type="password" class="form-control" name="password"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="La contraseña es obligatoria"
-
-                            data-fv-stringlength="true"
-                            data-fv-stringlength-min="6"
-                            data-fv-stringlength-message="La contraseña tiene que tener como mínimo 6 caracteres"
-
-                            data-fv-different="true"
-                            data-fv-different-field="user"
-                            data-fv-different-message="La contraseña no puede ser igual que el nobmre de usuario" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Repite la contraseña</label>
-                    <div class="col-md-8">
-                        <input type="password" class="form-control" name="confirmPassword"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="Repite la contraseña"
-                            data-fv-identical="true"
-                            data-fv-identical-field="password"
-                            data-fv-identical-message="Las contraseñas deben coincidir" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary btn-raised" name="signup" value="Sign up">Confirmar</button>
-                    </div>
-                </div>
-            </form>
-         </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,57 +1,62 @@
-<div class="container">
+<div class="container wrapper">
 <article class="product_file product"  data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="row">
         <div class="col-md-6 col-sm-12 col-xs-12 img-design">
-            <div class="product_container">
-                <div class="montaje">
-<?php
-    if($data["cat_parent"]==1){
-?>
-                    <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["dg-token"]?>.png" data-lightbox="image-1" data-title="<?=$data["dg-nombre"]?>">
-                        <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/MONTAJE-<?=$data["dg-token"]?>.jpg">
-                    </a>
-<?php
-    }else{
-?>
-                    <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
-                        <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
-                    </a>
-<?php
-    }
-?>
+            <div class="card">
+                <div class="content">
+                    <div class="montaje">
+    <?php
+        if($data["cat_parent"]==1){
+    ?>
+                        <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["dg-token"]?>.png" data-lightbox="image-1" data-title="<?=$data["dg-nombre"]?>">
+                            <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/MONTAJE-<?=$data["dg-token"]?>.jpg">
+                        </a>
+    <?php
+        }else{
+    ?>
+                        <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
+                            <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
+                        </a>
+    <?php
+        }
+    ?>
+                    </div>
+                    <div class="thumbnails image-set row">
+                        <?=$data["thumbnails"]?>
+                    </div>
+                    <div class="footer">
+                        <div class="author">
+                            <a href="/user/<?=$data["username"]?>">
+                                <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
+                                <span><?=$data["username"]?></span>
+                            </a>
+                        </div>
+                        <ul class="stats product_buttons">
+                            <li class="<?=$data["like_class"]?>-button">
+                                <a href="#">
+                                    <i class="fa fa-heart"></i>
+                                    <span class="contador"><?=$data["contador_likes"]?></span>
+                                </a>
+                            </li>
+                            <li class="views">
+                                <i class="fa fa-eye"></i>
+                                <span class="contador"><?=$data["contador_visitas"]?></span>
+                            </li>
+                            <li class="share-button">
+                                <a href="#">
+                                    <i class="fa fa-share"></i>
+                                    <span class="contador"><?=$data["contador_shares"]?></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#comments">
+                                    <i class="fa fa-comments"></i>
+                                    <span class="contador"><?=$data["contador_comments"]?></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <figcaption class="product_autor">
-                    <a href="/user/<?=$data["username"]?>"><img class='img-circle avatar_thumb' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>"><?=$data["username"]?></a>
-                </figcaption>
-                <div class="product_buttons">
-                    <ul>
-                        <li class="<?=$data["like_class"]?>-button">
-                            <a href="#">
-                                <i class="fa fa-heart"></i>
-                                <p class="contador"><?=$data["contador_likes"]?></p>
-                            </a>
-                        </li>
-                        <li>
-                            <i class="fa fa-eye"></i>
-                            <p class="contador"><?=$data["contador_visitas"]?></p>
-                        </li>
-                        <li class="share-button">
-                            <a href="#">
-                                <i class="fa fa-share"></i>
-                                <p class="contador"><?=$data["contador_shares"]?></p>
-                            </a>
-                        </li>
-                        <li class="coments-button">
-                            <a href="#comments" class="disabled">
-                                <i class="fa fa-comments"></i>
-                                <p class="contador"><?=$data["contador_comments"]?></p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="thumbnails image-set inner">
-                <?=$data["thumbnails"]?>
             </div>
         </div>
 

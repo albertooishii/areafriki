@@ -9,7 +9,7 @@
             <li id='cancel_banner'><a href="#">Cancelar</a></li>
         </ul>
     </div>
-    <div class="container wrapper">
+    <div class="container">
         <div class="row">
             <section id="user_info" class="col-md-3 aligncentermobile">
                 <div id="user_avatar" class="dropdown dropdown-toggle">

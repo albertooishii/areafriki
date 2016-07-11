@@ -36,7 +36,7 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
         <!--Bootstrap -->
-        <link rel="stylesheet" type="text/css" href="/vendor/material-kit-pro/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
         <!-- Material Kit -->
         <link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>

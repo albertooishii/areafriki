@@ -2,20 +2,19 @@
     <div class="page-header header-filter" style="background-image: url('<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/af_gamer_girl.jpg'); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-4 col-md-offset-4">
 
                     <div class="card card-signup">
-                        <h2 class="text-center">Recuperar contraseña</h2>
-                        <p class="text-center">Introduce a continuación tu nombre de usuario o email. Te enviaremos un mensaje de correo electrónico con un enlace único para poder recuperar tu contraseña.</p>
+                        <h2 class="text-center">Entrar</h2>
                         <div class="row">
                             <div class="col-md-12">
-                                <form id="registrationForm" method="post" action="/login/recoverpass"
+                                <form id="registrationForm" method="post" action="/login"
                                     data-fv-framework="bootstrap"
                                     data-fv-icon-valid="glyphicon glyphicon-ok"
                                     data-fv-icon-invalid="glyphicon glyphicon-remove"
                                     data-fv-icon-validating="glyphicon glyphicon-refresh">
                                     <div class="content">
-                                        <?=@$data["error_msg"]?>
+                                        <?=$data["login_msg"]?>
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">assignment_ind</i>
@@ -33,11 +32,42 @@
                                                 data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
                                                 data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
                                         </div>
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password" placeholder="Contraseña"
+                                                data-fv-notempty="true"
+                                                data-fv-notempty-message="La contraseña es obligatoria"
+
+                                                data-fv-stringlength="true"
+                                                data-fv-stringlength-min="6"
+                                                data-fv-stringlength-message="La contraseña tiene que tener como mínimo 6 caracteres"
+
+                                                data-fv-different="true"
+                                                data-fv-different-field="user"
+                                                data-fv-different-message="La contraseña no puede ser igual que el nombre de usuario" />
+                                        </div>
+
+                                        <!-- If you want to add a checkbox to this form, uncomment this code -->
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="loginrec" type="checkbox" name="loginrec"> Mantener la sesión iniciada
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="/login/recoverpass">He olvidado mi contraseña</a>
                                     </div>
                                     <div class="footer text-center">
-                                        <button type="submit" class="btn btn-primary btn-round" name="signup" value="Sign up">RECUPERAR CONTRASEÑA</button>
+                                        <button type="submit" class="btn btn-primary btn-round" name="signup" value="Sign up">¡ENTRAR!</button>
                                     </div>
                                 </form>
+                                <div class="footer text-center">
+                                    <a href="/register" class="btn btn-primary btn-round">NO TENGO UNA CUENTA</a>
+                                </div>
                             </div>
                         </div>
                     </div>
