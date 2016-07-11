@@ -15,39 +15,43 @@
                                     data-fv-icon-validating="glyphicon glyphicon-refresh">
                                     <div class="content">
                                         <?=$data["login_msg"]?>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">assignment_ind</i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Nombre de usuario o email" name="username"
-                                                data-fv-notempty="true"
-                                                data-fv-notempty-message="Nombre de usuario o email requerido"
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">assignment_ind</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Nombre de usuario o email" name="username"
+                                                    data-fv-notempty="true"
+                                                    data-fv-notempty-message="Nombre de usuario o email requerido"
 
-                                                data-fv-stringlength="true"
-                                                data-fv-stringlength-min="3"
-                                                data-fv-stringlength-max="100"
-                                                data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
+                                                    data-fv-stringlength="true"
+                                                    data-fv-stringlength-min="3"
+                                                    data-fv-stringlength-max="100"
+                                                    data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
 
-                                                data-fv-regexp="true"
-                                                data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
-                                                data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                                    data-fv-regexp="true"
+                                                    data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
+                                                    data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                            </div>
                                         </div>
 
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">lock_outline</i>
-                                            </span>
-                                            <input type="password" class="form-control" name="password" placeholder="Contraseña"
-                                                data-fv-notempty="true"
-                                                data-fv-notempty-message="La contraseña es obligatoria"
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">lock_outline</i>
+                                                </span>
+                                                <input type="password" class="form-control" name="password" placeholder="Contraseña"
+                                                    data-fv-notempty="true"
+                                                    data-fv-notempty-message="La contraseña es obligatoria"
 
-                                                data-fv-stringlength="true"
-                                                data-fv-stringlength-min="6"
-                                                data-fv-stringlength-message="La contraseña tiene que tener como mínimo 6 caracteres"
+                                                    data-fv-stringlength="true"
+                                                    data-fv-stringlength-min="6"
+                                                    data-fv-stringlength-message="La contraseña tiene que tener como mínimo 6 caracteres"
 
-                                                data-fv-different="true"
-                                                data-fv-different-field="user"
-                                                data-fv-different-message="La contraseña no puede ser igual que el nombre de usuario" />
+                                                    data-fv-different="true"
+                                                    data-fv-different-field="user"
+                                                    data-fv-different-message="La contraseña no puede ser igual que el nombre de usuario" />
+                                            </div>
                                         </div>
 
                                         <!-- If you want to add a checkbox to this form, uncomment this code -->

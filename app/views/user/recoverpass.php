@@ -16,22 +16,24 @@
                                     data-fv-icon-validating="glyphicon glyphicon-refresh">
                                     <div class="content">
                                         <?=@$data["error_msg"]?>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">assignment_ind</i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Nombre de usuario o email" name="username"
-                                                data-fv-notempty="true"
-                                                data-fv-notempty-message="Nombre de usuario o email requerido"
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">assignment_ind</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Nombre de usuario o email" name="username"
+                                                    data-fv-notempty="true"
+                                                    data-fv-notempty-message="Nombre de usuario o email requerido"
 
-                                                data-fv-stringlength="true"
-                                                data-fv-stringlength-min="3"
-                                                data-fv-stringlength-max="100"
-                                                data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
+                                                    data-fv-stringlength="true"
+                                                    data-fv-stringlength-min="3"
+                                                    data-fv-stringlength-max="100"
+                                                    data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
 
-                                                data-fv-regexp="true"
-                                                data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
-                                                data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                                    data-fv-regexp="true"
+                                                    data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
+                                                    data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="footer text-center">
