@@ -64,7 +64,7 @@
 
                 case 'login':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if($_POST){
+                    if(!empty($_POST["username"])){
                         if(preg_match('#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
                             $this->u->email=$_POST["username"];
                         }else{
@@ -96,7 +96,23 @@
                             }
                         }
                     }else{
-                        $this->render('user','login',$data);
+                        if(isset($_REQUEST["activation_key"])){
+                            if(isset($_SESSION["login"]["user"])){
+                                $this->u->pass=$_SESSION["login"]["pass"];
+                                //Intentamos activar con la sesion iniciada
+                                if($this->u->activate($_REQUEST["activation_key"])){
+                                    Header("Location: ".PAGE_DOMAIN);
+                                }else{ //Si no deja pedimos los datos de acceso
+                                    $data["activation_key"]=$_REQUEST["activation_key"];
+                                    $this->render('user','activation_form',$data);
+                                }
+                            }else{
+                                $data["activation_key"]=$_REQUEST["activation_key"];
+                                $this->render('user','activation_form',$data);
+                            }
+                        }else{
+                            $this->render('user','login',$data);
+                        }
                     }
 
                 break;

@@ -1,6 +1,6 @@
 <div class="container wrapper">
     <header class="subhead">
-        <h2 class="subhead aligncenter inner"><?=$data["subhead"]?></h2>
+        <h3 class="aligncenter inner"><?=$data["subhead"]?></h3>
     </header>
     <div id="last-productos">
         <div class="row">

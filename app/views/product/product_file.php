@@ -123,11 +123,13 @@
 <?php
     if(isset($_SESSION["login"])){
 ?>
-                <div class="new_comment">
-                    <div class="comment_avatar">
-                        <img src="/<?=$data["avatar"]?>">
-                    </div>
-                    <div id="new_comment_text">
+                <div class="media media-post">
+                    <a class="pull-left author" href="/user/<?=$this->u->user?>">
+                        <div class="avatar">
+                            <img src="/<?=$data["avatar"]?>">
+                        </div>
+                    </a>
+                    <div class="media-body" id="new_comment_text">
                         <div contenteditable="true" class="new-comment-edit" placeholder="Escribe un comentario"></div>
                     </div>
                 </div>

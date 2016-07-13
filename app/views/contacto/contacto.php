@@ -1,4 +1,4 @@
-<div class="container inner">
+<div class="container wrapper">
     <div id='contacto'>
         <div class="row">
             <?=$data["contact_msg"]?>

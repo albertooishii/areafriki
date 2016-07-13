@@ -1,12 +1,13 @@
 <article class="product_card product card" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="content">
         <h5 class="category-social">
-            <?=$data["dg-nombre"]?>
+            <?=$this->cutText($data["dg-nombre"],25)?>
         </h5>
+    </div>
         <a class="product_url" href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>">
             <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg">
         </a>
-        <div class="footer">
+        <div class="footer content">
             <div class="product_autor author">
                 <a href="/user/<?=$data["username"]?>"><img class='img-circle avatar_thumb' src="<?=PAGE_DOMAIN."/".$data["avatar"]?>"><?=$data["username"]?></a>
             </div>
@@ -29,5 +30,4 @@
                 </li>
             </ul>
         </div>
-    </div>
 </article>

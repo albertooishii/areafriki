@@ -2,32 +2,33 @@
     <div class="product_card_glass"></div>
     <div class="content">
         <h5 class="category-social">
-            <?=$data["dg-nombre"]?>
+            <?=$this->cutText($data["dg-nombre"],25)?>
         </h5>
+    </div>
         <a class="product_url" href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>">
             <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg">
         </a>
-        <div class="footer">
+        <div class="footer content">
             <div class="product_autor author">
                 <a href="/user/<?=$data["username"]?>"><img class='img-circle avatar_thumb' src="<?=PAGE_DOMAIN."/".$data["avatar"]?>"><?=$data["username"]?></a>
             </div>
             <ul class="stats product_buttons">
                 <li class="<?=$data["like_class"]?>-button">
-                    <a href="#"><i class="fa fa-heart"></i>
-                        <p class="contador"><?=$data["contador_likes"]?></p>
+                    <a href="#">
+                        <i class="fa fa-heart"></i>
+                        <span class="contador"><?=$data["contador_likes"]?></span>
                     </a>
                 </li>
                 <li class="share-button">
                     <a href="#"><i class="fa fa-share"></i>
-                        <p class="contador"><?=$data["contador_shares"]?></p>
+                        <span class="contador"><?=$data["contador_shares"]?></span>
                     </a>
                 </li>
                 <li class="coments-button">
                     <a href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>#comments"><i class="fa fa-comments"></i>
-                        <p class="contador"><?=$data["contador_comments"]?></p>
+                        <span class="contador"><?=$data["contador_comments"]?></span>
                     </a>
                 </li>
             </ul>
         </div>
-    </div>
 </article>

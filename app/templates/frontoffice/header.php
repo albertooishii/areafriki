@@ -25,7 +25,9 @@
                         </div>
                     </li>
                     <!--<li>
-                        <a href="/carrito"><i class="material-icons">shopping_cart</i> <span id="header-count-carrito">(<?=$data["contador-carrito"]?>)</span></a>
+                        <div class="btn btn-white btn-round btn-raised btn-fab btn-fab-mini" id="header-cart">
+                            <a href="/carrito"><i class="material-icons">shopping_cart</i><span id="header-count-carrito">(<?=$data["contador-carrito"]?>)</span></a>
+                        </div>
                     </li>-->
                     <?php
                         if(isset($_SESSION["login"])){
@@ -99,7 +101,6 @@
         <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">edit</i></a>
     </div>
 </header>
-<?=@$data["header_advertencia"]?>
 <!-- Modal -->
 <div class="modal fade" id="modalDg" tabindex="-1" role="dialog" aria-labelledby="modalDgLabel">
   <div class="modal-dialog modal-lg" role="document">

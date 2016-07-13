@@ -9,27 +9,28 @@
     </header>
     <div class="row">
         <div class="col-md-12 container">
+            <!--<?=@$data["header_advertencia"]?>-->
             <?=@$data["primer_login"]?>
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container carousel_container">
     <div>
-        <header><h2 class="subhead aligncenter inner">LOS ÚLTIMOS PRODUCTOS</h2></header>
+        <header><h3 class="subhead aligncenter inner">LOS ÚLTIMOS PRODUCTOS</h3></header>
         <?=$data["ultimos_productos"]?>
     </div>
 <?php
     if(!empty($data["mas_vendidos"])){
 ?>
     <div>
-        <header><h2 class="subhead aligncenter inner">LOS MÁS VENDIDOS</h2></header>
+        <header><h3 class="subhead aligncenter inner">LOS MÁS VENDIDOS</h3></header>
         <?=$data["mas_vendidos"]?>
     </div>
 <?php
     }
 ?>
     <div>
-        <header><h2 class="subhead aligncenter inner">LOS MÁS POPULARES</h2></header>
+        <header><h3 class="subhead aligncenter inner">LOS MÁS POPULARES</h3></header>
         <?=$data["mas_populares"]?>
     </div>
 </div>
@@ -38,11 +39,12 @@
         <div class="row">
             <div class="col-xs-12">
                 <header>
-                    <h2 class="aligncenter">RULETA DE LIKES!</h2>
+                    <h3>RULETA DE LIKES</h3>
+                    <p>¡Toca los productos que más te gustan y añade un más que merecido like!</p>
                 </header>
             </div>
-            <div class="col-md-7"><?=$data["ruleta"]?></div>
-            <div class="col-md-5" id="showcard"></div>
+            <div class="col-md-8"><?=$data["ruleta"]?></div>
+            <div class="col-md-4" id="showcard"></div>
         </div>
     </div>
 </div>
