@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wrapper">
     <div class="row inner aligncenter">
         <div class="col-md-6 col-md-offset-3">
             <h2 class="subhead">SUBE TUS DISEÑOS</h2>

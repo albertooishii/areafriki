@@ -26,7 +26,9 @@ $(document).ready(function() {
             url: "?section=user&action=showCard",
             data: parametros,
             success: function (response){
-                $("#showcard").html(response);
+                if(response!=""){
+                    $("#showcard").html(response);
+                }
             }
         });
 
@@ -49,7 +51,14 @@ $(document).ready(function() {
                 url: "?section=user&action=ruletaLike",
                 data: parametros,
                 success: function (response){
-                    ruletaitem.replaceWith(response);
+                    if(response==""){
+                        $(".modal-title").html("¡Aviso!");
+                        $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
+                        $(".modal-footer").html("<a href='/login' class='btn btn-primary btn-round'>Iniciar sesión</a>");
+                        $(".modal").modal();
+                    }else{
+                        ruletaitem.replaceWith(response);
+                    }
                 }
             });
         });

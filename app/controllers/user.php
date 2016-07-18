@@ -199,30 +199,26 @@
                         $this->u->user=$_SESSION["login"]["user"];
                         $infouser=$this->u->getUser();
                         $this->u->id=$infouser['id'];
-                        $upload_folder ='app/templates/frontoffice/img/avatar';
+                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user;
+                        if (!file_exists($upload_folder)) {
+                            mkdir($upload_folder, 0777, true);
+                        }
                         $tmp_name = $_FILES['avatar']['tmp_name'];
-                        $avatar_name = $this->u->id."-".$_SESSION["login"]["user"].'.jpg';
-                        $jpeg_quality = 100; //calidad jpg
-                        $image = imagecreatefrompng($tmp_name);
-
-
-                        list($width, $height) = getimagesize($tmp_name);
-                        $output = imagecreatetruecolor($width, $height);
-                        $white = imagecolorallocate($output,  255, 255, 255);
-                        imagefilledrectangle($output, 0, 0, $width, $height, $white);
-                        imagecopy($output, $image, 0, 0, 0, 0, $width, $height);
-
-                        //comprobamos si el archivo ha subido
-                        if (imagejpeg($output, $upload_folder."/".$avatar_name, $jpeg_quality)){
-                            imagedestroy($image);
-                            $this->u->activateAvatar();
-                            sleep(3);//retrasamos la petición 3 segundos
-                            echo $avatar_name;//devolvemos el nombre del archivo para pintar la imagen
+                        $avatar= new Imagick($tmp_name);
+                        $avatar->setImageResolution(72,72);
+                        $avatar->setImageFormat('jpeg');
+                        $avatar->setCompression(Imagick::COMPRESSION_JPEG);
+                        $avatar -> gaussianBlurImage(0.8, 10);      //blur
+                        $avatar -> setImageCompressionQuality(80);  //set compress quality to 85
+                        $sizes = Array(250,150,64,40,30);
+                        foreach ($sizes as $size){
+                            $avatar_name = $size.'.jpg';
+                            $avatar->thumbnailImage($size, $size, true, true);
+                            $avatar->writeImage($upload_folder."/".$avatar_name);
                         }
-                        else{
-                            //echo "no funciona bien, nombre de imagen: ". $avatar_name;
-                            echo false;
-                        }
+                        $this->u->activateAvatar();
+                        //sleep(3);//retrasamos la petición 3 segundos
+                        echo $this->u->user."/150.jpg";//devolvemos el nombre del archivo para pintar la imagen
                     }else{
                         //echo "no hagas tramposerías";
                         echo false;
@@ -231,13 +227,9 @@
 
                 case 'deleteAvatar':
                     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-                        $upload_folder ='app/templates/frontoffice/img/avatar';
-                        $this->u->user=$_SESSION["login"]["user"];
-                        $infouser=$this->u->getUser();
-                        $this->u->id=$infouser['id'];
-                        $avatar_name = $this->u->id."-".$_SESSION["login"]["user"].'.jpg';
+                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user;
                         if($this->u->deleteAvatar()){
-                            if(unlink($upload_folder."/".$avatar_name)){
+                            if(unlink($upload_folder)){
                                 echo true;
                             }else{
                                 echo false;
@@ -254,25 +246,22 @@
                         $this->u->user=$_SESSION["login"]["user"];
                         $infouser=$this->u->getUser();
                         $this->u->id=$infouser['id'];
-                        $upload_folder ='app/templates/frontoffice/img/banner';
+                        $upload_folder ='app/templates/frontoffice/img/banner/'.$this->u->user;
+                        if (!file_exists($upload_folder)) {
+                            mkdir($upload_folder, 0777, true);
+                        }
                         $tmp_name = $_FILES['banner']['tmp_name'];
-                        $banner_name = $this->u->id."-".$_SESSION["login"]["user"].'.jpg';
-                        $jpeg_quality = 100; //calidad jpg
-                        $image = imagecreatefrompng($tmp_name);
+                        $size=1920;
+                        $banner_name = $size.'.jpg';
 
-
-                        list($width, $height) = getimagesize($tmp_name);
-                        $output = imagecreatetruecolor($width, $height);
-                        $white = imagecolorallocate($output,  255, 255, 255);
-                        imagefilledrectangle($output, 0, 0, $width, $height, $white);
-                        imagecopy($output, $image, 0, 0, 0, 0, $width, $height);
-
-                        //comprobamos si el archivo ha subido
-                        if (imagejpeg($output, $upload_folder."/".$banner_name, $jpeg_quality)){
-                            imagedestroy($image);
+                        $banner= new Imagick($tmp_name);
+                        $banner->setImageResolution(72,72);
+                        $banner->setImageFormat('jpeg');
+                        $banner->scaleImage(1920, 350);
+                        if($banner->writeImage($upload_folder."/".$banner_name)){
                             $this->u->activateBanner();
-                            sleep(3);//retrasamos la petición 3 segundos
-                            echo $banner_name;//devolvemos el nombre del archivo para pintar la imagen
+                            //sleep(3);//retrasamos la petición 3 segundos
+                            echo $this->u->user.'/'.$banner_name;//devolvemos el nombre del archivo para pintar la imagen
                         }
                         else{
                             //echo "no funciona bien, nombre de imagen: ". $avatar_name;
@@ -326,7 +315,7 @@
                         $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
                         $data["username"]=$creador->user=$infocreador["user"];
-                        $data["avatar"]=$creador->getAvatar();
+                        $data["creador_avatar"]=$creador->getAvatar(30);
 
                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                             $data["like_class"]='like';
@@ -371,7 +360,6 @@
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
-                            $data["avatar"]=$creador->getAvatar();
                             $data["animate"]="animated bounceIn";
                             echo $this->loadView("home","ruleta",$data);
                         }else{
@@ -530,7 +518,8 @@
                             $data['id']=$infocreador["id"];
                             $data['ocupacion']=$infocreador["ocupacion"];
                             $data['intereses']=$infocreador["intereses"];
-                            $data["creador_avatar"]=$data['avatar']=$creador->getAvatar();
+                            $data['avatar']=$creador->getAvatar(150);
+                            $data["creador_avatar"]=$creador->getAvatar(30);
                             $data['banner']=$creador->getBanner();
                             if(isset($_SESSION["login"])){
                                 if($creador->user==$this->u->user){
@@ -578,7 +567,6 @@
 
                                 case 'viewlist':
                                     $pr->token_lista=$_GET["tokenlist"];
-                                    $data["creador_avatar"]=$data['avatar']=$creador->getAvatar();
                                     $data['banner']=$creador->getBanner();
                                     $lista=$pr->getLista();
                                     $data["nombre_lista"]=$lista["nombre"];

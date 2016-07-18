@@ -1,4 +1,4 @@
-<div class="container inner">
+<div class="container wrapper">
     <h2 class="subhead">CONDICIONES GENERALES DE USO </h2>
 
 

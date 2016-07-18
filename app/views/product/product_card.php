@@ -8,8 +8,11 @@
             <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg">
         </a>
         <div class="footer content">
-            <div class="product_autor author">
-                <a href="/user/<?=$data["username"]?>"><img class='img-circle avatar_thumb' src="<?=PAGE_DOMAIN."/".$data["avatar"]?>"><?=$data["username"]?></a>
+            <div class="product_author author">
+                <a href="/user/<?=$data["username"]?>">
+                    <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
+                    <span><?=$data["username"]?></span>
+                </a>
             </div>
             <ul class="stats product_buttons">
                 <li class="<?=$data["like_class"]?>-button">

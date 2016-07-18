@@ -34,8 +34,8 @@
   "url" : "https://areafriki.com",
   "sameAs" : [
     "https://twitter.com/frikiarea",
-    "https://plus.google.com/113929769526461516040",
-    "https://www.facebook.com/frikiarea",
+    "https://plus.google.com/110162063324615408307/",
+    "https://www.facebook.com/areafriki/",
     "https://www.instagram.com/areafriki/"
  ]
 }

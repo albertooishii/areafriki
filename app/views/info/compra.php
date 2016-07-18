@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wrapper">
     <h1 class="aligncenter">NORMAS DE USO</h1>
     <P>(El incumplimiento de estas normas puede llevar a la cancelación de un producto o diseño o incluso al vaneo de nuestra web y redes sociales)</P>
 

@@ -193,7 +193,7 @@ $(document).ready(function() {
                 }else{
                     $(".modal-title").html("¡Aviso!");
                     $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
-                    $(".modal-footer").html("<a href='/user?action=login_form' class='btn btn-primary'>Registrarse/Entrar</a>");
+                    $(".modal-footer").html("<a href='/login' class='btn btn-primary btn-round'>Iniciar sesión</a>");
                     $(".modal").modal();
                 }
             }
@@ -217,7 +217,10 @@ $(document).ready(function() {
                     $(selected).parent().removeClass("like-button").addClass("unlike-button");
                     $(selected).find('.contador').html((parseInt($(selected).find('.contador').html()) -1 ));
                 }else{
-                    alert("Tienes que estar registrado/a para hacer esta acción");
+                    $(".modal-title").html("¡Aviso!");
+                    $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
+                    $(".modal-footer").html("<a href='/login' class='btn btn-primary btn-round'>Iniciar sesión</a>");
+                    $(".modal").modal();
                 }
             }
         });

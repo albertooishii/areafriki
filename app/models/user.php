@@ -103,10 +103,11 @@
     //Avatar functions-----------------------------------------------------//
 
         // Read if user has avatar -- Comprobar si el usuario tiene avatar
-        function getAvatar(){
-               //comrpobar si tiene avatar subido, sino se muestra el generico
+        function getAvatar($size=150){
+            //comrpobar si tiene avatar subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/avatar";
-            $avatar=$dir."/".$this->id."-".$this->user.".jpg";
+            //if(!$size){$size=150;}
+            $avatar=$dir."/".$this->user."/".$size.".jpg";
             $generic_avatar=$dir."/"."user.svg";
             $query = "SELECT avatar FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();
@@ -120,10 +121,11 @@
         }
 
         // Comprobar si el usuario tiene banner
-        function getBanner(){
+        function getBanner($size=1920){
                //comrpobar si tiene banner subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/banner";
-            $banner=$dir."/".$this->id."-".$this->user.".jpg";
+            //if(!$size){$size=1920;}
+            $banner=$dir."/".$this->user."/".$size.".jpg";
             $generic_banner=$dir."/"."banner.jpg";
             $query = "SELECT banner FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();

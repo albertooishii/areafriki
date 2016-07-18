@@ -121,7 +121,7 @@
                         $data["comment_text"]=$pr->comentario=$_POST["comentario"];
                         if($pr->comentar()){
                             $data["comment_user"]=$this->u->getUserFromID()["user"];
-                            $data["comment_avatar"]=$this->u->getAvatar();
+                            $data["comment_avatar"]=$this->u->getAvatar(64);
                             $data["comment_date"]="Ahora mismo";
                             echo $this->loadView("product","comment_card", $data);
                         }else{
@@ -296,7 +296,7 @@
                                 $data["cat_id"]=$cat->id=$producto["categoria"];
                                 $data["cat_nombre"]=$cat->get()["nombre"];
                                 $data["username"]=$creador->user=$infocreador["user"];
-                                $data["avatar"]=$creador->getAvatar();
+                                $data["avatar"]=$creador->getAvatar(30);
                                 $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                                 $data["dg-nombre"]=$producto["nombre"];
                                 $lista_productos.=$this->loadView("header", "search", $data);
@@ -382,7 +382,7 @@
                                             $creador->id=$design["user"];
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
-                                            $data["creador_avatar"]=$creador->getAvatar();
+                                            $data["creador_avatar"]=$creador->getAvatar(30);
                                             $data["dg-token"]=$_GET["token"];
                                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
                                             $data["dg-descripcion"]=$producto["descripcion"];
@@ -413,7 +413,7 @@
                                             $data["contador_shares"]=$pr->getShares();
                                             $data["contador_visitas"]=$pr->getViews();
                                             $data["contador_comments"]=$pr->getContComentarios();
-                                            $data["avatar"]=$this->u->getAvatar();
+                                            $data["avatar"]=$this->u->getAvatar(64);
 
                                             $data["comments_list"]="";
                                             $lista_comentarios=$pr->getComentarios();
@@ -423,7 +423,7 @@
                                                     $comen->id=$comentario["user"];
                                                     $infocomment_user=$comen->getUserFromID();
                                                     $data["comment_user"]=$comen->user=$infocomment_user["user"];
-                                                    $data["comment_avatar"]=$comen->getAvatar();
+                                                    $data["comment_avatar"]=$comen->getAvatar(64);
                                                     $data["comment_date"]=$this->format_date($comentario["fecha"]);
                                                     $data["comment_text"]=$comentario["comentario"];
                                                     $data["comments_list"].=$this->loadView("product","comment_card", $data);

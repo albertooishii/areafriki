@@ -33,7 +33,6 @@
         }
 
         public function loadView($folder,$view,$data=false){
-            @extract($data);
             ob_start();                      // start capturing output
             include DIR."/app/views/".$folder."/".$view.".php";   // execute the file
             $page = ob_get_contents();    // get the contents from the buffer
@@ -77,8 +76,11 @@
                     $data["header_advertencia"]=$this->loadView("header","advertencia");
                 }
                 $page=$this->loadView($folder, $view, $data);
-                $page=$this->minifyHtml($page);
-                include_once 'app/templates/frontoffice/page.php';
+                ob_start();                      // start capturing output
+                include_once 'app/templates/frontoffice/page.php';   // execute the file
+                $html = ob_get_contents();    // get the contents from the buffer
+                ob_end_clean();
+                echo $this->minifyHtml($html);
             }
         }
 

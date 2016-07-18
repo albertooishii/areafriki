@@ -63,7 +63,7 @@
                             <div class="profile-photo-small icon">
                                 <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/avatar/user.svg">
                             </div>
-                            <span>ENTRAR</span>
+                            <span>INICIAR SESIÓN</span>
                         </a>
                     </li>
                     <?php

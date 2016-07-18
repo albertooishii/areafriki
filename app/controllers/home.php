@@ -42,7 +42,7 @@
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
                             $creador->user=$data["username"]=$infocreador["user"];
-                            $data["avatar"]=$creador->getAvatar();
+                            $data["creador_avatar"]=$creador->getAvatar(30);
                             $data["dg-nombre"]=$producto["nombre"];
                             $data["dg-descripcion"]=$producto["descripcion"];
 
@@ -84,7 +84,7 @@
                         $data["cat_id"]=$cat->id=$producto["categoria"];
                         $data["cat_nombre"]=$cat->get()["nombre"];
                         $data["username"]=$creador->user=$infocreador["user"];
-                        $data["avatar"]=$creador->getAvatar();
+                        $data["creador_avatar"]=$creador->getAvatar(30);
                         $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                         $data["dg-nombre"]=$producto["nombre"];
                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
@@ -117,7 +117,7 @@
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
-                            $data["avatar"]=$creador->getAvatar();
+                            $data["creador_avatar"]=$creador->getAvatar(30);
                             $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                             $data["dg-nombre"]=$producto["nombre"];
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
@@ -152,7 +152,7 @@
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
-                            $data["avatar"]=$creador->getAvatar();
+                            $data["creador_avatar"]=$creador->getAvatar(30);
                             $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                             $data["dg-nombre"]=$producto["nombre"];
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){

@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg" />
 <meta name="twitter:data1" content="<?=$data["dg-token"]?>" />
 <meta name="twitter:label1" content="TOKEN" />
-<meta name="twitter:data2" content="<?=$data["float_precio"]?>" />
+<meta name="twitter:data2" content="<?=$data["precio_float"]?>" />
 <meta name="twitter:label2" content="Precio" />
 
 <!--Google plus-->

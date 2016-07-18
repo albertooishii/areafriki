@@ -1,4 +1,4 @@
-<div class="container inner">
+<div class="container wrapper">
     <h2 class="subhead">POLÍTICA DE COOKIES</h2>
 
     <h4 class="subhead">INFORMACIÓN</h4>

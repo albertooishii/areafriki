@@ -153,7 +153,7 @@ $(document).ready(function() {
 
         $("#modalDg").on("shown.bs.modal", function() {
             $(element).cropper({
-                aspectRatio: 2120/350
+                aspectRatio: 1920/350
             });
         });
 
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
         $("body").on('click','.banner-like', function(){
             var banner=$(element).cropper("getCroppedCanvas",{
-                width: 2120,
+                width: 1920,
                 height: 350,
             }).toBlob(function (banner) {
                 var formData = new FormData();
