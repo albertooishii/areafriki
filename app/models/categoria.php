@@ -43,6 +43,14 @@
             return false;
         }
 
+        function getParent(){
+            $query = "SELECT * FROM categorias WHERE id= ".$this->parent;
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
         function getParents()
         {
             $query = "SELECT id, nombre, descripcion, descripcion_corta FROM categorias WHERE parent IS NULL";

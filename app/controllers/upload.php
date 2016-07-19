@@ -113,6 +113,7 @@
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/".$cat->nombre.".js'></script>";
                             $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
+                    		$data["custom_css"].="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
                             $data["designer"]=$this->loadView('designer',$cat->nombre,$data);
                             $this->render("designer", 'designer',$data);
                         }
@@ -123,7 +124,10 @@
                             set_time_limit(60*30);//Establece tiempo máximo de ejecuccion.
                             $cat->id=$pr->categoria=$_POST["categoria"];
                             $cat->nombre=$cat->get()["nombre"];
-                            $cat->parent=$cat->get()["parent"];
+                            if(!$cat->parent=$cat->get()["parent"]){
+                                $cat->parent=$cat->id;
+                            }
+                            $data["parent_nombre"]=$cat->getParent()["nombre"];
                             $pr->nombre=$data["nombre"]=trim($_POST["nombre"]);
                             $pr->descripcion=$_POST["descripcion"];
                             $pr->beneficio=$_POST["beneficio"];

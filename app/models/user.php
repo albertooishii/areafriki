@@ -103,7 +103,7 @@
     //Avatar functions-----------------------------------------------------//
 
         // Read if user has avatar -- Comprobar si el usuario tiene avatar
-        function getAvatar($size=150){
+        function getAvatar($size=300){
             //comrpobar si tiene avatar subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/avatar";
             //if(!$size){$size=150;}

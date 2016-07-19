@@ -2,4 +2,4 @@
 <p>Nombre del producto: <?=$data["nombre"]?></p>
 <p>Identificador del producto: <?=$data["token"]?></p>
 
-AÑADIR AQUÍ ENLACE PARA REVISAR EN PANEL DE ADMINISTRACIÓN
+<a href="<?=PAGE_DOMAIN?>/simbiosis/<?=$data["parent_nombre"]?>">Revisar</a>

@@ -22,31 +22,35 @@
                     switch($node){
                         case 'revisar':
                             $p->id=$_POST["id"];
-                            if($p->revisar()){
-                                $producto=$p->get();
-                                $data["token"]=$dg->token=$producto["design"];
-                                $design=$dg->get();
-                                $creador->id=$design["user"];
-                                $designer=$creador->getUserFromID();
-                                $data["user"]=$designer["user"];
-                                $data["nombre"]=$producto["nombre"];
-                                $c->id=$producto["categoria"];
-                                $data["categoria"]=$c->get()["nombre"];
+                            if(!$p->isRevisado()){
+                                if($p->revisar()){
+                                    $producto=$p->get();
+                                    $data["token"]=$dg->token=$producto["design"];
+                                    $design=$dg->get();
+                                    $creador->id=$design["user"];
+                                    $designer=$creador->getUserFromID();
+                                    $data["user"]=$designer["user"];
+                                    $data["nombre"]=$producto["nombre"];
+                                    $c->id=$producto["categoria"];
+                                    $data["categoria"]=$c->get()["nombre"];
 
-                                $this->loadModel("email");
-                                /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
-                                $mail = new Email();
-                                $mail->to = $designer["email"];
-                                $mail->subject = "Producto aprobado - ".PAGE_NAME;
-                                $mail->getEmail('producto_aprobado', $data);
+                                    $this->loadModel("email");
+                                    /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
+                                    $mail = new Email();
+                                    $mail->to = $designer["email"];
+                                    $mail->subject = "Producto aprobado - ".PAGE_NAME;
+                                    $mail->getEmail('producto_aprobado', $data);
 
-                                if ($mail->sendEmail()){
-                                    echo true;
+                                    if ($mail->sendEmail()){
+                                        echo true;
+                                    }else{
+                                       echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
+                                    }
                                 }else{
-                                   echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
+                                    echo false;
                                 }
                             }else{
-                                echo false;
+                                echo true;
                             }
                         break;
 

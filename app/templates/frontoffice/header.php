@@ -35,7 +35,7 @@
                     <li class="dropdown pull-right" id="header-user">
                         <a class='profile-photo dropdown-toggle' href="#" data-toggle="dropdown">
                             <div class="profile-photo-small">
-                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>"><!--<span id="login_user"><?=$_SESSION["login"]["user"]?></span>-->
+                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>"><span id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><!--<?=$_SESSION["login"]["user"]?>--></span>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-dark">
@@ -106,6 +106,9 @@
   <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<i class="material-icons">clear</i>
+				</button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">

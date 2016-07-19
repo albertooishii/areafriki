@@ -208,9 +208,9 @@
                         $avatar->setImageResolution(72,72);
                         $avatar->setImageFormat('jpeg');
                         $avatar->setCompression(Imagick::COMPRESSION_JPEG);
-                        $avatar -> gaussianBlurImage(0.8, 10);      //blur
+                        //$avatar -> gaussianBlurImage(0.8, 10);      //blur
                         $avatar -> setImageCompressionQuality(80);  //set compress quality to 85
-                        $sizes = Array(250,150,64,40,30);
+                        $sizes = Array(500,300,128,64,32);
                         foreach ($sizes as $size){
                             $avatar_name = $size.'.jpg';
                             $avatar->thumbnailImage($size, $size, true, true);
@@ -218,7 +218,7 @@
                         }
                         $this->u->activateAvatar();
                         //sleep(3);//retrasamos la petición 3 segundos
-                        echo $this->u->user."/150.jpg";//devolvemos el nombre del archivo para pintar la imagen
+                        echo $this->u->user."/300.jpg";//devolvemos el nombre del archivo para pintar la imagen
                     }else{
                         //echo "no hagas tramposerías";
                         echo false;
@@ -315,7 +315,7 @@
                         $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
                         $data["username"]=$creador->user=$infocreador["user"];
-                        $data["creador_avatar"]=$creador->getAvatar(30);
+                        $data["creador_avatar"]=$creador->getAvatar(64);
 
                         if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                             $data["like_class"]='like';
@@ -518,8 +518,8 @@
                             $data['id']=$infocreador["id"];
                             $data['ocupacion']=$infocreador["ocupacion"];
                             $data['intereses']=$infocreador["intereses"];
-                            $data['avatar']=$creador->getAvatar(150);
-                            $data["creador_avatar"]=$creador->getAvatar(30);
+                            $data['avatar']=$creador->getAvatar(300);
+                            $data["creador_avatar"]=$creador->getAvatar(64);
                             $data['banner']=$creador->getBanner();
                             if(isset($_SESSION["login"])){
                                 if($creador->user==$this->u->user){
