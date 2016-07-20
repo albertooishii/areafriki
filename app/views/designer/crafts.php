@@ -112,7 +112,7 @@
                     <div id="envio" class="tab-pane fade">
                         <div class="form-group">
                             <header><h4>CONFIGURACIÓN DE ENVÍO</h4></header>
-                            <p>Gastos de envío: <input type="number" class="form-control" id="gastos_envio" name="gastos_envio" min="0" step="0.05" value="0.00" style="width:150px; display:inline-block;" maxlength="4"> €</p>
+                            <p>Gastos de envío: <input type="number" class="form-control" id="gastos_envio" name="gastos_envio" min="0" step="0.01" value="0.00" style="width:150px; display:inline-block;" maxlength="4"> €</p>
                             <p>Tiempo de envío: <input type="number" class="form-control" id="tiempo_envio" name="tiempo_envio" min="0" step="1" value="0" style="width:150px; display:inline-block;" maxlength="4"> Días aprox.</p>
                         </div>
                         <div class="form-group">
@@ -123,7 +123,7 @@
                         <div class="form-group">
                             <header><h4>CONFIGURA TU PRECIO</h4></header>
                             <p>Indica el precio al que quieres vender tu producto:</p>
-                            <p>Precio de venta: <input type="number" class="form-control" id="precio" min="0" step="0.05" value="0.00" style="width:150px; display:inline-block;" maxlength="4"> €</p>
+                            <p>Precio de venta: <input type="number" class="form-control" id="precio" min="0" step="0.01" value="0.00" style="width:150px; display:inline-block;" maxlength="4"> €</p>
                             <p>Para garantizar un mejor servicio te mostramos el desglose del beneficio por la venta de tu producto.</p>
 
                             <input type="hidden" value="0.00" name="beneficio" id="beneficio">

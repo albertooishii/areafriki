@@ -454,7 +454,7 @@
             return false;
         }
 
-        function shares()
+        function share()
         {
             $query="UPDATE productos SET shares=shares+1 WHERE id='$this->id'";
             if ( $this->_db->query($query) )

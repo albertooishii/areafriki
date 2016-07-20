@@ -5,7 +5,7 @@
     <div class="row" id="primer_paso">
         <div class="col-md-4">
             <div class="card card-pricing card-raised">
-                <a href="/upload/designer">
+                <a href="/upload/designs">
                     <div class="content">
                         <h6 class="category text-gray">DISEÑOS</h6>
                         <div class="icon icon-info">

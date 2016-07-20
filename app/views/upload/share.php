@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="share-dialog" data-categoria="<?=$data["dg-categoria"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="col-xs-12">
         <!-- Twitter -->
         <a href="http://twitter.com/home?status=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" title="Share on Twitter" target="_blank" class="btn btn-share btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
@@ -30,6 +30,10 @@
     <div class="col-xs-12">
         <!-- Telegram -->
         <a href="https://telegram.me/share/url?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="_blank" class="btn btn-share btn-telegram"><i class="fa fa-paper-plane" aria-hidden="true"></i> Telegram</a>
+    </div>
+    <div class="col-xs-12">
+        <!-- Copiar enlace -->
+        <a href="#" class="btn btn-share btn-copy btn-default"><i class="material-icons">content_copy</i> <input type="hidden" value="<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>">Copiar enlace</a>
     </div>
     <span id="info_creador" data-user="<?=$data["dg-user"]?>"></span>
 </div>

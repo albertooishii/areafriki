@@ -36,8 +36,10 @@ $(document).ready(function() {
         e.preventDefault();
         $('form').data('formValidation').validate();
         $('form').formValidation('revalidateField', 'design_editable');
-        if(typeof fpd.getCustomElements()[0] == 'undefined' || $(".has-error").size()!=0){
+        if($(".has-error").size()!=0){
             FPDUtil.showModal("ERROR: Faltan campos obligatorios por rellenar.");
+        }else if(typeof fpd.getCustomElements()[0] == 'undefined'){
+            FPDUtil.showModal("ERROR: No has colocado la imagen correctamente.");
         }else if(fpd.getCustomElements()[0]["element"].isOut){
             FPDUtil.showModal("ERROR: El diseño sobresale del área de impresión.");
         }else if($('textarea[name="descripcion"]').val().indexOf('[url') >= 0 ||

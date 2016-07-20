@@ -114,6 +114,20 @@
                     }
                 break;
 
+                case 'countShare':
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $pr->categoria=$cat->id=$_POST["categoria"];
+                        $data["dg-token"]=$pr->token=$_POST["token"];
+                        $pr->id=$pr->getProductoWhereToken()["id"];
+                        if($pr->share()){
+                            echo true;
+                        }
+                    }else{
+                        $data["page_title"]="ERROR 404";
+                        $this->render("error","404");
+                    }
+                break;
+
                 case 'comment':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $pr->user=$this->u->id;

@@ -23,7 +23,7 @@
                         $data["dg-id-cat"]=$cat->id=$cat->getWhereNombre()["id"];
 
                         switch($cat->nombre){
-                            case 'designer':
+                            case 'designs':
                                 $cat->parent=$cat->id;
                                 $hijos=$cat->getChilds();
                                 $data["lista_categorias"]="";

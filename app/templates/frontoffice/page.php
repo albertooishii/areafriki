@@ -44,8 +44,8 @@
 
         <!--Bootstrap range slider -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
-        <?=$data["min_css"]?>
         <?=@$data["custom_css"]?>
+        <?=$data["min_css"]?>
         <link rel="stylesheet" href="<?=PAGE_DOMAIN?>/app/templates/frontoffice/css/common.css">
         <!--<script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

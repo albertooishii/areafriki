@@ -229,6 +229,8 @@ $(document).ready(function() {
     //SHARES
     $("body").on("click", ".share-button a", function(event){
         event.preventDefault();
+        $("*").removeClass("share-button-selected");
+        $(this).parent(".share-button").addClass("share-button-selected");
         var selected=$(this);
         var categoria= $(this).closest(".product").data("categoria");
         var token= $(this).closest(".product").data("token");
@@ -245,11 +247,77 @@ $(document).ready(function() {
             data: parametros,
             success: function (response){
                 $(".modal-body").append(response);
-                $('#modalDg').modal({backdrop: 'static', keyboard: false}) ;
+                $('#modalDg').modal() ;
             }
         });
-
     });
+
+    $("body").on("click", "#share-dialog a", function(event){
+
+        var parametros={
+            "categoria": $(this).closest("#share-dialog").data("categoria"),
+            "token": $(this).closest("#share-dialog").data("token")
+        };
+        $.ajax({
+            method: "POST",
+            url: "/index.php?section=producto&action=countShare",
+            data: parametros,
+            success: function (response){
+                if(response==1){
+                    $(".share-button-selected").find('.contador').html((parseInt($(".share-button-selected").find('.contador').html()) + 1));
+                    $("#modalDg").modal("hide");
+                }
+                event.stopPropagation();
+            }
+        });
+    });
+
+    $("body").on("click", ".btn-copy", function(event){
+        event.preventDefault();
+        if(copyToClipboard($(this).children("input"))){
+            notify("Copiado al portapapeles");
+        }else{
+            notify("No se ha podido copiar el enlace");
+        }
+    });
+
+    function copyToClipboard(elem) {
+        // create hidden text element, if it doesn't already exist
+        var targetId = "_hiddenCopyText_";
+        var origSelectionStart, origSelectionEnd;
+
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.val();
+        // select the content
+        var currentFocus = document.activeElement;
+        target.focus();
+        target.setSelectionRange(0, target.value.length);
+
+        // copy the selection
+        var succeed;
+        try {
+            succeed = document.execCommand("copy");
+        } catch(e) {
+            succeed = false;
+        }
+        // restore original focus
+        if (currentFocus && typeof currentFocus.focus === "function") {
+            currentFocus.focus();
+        }
+
+        // clear temporary content
+        target.textContent = "";
+        return succeed;
+    }
 
     //OTRAS
     $('body').on('keydown paste', '[contenteditable]', function(e) {
