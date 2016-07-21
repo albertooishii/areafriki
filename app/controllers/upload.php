@@ -4,7 +4,7 @@
 
     class Upload extends Controller{
         function index_uploads(){
-            if(isset($_SESSION["login"]) && $this->u->getRol()!='comprador' && $this->u->getUser_activeaccount()){
+            if(isset($_SESSION["login"]) && $this->u->getUser_activeaccount()){
                 $this->loadModel("producto");
                 $pr = New Producto_Model();
                 $this->loadModel("design");
@@ -291,14 +291,8 @@
                         $data['page_title'] = "1er Paso";
                         $this->render('upload', 'primer_paso',$data);
                 }
-            }elseif(isset($_SESSION["login"]) && $this->u->getRol()=='comprador'){
-                 //Convierte tu cuenta a cuenta de vendedor.
-                $data['page_title']="Sube tus diseños";
-                $this->render("user", "convertir_vendedor", $data);
-            }elseif(isset($_SESSION["login"]) && $this->u->getRol()!='comprador' && !$this->u->getUser_activeaccount()){
+            }elseif(isset($_SESSION["login"]) && !$this->u->getUser_activeaccount()){
                 //Eres vendedor pero no tienes la cuenta activada
-                $this->u->email=$this->u->getUser()["email"];
-                //$this->u->sendActivationMail();
                 $data['page_title']="Verifica tu cuenta";
                 $this->render('user', 'cuenta_no_verificada', $data);
             }else{

@@ -178,11 +178,8 @@
             $new_date=date ("Y-m-d H:i:s");
             $pass=sha1(GLOBAL_TOKEN.$this->pass);
 
-            if($this->rol=="comprador"){
-                $query = "INSERT INTO users (user, email, phone, pass, name, address, cp, localidad, provincia, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', '$this->phone', UNHEX('$pass'), '$this->name', '$this->address', '$this->cp', '$this->localidad', '$this->provincia', '$new_date', '$this->ip', '$this->rol')";
-            }elseif($this->rol=="vendedor"){
-                $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol')";
-            }
+            $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol')";
+
             if ( $this->_db->query($query) )
             return mysqli_insert_id($this->_db);
             return false;

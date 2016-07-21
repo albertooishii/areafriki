@@ -47,7 +47,7 @@
                         $this->u->email=$_POST["email"];
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->name=$_POST["nombre"];
-                        $this->u->rol="vendedor";
+                        $this->u->rol="user";
                         $this->u->ip=$this->getIP();
                         if($this->u->register()){
                             header ("Location: ".PAGE_DOMAIN);
@@ -115,6 +115,22 @@
                         }
                     }
 
+                break;
+
+                case 'sendactivation':
+                    if(isset($_SESSION["login"]) && !$this->u->getUser_activeaccount()){
+                        $this->u->email=$this->u->getUser()["email"];
+                        if($this->u->sendActivationMail()){
+                            $data["titulo_mensaje"]="¡Email de activación enviado!";
+                            $data["texto_mensaje"]="Hemos enviado un email a la dirección de correo que nos has facilitado al registrarte con un enlace único para poder verificar tu cuenta. Puede tardar hasta 5 minutos desde que te registraste. No olvides revisar tu bandeja de spam/no deseado.";
+                        }else{
+                            $data["titulo_mensaje"]="Error";
+                            $data["texto_mensaje"]="No se ha podido enviar el email de activación de la cuenta. Ponte en contacto con nosotros a través de esta dirección: <a href='mailto:<?=CONTACT_EMAIL?>'><?=CONTACT_EMAIL?></a> para que te la podamos activar manualmente. Muchas gracias.";
+                        }
+                        $this->render('mensaje','mensaje',$data);
+                    }else{
+                        $this->render("error","404",$data);
+                    }
                 break;
 
                 case 'recoverpass':
@@ -495,7 +511,7 @@
                     $data["credit"]=number_format($user["credit"], 2, ',', ' ');
                     $data["provincia_selected"]=$user["provincia"];
                     $data["provincia"]=$this->loadView("forms","provincia",$data);
-                    $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                    $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/settings.js'></script>";
                     $this->render("user","settings",$data);
                 break;
 
