@@ -19,7 +19,7 @@
             }
             $this->loadModel("email");
             $mail = new Email();
-            $mail->to = "error@areafriki.com";
+            $mail->to = ERROR_EMAIL;
             $mail->from = $this->from_email;
             $mail->from_name = $this->from_name;
             $mail->subject = "Notificación de Error";

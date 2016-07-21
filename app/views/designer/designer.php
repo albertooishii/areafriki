@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <form class="formvalidation" id="designer" method="post" enctype="multipart/form-data" action="<?=PAGE_DOMAIN?>">
+    <form class="formvalidation" id="designer" method="post">
         <div class="row">
             <?=$data["designer"]?>
         </div>

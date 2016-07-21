@@ -138,57 +138,59 @@
                             $data["token"]=$pr->design=$dg->token=$_POST["token"];
                             $upload_folder ='designs/'.$this->u->user.'/'.$dg->token;
                             $design_name = $dg->token;
+
                             $height = 700;
                             $thumbsize=512;
                             $jpg_quality=100;
                             $swerror=0;
+
+                            if (!file_exists($upload_folder.'/'.$cat->nombre)) {
+                                mkdir($upload_folder.'/'.$cat->nombre, 0777, true);
+                            }
+
                             if($cat->parent==1){ //SUBIDA DE DISEÑOS
                                 #SUBIDA MONTAJE-------------###
-                                if(mkdir($upload_folder.'/'.$cat->nombre, 0777, true)){
-                                    $img_montaje = new Imagick ($_FILES["montaje"]["tmp_name"]);
-                                    $img_montaje->setImageFormat('jpeg');
-                                    $img_montaje->scaleImage($height,0);
-                                    //$img->setImageCompressionQuality(100);
-                                    $img_montaje_dst=$upload_folder.'/'.$cat->nombre.'/MONTAJE-'.$design_name.'.jpg';
-                                    if($img_montaje->writeImage ($img_montaje_dst)){
-                                        #SUBIDA DEL THUMBNAIL--------------###
-                                        $img_montaje->cropThumbnailImage($thumbsize, $thumbsize);
-                                        $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
-                                        $img_montaje->writeImage($img_thumb_dst);
+                                $img_montaje = new Imagick ($_FILES["montaje"]["tmp_name"]);
+                                $img_montaje->setImageFormat('jpeg');
+                                $img_montaje->scaleImage($height,0);
+                                //$img->setImageCompressionQuality(100);
+                                $img_montaje_dst=$upload_folder.'/'.$cat->nombre.'/MONTAJE-'.$design_name.'.jpg';
+                                if($img_montaje->writeImage ($img_montaje_dst)){
+                                    #SUBIDA DEL THUMBNAIL--------------###
+                                    $img_montaje->cropThumbnailImage($thumbsize, $thumbsize);
+                                    $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
+                                    $img_montaje->writeImage($img_thumb_dst);
 
-                                        #SUBIDA DEL DISEÑO .PNG--------------###
-                                        $img_dg = new Imagick($_FILES["design"]['tmp_name']);
-                                        $img_dg_sizes=$img_dg->getImageGeometry();
-                                        $pr->width=$img_dg_sizes["width"];
-                                        $pr->height=$img_dg_sizes["height"];
-                                        $pr->top=$_POST["top"];
-                                        $pr->left=$_POST["left"];
-                                        $pr->scale=$_POST["scale"];
+                                    #SUBIDA DEL DISEÑO .PNG--------------###
+                                    $img_dg = new Imagick($_FILES["design"]['tmp_name']);
+                                    $img_dg_sizes=$img_dg->getImageGeometry();
+                                    $pr->width=$img_dg_sizes["width"];
+                                    $pr->height=$img_dg_sizes["height"];
+                                    $pr->top=$_POST["top"];
+                                    $pr->left=$_POST["left"];
+                                    $pr->scale=$_POST["scale"];
 
-                                        if($img_dg->writeImage($upload_folder."/".$design_name.'.png')){//guardamos la imagen original como png
+                                    if($img_dg->writeImage($upload_folder."/".$design_name.'.png')){//guardamos la imagen original como png
 
-                                        #SUBIMOS EL FICHERO EDITABLE------------###
-                                            if($_FILES["design_editable"]["error"]==0){
-                                                $filename = $_FILES['design_editable']['name'];
-                                                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-                                                $tmp_name = $_FILES['design_editable']['tmp_name'];
-                                                $design_editable_name = $dg->token . "." . $ext;
-                                                if(move_uploaded_file($tmp_name, $upload_folder.'/'.$cat->nombre."/ORIGINAL-".$design_editable_name)){
-                                                    $swerror=0;
-                                                }else{
-                                                    $codigo_error= "No se ha podido mover el fichero editable a su carpeta";
-                                                }
+                                    #SUBIMOS EL FICHERO EDITABLE------------###
+                                        if($_FILES["design_editable"]["error"]==0){
+                                            $filename = $_FILES['design_editable']['name'];
+                                            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                                            $tmp_name = $_FILES['design_editable']['tmp_name'];
+                                            $design_editable_name = $dg->token . "." . $ext;
+                                            if(move_uploaded_file($tmp_name, $upload_folder.'/'.$cat->nombre."/ORIGINAL-".$design_editable_name)){
+                                                $swerror=0;
                                             }else{
-                                                $codigo_error= "Error al pasar el fichero por ajax (error>0)";
+                                                $codigo_error= "No se ha podido mover el fichero editable a su carpeta";
                                             }
                                         }else{
-                                            $codigo_error= "No se ha podido subir el diseño a su carpeta";
+                                            $codigo_error= "Error al pasar el fichero por ajax (error>0)";
                                         }
                                     }else{
-                                        $codigo_error= "No se ha podido convertir a jpg y/o borrar el original png";
+                                        $codigo_error= "No se ha podido subir el diseño a su carpeta";
                                     }
                                 }else{
-                                    $codigo_error= "No se ha podido crear la carpeta y/o subir el montaje png a su carpeta";
+                                    $codigo_error= "No se ha podido convertir a jpg y/o borrar el original png";
                                 }
                             }else{ //SUBIDA DE ARTÍCULOS PARA VENTA (CRAFTS Y BAÚL)
                                 if(isset($_POST["usado"])){$pr->usado=1;}else{$pr->usado=0;}
@@ -199,29 +201,26 @@
 
                                 $files = $this->reArrayFiles($_FILES['files']);
                                 $contador=0;
-                                if(mkdir($upload_folder.'/'.$cat->nombre, 0777, true)){
-                                    foreach ($files as $file) {
-                                        $img_venta = new Imagick ($file['tmp_name']);
-                                        $img_venta->setImageFormat('jpeg');
-                                        $img_venta->scaleImage($height,0);
-                                        $img_venta_dst=$upload_folder.'/'.$cat->nombre."/".$design_name."-".$contador.".jpg";
-                                        if($img_venta->writeImage ($img_venta_dst)){
-                                            #SUBIDA DEL THUMBNAIL--------------###
-                                            $img_venta->cropThumbnailImage($thumbsize, $thumbsize);
-                                            if($contador==0){
-                                                $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
-                                            }else{
-                                                $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'-'.$contador.'.jpg';
-                                            }
-                                            $img_venta->writeImage($img_thumb_dst);
-                                            $swerror=0;
+
+                                foreach ($files as $file) {
+                                    $img_venta = new Imagick ($file['tmp_name']);
+                                    $img_venta->setImageFormat('jpeg');
+                                    $img_venta->scaleImage($height,0);
+                                    $img_venta_dst=$upload_folder.'/'.$cat->nombre."/".$design_name."-".$contador.".jpg";
+                                    if($img_venta->writeImage ($img_venta_dst)){
+                                        #SUBIDA DEL THUMBNAIL--------------###
+                                        $img_venta->cropThumbnailImage($thumbsize, $thumbsize);
+                                        if($contador==0){
+                                            $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
                                         }else{
-                                            $swerror=1;
+                                            $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'-'.$contador.'.jpg';
                                         }
-                                        $contador++;
+                                        $img_venta->writeImage($img_thumb_dst);
+                                        $swerror=0;
+                                    }else{
+                                        $swerror=1;
                                     }
-                                }else{
-                                    $codigo_error= "No se ha podido crear la carpeta";
+                                    $contador++;
                                 }
                             }
 
@@ -238,17 +237,12 @@
                                 if($cat->parent==1){ //si es diseño
                                     if($pr->id=$pr->setDesign()){
                                         $this->loadModel("email");
-                                        /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
-                                        $mail = new Email();
-                                        $mail->to = $this->u->getUser()["email"];
-                                        $mail->subject = "Producto pendiente de aprobar - ".PAGE_NAME;
-                                        $mail->getEmail('producto_publicado', $data);
                                         /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
                                         $admail = new Email();
                                         $admail->to = ADMIN_EMAIL;
                                         $admail->subject = "Nuevo producto publicado por ".$this->u->user;
                                         $admail->getEmail('adm_producto_publicado', $data);
-                                        if ($mail->sendEmail() && $admail->sendEmail()){
+                                        if ($admail->sendEmail()){
                                             echo true;
                                         }else{
                                            echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
@@ -259,17 +253,12 @@
                                 }else{ //si es para vender
                                      if($pr->setCraft()){
                                         $this->loadModel("email");
-                                        /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
-                                        $mail = new Email();
-                                        $mail->to = $this->u->getUser()["email"];
-                                        $mail->subject = "Producto pendiente de aprobar - ".PAGE_NAME;
-                                        $mail->getEmail('producto_publicado', $data);
                                         /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
                                         $admail = new Email();
                                         $admail->to = ADMIN_EMAIL;
                                         $admail->subject = "Nuevo producto publicado por ".$this->u->user;
                                         $admail->getEmail('adm_producto_publicado', $data);
-                                        if ($mail->sendEmail() && $admail->sendEmail()){
+                                        if ($admail->sendEmail()){
                                             echo true;
                                         }else{
                                            echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
@@ -287,6 +276,9 @@
                                 $error->send_email();
                                 //echo "Algunas de las imágenes no se han podido subir";
                             }
+                        }else{
+                            $data["page_title"]="ERROR 404";
+                            $this->render("error", "404", $data);
                         }
                     break;
 
@@ -306,7 +298,7 @@
             }elseif(isset($_SESSION["login"]) && $this->u->getRol()!='comprador' && !$this->u->getUser_activeaccount()){
                 //Eres vendedor pero no tienes la cuenta activada
                 $this->u->email=$this->u->getUser()["email"];
-                $this->u->sendActivationMail();
+                //$this->u->sendActivationMail();
                 $data['page_title']="Verifica tu cuenta";
                 $this->render('user', 'cuenta_no_verificada', $data);
             }else{

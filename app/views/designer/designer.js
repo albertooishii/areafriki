@@ -33,7 +33,6 @@ $(document).ready(function() {
     });
 
     $("#form-submit").click(function(e){
-        e.preventDefault();
         $('form').data('formValidation').validate();
         $('form').formValidation('revalidateField', 'design_editable');
         if($(".has-error").size()!=0){
@@ -70,6 +69,7 @@ $(document).ready(function() {
                 publicarDesign(fd, $("#dg-categoria").data("id"), $("#token").val(), fpd);
             });
         }
+        e.stopPropagation();
     });
 
     $("[name=tags]").change(function(){
@@ -89,9 +89,7 @@ function publicarDesign(data, categoria, token, fpd)
     $.ajax({
         type: "POST",
         url: "/upload?action=publish",
-        //url:"/upload?action=upload_big",
         data: data,
-        //enctype: 'multipart/form-data',
         processData:false,
         contentType:false,
         beforeSend: function(){
@@ -118,11 +116,8 @@ function publicarDesign(data, categoria, token, fpd)
             }
 
             $(".modal-title").html("ERROR");
-            $(".modal-body").html("Lo sentimos, ha habido un error al publicar la imagen.");
+            $(".modal-body").html("Lo sentimos, ha habido un error al publicar la imagen. Revisa el formato y vuelve a intentarlo. Gracias.");
             $('#modalDg').modal({backdrop: 'static', keyboard: false});
-            $(".close-modal").click(function(){
-                window.location.reload();
-            });
         },
         complete: function(){
             $("#load").remove();

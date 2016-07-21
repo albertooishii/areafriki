@@ -35,7 +35,6 @@ $(document).ready(function(){
     });
 
     $("#venta-submit").click(function(e){
-        e.preventDefault();
         $('form').data('formValidation').validate();
         $('form').formValidation('revalidateField', 'files[]');
         if($(".has-error").size()!=0 || $('form').find('input[name="tags"]').val()==''){
@@ -85,6 +84,7 @@ $(document).ready(function(){
                 }
             });
         }
+        e.stopPropagation();
     });
 });
 function unloadPage(){

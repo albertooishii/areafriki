@@ -1,10 +1,12 @@
 <style>
     body{background: black;}
+    p,h3{color: white !important;}
 </style>
 
 
-<div class="container">
-    <p>Bzzzz... error 404, error del sistema.</p>
+<div class="container wrapper text-center">
+    <h3 class="text-center">Bzzzz... ERROR 404</h3>
+    <p>LA PÁGINA SOLICITADA NO EXISTE. MIENTRAS AVERIGUAS COMO SALIR DE AQUÍ PUEDES ECHARTE UNA PARTIDA.</p>
 
     <div id="easteregg">
 
