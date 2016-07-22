@@ -44,7 +44,7 @@
             if(@$_GET["section"]=='simbiosis'){
                 $page=$this->loadView($folder, $view, $data);
                 include_once 'app/templates/backoffice/page.php';
-            }else{
+            }elseif(!MAINTENANCE || $this->u->isAdmin()){
                 #ETIQUETAS DEL HEADER POR DEFECTO#
                 if(!isset($data["page_title"])){
                     $data["page_title"]=PAGE_NAME;
@@ -78,6 +78,12 @@
                 $page=$this->loadView($folder, $view, $data);
                 ob_start();                      // start capturing output
                 include_once 'app/templates/frontoffice/page.php';   // execute the file
+                $html = ob_get_contents();    // get the contents from the buffer
+                ob_end_clean();
+                echo $this->minifyHtml($html);
+            }else{
+                ob_start();                      // start capturing output
+                include_once 'maintenance.php';   // execute the file
                 $html = ob_get_contents();    // get the contents from the buffer
                 ob_end_clean();
                 echo $this->minifyHtml($html);

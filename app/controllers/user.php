@@ -125,7 +125,7 @@
                             $data["texto_mensaje"]="Hemos enviado un email a la dirección de correo que nos has facilitado al registrarte con un enlace único para poder verificar tu cuenta. Puede tardar hasta 5 minutos desde que te registraste. No olvides revisar tu bandeja de spam/no deseado.";
                         }else{
                             $data["titulo_mensaje"]="Error";
-                            $data["texto_mensaje"]="No se ha podido enviar el email de activación de la cuenta. Ponte en contacto con nosotros a través de esta dirección: <a href='mailto:<?=CONTACT_EMAIL?>'><?=CONTACT_EMAIL?></a> para que te la podamos activar manualmente. Muchas gracias.";
+                            $data["texto_mensaje"]="No se ha podido enviar el email de activación de la cuenta. Ponte en contacto con nosotros a través de esta dirección: <a href='mailto:".CONTACT_EMAIL."'>".CONTACT_EMAIL."</a> para que te la podamos activar manualmente. Muchas gracias.";
                         }
                         $this->render('mensaje','mensaje',$data);
                     }else{

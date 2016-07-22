@@ -38,7 +38,7 @@
                 $mail->Host = SMTP_HOST;
                 $mail->Port = SMTP_PORT;
                 $mail->SMTPAuth = true;
-                $mail->SMTPSecure = SMTP_SECURE;
+                //$mail->SMTPSecure = SMTP_SECURE;
                 $mail->Username = SMTP_EMAIL;
                 $mail->Password = SMTP_PASS;
             }
