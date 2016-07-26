@@ -570,6 +570,22 @@ footer p{
 }
 
 /*FICHA DE PRODUCTO (PRODUCT FILE)-----------------*/
+
+.product-page .page-header{
+    height: 350px;
+}
+
+@media only screen and (max-width : 991px) {
+    .product-page .main-raised{
+        margin: -90vh 0px 0px;
+        padding: 0px;
+    }
+}
+
+.product_file .img-design{
+    margin-top: 30px;
+}
+
 .product_file img{
     width: 100%;
 }
@@ -587,7 +603,8 @@ footer p{
 
 .product_buttons li {
     display: inline-block;
-    width: 50px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .product_buttons p{
@@ -596,10 +613,6 @@ footer p{
 
 .like-button .fa{
     color: #F44336;
-}
-
-.product_file .thumbnails{
-    padding-top: 10px;
 }
 
 .color_selector{
@@ -706,7 +719,7 @@ footer p{
 
 /*USER-------------------------*/
 @media only screen and (min-width : 769px) {
-    #user_profile{
+    #user_profile, .product-page{
         margin-top: 84px;
     }
 }

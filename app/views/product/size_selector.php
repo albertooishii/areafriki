@@ -1,5 +1,5 @@
 <div id="size_selector" class="form-group">
-    <label class="control-label"><p><i class="material-icons">zoom_out_map</i> Selecciona el tamaño:</p></label><br>
+    <label class="control-label">Selecciona el tamaño:</label><br>
     <select class="form-control" id="size">
 <?php
     foreach($data as $size){

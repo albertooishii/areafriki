@@ -398,6 +398,7 @@
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
                                             $data["creador_avatar"]=$creador->getAvatar(64);
+                                            $data['banner']=$creador->getBanner();
                                             $data["dg-token"]=$_GET["token"];
                                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
                                             $data["dg-descripcion"]=$producto["descripcion"];
@@ -467,8 +468,52 @@
                                                 $data["condition"]="new";
                                                 $data["preparacion"]=2;
                                                 $data["tiempo_envio"]=3;
+                                                $data["modelo"]=$producto["modelo"];
                                                 $data["thumbnails"]="";
-                                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
+
+                                                $data["custom_js"]="";
+
+                                                switch($data["nombre_categoria"]){
+                                                    case 'camisetas':
+                                                        $data["left"]=$producto["left_pos"];
+                                                        $data["top"]=$producto["top_pos"];
+                                                        $data["scale"]=$producto["scale"];
+
+                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png";
+                                                        $img_design = new Imagick($data["img_design"]);
+
+                                                        $img_design_sizes=$img_design->getImageGeometry();
+                                                        $data["width"]=$width=$img_design_sizes["width"];
+                                                        $data["height"]=$height=$img_design_sizes["height"];
+
+                                                        $data["montaje"]=$this->loadView("product","camisetas",$data);
+
+                                                        $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
+                                                    break;
+
+                                                    case 'sudaderas':
+                                                        $data["left"]=$producto["left_pos"];
+                                                        $data["top"]=$producto["top_pos"];
+                                                        $data["scale"]=$producto["scale"];
+
+                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png";
+                                                        $img_design = new Imagick($data["img_design"]);
+
+                                                        $img_design_sizes=$img_design->getImageGeometry();
+                                                        $data["width"]=$width=$img_design_sizes["width"];
+                                                        $data["height"]=$height=$img_design_sizes["height"];
+
+                                                        $data["montaje"]=$this->loadView("product","sudaderas",$data);
+
+                                                        $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
+                                                    break;
+
+                                                    default:
+                                                        $data["montaje"]="<img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'>";
+                                                }
+
+
+                                                $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);

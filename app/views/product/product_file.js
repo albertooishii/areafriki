@@ -3,9 +3,15 @@ $(document).ready(function() {
         e.preventDefault();
         $(".color_selector").removeClass("selected");
         $(this).addClass('selected');
+        var color = $(this).data("color");
 
-        var parametros={
-            "color":$(this).data("color")
+        var target = fpd.getElementByTitle("Base");
+        fpd.currentViewInstance.changeColor(target,color,false,false);
+
+        $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
+
+        /*var parametros={
+            "color":color
         };
 
         $.ajax({
@@ -20,11 +26,13 @@ $(document).ready(function() {
             },
             success: function (response){
                 $(".montaje img").attr("src", response);
+                $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
+
             },
             error: function (){
                 alert('Error al añadir al carrito');
             }
-        });
+        });*/
     });
 
     $("#add-cart").click(function(e){

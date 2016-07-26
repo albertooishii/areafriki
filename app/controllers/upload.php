@@ -169,9 +169,11 @@
                                     $pr->top=$_POST["top"];
                                     $pr->left=$_POST["left"];
                                     $pr->scale=$_POST["scale"];
+                                    $img_dg->scaleImage(0, $height);
+                                    $img_dg->writeImage($upload_folder."/thumb-".$design_name.'.png');
+                                    $img_dg->scaleImage($pr->width*$pr->scale,0);
 
                                     if($img_dg->writeImage($upload_folder."/".$design_name.'.png')){//guardamos la imagen original como png
-
                                     #SUBIMOS EL FICHERO EDITABLE------------###
                                         if($_FILES["design_editable"]["error"]==0){
                                             $filename = $_FILES['design_editable']['name'];

@@ -42,11 +42,10 @@
                 case 'register':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
                     if($_POST){
-                        $this->u->name=$_POST["nombre"];
-                        $this->u->user=$_POST["username"];
-                        $this->u->email=$_POST["email"];
+                        $this->u->name=trim($_POST["nombre"]);
+                        $this->u->user=trim($_POST["username"]);
+                        $this->u->email=trim($_POST["email"]);
                         $this->u->pass=md5($_POST["password"]);
-                        $this->u->name=$_POST["nombre"];
                         $this->u->rol="user";
                         $this->u->ip=$this->getIP();
                         if($this->u->register()){
