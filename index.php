@@ -17,6 +17,18 @@
                 $u->index_carrito();
             break;
 
+            case 'pedido':
+                include_once 'app/controllers/pedido.php';
+                $p = new Pedido();
+                $p->index_pedido();
+            break;
+
+            case 'venta':
+                include_once 'app/controllers/venta.php';
+                $p = new Venta();
+                $p->index_venta();
+            break;
+
             case 'user':
                 include_once 'app/controllers/user.php';
                 $u = new User();
@@ -58,6 +70,12 @@
                 include_once 'app/controllers/home.php';
                 $h = new Home();
                 $h->index_home();
+            break;
+
+            case 'store':
+                include_once 'app/controllers/store.php';
+                $as = new Store();
+                $as->index_store();
             break;
 
             case 'error':

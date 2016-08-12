@@ -28,6 +28,18 @@ RewriteRule ^logout/$ index.php?section=user&action=logout [QSA,L]
 RewriteRule ^login/recoverpass$ index.php?section=user&action=recoverpass [QSA,L]
 RewriteRule ^login/recoverpass/$ index.php?section=user&action=recoverpass [QSA,L]
 
+RewriteRule ^areastore$ index.php?section=store [QSA,L]
+RewriteRule ^areastore/$ index.php?section=store [QSA,L]
+
+RewriteRule ^carrito$ index.php?section=carrito [QSA,L]
+RewriteRule ^carrito/$ index.php?section=carrito [QSA,L]
+
+RewriteRule ^carrito/checkout$ index.php?section=carrito&action=checkout [QSA,L]
+RewriteRule ^carrito/checkout/$ index.php?section=carrito&action=checkout [QSA,L] 
+
+RewriteRule ^carrito/pago$ index.php?section=carrito&action=pago [QSA,L]
+RewriteRule ^carrito/pago/$ index.php?section=carrito&action=pago [QSA,L] 
+
 RewriteRule ^user/([a-zA-Z0-9_-]+)/lists$ index.php?section=user&node=lists&user=$1 [L]
 RewriteRule ^user/([a-zA-Z0-9_-]+)/lists/$ index.php?section=user&node=lists&user=$1 [L]
 
@@ -73,23 +85,29 @@ RewriteRule ^designer/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step3&c
 RewriteRule ^tag/(.*)$ index.php?section=home&tag=$1 [QSA,L]
 RewriteRule ^tag/(.*)$/$ index.php?section=home&tag=$1 [QSA,L]
 
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
+RewriteRule ^myorders$ index.php?section=pedido&action=myorders [QSA,L]
+RewriteRule ^myorders/$ index.php?section=pedido&action=myorders [QSA,L]
 
-RewriteRule ^carrito$ index.php?section=carrito [QSA,L]
-RewriteRule ^carrito/$ index.php?section=carrito [QSA,L]
+RewriteRule ^myorders/(.*)$ index.php?section=pedido&action=view&token=$1 [QSA,L]
+RewriteRule ^myorders/(.*)/$ index.php?section=pedido&action=view&token=$1 [QSA,L] 
 
-RewriteRule ^pago$ index.php?section=pago [QSA,L]
-RewriteRule ^pago/$ index.php?section=pago [QSA,L]
+RewriteRule ^mysales$ index.php?section=venta&action=mysales [QSA,L]
+RewriteRule ^mysales/$ index.php?section=venta&action=mysales [QSA,L]
 
-RewriteRule ^myorders$ index.php?section=user&action=myorders [QSA,L]
-RewriteRule ^myorders/$ index.php?section=user&action=myorders [QSA,L]
+RewriteRule ^mysales/(.*)$ index.php?section=venta&action=view&token=$1 [QSA,L]
+RewriteRule ^mysales/(.*)/$ index.php?section=venta&action=view&token=$1 [QSA,L] 
 
 RewriteRule ^myuploads$ index.php?section=producto&action=myuploads [QSA,L]
 RewriteRule ^myuploads/$ index.php?section=producto&action=myuploads [QSA,L]
 
 RewriteRule ^settings$ index.php?section=user&action=settings [QSA,L]
 RewriteRule ^settings/$ index.php?section=user&action=settings [QSA,L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
+
+RewriteRule ^pago$ index.php?section=pago [QSA,L]
+RewriteRule ^pago/$ index.php?section=pago [QSA,L]
 
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&categoria=$1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1 [QSA,L]

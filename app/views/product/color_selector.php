@@ -1,6 +1,4 @@
 <div id="color_selector">
-    <label class="control-label">Selecciona el color:</label><br>
-
 <?php
     foreach($data["lista_colores"] as $color){
         if(strtoupper($data["color"]) == strtoupper($color["codigo"])){

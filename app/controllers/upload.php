@@ -1,7 +1,4 @@
 <?php
-
-    require_once 'app/core/controller.php';
-
     class Upload extends Controller{
         function index_uploads(){
             if(isset($_SESSION["login"]) && $this->u->getUser_activeaccount()){

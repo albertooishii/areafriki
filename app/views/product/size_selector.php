@@ -4,7 +4,7 @@
 <?php
     foreach($data as $size){
 ?>
-        <option value="<?=$size["codigo"]?>" data-orden="<?=$size["orden"]?>"><?=$size["valor"]?></option>
+        <option value="<?=$size["orden"]?>" data-orden="<?=$size["orden"]?>"><?=$size["valor"]?></option>
 <?php
     }
 ?>

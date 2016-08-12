@@ -1,6 +1,9 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
+<?php
+    if($data["paypal"]==true){
+?>
+    <div class="col-md-12">
+        <div class="form-group radio">
             <label>Paypal o Tarjeta bancaria
                 <input type="radio" name="pay_method" value="paypal" id="checkbox_paypal"
                     data-fv-choice="true"
@@ -12,12 +15,19 @@
             </label>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
+<?php
+    }
+    if($data["banco"]==true){
+?>
+    <div class="col-md-12">
+        <div class="form-group radio">
             <label>Ingreso o transferencia bancaria
                 <input type="radio" name="pay_method" value="transferencia" id="checkbox_transferencia" required>
                 <img style="width:100%" src="/app/views/forms/img/transferencia_button.jpg">
             </label>
         </div>
     </div>
+<?php
+    }
+?>
 </div>

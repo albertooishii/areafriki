@@ -1,6 +1,4 @@
 <?php
-    require_once 'app/core/controller.php';
-
     class Admin extends Controller{
 
         function index_admins(){

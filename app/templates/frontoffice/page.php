@@ -32,12 +32,20 @@
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+        <noscript>
+            <div class="noscript">
+            <p>Tu navegador no soporta Javascript. Actualiza a un navegador más reciente o activa esta función para que la web funcione correctamente.</p>
+            </div>
+        </noscript>
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
         <!--Bootstrap -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!--Bootstrap select-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 
         <!-- Material Kit -->
         <link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>
@@ -80,9 +88,7 @@
 	</head>
 	<body>
       <!-- header -->
-        <?php
-            require_once 'app/templates/frontoffice/header.php';
-        ?>
+        <?=$header?>
       <!-- end: header -->
       <!-- contenido -->
         <main>
@@ -90,15 +96,17 @@
         </main>
       <!-- end: contenido -->
       <!-- footer -->
-        <?php
-           require_once 'app/templates/frontoffice/footer.php';
-        ?>
+        <?=$footer?>
         <!-- end: footer -->
         <!--Scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
 
         <!--Bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/bootstrap.min.js"></script>
+
+        <!--Bootstrap select-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-es_CL.min.js"></script>
 
         <!--Material design bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/material.min.js"></script>

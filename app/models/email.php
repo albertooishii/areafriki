@@ -45,7 +45,7 @@
             $mail->setFrom($this->from, $this->from_name);
             $mail->addReplyTo($this->reply_to, $this->reply_to_name);
             $mail->addAddress($this->to, $this->to);
-            $mail->Subject = $this->subject;
+            $mail->Subject = "[TEST]".$this->subject;
             //$mail->AltBody="Cuerpo alternativo del mensaje en solo texto";
             $mail->msgHTML($this->body);
             //$mail->AddAttachment("ruta/archivoadjunto.jpg");

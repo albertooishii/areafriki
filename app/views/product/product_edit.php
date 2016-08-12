@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wrapper">
 <header>
     <h3 class="subhead aligncenter inner">EDICIÓN DE PRODUCTOS</h3>
 </header>

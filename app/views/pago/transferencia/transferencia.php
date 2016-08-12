@@ -1,10 +1,11 @@
 <div class="container wrapper">
-    <form action="/carrito?action=pago_completado" method="post">
-        <h3>¡Pedido completado satisfactoriamente!</h3>
-        <h4>INGRESO O TRANSFERENCIA BANCARIA</h4>
-        <p>Para completar el pago por ingreso o transferencia bancaria hay que realizar un abono a la siguiente cuenta:</p>
-        <blockquote>BBVA ES4001821508500201591888<br>Indica como concepto: AREAFRIKI <?=$data["token"]?></blockquote>
-        <p>El pedido se mantendrá en estado <em>pendiente</em> de pago hasta que hayamos recibido el pago. Una vez se haya recibido el pago se cambiará el estado a <em>pagado</em> y se comenzará todo el trámite.</p>
-        <a href="<?=PAGE_DOMAIN?>/carrito?action=resumen_pedido" class="btn btn-primary">Ver resumen del pedido <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    <form action="/carrito?action=notify&method=transferencia" method="post">
+        <h3 class="title">Pago mediante transferencia bancaria</h3>
+        <p>Se va a proceder a confirmar el pedido mediante transferencia bancaria. Si estás de acuerdo pulsa en Confirmar pedido.</p>
+
+        <input type="hidden" name="token_carrito" value="<?=$data["token_carrito"]?>">
+        <input type="hidden" name="banco" value="<?=$data["banco"]?>">
+        <a class="btn btn-default btn-round" href="/carrito">Volver</a>
+        <button type="submit" class="btn btn-primary btn-round">Confirmar pedido</button>
     </form>
 </div>

@@ -123,15 +123,10 @@
                         <div class="form-group">
                             <header><h4>CONFIGURA TU PRECIO</h4></header>
                             <p>Indica el precio al que quieres vender tu producto:</p>
-                            <p>Precio de venta: <input type="number" class="form-control" id="precio" min="0" step="0.01" value="0.00" style="width:150px; display:inline-block;" maxlength="4"> €</p>
-                            <p>Para garantizar un mejor servicio te mostramos el desglose del beneficio por la venta de tu producto.</p>
-
-                            <input type="hidden" value="0.00" name="beneficio" id="beneficio">
-                           <p>Tu beneficio: <span class="beneficio">0,00</span> €</p>
-                           <p>Comisión (7,5%): <span class="comision">0,00</span> €</p>
+                            <p>Precio de venta: <input type="number" class="form-control" id="precio" min="0" step="0.01" value="0.00" style="width:150px; display:inline-block;" name="beneficio" maxlength="4"> €</p>
                         </div>
                         <div class="form-group">
-                           <button type="submit" id="venta-submit" class="btn btn-warning btn-raised btn-lg aligncentermobile" name="submit"><i class="fa fa-paper-plane"></i> Publicar</button>
+                           <button type="submit" id="venta-submit" class="btn btn-primary btn-round aligncentermobile" name="submit"><i class="fa fa-paper-plane"></i> Publicar</button>
                         </div>
                     </div>
                 </div>

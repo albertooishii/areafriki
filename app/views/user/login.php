@@ -65,6 +65,13 @@
                                     <div class="text-center">
                                         <a href="/login/recoverpass">He olvidado mi contraseña</a>
                                     </div>
+                                <?php
+                                    if(isset($_GET["redirect"])){
+                                ?>
+                                    <input type="hidden" name="redirect" value="<?=$_GET["redirect"]?>">
+                                <?php
+                                    }
+                                ?>
                                     <div class="footer text-center">
                                         <button type="submit" class="btn btn-primary btn-round" name="signup" value="Sign up">¡ENTRAR!</button>
                                     </div>

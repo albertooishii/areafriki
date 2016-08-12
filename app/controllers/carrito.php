@@ -11,23 +11,48 @@
             $pr=New Precio_Model();
             $this->loadModel('categoria');
             $cat=New Categoria_Model();
+            $this->loadModel('pedido');
+            $ped=New Pedido_Model();
             $car->user=$this->u->id;
             @$action=$_GET["action"];
             switch($action){
 
                 case 'add':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $creador=New Users_Model();
+                        $p->id=$_POST["id"];
+                        $producto=$p->get();
+                        $cat->id=$producto["categoria"];
+                        $this->loadModel('design');
+                        $dg=New Design_Model();
+                        $dg->token=$producto["design"];
+                        $design=$dg->get();
+                        $creador->id=$design["user"];
+
+                        if($cat->get()["parent"]==1){ //areafriki (designs)
+                            $car->vendedor=0;
+                        }else{ //creador (crafts, baul)
+                            $car->vendedor=$creador->id;
+                        }
+
+                        if(!empty($_POST["size"])){$size=$_POST["size"];}else{$size="";}
+                        if(!empty($_POST["color"])){$color=$_POST["color"];}else{$color="";}
+                        if(!empty($_POST["nota"])){$nota=$_POST["nota"];}else{$nota="";}
 
                         $car->linea = array(
                             "producto"    => $_POST["id"],
                             "cantidad" => $_POST["cantidad"],
-                            "size" => $_POST["size"],
-                            "color" => $_POST["color"]
+                            "size" => $size,
+                            "color" => $color,
+                            "nota" => $nota,
+                            "fecha" => date ("Y-m-d H:i:s"),
+                            "activo" => true,
                         );
+
                         if($car->add()){
-                            return true;
+                            echo true;
                         }else{
-                            return false;
+                            echo false;
                         }
                     }
                 break;
@@ -35,6 +60,7 @@
                 case 'remove':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $car->linea=$_POST["linea"];
+                        $car->token=$_POST["token"];
                         if($car->removeLinea()){
                             echo true;
                         }else{
@@ -48,127 +74,518 @@
                         if(isset($_POST["cantidad"])){
                             $car->linea=$_POST["linea"];
                             $car->cantidad=$_POST["cantidad"];
+                            $car->token=$_POST["token"];
+                            $car->vendedor=$_POST["vendedor"];
                             $car->editCantidad();
                         }
                     }
                 break;
 
                 case 'checkout':
-                    if($carrito=$car->get()){
-                        $this->loadModel("provincia");
-                        $provincia = New Provincia_Model();
-                        $user=$this->u->getUser();
-                        $data["nombre"]=$user["name"];
-                        $data["direccion"]=$user["address"];
-                        $data["cp"]=$user["cp"];
-                        $data["localidad"]=$user["localidad"];
-                        $data["phone"]=$user["phone"];
-                        $data["lista_provincias"]=$selected="";
-                        $provincias=$provincia->get();
-                        $data["provincia_selected"]=$user["provincia"];
-                        $data["provincia"]=$this->loadView("forms","provincia",$data);
+                    if(isset($_POST["token"])){
+                        $data["token"]=$car->token=$_POST["token"];
 
-                        $pr->pedido=unserialize($carrito["pedido"]);
-                        $subtotal=$pr->getPrecioPedido();
-                        $data["subtotal"]=number_format($subtotal, 2, ',', ' ');
-                        $data["envio"]="3,50";
-                        $data["precio_total"]=number_format($subtotal, 2, ',', ' ');
-                        $data["form-pago"]=$this->loadView("forms","pago",$data);
-                        $this->render("carrito","checkout",$data);
-                    }
-                break;
+                        if($carrito=$car->get()){
+                            $this->loadModel('design');
+                            $dg=New Design_Model();
+                            $this->loadModel('user');
+                            $creador=New Users_Model();
+                            $vendedor=New Users_Model();
 
-                case 'resumen_pedido':
-                    echo "hola";
-                break;
+                            $pedido=$pr->pedido=unserialize($carrito["pedido"]);
+                            $pr->vendedor=$vendedor->id=$data["id_vendedor"]=$carrito["vendedor"];
+                            $subtotal=$total_envio_vendedor=$data["total_preparacion_vendedor"]=$data["tiempo_envio_total"]=$precio_total_vendedor=0;
+                            $data["productos_vendedor"]=$data["lista_productos"]="";
+                            foreach($pedido as $key => $linea){
+                                $data["linea"]=$key;
+                                $pr->producto=$p->id=$linea["producto"];
+                                $producto=$p->get();
+                                $data["dg_token"]=$dg->token=$producto["design"];
+                                $design=$dg->get();
+                                $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
+                                $data["dg_categoria"]=$cat->get()["nombre"];
+                                $data["dg_nombre"]=$producto["nombre"];
+                                $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
 
-                case 'pago':
-                    if(isset($_POST["pay_method"])){
-                        $method=$_POST["pay_method"];
-                        $carrito=$car->get();
-                        $pr->pedido=unserialize($carrito["pedido"]);
-                        $data["precio"]=$subtotal=$pr->getPrecioPedido();
-                        $data["token"]=$carrito["token"];        $data["enc_token"]=md5(GLOBAL_TOKEN.$carrito["token"]);
-                        switch($method){
-                            case 'transferencia':
-                                $this->render("pago","transferencia/transferencia",$data);
-                            break;
+                                $creador->id=$design["user"];
+                                $data["dg_autor"]=$creador->getUserFromID()["user"];
 
-                            case 'paypal':
-                                $this->render("pago","paypal/paypal",$data);
-                            break;
+                                $data["atributos"]="";
+                                $swatributo=0;
+
+                                if(!empty($linea["color"])){
+                                    $p->codigo=$linea["color"];
+                                    $color=$p->getNombreColor();
+                                    $data["atributos"].="Color: ".$color;
+                                    $swatributo=1;
+                                }
+
+                                $p->modelo=$producto["modelo"];
+                                if(!empty($linea["size"])){
+                                    if($swatributo==1){
+                                        $data["atributos"].=", ";
+                                    }
+                                    if($valor=$p->getValor($linea["size"])["valor"]){
+                                        $data["atributos"].="Tamaño: ".$valor;
+                                    }elseif($talla=$p->getSize($linea["size"])["valor"]){
+                                        $data["atributos"].="Talla: ".$talla;
+                                    }else{
+                                        $data["atributos"].="Talla: ".$linea["size"];
+                                    }
+                                }
+
+                                $data["nota"]="";
+                                if(!empty($linea["nota"])){
+                                    $data["nota"]=$linea["nota"];
+                                }
+
+                                $data["stock"]=$producto["stock"];
+                                $data["cantidad"]=$linea["cantidad"];
+
+                                /*PRECIO----------*/
+                                $precio=$pr->get($linea["size"]);
+                                $data["precio"]=number_format($precio, 2, ',', ' ')."€";
+                                $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                $precio_total_vendedor+=$precio*$linea["cantidad"];
+                                $subtotal+=$precio*$linea["cantidad"];
+
+                                /*GASTOS_ENVIO----------*/
+                                $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
+                                $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
+                                $total_envio_vendedor+=$gastos_envio;
+                                $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+
+                                if($pr->vendedor==0){
+                                    $data["nombre_vendedor"]=PAGE_NAME;
+                                    if($precio_total_vendedor<MIN_ENVIO_GRATIS){
+                                        $total_envio_vendedor=GASTOS_ENVIO;
+                                        $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                    }else{
+                                        $total_envio_vendedor=0;
+                                        $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                    }
+                                    $data["tiempo_envio"]=$data["tiempo_envio_total"]=TIEMPO_ENVIO*24;
+                                    $data["total_preparacion_vendedor"]=PREPARACION;
+                                }else{
+                                    $info_vendedor=$vendedor->getUserFromID();
+                                    $data["nombre_vendedor"]=$info_vendedor["user"];
+                                    $data["tiempo_envio"]=$producto["tiempo_envio"]*24;
+                                    //como tiempo de envio total marcamos el mayor de los productos del vendedor
+                                    if($data["tiempo_envio"]>$data["tiempo_envio_total"]){
+                                        $data["tiempo_envio_total"]=$data["tiempo_envio"];
+                                    }
+                                }
+                               $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
+                                $data["productos_vendedor"].=$this->loadView("carrito","producto",$data);
+                            }
+                            $data["carrito_vendedor"]=$this->loadView("carrito","vendedor",$data);
+
+                            if($pr->vendedor==0){
+                                if(PAYPAL){$data["paypal"]=true;}else{$data["paypal"]=false;}
+                                if(BANCO){$data["banco"]=true;}else{$data["banco"]=false;}
+                            }else{
+                                if(!empty($info_vendedor["paypal"])){$data["paypal"]=true;}else{$data["paypal"]=false;}
+                                if(!empty($info_vendedor["banco"])){$data["banco"]=true;}else{$data["banco"]=false;}
+                            }
+
+                            $data["form-pago"]=$this->loadView("forms","pago",$data);
+
+                            $this->loadModel("provincia");
+                            $provincia = New Provincia_Model();
+                            $provincias=$provincia->get();
+                            if(!empty($carrito["name"])){
+                                $data["nombre"]=$carrito["name"];
+                                $data["direccion"]=$carrito["address"];
+                                $data["cp"]=$carrito["cp"];
+                                $data["localidad"]=$carrito["localidad"];
+                                $data["phone"]=$carrito["phone"];
+                                $data["provincia_selected"]=$carrito["provincia"];
+                                $data["nota"]=$carrito["nota"];
+                            }elseif(isset($_SESSION["login"])){
+                                $user=$this->u->getUser();
+                                $data["nombre"]=$user["name"];
+                                $data["direccion"]=$user["address"];
+                                $data["cp"]=$user["cp"];
+                                $data["localidad"]=$user["localidad"];
+                                $data["phone"]=$user["phone"];
+                                $data["provincia_selected"]=$user["provincia"];
+                                $data["nota"]="";
+                            }else{
+                                $data["nombre"]=$data["direccion"]=$data["cp"]=$data["localidad"]=$data["phone"]=$data["provincia_selected"]="";
+                            }
+                            $data["provincia"]=$this->loadView("forms","provincia",$data);
+                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/carrito/carrito.js'></script>";
+                            $this->render("carrito","checkout",$data);
                         }
                     }else{
                         $this->render("error","404",$data);
                     }
                 break;
 
-                default:
+                case 'pago':
+                    if(isset($_POST["pay_method"])){
+                        $vendedor=New Users_Model();
+                        $data["token_carrito"]=$car->token=$_POST["token"];
+                        $carrito=$car->get();
 
-                    if($carrito=$car->get()){
+                        $pedido=unserialize($carrito["pedido"]);
+                        $pr->pedido=$pedido_vendedor=$pedido;
+
+                        $vendedor->id=$car->vendedor=$carrito["vendedor"];
+                        $info_vendedor=$vendedor->getUserFromID();
+
+                        $pr->getPrecioPedido();
+                        $data["precio_total"]=number_format($pr->precio_total, 2);
+
+                        //Guardamos en el carrito la información de envío
+                        $car->name=$_POST["name"];
+                        if(isset($_SESSION["login"])){
+                            $car->email=$this->u->getUser()["email"];
+                        }else{
+                            $car->email=$_POST["email"];
+                        }
+                        $car->address=$_POST["address"];
+                        $car->cp=$_POST["cp"];
+                        $car->provincia=$_POST["provincia"];
+                        $car->localidad=$_POST["localidad"];
+                        $car->phone=$_POST["phone"];
+                        $car->nota=$_POST["nota"];
+
+                        if($car->setInfoEnvio()){
+                            switch($_POST["pay_method"]){
+                                case 'transferencia':
+                                    if($car->vendedor==0){
+                                        $data["banco"]=BANCO;
+                                    }else{
+                                        $data["banco"]=$info_vendedor["banco"];
+                                    }
+                                    $this->render("pago","transferencia/transferencia",$data);
+                                break;
+
+                                case 'paypal':
+                                    if($ped->vendedor==0){
+                                        $data["paypal_email"]=PAYPAL;
+                                    }else{
+                                        $data["paypal_email"]=$info_vendedor["paypal"];
+                                    }
+                                    $this->render("pago","paypal/paypal",$data);
+                                break;
+                            }
+                        }else{
+                            $data["titulo_mensaje"]="Error";
+                            $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
+                            $this->render('mensaje','mensaje',$data);
+                        }
+                    }else{
+                        $this->render("error","404",$data);
+                    }
+                break;
+
+                case 'notify':
+                    $creador=New Users_Model();
+                    $vendedor=New Users_Model();
+                    $comprador=New Users_Model();
+                    $this->loadModel("email");
+                    $mail=New Email();
+                    $log="";
+                    if(isset($_GET["method"])){
+                        if($_GET["method"]=="paypal"){
+                            include_once DIR."/app/views/pago/paypal/notify.php";
+                            $car->token=$token_carrito;
+                        }else{
+                            $car->token=$_POST["token_carrito"];
+                        }
+
+                        if(isset($car->token)){
+                            if($carrito=$car->get()){
+                                $vendedor->id=$ped->vendedor=$carrito["vendedor"];
+                                $pedido=unserialize($carrito["pedido"]);
+                                $ped->preparacion=0;
+                                foreach($pedido as $key => $linea){
+                                    $p->id=$pr->producto=$linea["producto"];
+                                    $producto=$p->get();
+                                    $pr->categoria=$producto["categoria"];
+                                    $precio=$pr->get($linea["size"]);
+                                    $pedido[$key]["precio"]=$precio;
+                                    if($vendedor->id>0){
+                                        $ped->preparacion+=$producto["preparacion"];
+                                        //como tiempo de envio marcamos el mayor de los productos del vendedor
+                                        if($producto["tiempo_envio"]>$ped->tiempo_envio){
+                                            $ped->tiempo_envio=$producto["tiempo_envio"];
+                                        }
+                                    }else{
+                                        $ped->preparacion=PREPARACION;
+                                        $ped->tiempo_envio=TIEMPO_ENVIO;
+                                    }
+                                }
+
+                                $ped->pedido=$pr->pedido=$pedido;
+                                $pr->getPrecioPedido();
+                                $ped->gastos_envio=$pr->gastos_envio;
+                                $ped->precio=$pr->precio_total;
+                                $data["precio_total"]=number_format($pr->precio_total, 2, ',', ' ')."€";;
+
+                                $ped->metodo_pago=$_GET["method"];
+                                if(!empty($carrito["user"])){
+                                    $comprador->id=$ped->user=$carrito["user"];
+                                    $info_comprador=$comprador->getUserFromID();
+                                    $data["user"]=$info_comprador["user"];
+                                }
+
+                                //Información de envío
+                                $data["nombre"]=$ped->name=$carrito["name"];
+                                $ped->email=$carrito["email"];
+                                $ped->address=$carrito["address"];
+                                $ped->cp=$carrito["cp"];
+                                $ped->provincia=$carrito["provincia"];
+                                $ped->localidad=$carrito["localidad"];
+                                $ped->phone=$carrito["phone"];
+                                $ped->nota=$carrito["nota"];
+
+                                $swpedido=0;
+                                switch($_GET["method"]){
+                                    case 'paypal':
+                                        if($estado=="pagado"){
+                                            $ped->estado="pagado";
+                                        }else{
+                                            $ped->estado="pendiente";
+                                        }
+                                        $ped->genera_token();
+                                        $data["token"]=$ped->token;
+                                        if($ped->set()){
+                                            $swpedido=1;
+                                            $car->delete();
+                                        }else{
+                                            $log.="No se ha podido dar de alta el pedido\n\r";
+                                            $log.=print_r($ped,true);
+                                        }
+                                    break;
+
+                                    case 'transferencia':
+                                        $ped->estado=$estado="pendiente";
+                                        $ped->genera_token();
+                                        $data["token"]=$ped->token;
+                                        $data["banco"]=$_POST["banco"];
+                                        if($ped->set()){
+                                            $swpedido=1;
+                                            $car->delete();
+                                            $this->render("pago/transferencia", "notify", $data);
+                                        }else{
+                                            $data["titulo_mensaje"]="Error";
+                                            $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
+                                            $this->render('mensaje','mensaje',$data);
+                                        }
+                                    break;
+                                }
+
+                                if($swpedido==1){ //pedido perfecto
+                                    //Email para ÁreaFriki
+                                    $mail->getEmail("pago/administrador",$data);
+                                    $mail->to=CONTACT_EMAIL;
+                                    $mail->subject="[NUEVO PEDIDO] - ".$data["token"];
+                                    $mail->sendEmail();
+
+                                    $info_vendedor=$vendedor->getUserFromID();
+                                    if($ped->estado=="pagado"){ //estado es pagado
+                                        //Email para el comprador
+                                        $mail->getEmail("pago/comprador", $data);
+                                        $mail->to=$ped->email;
+                                        $mail->subject=PAGE_NAME." | [Confirmación de pedido]";
+                                        $mail->sendEmail();
+
+                                        //Email para el vendedor
+                                        if($vendedor->id>0){
+                                            $mail->getEmail("pago/vendedor", $data);
+                                            $mail->to=$info_vendedor["email"];
+                                            $mail->subject=PAGE_NAME." | [Nuevo pedido]";
+                                            $mail->sendEmail();
+                                        }else{//Email para el/los diseñador/es
+                                            foreach($pr->pedido as $linea){
+                                                $pr->producto=$p->id=$linea["producto"];
+                                                $producto=$p->get();
+                                                $data["dg_token"]=$dg->token=$producto["design"];
+                                                $design=$dg->get();
+                                                $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
+                                                $data["dg_categoria"]=$cat->get()["nombre"];
+                                                $data["dg_nombre"]=$producto["nombre"];
+
+                                                $creador->id=$design["user"];
+                                                $info_creador=$creador->getUserFromID();
+                                                $data["dg_autor"]=$info_creador["user"];
+                                                $data["cantidad"]=$linea["cantidad"];
+
+                                                $orden=$linea["size"];
+                                                $pr->modelo=$producto["modelo"];
+
+                                                $precio=$pr->get($orden);
+                                                $credito_anterior=$info_creador["credit"];
+                                                $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
+                                                $creador->credito=$credito=$pr->beneficio*$linea["cantidad"];
+                                                $creador->updateCredito();
+                                                $data["credito"]=number_format($credito, 2, ',', ' ')."€";
+                                                $credito_actual=$credito_anterior+$credito;
+                                                $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
+
+                                                $mail->getEmail("pago/designer", $data);
+                                                $mail->to=$info_creador["email"];
+                                                $mail->subject=PAGE_NAME." | [Producto Vendido]";
+                                                $mail->sendEmail();
+                                            }
+                                        }
+                                    }else{//estado es pendiente
+                                        if($_GET["method"]=="transferencia"){
+                                            //Email para comprador
+                                            $mail->getEmail("pago/transferencia", $data);
+                                            $mail->to=$ped->email;
+                                            $mail->subject=PAGE_NAME." | [Pedido pendiente]";
+                                            $mail->sendEmail();
+
+                                            //Email para vendedor
+                                            if($vendedor->id>0){
+                                                $mail->getEmail("pago/vendedor_transferencia", $data);
+                                                $mail->to=$info_vendedor["email"];
+                                                $mail->subject=PAGE_NAME." | [Pedido pendiente mediante transferencia bancaria]";
+                                                $mail->sendEmail();
+                                            }
+                                        }elseif($_GET["method"]=="paypal"){
+                                            //Email para vendedor
+                                            if($vendedor->id>0){
+                                                $mail->getEmail("pago/vendedor_pendiente", $data);
+                                                $mail->to=$info_vendedor["email"];
+                                                $mail->subject=PAGE_NAME." | [Pedido pendiente mediante paypal]";
+                                                $mail->sendEmail();
+                                            }
+                                        }
+                                    }
+                                    //sumamos las ventas a los productos y si tienen stock le restamos las unidades vendidas
+                                    foreach($pr->pedido as $linea){
+                                        $p->id=$linea["producto"];
+                                        $p->vender($linea["cantidad"]);
+                                    }
+                                }
+                            }else{
+                                $log.="No existe ningun carrito con este token";
+                                $data["titulo_mensaje"]="Error";
+                                $data["texto_mensaje"]="No hay ningún carrito con este token.";
+                                $this->render('mensaje','mensaje',$data);
+                            }
+                        }else{
+                            $this->render("error","404",$data);
+                        }
+                        $this->write_log($log, "LOG");
+                    }else{
+                        $this->render("error","404",$data);
+                    }
+                break;
+
+                default:
+                    if($carritos=$car->getCarritosUser()){
                         $this->loadModel('design');
                         $dg=New Design_Model();
                         $this->loadModel('user');
                         $creador=New Users_Model();
+                        $vendedor=New Users_Model();
 
-                        $pedido=unserialize($carrito["pedido"]);
-                        $data["lista_productos"]=$precio_total="";
-                        $contador=0;
-                        foreach($pedido as $linea){
-                            $pr->producto=$p->id=$linea["producto"];
-                            $producto=$p->get();
-                            $data["dg_token"]=$dg->token=$producto["design"];
-                            $design=$dg->get();
-                            $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
-                            $data["dg_categoria"]=$cat->get()["nombre"];
-                            $data["dg_nombre"]=$producto["nombre"];
+                        $data["lista_productos"]=$data["productos_vendedor"]="";
+                        $data["total_preparacion_vendedor"]=$subtotal=$precio_total_vendedor=$total_envio_vendedor=0;
 
-                            $creador->id=$design["user"];
-                            $data["dg_autor"]=$creador->getUserFromID()["user"];
+                        foreach($carritos as $carrito){
+                            $data["id_vendedor"]=$vendedor->id=$carrito["vendedor"];
+                            $pedido=unserialize($carrito["pedido"]);
+                            $data["token"]=$carrito["token"];
+                            $data["tiempo_envio_total"]=0;
+                            foreach($pedido as $key => $linea){
+                                $data["linea"]=$key;
+                                $pr->producto=$p->id=$linea["producto"];
+                                $producto=$p->get();
+                                $data["dg_token"]=$dg->token=$producto["design"];
+                                $design=$dg->get();
+                                $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
+                                $data["dg_categoria"]=$cat->get()["nombre"];
+                                $data["dg_nombre"]=$producto["nombre"];
+                                $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
 
-                            $data["atributos"]="";
-                            $swatributo=0;
+                                $creador->id=$design["user"];
+                                $data["dg_autor"]=$creador->getUserFromID()["user"];
 
-                            if(!empty($linea["color"])){
-                                $p->codigo=$linea["color"];
-                                $color=$p->getNombreColor();
-                                $data["atributos"].="color ".$color;
-                                $swatributo=1;
-                            }
+                                $data["atributos"]="";
+                                $swatributo=0;
 
-                            if(!empty($linea["size"])){
-                                if($swatributo==1){
-                                    $data["atributos"].=", ";
+                                if(!empty($linea["color"])){
+                                    $p->codigo=$linea["color"];
+                                    $color=$p->getNombreColor();
+                                    $data["atributos"].="color ".$color;
+                                    $swatributo=1;
                                 }
-                                $data["atributos"].="tamaño ".$linea["size"];
+
+                                $p->modelo=$producto["modelo"];
+                                if(!empty($linea["size"])){
+                                    if($swatributo==1){
+                                        $data["atributos"].=", ";
+                                    }
+                                    if($valor=$p->getValor($linea["size"])["valor"]){
+                                        $data["atributos"].="Tamaño: ".$valor;
+                                    }elseif($talla=$p->getSize($linea["size"])["valor"]){
+                                        $data["atributos"].="Talla: ".$talla;
+                                    }else{
+                                        $data["atributos"].="Talla: ".$linea["size"];
+                                    }
+                                }
+
+                                $data["nota"]="";
+                                if(!empty($linea["nota"])){
+                                    $data["nota"]=$linea["nota"];
+                                }
+
+                                $data["stock"]=$producto["stock"];
+                                $data["cantidad"]=$linea["cantidad"];
+
+                                /*PRECIO----------*/
+                                $precio=$pr->get($linea["size"]);
+                                $data["precio"]=number_format($precio, 2, ',', ' ')."€";
+                                $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                $precio_total_vendedor+=$precio*$linea["cantidad"];
+                                $subtotal+=$precio*$linea["cantidad"];
+
+                                /*GASTOS_ENVIO----------*/
+                                $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
+                                $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
+                                $total_envio_vendedor+=$gastos_envio;
+                                $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+
+                                $data["productos_vendedor"].=$this->loadView("carrito","producto", $data);
                             }
-
-                            $data["cantidad"]=$linea["cantidad"];
-
-                            $pr->codigo=$linea["size"];
-                            $pr->modelo="";
-                            if(!empty($producto["modelo"])){
-                                $pr->modelo=$producto["modelo"];
+                            if($vendedor->id==0){
+                                $data["nombre_vendedor"]=PAGE_NAME;
+                                if($precio_total_vendedor<MIN_ENVIO_GRATIS){
+                                    $total_envio_vendedor=GASTOS_ENVIO;
+                                    $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                }else{
+                                    $total_envio_vendedor=0;
+                                    $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";;
+                                }
+                                $data["tiempo_envio"]=$data["tiempo_envio_total"]=TIEMPO_ENVIO*24;
+                                $data["total_preparacion_vendedor"]=PREPARACION;
+                            }else{
+                                $data["nombre_vendedor"]=$vendedor->getUserFromID()["user"];
+                                $data["tiempo_envio"]=$producto["tiempo_envio"]*24;
+                                //como tiempo de envio total marcamos el mayor de los productos del vendedor
+                                if($data["tiempo_envio"]>$data["tiempo_envio_total"]){
+                                    $data["tiempo_envio_total"]=$data["tiempo_envio"];
+                                }
                             }
-
-                            $precio=$pr->get();
-                            $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                            $precio_total+=$precio*$linea["cantidad"];
-
-                            $data["linea"]=$contador;
-                            $contador++;
-                            $data["lista_productos"].=$this->loadView("carrito","producto", $data);
+                           $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
+                            $data["lista_productos"].=$this->loadView("carrito","vendedor",$data);
+                            $data["total_preparacion_vendedor"]=$precio_total_vendedor=$total_envio_vendedor=0;
+                            $data["productos_vendedor"]="";
                         }
-                        $data["precio_total"]=number_format($precio_total, 2, ',', ' ')."€";
+
+                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/carrito/carrito.js'></script>";
                         $this->render("carrito","carrito",$data);
                     }else{
                         $this->render("carrito","empty",$data);
                     }
             }
-        }
-
-        function getPrecioCarrito(){
-
         }
     }
 ?>

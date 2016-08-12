@@ -64,7 +64,11 @@
 
         function getProductosCategoria($limit=false)
         {
-            $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC LIMIT $limit";
+            if($limit){
+                $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC LIMIT $limit";
+            }else{
+                 $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC";
+            }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_productos[]=$fila;
@@ -114,7 +118,11 @@
 
         function getProductosTag($limit=false)
         {
-            $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') LIMIT $limit";
+            if($limit){
+                $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') LIMIT $limit";
+            }else{
+                 $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag')";
+            }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_productos[]=$fila;
@@ -321,6 +329,18 @@
             return false;
         }
 
+        function getSize($orden){
+            if(isset($this->categoria) && !empty($orden)){
+                $query="SELECT valor, codigo FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='size' AND categoria=$this->categoria) AND orden='$orden'";
+                $answer = $this->_db->query($query)->fetch_assoc();
+                if($answer!=NULL)
+                return $answer;
+                return false;
+            }else{
+                return false;
+            }
+        }
+
         function getValoresModelo(){
             $query="SELECT valor, codigo, orden FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='modelo' AND nombre='$this->modelo' AND categoria=$this->categoria) ORDER BY orden";
             if($answer=$this->_db->query($query)){
@@ -334,6 +354,18 @@
                 }
             }
             return false;
+        }
+
+        function getValor($orden){
+            if(isset($this->modelo) && isset($this->categoria)){
+                $query="SELECT valor, codigo FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='modelo' AND nombre='$this->modelo' AND categoria=$this->categoria) AND orden=$orden";
+                $answer = $this->_db->query($query)->fetch_assoc();
+                if($answer!=NULL)
+                return $answer;
+                return false;
+            }else{
+                return false;
+            }
         }
 
         function getTags(){
@@ -465,6 +497,21 @@
         function visitar()
         {
             $query="UPDATE productos SET visitas=visitas+1 WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function vender($cantidad)
+        {
+            $query="UPDATE productos SET ventas=ventas+$cantidad, stock=stock-$cantidad WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function cancelarVenta($cantidad){
+            $query="UPDATE productos SET ventas=ventas-$cantidad, stock=stock+$cantidad WHERE id='$this->id'";
             if ( $this->_db->query($query) )
             return true;
             return false;

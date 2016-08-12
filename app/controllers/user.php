@@ -1,6 +1,4 @@
 <?php
-    require_once 'app/core/controller.php';
-
     class User extends Controller{
 
         function index_users(){
@@ -41,6 +39,7 @@
 
                 case 'register':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
+                    $data["reg_msg"]="";
                     if($_POST){
                         $this->u->name=trim($_POST["nombre"]);
                         $this->u->user=trim($_POST["username"]);
@@ -49,6 +48,11 @@
                         $this->u->rol="user";
                         $this->u->ip=$this->getIP();
                         if($this->u->register()){
+                            $this->loadModel("pedido");
+                            $ped = New Pedido_Model();
+                            $ped->user=$this->u->id;
+                            $ped->email=$this->u->email;
+                            $ped->asignarPedidos();
                             header ("Location: ".PAGE_DOMAIN);
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
@@ -75,7 +79,15 @@
                         }else{$loginrec=0;}
                         if(!isset($_REQUEST["activation_key"])){
                             if($this->u->login($loginrec)){
-                                Header("Location: ".PAGE_DOMAIN);
+                                $this->loadModel('carrito');
+                                $car=New Carrito_Model();
+                                $car->user=$this->u->id;
+                                $car->asignar();
+                                if(!empty($_POST["redirect"])){
+                                    Header("Location: ".$_POST["redirect"]);
+                                }else{
+                                    Header("Location: ".PAGE_DOMAIN);
+                                }
                             }else{
                                 $data["login_msg"]=$this->loadView('error','form_error',"El nombre de usuario o la contraseña no son válidos.");
                                 $this->render('user','login',$data);
@@ -83,7 +95,15 @@
                         }else{
                             if($this->u->activate($_REQUEST["activation_key"])){
                                 if($this->u->login($loginrec)){
-                                    Header("Location: ".PAGE_DOMAIN);
+                                    $this->loadModel('carrito');
+                                    $car=New Carrito_Model();
+                                    $car->user=$this->u->id;
+                                    $car->asignar();
+                                    if(!empty($_POST["redirect"])){
+                                        Header("Location: ".$_POST["redirect"]);
+                                    }else{
+                                        Header("Location: ".PAGE_DOMAIN);
+                                    }
                                 }else{
                                     $data["login_msg"]=$this->loadView('error','form_error',"El nombre de usuario o la contraseña no son válidos.");
                                     $this->render('user','activation_form',$data);
@@ -100,7 +120,15 @@
                                 $this->u->pass=$_SESSION["login"]["pass"];
                                 //Intentamos activar con la sesion iniciada
                                 if($this->u->activate($_REQUEST["activation_key"])){
-                                    Header("Location: ".PAGE_DOMAIN);
+                                    $this->loadModel('carrito');
+                                    $car=New Carrito_Model();
+                                    $car->user=$this->u->id;
+                                    $car->asignar();
+                                    if(!empty($_POST["redirect"])){
+                                        Header("Location: ".$_POST["redirect"]);
+                                    }else{
+                                        Header("Location: ".PAGE_DOMAIN);
+                                    }
                                 }else{ //Si no deja pedimos los datos de acceso
                                     $data["activation_key"]=$_REQUEST["activation_key"];
                                     $this->render('user','activation_form',$data);
@@ -418,10 +446,6 @@
                     }else{
                         return false;
                     }
-                break;
-
-                case 'myorders':
-                    echo "hola";
                 break;
 
                 case 'updatepassword':

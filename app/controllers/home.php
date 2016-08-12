@@ -1,6 +1,4 @@
 <?php
-    include_once 'app/core/controller.php';
-
     class Home extends Controller{
 
         function index_home(){
@@ -21,14 +19,14 @@
                 if(isset($_GET["categoria"])){
                     $cat->nombre=$_GET["categoria"];
                     $pr->categoria=$cat->getWhereNombre()["id"];
-                    $lista_productos=$pr->getProductosCategoria(20);
+                    $lista_productos=$pr->getProductosCategoria();
                     $data["subhead"]="CATEGORÍA: ".strtoupper($cat->nombre);
                 }elseif(isset($_GET["tag"])){
                     $pr->tag=urldecode($_GET["tag"]);
-                    $lista_productos=$pr->getProductosTag(20);
+                    $lista_productos=$pr->getProductosTag();
                     $data["subhead"]="ETIQUETA: ".str_replace("-"," ",$pr->tag);
                 }else{
-                    $lista_productos=$pr->getProductos(20);
+                    $lista_productos=$pr->getProductos();
                 }
                 if(!empty($lista_productos)){
                     foreach($lista_productos as $producto){

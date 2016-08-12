@@ -23,5 +23,13 @@
             return false;
         }
 
+        function getNombre(){
+            $query="SELECT nombre FROM provincias WHERE id=$this->id";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer["nombre"];
+            return false;
+        }
+
     }
 ?>

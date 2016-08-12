@@ -1,8 +1,5 @@
 <footer>
     <div class="container">
-        <div id="feedback" class="nomobile">
-            <a href="/contacto">ERRORES O SUGERENCIAS</a>
-        </div>
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12 inner">
                 <a href="<?=PAGE_DOMAIN?>">PORTADA</a>

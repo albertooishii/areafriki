@@ -15,6 +15,7 @@
             <?=$data["my_designs"]?>
         </div>-->
     </div>
+    <canvas id="pro"></canvas>
     <div class="inner">
         <h4><i class="material-icons">info_outline</i>DESCRIPCIÓN DEL PRODUCTO</h4>
         <p><?=$data["cat_desc"]?></p>

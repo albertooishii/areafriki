@@ -70,12 +70,11 @@
                     <?php
                         if($data["cat_parent"]==1){
                     ?>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <header>
-                            <h3><i class="fa fa-info-circle"></i> CARACTERÍSTICAS DEL PRODUCTO</h3>
-                            <p><?=$data["cat_desc"]?></p>
-                        </header>
-                    </div>
+                    <?=$data["color_selector"]?>
+                    <header>
+                        <h4><i class="fa fa-info-circle"></i> CARACTERÍSTICAS DEL PRODUCTO</h4>
+                        <p><?=$data["cat_desc"]?></p>
+                    </header>
                     <?php
                         }
                     ?>
@@ -88,9 +87,13 @@
                        <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
                        <p>Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["nombre_categoria"]?></a> Etiquetas: <?=$data["tags"]?></p>
                         <?php
-                            if(!empty($data["stock"]) && $data["stock"]<=5){
+                            if(!empty($data["stock"]) && $data["stock"]<=5 && $data["stock"]>0){
                         ?>
-                                <p class="text-danger">¡Últimas <?=$data["stock"]?> unidades!</p>
+                                <p class="text-warning">¡Últimas <?=$data["stock"]?> unidades!</p>
+                        <?php
+                            }elseif(isset($data["stock"]) && $data["stock"]<=0){
+                        ?>
+                                <p class="text-danger">¡Producto agotado!</p>
                         <?php
                             }
                             if($data["cat_id"]==30){
@@ -111,12 +114,14 @@
                                 <p>Gastos de envío: <?=$data["gastos_envio"]?></p>
                         <?php
                             }
+                            if(!isset($data["stock"]) || $data["stock"]>0){
+                            if($data["puedevender"]){
                         ?>
                         <div class="atributos">
                             <?=$data["atributos"]?>
                        </div>
                         <?php
-                            if(empty($data["stock"]) || $data["stock"]>1){
+                            if(!isset($data["stock"]) || $data["stock"]>1){
                         ?>
                             <label class="control-label"><p>Cantidad:</p></label>
                             <input type="number" min="1" max="<?=$data["stock"]?>" name="cantidad" step="1" id="cantidad" class="form-control" value="1" style="width:100px;"
@@ -125,11 +130,35 @@
                                    data-fv-greaterthan-value="1"
                                    data-fv-greaterthan-message="La cantidad debe ser mayor o igual a 1" /><br>
                         <?php
+                            }else{
+                        ?>
+                                <input type="hidden" value="1" name="cantidad" id="cantidad" class="form-control">
+                        <?php
                             }
                         ?>
-                        <!--<div>
-                            <button id="add-cart" type="submit" class="btn btn-primary btn-round"><i class="material-icons">shopping_cart</i> Añadir al carrito</button>
-                        </div>-->
+                        <?php
+                            if($data["cat_parent"]!=1){
+                        ?>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Indica el modelo/color en caso de que haya varias opciones para elegir. (opcional)</label>
+                            <textarea class="form-control" name="nota" id="nota"></textarea>
+                        </div>
+                        <?php
+                            }
+                        ?>
+                        <div>
+                            <button id="add-cart" type="submit" class="btn btn-primary btn-round"><i class="material-icons">add_shopping_cart</i> Añadir al carrito</button>
+                        </div>
+                        <?php
+                            }else{
+                        ?>
+                        <div>
+                            <a href="#"><h4>¡Me gustaría comprar este producto!</h4></a>
+                        </div>
+                        <?php
+                            }
+                            }
+                        ?>
                     </form>
                 </div>
             </div>

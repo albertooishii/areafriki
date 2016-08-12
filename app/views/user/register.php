@@ -6,6 +6,7 @@
 
                     <div class="card card-signup">
                         <h2 class="text-center">Registrarse</h2>
+                        <?=$data["reg_msg"]?>
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="info info-horizontal">

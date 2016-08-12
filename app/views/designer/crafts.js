@@ -9,7 +9,7 @@ $(document).ready(function(){
         language: "es",
         autoReplace: true,
         maxFileCount: 4,
-        allowedFileExtensions: ["jpg", "png", "gif"],
+        allowedFileExtensions: ["jpg", "jpeg", "png", "gif"],
     });
 
     $(".next").click(function(e){

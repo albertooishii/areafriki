@@ -1,5 +1,5 @@
  <header class="masthead">
-    <nav class="navbar navbar-inverse navbar-fixed-top navbar-color-on-scroll navbar-transparent" id="sectionsNav">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sectionsNav">
         <div class="container">
             <div id="navleft" class="navbar-header pull-left">
                 <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#menu">
@@ -24,23 +24,26 @@
                             </div>
                         </div>
                     </li>
-                    <!--<li>
+                    <li>
                         <div class="btn btn-white btn-round btn-raised btn-fab btn-fab-mini" id="header-cart">
-                            <a href="/carrito"><i class="material-icons">shopping_cart</i><span id="header-count-carrito">(<?=$data["contador-carrito"]?>)</span></a>
+                            <a href="/carrito"><i class="material-icons">shopping_cart</i></a>
                         </div>
-                    </li>-->
+                        <span id="header-count-carrito"><?=$data["contador-carrito"]?></span>
+                    </li>
                     <?php
                         if(isset($_SESSION["login"])){
                     ?>
                     <li class="dropdown pull-right" id="header-user">
                         <a class='profile-photo dropdown-toggle' href="#" data-toggle="dropdown">
                             <div class="profile-photo-small">
-                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>"><span id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><!--<?=$_SESSION["login"]["user"]?>--></span>
+                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>">
                             </div>
+                            <span class="nomobile" id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><?=$_SESSION["login"]["user"]?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-dark">
                             <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">store</i> Mi tienda</a></li>
-                            <!--<li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>-->
+                            <li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>
+                            <li><a href="/mysales"><i class="material-icons">monetization_on</i> Mis ventas</a></li>
                             <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>
                             <li class="divider"></li>
                             <li><a href="/settings"><i class="material-icons">settings</i> Configuración</a></li>
@@ -87,6 +90,9 @@
                     <li class="dropdown">
                         <a href="/baul">BAÚL</a>
                     </li>
+                    <li class="dropdown">
+                        <a href="/areastore">AREASTORE</a>
+                    </li>
                     <li id="vender" class="nomobile">
                         <a href="/upload" class="btn btn-primary btn-round">
                             <i class="material-icons">edit</i>VENDER
@@ -118,4 +124,7 @@
             </div>
         </div>
     </div>
+</div>
+<div id="feedback" class="nomobile">
+    <a href="/contacto">ERRORES O SUGERENCIAS</a>
 </div>

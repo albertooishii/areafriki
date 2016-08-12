@@ -1,14 +1,12 @@
 <?php
-    include_once 'app/core/controller.php';
-
     class Producto extends Controller{
 
         function index_productos(){
 
             $this->loadModel("producto");
-            $pr = New Producto_Model();
+            $p = New Producto_Model();
             $this->loadModel("precio");
-            $pre = New Precio_Model();
+            $pr = New Precio_Model();
             $this->loadModel("categoria");
             $cat = New Categoria_Model();
             $this->loadModel("design");
@@ -20,14 +18,14 @@
             switch($action){
                 case 'getPrecioSize':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-                        $pre->producto=$pr->id=$_POST["id"];
-                        $producto=$pr->get();
+                        $pr->producto=$p->id=$_POST["id"];
+                        $producto=$p->get();
 
-                        $pre->categoria=$producto["categoria"];
-                        $pre->codigo=$_POST["size"];
+                        $pr->categoria=$producto["categoria"];
+                        $pr->codigo=$_POST["size"];
                         $orden=$_POST["orden"];
 
-                        if($precio=$pre->get($orden)){
+                        if($precio=$pr->get($orden)){
                             echo number_format( $precio ,2,',','')."€";
                         }else{
                             echo "error";
@@ -37,12 +35,12 @@
 
                 case 'changeColor':
                     $data["nombre_categoria"]=$cat->nombre=$categoria=$_GET["categoria"];
-                    $pr->categoria=$cat->id=$cat->getWhereNombre()["id"];
-                    $data["dg-token"]=$pr->token=$dg->token=$_GET["token"];
-                    if($producto=$pr->getProductoWhereToken()){
-                        $data["id_producto"]=$dg->id=$pr->id=$producto["id"];
+                    $p->categoria=$cat->id=$cat->getWhereNombre()["id"];
+                    $data["dg-token"]=$p->token=$dg->token=$_GET["token"];
+                    if($producto=$p->getProductoWhereToken()){
+                        $data["id_producto"]=$dg->id=$p->id=$producto["id"];
                         $design=$dg->get();
-                        $producto=$pr->get();
+                        $producto=$p->get();
                         $creador->id=$design["user"];
                         $infouser=$creador->getUserFromID();
                         $data["username"]=$infouser["user"];
@@ -58,9 +56,9 @@
 
                         $img_design->scaleImage($width,0);
 
-                        $pr->codigo=$_POST["color"];
-                        $color=$pr->getNombreColor();
-                        $color=str_replace(" ", "_", strtolower ($pr->getNombreColor()));
+                        $p->codigo=$_POST["color"];
+                        $color=$p->getNombreColor();
+                        $color=str_replace(" ", "_", strtolower ($p->getNombreColor()));
                         if(empty($producto["modelo"])){
                             $img_base = new Imagick(PAGE_DOMAIN."/app/views/product/colores/".$data["nombre_categoria"]."/".$color.".png");
                         }else{
@@ -77,10 +75,10 @@
                 break;
 
                 case 'new_list':
-                    $pr->nombre_lista=$_POST["list_name"];
-                    $pr->user=$this->u->id;
-                    if($pr->setLista()){
-                        echo $pr->token_lista;
+                    $p->nombre_lista=$_POST["list_name"];
+                    $p->user=$this->u->id;
+                    if($p->setLista()){
+                        echo $p->token_lista;
                     }else{
                         echo false;
                     }
@@ -88,9 +86,9 @@
 
                 case 'share':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $pr->categoria=$cat->id=$_POST["categoria"];
-                        $data["dg-token"]=$pr->token=$_POST["token"];
-                        $producto=$pr->getProductoWhereToken();
+                        $p->categoria=$cat->id=$_POST["categoria"];
+                        $data["dg-token"]=$p->token=$_POST["token"];
+                        $producto=$p->getProductoWhereToken();
                         $data["dg-categoria"]=$cat->get()["nombre"];
                         $data["dg-nombre"]=$producto["nombre"];
                         $data["dg-descripcion"]=$producto["descripcion"];
@@ -116,10 +114,10 @@
 
                 case 'countShare':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $pr->categoria=$cat->id=$_POST["categoria"];
-                        $data["dg-token"]=$pr->token=$_POST["token"];
-                        $pr->id=$pr->getProductoWhereToken()["id"];
-                        if($pr->share()){
+                        $p->categoria=$cat->id=$_POST["categoria"];
+                        $data["dg-token"]=$p->token=$_POST["token"];
+                        $p->id=$p->getProductoWhereToken()["id"];
+                        if($p->share()){
                             echo true;
                         }
                     }else{
@@ -130,10 +128,10 @@
 
                 case 'comment':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $pr->user=$this->u->id;
-                        $pr->id=$_POST["producto"];
-                        $data["comment_text"]=$pr->comentario=$_POST["comentario"];
-                        if($pr->comentar()){
+                        $p->user=$this->u->id;
+                        $p->id=$_POST["producto"];
+                        $data["comment_text"]=$p->comentario=$_POST["comentario"];
+                        if($p->comentar()){
                             $data["comment_user"]=$this->u->getUserFromID()["user"];
                             $data["comment_avatar"]=$this->u->getAvatar(128);
                             $data["comment_date"]="Ahora mismo";
@@ -149,10 +147,10 @@
 
                 case 'delete'://deactivate
                     if(isset($_GET["id"])){
-                        $pr->id=$_GET["id"];
-                        $dg->token=$pr->get()["design"];
+                        $p->id=$_GET["id"];
+                        $dg->token=$p->get()["design"];
                         if($dg->get()["user"]==$this->u->id){
-                            if($pr->deactivate()){
+                            if($p->deactivate()){
                                 header("Location:".$_SERVER['HTTP_REFERER']);
                             }else{
 
@@ -169,12 +167,12 @@
 
                 case 'edit':
                     if(isset($_GET["token"])){
-                        $pr->token=$_GET["token"];
-                        $producto=$pr->getProductoWhereToken();
-                        $data["id_producto"]=$pre->producto=$pr->id=$producto["id"];
+                        $p->token=$_GET["token"];
+                        $producto=$p->getProductoWhereToken();
+                        $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
                         $dg->token=$producto["design"];
                         if($dg->get()["user"]==$this->u->id){
-                            $pr->user=$this->u->id;
+                            $p->user=$this->u->id;
                             $data["username"]=$this->u->user;
                             $data["dg-token"]=$_GET["token"];
                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
@@ -187,7 +185,7 @@
                             $data["preparacion"]=$producto["preparacion"];
                             $data["gastos_envio"]=$producto["gastos_envio"];
                             $data["tiempo_envio"]=$producto["tiempo_envio"];
-                            $lista_tags=$pr->getTags();
+                            $lista_tags=$p->getTags();
                             $data["tags"]="";
                             if($lista_tags){
                                 foreach($lista_tags as $tag){
@@ -196,8 +194,8 @@
                                 $data["tags"]=trim($data["tags"], ', ');
                             }
 
-                            $data["lista_producto"]=$pr->token_lista=$producto["lista"];
-                            $data["listas"]=$pr->getListas();
+                            $data["lista_producto"]=$p->token_lista=$producto["lista"];
+                            $data["listas"]=$p->getListas();
                             $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
 
 
@@ -211,7 +209,7 @@
                                     $data["beneficio_max"]=$cat->beneficio;
                                     $data["beneficio"]=$this->loadView("product", "product_edit_precios",$data);
                                 }else{
-                                    $data["precio_venta"]=round($producto["beneficio"]*1.075,2);
+                                    $data["precio_venta"]=round($producto["beneficio"],2);
                                     $data["comision"]=$data["precio_venta"]-$producto["beneficio"];
                                     $data["beneficio"]=$this->loadView("product", "product_edit_precios_venta",$data);
                                 }
@@ -221,7 +219,7 @@
                                 $data["beneficio"]="";
                                 foreach($valores as $valor){
                                     $data["orden"]=$valor["orden"];
-                                    $data["beneficio_valor"]=$pre->getBeneficio($data["orden"]);
+                                    $data["beneficio_valor"]=$pr->getBeneficio($data["orden"]);
                                     $data["valor"]=$valor["valor"];
                                     $data["beneficio_max"]=$valor["beneficio"];
                                     $data["precio_base"]=$valor["precio_base"];
@@ -257,31 +255,31 @@
                 case 'savechanges':
                     //print_r($_POST);
                     if(isset($_POST["token"])){
-                        $pr->token=$_POST["token"];
-                        $producto=$pr->getProductoWhereToken();
-                        $pr->id=$producto["id"];
+                        $p->token=$_POST["token"];
+                        $producto=$p->getProductoWhereToken();
+                        $p->id=$producto["id"];
                         $dg->token=$producto["design"];
                         if($dg->get()["user"]==$this->u->id){
-                            $pr->nombre=$_POST["nombre"];
-                            $pr->descripcion=$_POST["descripcion"];
-                            $pr->tags=explode(',',$_POST["tags"]);
+                            $p->nombre=$_POST["nombre"];
+                            $p->descripcion=$_POST["descripcion"];
+                            $p->tags=explode(',',$_POST["tags"]);
                             if(isset($_POST["listas_productos"])){
-                                $pr->token_lista=$_POST["listas_productos"];
+                                $p->token_lista=$_POST["listas_productos"];
                             }
-                            $pr->beneficio=$_POST["beneficio"];
+                            $p->beneficio=$_POST["beneficio"];
                             if(isset($_POST["stock"])){
-                                $pr->stock=$_POST["stock"];
+                                $p->stock=$_POST["stock"];
                             }
                             if(isset($_POST["preparacion"])){
-                                $pr->preparacion=$_POST["preparacion"];
+                                $p->preparacion=$_POST["preparacion"];
                             }
                             if(isset($_POST["tiempo_envio"])){
-                                $pr->tiempo_envio=$_POST["tiempo_envio"];
+                                $p->tiempo_envio=$_POST["tiempo_envio"];
                             }
                             if(isset($_POST["gastos_envio"])){
-                                $pr->gastos_envio=$_POST["gastos_envio"];
+                                $p->gastos_envio=$_POST["gastos_envio"];
                             }
-                            if($pr->update()){
+                            if($p->update()){
                                 header("Location:".PAGE_DOMAIN.'/myuploads');
                             }else{
                                 echo "error";
@@ -299,15 +297,15 @@
                 case 'search':
                     if(!empty($_POST["string"])){
                         $string=$_POST["string"];
-                        if($resultados=$pr->search($string)){
+                        if($resultados=$p->search($string)){
                             $lista_productos="";
                             foreach($resultados as $producto){
                                 $creador = New Users_Model();
                                 $data["dg-token"]=$dg->token=$producto["design"];
                                 $design=$dg->get();
-                                $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                                $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                                 $infocreador=$creador->getUserFromID();
-                                $data["id_producto"]=$pr->id;
+                                $data["id_producto"]=$p->id;
                                 $data["cat_id"]=$cat->id=$producto["categoria"];
                                 $data["cat_nombre"]=$cat->get()["nombre"];
                                 $data["username"]=$creador->user=$infocreador["user"];
@@ -324,18 +322,18 @@
                 break;
 
                 case 'myuploads':
-                    $pr->creador=$this->u->id;
-                    if($lista_productos=$pr->getProductosUser()){
+                    $p->creador=$this->u->id;
+                    if($lista_productos=$p->getProductosUser()){
                         $data["lista_productos"]="";
                         foreach($lista_productos as $producto){
-                            $data["producto"]=$pre->producto=$pr->id=$producto["id"];
+                            $data["producto"]=$pr->producto=$p->id=$producto["id"];
                             $data["dg_token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $pre->categoria=$cat->id=$pr->categoria=$pr->categoria=$producto["categoria"];
+                            $pr->categoria=$cat->id=$p->categoria=$p->categoria=$producto["categoria"];
                             $data["dg_categoria"]=$cat->get()["nombre"];
                             $data["dg_nombre"]=$producto["nombre"];
 
-                            $lista_tags=$pr->getTags();
+                            $lista_tags=$p->getTags();
                             $data["tags"]="";
 
                             if($lista_tags){
@@ -350,23 +348,19 @@
                             $creador->id=$design["user"];
                             $data["dg_autor"]=$creador->getUserFromID()["user"];
 
-                            $pr->modelo="";
-                            if(!empty($producto["modelo"])){
-                                $pr->modelo=$producto["modelo"];
-                            }
+                            $pr->modelo=$p->modelo=$producto["modelo"];
 
-                            if(!empty($producto["beneficio"])){
-                                $data["beneficio"]=number_format($pre->getBeneficio(), 2, ',', ' ')."€";
-                                $data["precio_venta"]=number_format($pre->get(), 2, ',', ' ')."€";
-                            }else{
+                            if($valores=$p->getValoresModelo()){ //El producto tiene distintos valores
                                 $data["beneficio"]=$data["precio_venta"]="";
-                                $orden=0;
-                                $sizes=$pr->getSizes();
-                                foreach($sizes as $size){
-                                    $orden++;
-                                    $data["beneficio"].=$size["valor"].": ".number_format($pre->getBeneficio($orden), 2, ',', ' ')."€<br>";
-                                    $data["precio_venta"].= $size["valor"].": ".number_format($pre->get(), 2, ',', ' ')."€<br>";
+                                foreach($valores as $orden => $size){
+                                    $precio=$pr->get($orden+1);
+                                    $data["beneficio"].=$size["valor"].": ".number_format($pr->beneficio, 2, ',', ' ')."€<br>";
+                                    $data["precio_venta"].= $size["valor"].": ".number_format($precio, 2, ',', ' ')."€<br>";
                                 }
+                            }else{
+                                $precio=$pr->get();
+                                $data["beneficio"]=number_format($pr->beneficio, 2, ',', ' ')."€";
+                                $data["precio_venta"]= number_format($precio, 2, ',', ' ')."€";
                             }
 
                             $data["lista_productos"].=$this->loadView("user","myuploads_card", $data);
@@ -381,19 +375,19 @@
                     if (isset($_GET["categoria"])){
                         $data["nombre_categoria"]=$cat->nombre=$categoria=$_GET["categoria"];
                         if($info_cat=$cat->getWhereNombre()){
-                            $data["cat_id"]=$pre->categoria=$pr->categoria=$cat->id=$info_cat["id"];
+                            $data["cat_id"]=$pr->categoria=$p->categoria=$cat->id=$info_cat["id"];
                             $data["cat_desc"]=$info_cat["descripcion"];
 
                             if($categoria=$cat->get()){
                                 if(isset($_GET["token"])){
 
-                                    $data["dg-token"]=$pr->token=$dg->token=$_GET["token"];
-                                    if($producto=$pr->getProductoWhereToken()){
-                                        $data["id_producto"]=$dg->id=$pr->id=$pre->producto=$producto["id"];
-                                        $pr->visitar();
+                                    $data["dg-token"]=$p->token=$dg->token=$_GET["token"];
+                                    if($producto=$p->getProductoWhereToken()){
+                                        $data["id_producto"]=$dg->id=$p->id=$pr->producto=$producto["id"];
+                                        $p->visitar();
                                         $design=$dg->get();
-                                        $producto=$pr->get();
-                                        if($pr->isActive() && $pr->isRevisado()){
+                                        $producto=$p->get();
+                                        if($p->isActive() && $p->isRevisado()){
                                             $creador->id=$design["user"];
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
@@ -402,7 +396,7 @@
                                             $data["dg-token"]=$_GET["token"];
                                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
                                             $data["dg-descripcion"]=$producto["descripcion"];
-                                            $lista_tags=$pr->getTags();
+                                            $lista_tags=$p->getTags();
                                             $data["tags"]="";
 
                                             if($lista_tags){
@@ -415,24 +409,24 @@
                                             }
 
                                             if(isset($_SESSION["login"])){
-                                                $pr->user=$this->u->id;
+                                                $p->user=$this->u->id;
                                             }else{
-                                                $pr->user=0;
+                                                $p->user=0;
                                             }
-                                            if($pr->userLikeProducto()){
+                                            if($p->userLikeProducto()){
                                                 $data["like_class"]='like';
                                             }else{
                                                 $data["like_class"]='unlike';
                                             }
 
-                                            $data["contador_likes"]=$pr->getLikes();
-                                            $data["contador_shares"]=$pr->getShares();
-                                            $data["contador_visitas"]=$pr->getViews();
-                                            $data["contador_comments"]=$pr->getContComentarios();
+                                            $data["contador_likes"]=$p->getLikes();
+                                            $data["contador_shares"]=$p->getShares();
+                                            $data["contador_visitas"]=$p->getViews();
+                                            $data["contador_comments"]=$p->getContComentarios();
                                             $data["avatar"]=$this->u->getAvatar(128);
 
                                             $data["comments_list"]="";
-                                            $lista_comentarios=$pr->getComentarios();
+                                            $lista_comentarios=$p->getComentarios();
                                             if(!empty($lista_comentarios)){
                                                 $comen=New Users_Model();
                                                 foreach ($lista_comentarios as $comentario){
@@ -447,22 +441,25 @@
                                             }
 
                                             $data["cat_parent"]=$categoria["parent"];
+                                            $data["puedevender"]=true;
+
                                             if($categoria["parent"]==1){
-                                                $data["atributos"]="";
+                                                $data["atributos"]=$data["color_selector"]="";
 
                                                 if(!empty($producto["color"])){
-                                                    $data["lista_colores"]=$pr->getColores();
+                                                    $data["lista_colores"]=$p->getColores();
                                                     $data["color"]=$producto["color"];
-                                                    $data["atributos"].=$this->loadView('product','color_selector',$data);
+                                                    $data["color_selector"]=$this->loadView('product','color_selector',$data);
                                                 }
-                                                if($precio=$pre->get()){
+                                                if($precio=$pr->get()){
                                                     $data["precio_float"]=number_format($precio, 2);
                                                     $data["precio"] = number_format($data["precio_float"] ,2,',','');
                                                 }
 
-                                                if($lista_sizes=$pr->getValoresModelo()){
+                                                $data["modelo"]=$p->modelo=$producto["modelo"];
+                                                if($lista_sizes=$p->getValoresModelo()){
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
-                                                }elseif($lista_sizes=$pr->getSizes()){
+                                                }elseif($lista_sizes=$p->getSizes()){
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
                                                 }
                                                 $data["condition"]="new";
@@ -529,7 +526,7 @@
                                                     $data["thumbnail-number"]++;
                                                 }
 
-                                                $data["precio_float"]=number_format($pre->get(),2);
+                                                $data["precio_float"]=number_format($pr->get(),2);
                                                 $data["precio"] = number_format($data["precio_float"],2,',','');
 
                                                 if($cat->id==30){
@@ -553,6 +550,11 @@
                                                     $data["gastos_envio"] = "¡Envío gratuíto!";
                                                 }
                                                 $data["tiempo_envio"]=$producto["tiempo_envio"];
+
+                                                if(!$creador->puedeVender()){
+                                                    $data["puedevender"]=false;
+                                                }
+
                                                 $data["atributos"]="";
                                                 $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";

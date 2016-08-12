@@ -20,21 +20,31 @@
             }
             if(isset($_SESSION["login"])){
                 $this->u->user=$_SESSION["login"]["user"];
-                $this->u->id=$this->u->getUser()["id"];
+                $info_user=$this->u->getUser();
+                $this->u->id=$info_user["id"];
+                $this->u->email=$info_user["email"];
             }
+        }
+
+        public function loadHelper($helperName){
+            include_once DIR."/app/helpers/$helperName.php";
         }
 
         public function loadModel($modelName){
             include_once DIR."/app/models/$modelName.php";
         }
 
-        public function loadHelper($file){
-            require DIR."/app/helpers/$file.php";
-        }
-
         public function loadView($folder,$view,$data=false){
             ob_start();                      // start capturing output
             include DIR."/app/views/".$folder."/".$view.".php";   // execute the file
+            $page = ob_get_contents();    // get the contents from the buffer
+            ob_end_clean();
+            return $page;
+        }
+
+        public function loadTemplate($folder,$template,$data=false){
+            ob_start();                      // start capturing output
+            include DIR."/app/templates/".$folder."/".$template.".php";   // execute the file
             $page = ob_get_contents();    // get the contents from the buffer
             ob_end_clean();
             return $page;
@@ -75,6 +85,12 @@
                 if(!$this->u->getUser_activeaccount() && isset($_SESSION["login"])){
                     $data["header_advertencia"]=$this->loadView("header","advertencia");
                 }
+                if(@$_GET["section"]=='store'){
+                    $header=$this->loadTemplate("store", "header", $data);
+                }else{
+                    $header=$this->loadTemplate("frontoffice", "header", $data);
+                }
+                $footer=$this->loadTemplate("frontoffice", "footer", $data);
                 $page=$this->loadView($folder, $view, $data);
                 ob_start();                      // start capturing output
                 include_once 'app/templates/frontoffice/page.php';   // execute the file
@@ -190,6 +206,14 @@
                 unlink($archivos_carpeta);
             }
             rmdir($source);
+        }
+
+        public function write_log($cadena, $type=false)
+        {
+            $arch = fopen(realpath( '.' )."/logs/".date("Y-m-d").".txt", "a+");
+
+            fwrite($arch, "[".date("Y-m-d H:i:s.u")." - ".$type." - ".$_SERVER['REMOTE_ADDR']."] ".$cadena."\n");
+            fclose($arch);
         }
     }
 ?>

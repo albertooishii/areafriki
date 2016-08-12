@@ -3,7 +3,7 @@
 
     class Users_Model extends Database{
 
-        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $birthday, $idnum, $codigo_beta;
+        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $birthday, $idnum, $codigo_beta, $credito;
 
         function __construct(){
            parent::__construct();
@@ -55,6 +55,18 @@
             $query="SELECT count(*) as count FROM users WHERE active=1 AND DATE(creation_date) = DATE(NOW())";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["count"];
+        }
+
+        function puedeVender(){
+            $query="SELECT idnum, birthday, banco, paypal FROM users WHERE id=$this->id";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL){
+                if($answer["idnum"] && $this->calculaedad($answer["birthday"])>=18 && ($answer["banco"]) || $answer["paypal"]){
+                    return true;
+                }
+            }else{
+                return false;
+            }
         }
 
     // Write functions-----------------------------------------------------//
@@ -179,7 +191,6 @@
             $pass=sha1(GLOBAL_TOKEN.$this->pass);
 
             $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol')";
-
             if ( $this->_db->query($query) )
             return mysqli_insert_id($this->_db);
             return false;
@@ -258,6 +269,7 @@
 
                 //asignamos el nombre de usuario tal y como lo hemos leido en la base de datos (para evitar problemas de mayusculas y minúsculas)
                 $this->user=$answer["user"];
+                $this->id=$answer["id"];
 
                 $this->updateUser_date();//actualiza ultimo acceso
                 $this->updateUser_ip();//actualiza ultima ip
@@ -432,6 +444,13 @@
             return false;
         }
 
+        function updateCredito()
+        {
+             $query = "UPDATE users SET credit=credit+$this->credito WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
 
         function genera_codigos_registro() {
             $chars = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z');
@@ -451,6 +470,16 @@
             if ( $this->_db->query($query) )
             return true;
             return $this->genera_codigos_registro();
+        }
+
+        function calculaedad($fechanacimiento){
+            list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+            $ano_diferencia  = date("Y") - $ano;
+            $mes_diferencia = date("m") - $mes;
+            $dia_diferencia   = date("d") - $dia;
+            if ($dia_diferencia < 0 || $mes_diferencia < 0)
+                $ano_diferencia--;
+            return $ano_diferencia;
         }
     }
 ?>

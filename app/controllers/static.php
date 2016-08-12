@@ -1,6 +1,4 @@
 <?php
-    include_once 'app/core/controller.php';
-
     class CMS extends Controller{
 
         function index_cms(){

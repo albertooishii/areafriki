@@ -1,75 +1,106 @@
 <div class="container wrapper">
-    <form action="carrito?action=pago" method="post">
-        <div class="row">
-            <div class="col-md-9">
-                <div id="direccion">
-                    <h4>DIRECCIÓN DE ENVÍO</h4>
-                    <div class="form-group">
-                        <label for="inputNombre">Nombre y apellidos</label>
-                        <input type="text" class="form-control" id="inputNombre" placeholder="Nombre y apellidos" value="<?=$data["nombre"]?>" required name="nombre"
-                                data-fv-notempty="true"
-                                data-fv-notempty-message="El nombre es obligatorio" />
-                    </div>
+    <h3 class="title text-center">INFORMACIÓN DE ENVÍO</h3>
+    <p>Introduce y revisa tus datos personales y la dirección donde quieres que lleguen los envíos. Selecciona el método de pago que vas a utilizar y una vez esté todo a tu gusto dale a <strong>Pagar</strong></p>
 
-                    <div class="form-group">
-                        <label for="inputDireccion">Dirección</label>
-                        <input type="text" class="form-control" id="inputDireccion" placeholder="Calle, número, planta, letra, escalera" value="<?=$data["direccion"]?>" required name="direccion"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="La dirección es obligatoria"   />
+    <form action="<?=PAGE_DOMAIN?>/carrito/pago" method="post">
+        <div class="row inner">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h4 class="title">
+                                Resumen del pedido
+                                <i class="material-icons">keyboard_arrow_down</i>
+                            </h4>
+                        </a>
                     </div>
-
-                    <div class="form-group">
-                        <label for="inputCP">Código Postal</label>
-                        <input type="text" class="form-control" id="inputCP" placeholder="Código Postal" value="<?=$data["cp"]?>" required name="cp"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="El código postal es obligatorio"
-                            data-fv-stringlength-min="5"
-                            data-fv-stringlength-max="5"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputLocalidad">Localidad</label>
-                        <input type="text" class="form-control" id="inputLocalidad" placeholder="Localidad"value="<?=$data["localidad"]?>" required name="localidad"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="La localidad es obligatoria"/>
-                    </div>
-
-                    <div class="form-group">
-                       <label for="inputLocalidad">Provincia</label><br/>
-                        <?=$data["provincia"]?>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputTelefono">Número de teléfono</label>
-                        <input type="text" class="form-control" id="inputTelefono" placeholder="Teléfono" value="<?=$data["phone"]?>" required name="phone"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="El número de teléfono es necesario">
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <?=$data["carrito_vendedor"]?>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputNombre">Si deseas dejar un comentario sobre el pedido, escríbelo a continuación</label>
-                    <textarea class="form-control" name="descripcion"></textarea>
-                </div>
-                <div id="pago">
-                    <h4>OPCIONES DE PAGO</h4>
-                    <?=$data["form-pago"]?>
+                <h4 class="title">Dirección de envío</h4>
+                <p>Indica la dirección donde quieres que se envíe este pedido. Si ya tienes una dirección registrada en <?=PAGE_NAME?> puedes utilizarla.</p>
+                <div class="card">
+                    <div class="content">
+                        <div id="direccion">
+                            <div class="form-group label-floating">
+                                <label for="inputName" class="control-label">Nombre y apellidos</label>
+                                <input type="text" class="form-control" id="inputName" value="<?=$data["nombre"]?>" required name="name"
+                                        data-fv-notempty="true"
+                                        data-fv-notempty-message="El nombre es obligatorio" />
+                            </div>
+<?php
+    if(!isset($_SESSION["login"])){
+?>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" placeholder="Correo electrónico"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="El e-mail es obligatorio"
+                                    data-fv-emailaddress="true"
+                                    data-fv-emailaddress-message="No has introducido una dirección de e-mail válida" />
+                            </div>
+<?php
+    }
+?>
+                            <div class="form-group label-floating">
+                                <label for="inputDireccion" class="control-label">Dirección postal</label>
+                                <input type="text" class="form-control" id="inputDireccion" value="<?=$data["direccion"]?>" required name="address"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="La dirección es obligatoria"   />
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="inputCP" class="control-label">Código Postal</label>
+                                <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" required name="cp"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="El código postal es obligatorio"
+                                    data-fv-stringlength-min="5"
+                                    data-fv-stringlength-max="5"/>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="inputLocalidad" class="control-label">Localidad</label>
+                                <input type="text" class="form-control" id="inputLocalidad" value="<?=$data["localidad"]?>" required name="localidad"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="La localidad es obligatoria"/>
+                            </div>
+
+                            <div class="form-group">
+                               <label for="inputLocalidad" class="control-label">Provincia</label><br/>
+                                <?=$data["provincia"]?>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="inputTelefono" class="control-label">Número de teléfono</label>
+                                <input type="text" class="form-control" id="inputTelefono" value="<?=$data["phone"]?>" required name="phone"
+                                    data-fv-notempty="true"
+                                    data-fv-notempty-message="El número de teléfono es necesario">
+                            </div>
+                        </div>
+                        <div class="form-group label-floating">
+                            <label for="inputNombre" class="control-label">Si deseas dejar alguna aclaración sobre la dirección de envío escríbela a continuación</label>
+                            <textarea class="form-control" name="nota"><?=$data["nota"]?></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h4>Productos:</h4>
-                <h4><?=$subtotal?>€</h4>
-                <h4>Envío:</h4>
-                <h4><?=$envio?>€</h4>
-                <h3>Importe total:</h3>
-                <h3><?=$precio_total?>€</h3>
-                <p>Precio con IVA incluido</p>
-                <input type="submit" value="Pagar" class="btn btn-primary">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="content">
+                        <input type="hidden" name="token" value="<?=$data["token"]?>">
+                        <h4 class="title">Método de pago</h4>
+                        <p>Selecciona la modalidad con la que prefieras realizar el pago. Dependiendo del vendedor se ofrecerán unas opciones u otras.</p>
+                        <div id="pago">
+                            <?=$data["form-pago"]?>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-round">Comprar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
 </div>
-<script>
-$(document).ready(function() {
-    $("form").formValidation();
-});
-</script>

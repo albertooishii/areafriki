@@ -1,6 +1,6 @@
 <div class="container wrapper">
     <header class="subhead">
-        <h3 class="subhead aligncenter inner">MIS SUBIDAS</h3>
+        <h3 class="subhead aligncenter inner">MIS PRODUCTOS</h3>
     </header>
     <div class="row">
         <div class="col-md-12 table-responsive">

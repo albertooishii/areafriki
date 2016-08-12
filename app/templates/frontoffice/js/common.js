@@ -130,16 +130,6 @@ $(document).ready(function() {
         $(this).change();
     });
 
-    $("body").on("change", "#precio",function(){
-        if($(this).val()!=''){
-            var beneficio = ($(this).val() / 1.075).toFixed(2).replace('.',',');
-            var comision = ($(this).val() - ($(this).val() / 1.075)).toFixed(2).replace('.',',');
-            $(".beneficio").html(beneficio);
-            $("#beneficio").val(($(this).val() / 1.075).toFixed(2));
-            $(".comision").html(comision);
-        }
-    });
-
     //Nueva lista de productos
     $("#add-list").click(function(e){
         e.preventDefault();

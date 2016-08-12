@@ -3,7 +3,7 @@
 
     class Precio_Model extends Database{
 
-        var $pedido, $producto, $beneficio, $categoria, $precio_base, $modelo, $codigo, $valor;
+        var $pedido, $producto, $beneficio, $categoria, $precio_base, $modelo, $codigo, $valor, $vendedor, $subtotal, $gastos_envio, $precio_total;
 
         function __construct(){
            parent::__construct();
@@ -12,29 +12,45 @@
         function get($orden=false)
         {
             //primero hayamos el beneficio
-            $beneficio=$this->getBeneficio($orden);
+            $this->beneficio=$this->getBeneficio($orden);
 
             //segundo hayamos el precio base
-            $precio_base=$this->getPrecioBase($orden);
+            $this->precio_base=$this->getPrecioBase($orden);
 
             //devolvemos la suma
-            return $precio_base + $beneficio;
+            return $this->precio_base + $this->beneficio;
         }
 
         function getPrecioPedido()
         {
-            $precio=0;
+            $precio=$total_af=0;
             foreach($this->pedido as $linea){
                 $this->producto=$linea["producto"];
-                $this->modelo=NULL;
-                if(!empty($this->producto["modelo"])){
-                    $this->modelo=$this->producto["modelo"];
-                    $this->categoria=$this->producto["categoria"];
-                    $this->codigo=$this->producto["size"];
+                $query = "SELECT categoria FROM productos WHERE id= ".$this->producto;
+                $answer = $this->_db->query($query)->fetch_assoc();
+                $this->categoria=$answer["categoria"];
+                $orden=$linea["size"];
+                $precio=$this->get($orden)*$linea["cantidad"];
+                if($this->vendedor===0){
+                    $total_af+=$precio;
+                    if($total_af<MIN_ENVIO_GRATIS){
+                        $this->gastos_envio+=GASTOS_ENVIO;
+                    }
                 }
-                $precio+=$this->get();
+                $this->subtotal+=$precio;
+                $this->gastos_envio+=$this->getGastosEnvio();
             }
-            return $precio;
+            $this->precio_total=$this->subtotal+$this->gastos_envio;
+        }
+
+        function getGastosEnvio(){
+            if($this->vendedor===0){
+                return 0;
+            }else{
+                $query = "SELECT gastos_envio FROM productos WHERE id= ".$this->producto;
+                $answer = $this->_db->query($query)->fetch_assoc();
+                return $answer["gastos_envio"];
+            }
         }
 
         function getBeneficio($orden=false)
@@ -51,7 +67,8 @@
 
         function getPrecioBase($orden=false){
             if($this->categoria==2 || $this->categoria==30){
-                $precio_base=$this->getBeneficio()*7.5/100;
+                //$precio_base=$this->getBeneficio();
+                $precio_base=0;
             }else{
                 if(!$precio_base=$this->getPrecioBaseCategoria()){
                     if(!$precio_base=$this->getPrecioBaseSize($orden)){
@@ -85,7 +102,7 @@
         private function getPrecioBaseSize($orden=false)
         {
             if($orden==false){$orden=1;}
-            $query = "SELECT precio_base FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='size' AND categoria=$this->categoria) AND orden = $orden";
+            $query = "SELECT precio_base FROM valores WHERE atributo=(SELECT id FROM atributos WHERE tipo='size' AND categoria=$this->categoria) AND orden = '$orden'";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["precio_base"];
         }

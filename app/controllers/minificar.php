@@ -36,6 +36,7 @@ class MinificarController{
             'vendor/owl-carousel/owl.carousel.min.js',
             'vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js',
             'vendor/bootstrap-tokenfield/typeahead.bundle.min.js',
+            //'vendor/modernizr-custom.js',
             //'app/templates/frontoffice/js/common.js',
         ]); // a key in groupsConfig.php
         return "<script src='{$jsUri}'></script>";
