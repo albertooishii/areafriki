@@ -10,6 +10,8 @@
                 $cat = New Categoria_Model();
                 $this->loadModel('tag');
                 $t = New Tag_Model();
+                $this->loadModel("email");
+                $mail=New Email();
 
                 @$action=$_GET["action"];
                 switch($action){
@@ -36,8 +38,11 @@
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
                                 $pr->user=$this->u->id;
-                                $data["listas"]=$pr->getListas();
-                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                                if($data["listas"]=$pr->getListas()){
+                                    $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                                }else{
+                                    $data["listas_productos"]="";
+                                }
                                 $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/upload/upload.js'></script>";
                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/crafts.js'></script>";
                                 $this->render('designer','crafts',$data);
@@ -48,8 +53,11 @@
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
                                 $pr->user=$this->u->id;
-                                $data["listas"]=$pr->getListas();
-                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                                if($data["listas"]=$pr->getListas()){
+                                    $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                                }else{
+                                    $data["listas_productos"]="";
+                                }
                                 $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/upload/upload.js'></script>";
                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/baul.js'></script>";
                                 $this->render('designer','baul',$data);
@@ -73,8 +81,11 @@
                                 $data["color_pick"]=$this->loadView('upload', 'color_picker', $data);
                             }
                             $pr->user=$dg->user=$this->u->id;
-                            $data["listas"]=$pr->getListas();
-                            $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                            if($data["listas"]=$pr->getListas()){
+                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                            }else{
+                                $data["listas_productos"]="";
+                            }
 
                             /*$designs=$dg->getMyDesigns();
                             $data["my_designs"]="";

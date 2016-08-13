@@ -22,9 +22,6 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/vinilos/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350}' />
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/vinilos/panorama/bounding vertical.png" title="Bounding" data-parameters='{"x": 350, "y": 270}' />
         </div>
-        <!--<div class="fpd-design">
-            <?=$data["my_designs"]?>
-        </div>-->
     </div>
     <div class="inner">
         <h4><i class="material-icons">info_outline</i>DESCRIPCIÓN DEL PRODUCTO</h4>

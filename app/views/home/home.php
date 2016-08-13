@@ -1,23 +1,11 @@
-<!--<div id="video_container">
-    <header id="header_video">
-        <video autoplay preload="auto" loop="loop" class="full-width">
-            <source src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/header-video.mp4" type="video/mp4"> Tu navegador es muy antiguo y no soporta vídeos, recomendamos actualizarlo a la última versión.
-        </video>
-        <div class="poster hidden">
-            <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/header-thumbnail.png" alt="">
-        </div>
-    </header>
-</div>-->
 <div id="home_banner">
     <a href="<?=PAGE_DOMAIN?>/areastore">
         <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/home-banner.jpg)"></div>
     </a>
 </div>
-<div class="row">
-    <div class="col-md-12 container">
-        <!--<?=@$data["header_advertencia"]?>-->
-        <?=@$data["primer_login"]?>
-    </div>
+<div class="container">
+    <!--<?=@$data["header_advertencia"]?>-->
+    <?=@$data["primer_login"]?>
 </div>
 <div class="container carousel_container">
     <div>

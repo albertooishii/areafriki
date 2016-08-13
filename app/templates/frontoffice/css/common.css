@@ -30,10 +30,6 @@ body{
     color: #333 !important;
 }
 
-main{
-    overflow-x: hidden;
-}
-
 main a, main a:focus, main a:hover {
     color: #ff5722;
 }

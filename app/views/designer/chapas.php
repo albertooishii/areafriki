@@ -6,9 +6,6 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/chapas/base.png" title="Background" data-parameters='{"x": 0, "y": 0, "z":2}' />
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/chapas/Bounding.png" title="Bounding" data-parameters='{"x": 0, "y": 0, "z":0}' />
         </div>
-        <!--<div class="fpd-design">
-            <?=$data["my_designs"]?>
-        </div>-->
     </div>
     <div class="inner">
         <h4><i class="material-icons">info_outline</i>DESCRIPCIÓN DEL PRODUCTO</h4>

@@ -1,6 +1,6 @@
 <div class="col-md-7 img-design">
     <header class="aligncenter"><h3>DISEÑA TU SUDADERA</h3></header>
-    <p>Utiliza las herramientas que te ofrecemos para personalizar la camiseta. Toca la camiseta para cambiar el color y en "AÑADIR IMAGEN" para montar tu diseño. Puedes elegir entre los distintos modelos en "CAMBIAR MODELO".</p>
+    <p>Utiliza las herramientas que te ofrecemos para personalizar la camiseta. Toca en "AÑADIR IMAGEN" para montar tu diseño. Puedes elegir entre los distintos modelos en "CAMBIAR MODELO".</p>
     <div id="fpd" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
         <div class="fpd-product" title="Capucha" data-thumbnail="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/preview.png">
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350, "z":0}' />
@@ -14,9 +14,6 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/shadow.png" title="Shadows" data-parameters='{"x": 350, "y": 350, "z": 2}' />
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 320}' />
         </div>
-        <!--<div class="fpd-design">
-            <?=$data["my_designs"]?>
-        </div>-->
     </div>
     <?=$data["color_pick"]?>
     <div class="inner">

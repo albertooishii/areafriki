@@ -1,6 +1,6 @@
 <div class="col-md-7 img-design">
     <header class="aligncenter"><h3>DISEÑA TU CAMISETA</h3></header>
-    <p>Utiliza las herramientas que te ofrecemos para personalizar la camiseta. Toca la camiseta para cambiar el color y en "AÑADIR IMAGEN" para montar tu diseño.</p>
+    <p>Utiliza las herramientas que te ofrecemos para personalizar la camiseta. Toca en "AÑADIR IMAGEN" para montar tu diseño.</p>
     <div id="fpd" class="fpd-container fpd-shadow-0 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
         <div class="fpd-product" data-thumbnail="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/preview.png">
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350, "z": 0}' />
@@ -8,9 +8,6 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/shadow.png" title="Shadows" data-parameters='{"x": 350, "y": 350, "z": 2}' />
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 324}' />
         </div>
-        <!--<div class="fpd-design">
-            <?=$data["my_designs"]?>
-        </div>-->
     </div>
     <?=$data["color_pick"]?>
     <div class="inner">

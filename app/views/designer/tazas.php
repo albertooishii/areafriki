@@ -11,9 +11,6 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/tazas/taza-completa.png" title="Fondo" data-parameters='{"x": 350, "y": 350}' />
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/tazas/bounding-taza-completa.png" title="Bounding" data-parameters='{"x": 318, "y": 345}' />
         </div>
-        <!--<div class="fpd-design">
-            <?=$data["my_designs"]?>
-        </div>-->
     </div>
     <canvas id="pro"></canvas>
     <div class="inner">
