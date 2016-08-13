@@ -122,7 +122,7 @@ main a, main a:focus, main a:hover {
     margin-right: auto !important;
 }
 
-@media only screen and (max-width : 768px) {
+@media only screen and (max-width : 991px) {
     .aligncentermobile{
         text-align: center !important;
         display: table !important;
@@ -150,7 +150,7 @@ main a, main a:focus, main a:hover {
         display: block;
     }
 }
-@media only screen and (min-width : 768px) {
+@media only screen and (min-width : 992px) {
     .nodesktop{
         display: none !important;
     }
@@ -321,19 +321,25 @@ a.well{
     }
 }
 
-@media (max-width: 768px){
-    .masthead.searchmode #navleft, .masthead.searchmode #header-cart, .masthead.searchmode #header-user{
-        display: none;
-    }
+.masthead.searchmode #navleft, .masthead.searchmode #header-cart, .masthead.searchmode #header-user, .masthead.searchmode #header-count-carrito, .masthead.searchmode #menu{
+    display: none !important;
+}
 
-    .masthead.searchmode #navright{
-        float: left !important;
-    }
+.masthead.searchmode .navbar-header, .masthead.searchmode .navbar-right, .masthead.searchmode #search-container, .masthead.searchmode #header-search{
+    width: 100%;
+    margin: 0 !important;
+}
 
-    #search-results{
-        top: 41px;
-        position: absolute;
-    }
+.masthead.searchmode #header-search .form-group{
+    width: 80%;
+}
+
+.masthead.searchmode #navright{
+    float: left !important;
+}
+
+#search-results ul{
+    width: 100%;
 }
 
 .pull-right>li {

@@ -41,7 +41,6 @@
                     </li>
                     <li class="aligncenter"><?=$data["edit_button"]?></li>
                </ul>
-                <!--<?=$data["mas_likes"]?>-->
             </section>
             <section class="col-md-9">
                 <div class="row inner">

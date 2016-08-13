@@ -452,8 +452,8 @@
                                                     $data["atributos"].=$this->loadView('product','size_selector',$lista_sizes);
                                                 }
                                                 $data["condition"]="new";
-                                                $data["preparacion"]=2;
-                                                $data["tiempo_envio"]=3;
+                                                $data["preparacion"]=PREPARACION;
+                                                $data["tiempo_envio"]=TIEMPO_ENVIO;
                                                 $data["modelo"]=$producto["modelo"];
                                                 $data["thumbnails"]="";
 
@@ -497,7 +497,7 @@
                                                     default:
                                                         $data["montaje"]="<img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'>";
                                                 }
-
+                                                $data["stock"]=10000;
 
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
                                                 $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/product/comment_card.js'></script>";
@@ -531,7 +531,12 @@
                                                     $data["usado"]="";
                                                 }
 
-                                                $data["stock"]=$producto["stock"];
+                                                if(!is_null($producto["stock"])){
+                                                    $data["stock"]=$producto["stock"];
+                                                }else{
+                                                    $data["stock"]=10000;
+                                                }
+
                                                 $data["preparacion"]=$producto["preparacion"];
                                                 if($producto["gastos_envio"]>0){
                                                     $data["gastos_envio"] = number_format($producto["gastos_envio"], 2, ',', '')." €";

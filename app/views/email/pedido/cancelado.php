@@ -6,7 +6,7 @@
 
     <p><cite><?=$data["observaciones"]?></cite></p>
 
-<p>En caso de haber realizado un pago será devuelto a través del mísmo sistema que fue pagado.</p>
+<p>En caso de haber realizado un pago será devuelto a través del mísmo sistema que fue pagado (<?=$data["metodo_pago"]?>).</p>
 
 <p>Puedes ver el resumen de tu pedido en: <a href="<?=PAGE_DOMAIN?>/myorders/<?=$data["token"]?>"><?=PAGE_DOMAIN?>/myorders/<?=$data["token"]?></a></p>
 

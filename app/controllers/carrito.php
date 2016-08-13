@@ -7,6 +7,8 @@
             $car=New Carrito_Model();
             $this->loadModel('producto');
             $p=New Producto_Model();
+            $this->loadModel("design");
+            $dg=New Design_Model();
             $this->loadModel('precio');
             $pr=New Precio_Model();
             $this->loadModel('categoria');
@@ -23,8 +25,6 @@
                         $p->id=$_POST["id"];
                         $producto=$p->get();
                         $cat->id=$producto["categoria"];
-                        $this->loadModel('design');
-                        $dg=New Design_Model();
                         $dg->token=$producto["design"];
                         $design=$dg->get();
                         $creador->id=$design["user"];
@@ -86,9 +86,6 @@
                         $data["token"]=$car->token=$_POST["token"];
 
                         if($carrito=$car->get()){
-                            $this->loadModel('design');
-                            $dg=New Design_Model();
-                            $this->loadModel('user');
                             $creador=New Users_Model();
                             $vendedor=New Users_Model();
 
@@ -400,6 +397,7 @@
                                             $mail->subject=PAGE_NAME." | [Nuevo pedido]";
                                             $mail->sendEmail();
                                         }else{//Email para el/los diseñador/es
+                                            $log.="emails para los diseñadores";
                                             foreach($pr->pedido as $linea){
                                                 $pr->producto=$p->id=$linea["producto"];
                                                 $producto=$p->get();
@@ -428,7 +426,7 @@
 
                                                 $mail->getEmail("pago/designer", $data);
                                                 $mail->to=$info_creador["email"];
-                                                $mail->subject=PAGE_NAME." | [Producto Vendido]";
+                                                $mail->subject=PAGE_NAME." | [Producto vendido]";
                                                 $mail->sendEmail();
                                             }
                                         }
@@ -480,9 +478,6 @@
 
                 default:
                     if($carritos=$car->getCarritosUser()){
-                        $this->loadModel('design');
-                        $dg=New Design_Model();
-                        $this->loadModel('user');
                         $creador=New Users_Model();
                         $vendedor=New Users_Model();
 

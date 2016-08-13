@@ -21,10 +21,16 @@ $(document).ready(function(){
                 success: function(response){
                     $(".modal").modal("hide");
                     if(response==1){
-                        alert("Pedido cancelado correctamente");
-                        window.location.reload();
+                        $(".modal-header").html("¡Pedido cancelado!");
+                        $(".modal-body").html("El pedido se ha cancelado correctamente. Se ha notificado al vendedor para que haga la devolución del dinero, en caso de que haya sido pagado, a través del mismo sistema en que fue realizado el pago.");
+                        $(".modal-footer").html("<button type='button' class='btn btn-default btn-round' data-dismiss='modal'>Cerrar</button>");
+
+                        $('#modalDg').on('hidden.bs.modal', function () {
+                            window.location.reload();
+                        });
                     }else{
                         alert(response);
+                        window.location.reload();
                     }
                 },
                 error: function(){

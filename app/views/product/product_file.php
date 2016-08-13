@@ -87,7 +87,7 @@
                        <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
                        <p>Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["nombre_categoria"]?></a> Etiquetas: <?=$data["tags"]?></p>
                         <?php
-                            if(!empty($data["stock"]) && $data["stock"]<=5 && $data["stock"]>0){
+                            if($data["stock"]<=5 && $data["stock"]>0){
                         ?>
                                 <p class="text-warning">¡Últimas <?=$data["stock"]?> unidades!</p>
                         <?php
@@ -101,7 +101,7 @@
                                 <p>Estado: <?=$data["usado"]?></p>
                         <?php
                             }
-                            if(empty($data["stock"]) && !empty($data["preparacion"])){
+                            if(!empty($data["preparacion"])){
                         ?>
                                 <p>Tiempo de preparación: <?=$data["preparacion"]?> días aprox.</p>
                         <?php
@@ -114,14 +114,14 @@
                                 <p>Gastos de envío: <?=$data["gastos_envio"]?></p>
                         <?php
                             }
-                            if(!isset($data["stock"]) || $data["stock"]>0){
+                            if($data["stock"]>0){
                             if($data["puedevender"]){
                         ?>
                         <div class="atributos">
                             <?=$data["atributos"]?>
                        </div>
                         <?php
-                            if(!isset($data["stock"]) || $data["stock"]>1){
+                            if($data["stock"]>1){
                         ?>
                             <label class="control-label"><p>Cantidad:</p></label>
                             <input type="number" min="1" max="<?=$data["stock"]?>" name="cantidad" step="1" id="cantidad" class="form-control" value="1" style="width:100px;"

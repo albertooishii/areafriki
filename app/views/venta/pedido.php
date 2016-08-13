@@ -1,34 +1,34 @@
 <div class="card pedido" data-token="<?=$data["token"]?>">
     <div class="content">
         <div class="row">
-            <div class="col-md-4">CÓDIGO DE REFERENCIA: <?=$data["token"]?></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">CÓDIGO DE REFERENCIA: <?=$data["token"]?></div>
 <?php
     if(isset($data["localizador"])){
 ?>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-4 col-xs-12">
                 <a href="https://track.aftership.com/<?=$data["localizador"]?>" target="_blank"><i class="material-icons">place</i> Localizar pedido</a>
             </div>
 <?php
     }else{
 ?>
-            <div class="col-md-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
 <?php
     }
 ?>
-            <div class="col-md-4 text-right">
-                <p class="label-selector">ESTADO DEL PEDIDO: </p>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <p class="label-selector">ESTADO: </p>
                 <select class="selectpicker select-estado">
                     <?=$data["estado_selector"]?>
                 </select>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">PEDIDO REALIZADO: <?=$data["fecha_pedido"]?></div>
-            <div class="col-md-4 text-center">FECHA DE PAGO: <?=$data["fecha_pago"]?></div>
-            <div class="col-md-4 text-right">FECHA DE ENVÍO: <?=$data["fecha_envio"]?></div>
+            <div class="col-md-4 col-sm-4">PEDIDO REALIZADO: <?=$data["fecha_pedido"]?></div>
+            <div class="col-md-4 col-sm-4">FECHA DE PAGO: <?=$data["fecha_pago"]?></div>
+            <div class="col-md-4 col-sm-4">FECHA DE ENVÍO: <?=$data["fecha_envio"]?></div>
         </div>
         <div class="row">
-            <div class="col-md-4 aligncentermobile">
+            <div class="col-md-4">
                 MÉTODO DE PAGO: <?=strtoupper($data["metodo_pago"])?>
             </div>
         </div>

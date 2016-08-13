@@ -9,12 +9,10 @@
             $cat=New Categoria_Model();
             $this->loadModel('pedido');
             $ped=New Pedido_Model();
-            $this->loadModel('precio');
             $this->loadModel("design");
             $dg=New Design_Model();
             $this->loadModel("provincia");
             $provincia=New Provincia_Model();
-            $pr=New Precio_Model();
             $vendedor=New Users_Model();
             $creador=New Users_Model();
             @$action=$_GET["action"];
@@ -30,6 +28,7 @@
                                 $ped->email=$ar_pedido["email"];
                                 $data["nombre"]=$ar_pedido["name"];
                                 $data["observaciones"]=$ped->observaciones=$_POST["observaciones"];
+                                $data["metodo_pago"]=$ar_pedido["metodo_pago"];
                                 //Email para el comprador
                                 $mail->getEmail("pedido/cancelado", $data);
                                 $mail->to=$ped->email;
@@ -40,15 +39,49 @@
                                 $info_vendedor=$vendedor->getUserFromID();
                                 $vendedor->email=$info_vendedor["email"];
                                 $data["vendedor_nombre"]=$info_vendedor["name"];
-                                $mail->getEmail("pedido/cancelado_vendedor", $data);
-                                $mail->to=$vendedor->email;
-                                $mail->subject=PAGE_NAME." | [Pedido cancelado]";
-                                $mail->sendEmail();
+                                if($ar_pedido["vendedor"]==0){
+                                    $mail->getEmail("pedido/cancelado_administrador", $data);
+                                    $mail->to=CONTACT_EMAIL;
+                                    $mail->subject="[PEDIDO CANCELADO] - ".$data["token"];
+                                    $mail->sendEmail();
+                                }else{
+                                    $mail->getEmail("pedido/cancelado_vendedor", $data);
+                                    $mail->to=$vendedor->email;
+                                    $mail->subject=PAGE_NAME." | [Pedido cancelado]";
+                                    $mail->sendEmail();
+                                }
                                 if($ped->cancelar()){
                                     $pedido=unserialize($ar_pedido["pedido"]);
                                     foreach($pedido as $linea){
                                         $p->id=$linea["producto"];
+                                        $producto=$p->get();
+                                        $data["dg_token"]=$dg->token=$producto["design"];
+                                        $design=$dg->get();
+                                        $cat->id=$p->categoria=$producto["categoria"];
+                                        $data["dg_categoria"]=$cat->get()["nombre"];
+                                        $data["dg_nombre"]=$producto["nombre"];
+                                        $creador->id=$design["user"];
                                         $p->cancelarVenta($linea["cantidad"]);
+                                        //Si el vendedor es AF pero no el creador
+                                        if($ar_pedido["vendedor"]==0 && $creador->id>0){
+                                            $info_creador=$creador->getUserFromID();
+                                            $data["dg_autor"]=$info_creador["user"];
+                                            $data["cantidad"]=$linea["cantidad"];
+
+                                            $precio=$linea["precio"];
+                                            $credito_anterior=$info_creador["credit"];
+                                            $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
+                                            $creador->credito=$credito=$linea["precio"]*$linea["cantidad"];
+                                            $creador->updateCredito();
+                                            $data["credito"]=number_format($credito, 2, ',', ' ')."€";
+                                            $credito_actual=$credito_anterior-$credito;
+                                            $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
+
+                                            $mail->getEmail("pedido/cancelado_designer", $data);
+                                            $mail->to=$info_creador["email"];
+                                            $mail->subject=PAGE_NAME." | [Pedido cancelado]";
+                                            $mail->sendEmail();
+                                        }
                                     }
                                     echo true;
                                 }else{
@@ -78,11 +111,11 @@
                                 $data["precio_total_pedido"]=$precio_total_pedido=$subtotal=$total_envio_pedido=0;
                                 foreach($pedido as $key => $linea){
                                     $data["linea"]=$key;
-                                    $pr->producto=$p->id=$linea["producto"];
+                                    $p->id=$linea["producto"];
                                     $producto=$p->get();
                                     $data["dg_token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
-                                    $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
+                                    $cat->id=$p->categoria=$producto["categoria"];
                                     $data["dg_categoria"]=$cat->get()["nombre"];
                                     $data["dg_nombre"]=$producto["nombre"];
 
@@ -141,7 +174,7 @@
                                 $horas=floor($diferencia/60/60); //floor=redondea hacia arriba :D
                                 //echo "horas transcurridas: ".$horas;
 
-                                if($data["estado"]=="pendiente" || $data["estado"]=="pagado" || $horas < 18){
+                                if(($data["estado"]=="pendiente" || $data["estado"]=="pagado" || $horas < 18) && $data["estado"]!="cancelado"){
                                     $data["permite_cancelar"]=true;
                                 }else{
                                     $data["permite_cancelar"]=false;
@@ -193,11 +226,11 @@
                                 $data["precio_total_pedido"]=$precio_total_pedido=$subtotal=$total_envio_pedido=0;
                                 foreach($pedido as $key => $linea){
                                     $data["linea"]=$key;
-                                    $pr->producto=$p->id=$linea["producto"];
+                                    $p->id=$linea["producto"];
                                     $producto=$p->get();
                                     $data["dg_token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
-                                    $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
+                                    $cat->id=$p->categoria=$producto["categoria"];
                                     $data["dg_categoria"]=$cat->get()["nombre"];
                                     $data["dg_nombre"]=$producto["nombre"];
 
@@ -256,7 +289,7 @@
                                 $horas=floor($diferencia/60/60); //floor=redondea hacia arriba :D
                                 //echo "horas transcurridas: ".$horas;
 
-                                if($data["estado"]=="pendiente" || $data["estado"]=="pagado" || $horas < 18){
+                                if(($data["estado"]=="pendiente" || $data["estado"]=="pagado" || $horas < 18) && $data["estado"]!="cancelado"){
                                     $data["permite_cancelar"]=true;
                                 }else{
                                     $data["permite_cancelar"]=false;

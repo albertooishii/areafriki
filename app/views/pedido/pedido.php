@@ -1,24 +1,24 @@
 <div class="card pedido" data-token="<?=$data["token"]?>">
     <div class="content">
         <div class="row">
-            <div class="col-md-4">PEDIDO REALIZADO: <?=$data["fecha_pedido"]?></div>
-            <div class="col-md-2">ESTADO: <span class="label label-<?=$data["class_estado"]?>"><?=$data["estado"]?></span></div>
+            <div class="col-md-4 col-sm-4 col-xs-8">PEDIDO REALIZADO: <?=$data["fecha_pedido"]?></div>
+            <div class="col-md-2 col-sm-4 col-xs-4">ESTADO: <span class="label label-<?=$data["class_estado"]?>"><?=$data["estado"]?></span></div>
         <?php
             if(!isset($_GET["token"])){
         ?>
-                <div class="col-md-6 text-right">CÓDIGO DE REFERENCIA: <a href="<?=PAGE_DOMAIN?>/myorders/<?=$data["token"]?>"><?=$data["token"]?> (Ver detalles)</a></div>
+                <div class="col-md-6 col-sm-4 col-xs-12">CÓDIGO DE REFERENCIA: <a href="<?=PAGE_DOMAIN?>/myorders/<?=$data["token"]?>"><?=$data["token"]?> (Ver detalles)</a></div>
         <?php
             }
         ?>
         </div>
         <div class="row inner">
-            <div class="col-md-4 aligncentermobile">
+            <div class="col-md-4 col-sm-4">
                 VENDIDO POR: <?=$data["nombre_vendedor"]?>
             </div>
-            <div class="col-md-4 aligncentermobile">
+            <div class="col-md-4 col-sm-4">
                 MÉTODO DE PAGO: <?=strtoupper($data["metodo_pago"])?>
             </div>
-            <div class="col-md-4 text-right aligncentermobile order-actions">
+            <div class="col-md-4 col-sm-4 text-right order-actions">
 <?php
     if(isset($data["localizador"])){
 ?>

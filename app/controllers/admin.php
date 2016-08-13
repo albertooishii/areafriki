@@ -442,8 +442,7 @@
                     $this->render('error', '404');
                 }
             }else{
-                $_GET["section"]='home';
-                $this->render('error', '404');
+                header('Location: '.PAGE_DOMAIN.'/login?redirect='.$this->getURL());
             }
         }
 
