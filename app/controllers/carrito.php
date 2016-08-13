@@ -182,10 +182,10 @@
 
                             if($pr->vendedor==0){
                                 if(PAYPAL){$data["paypal"]=true;}else{$data["paypal"]=false;}
-                                if(BANCO){$data["banco"]=true;}else{$data["banco"]=false;}
+                                if(IBAN){$data["iban"]=true;}else{$data["iban"]=false;}
                             }else{
                                 if(!empty($info_vendedor["paypal"])){$data["paypal"]=true;}else{$data["paypal"]=false;}
-                                if(!empty($info_vendedor["banco"])){$data["banco"]=true;}else{$data["banco"]=false;}
+                                if(!empty($info_vendedor["iban"])){$data["iban"]=true;}else{$data["iban"]=false;}
                             }
 
                             $data["form-pago"]=$this->loadView("forms","pago",$data);
@@ -255,9 +255,9 @@
                             switch($_POST["pay_method"]){
                                 case 'transferencia':
                                     if($car->vendedor==0){
-                                        $data["banco"]=BANCO;
+                                        $data["iban"]=IBAN;
                                     }else{
-                                        $data["banco"]=$info_vendedor["banco"];
+                                        $data["iban"]=$info_vendedor["iban"];
                                     }
                                     $this->render("pago","transferencia/transferencia",$data);
                                 break;
@@ -365,7 +365,7 @@
                                         $ped->estado=$estado="pendiente";
                                         $ped->genera_token();
                                         $data["token"]=$ped->token;
-                                        $data["banco"]=$_POST["banco"];
+                                        $data["iban"]=$_POST["iban"];
                                         if($ped->set()){
                                             $swpedido=1;
                                             $car->delete();

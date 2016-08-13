@@ -153,7 +153,7 @@
                             }else{
                         ?>
                         <div>
-                            <a href="#"><h4>¡Me gustaría comprar este producto!</h4></a>
+                            <a href="#" id="solicitar_producto"><h4>¡Me gustaría comprar este producto!</h4></a>
                         </div>
                         <?php
                             }

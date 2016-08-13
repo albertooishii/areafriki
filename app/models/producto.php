@@ -476,6 +476,41 @@
             return true;
         }
 
+        //Solicitud de compra
+        function solicitarCompra()
+        {
+            $date=date ("Y-m-d H:i:s");
+            $query="INSERT INTO solicitud_compra (user, producto, date) VALUES ($this->user, $this->id, '$date')";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function getSolicitudesCompra()
+        {
+            $query="SELECT * FROM solicitud_compra WHERE producto='$this->id'";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_solicitudes[]=$fila;
+                }
+                if(!empty($lista_solicitudes)){
+                    return $lista_solicitudes;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+
+        }
+
+        function deleteSolicitudCompra()
+        {
+            $query="DELETE FROM solicitud_compra WHERE user='$this->user' AND id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
 // Actualizado -----------------------------------------------------//
 
         function revisar()

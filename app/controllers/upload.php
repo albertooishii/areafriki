@@ -266,6 +266,13 @@
                                         echo "No se ha podido dar de alta como producto.";
                                     }
                                 }
+                                //Si no tiene las opciones de pago configuradas le enviamos un email para que lo haga.
+                                if(!$this->u->puedeVender()){
+                                    $mail->getEmail("pago/informacion_pago", $data);
+                                    $mail->to=$this->u->getUser()["email"];
+                                    $mail->subject=PAGE_NAME." | [IMPORTANTE: Información sobre ventas]";
+                                    $mail->sendEmail();
+                                }
                             }else{
                                 $this->loadModel("error");
                                 $error=New Error_Model();

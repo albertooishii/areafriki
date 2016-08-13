@@ -3,7 +3,7 @@
 
     class Users_Model extends Database{
 
-        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $birthday, $idnum, $codigo_beta, $credito;
+        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $iban, $birthday, $idnum, $codigo_beta, $credito;
 
         function __construct(){
            parent::__construct();
@@ -58,10 +58,10 @@
         }
 
         function puedeVender(){
-            $query="SELECT idnum, birthday, banco, paypal FROM users WHERE id=$this->id";
+            $query="SELECT idnum, birthday, iban, paypal FROM users WHERE id=$this->id";
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL){
-                if($answer["idnum"] && $this->calculaedad($answer["birthday"])>=18 && ($answer["banco"]) || $answer["paypal"]){
+                if($answer["idnum"] && $this->calculaedad($answer["birthday"])>=18 && ($answer["iban"]) || $answer["paypal"]){
                     return true;
                 }
             }else{
@@ -90,7 +90,7 @@
 
         function updateUserCash()
         {
-            $query="UPDATE users SET birthday='$this->birthday', idnum='$this->idnum', paypal='$this->paypal' WHERE id='$this->id'";
+            $query="UPDATE users SET birthday='$this->birthday', idnum='$this->idnum', paypal='$this->paypal', iban='$this->iban' WHERE id='$this->id'";
             if ( $this->_db->query($query))
             return true;
             return false;

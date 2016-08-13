@@ -17,7 +17,7 @@
     </div>
 <?php
     }
-    if($data["banco"]==true){
+    if($data["iban"]==true){
 ?>
     <div class="col-md-12">
         <div class="form-group radio">

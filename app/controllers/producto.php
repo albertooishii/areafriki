@@ -11,7 +11,6 @@
             $cat = New Categoria_Model();
             $this->loadModel("design");
             $dg = New Design_Model();
-            $this->loadModel("user");
             $creador = New Users_Model();
 
             @$action=$_GET["action"];
@@ -33,44 +32,34 @@
                     }
                 break;
 
-                case 'changeColor':
-                    $data["nombre_categoria"]=$cat->nombre=$categoria=$_GET["categoria"];
-                    $p->categoria=$cat->id=$cat->getWhereNombre()["id"];
-                    $data["dg-token"]=$p->token=$dg->token=$_GET["token"];
-                    if($producto=$p->getProductoWhereToken()){
-                        $data["id_producto"]=$dg->id=$p->id=$producto["id"];
-                        $design=$dg->get();
-                        $producto=$p->get();
-                        $creador->id=$design["user"];
-                        $infouser=$creador->getUserFromID();
-                        $data["username"]=$infouser["user"];
-
-                        $img_design = new Imagick(PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png");
-
-                        $img_design_sizes=$img_design->getImageGeometry();
-                        $width=$img_design_sizes["width"]*$producto["scale"];
-                        $height=$img_design_sizes["height"]*$producto["scale"];
-                        $x=$y=0;
-                        $x=$producto["left_pos"]-($width/2);
-                        $y=$producto["top_pos"]-($height/2);
-
-                        $img_design->scaleImage($width,0);
-
-                        $p->codigo=$_POST["color"];
-                        $color=$p->getNombreColor();
-                        $color=str_replace(" ", "_", strtolower ($p->getNombreColor()));
-                        if(empty($producto["modelo"])){
-                            $img_base = new Imagick(PAGE_DOMAIN."/app/views/product/colores/".$data["nombre_categoria"]."/".$color.".png");
+                case 'solicitarCompra':
+                    if(isset($_POST)){
+                        $p->id=$_POST["id"];
+                        $p->user=$this->u->id;
+                        if($p->solicitarCompra()){
+                            $producto=$p->get();
+                            $cat->id=$producto["categoria"];
+                            $data["cat_nombre"]=$cat->get()["nombre"];
+                            $data["token"]=$dg->token=$producto["design"];
+                            $design=$dg->get();
+                            $creador->id=$design["user"];
+                            $data["dg_nombre"]=$producto["nombre"];
+                            $info_creador=$creador->getUserFromID();
+                            $data["nombre"]=$info_creador["user"];
+                            $this->loadModel("email");
+                            $mail=New Email();
+                            //Email para el vendedor
+                            $mail->getEmail("solicitar_producto", $data);
+                            $mail->to=$info_creador["email"];
+                            $mail->subject=PAGE_NAME." | [Solicitud de compra]";
+                            if($mail->sendEmail()){
+                                echo true;
+                            }else{
+                                echo false;
+                            }
                         }else{
-                            $img_base = new Imagick(PAGE_DOMAIN."/app/views/product/colores/".$data["nombre_categoria"]."/".strtolower($producto["modelo"])."/".$color.".png");
+                            echo false;
                         }
-
-                        $img_base->setImageColorspace($img_design->getImageColorspace());
-                        $img_base->compositeImage($img_design, $img_design->getImageCompose(), $x, $y);
-                        $img_base=$img_base->getImageBlob();
-                        echo "data:image/jpg;base64,".base64_encode($img_base);
-                    }else{
-                        echo false;
                     }
                 break;
 

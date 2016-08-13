@@ -11,6 +11,28 @@ $(document).ready(function() {
         $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
     });
 
+    $("#solicitar_producto").click(function(e){
+        e.preventDefault();
+        var parametros = {
+            "id": $(this).closest(".product_file").data("id")
+        }
+        $.ajax({
+            data:parametros,
+            url: '/index.php?section=producto&action=solicitarCompra',
+            type: 'POST',
+            success: function (response){
+                if(response==1){
+                    alert("¡Solicitud realizada con éxito! Se te avisará cuando la compra de este producto esté disponible.");
+                }else{
+                    alert(response);
+                }
+            },
+            error: function (){
+                alert('Error al solicitar el producto para compra');
+            }
+        })
+    });
+
     $("#add-cart, .add-cart").click(function(e){
         e.preventDefault();
         var productfile=$(this).closest(".product_file");

@@ -337,15 +337,15 @@
 
                 case 'showCard':
                     $this->loadModel("producto");
-                    $pr = New Producto_Model();
+                    $p = New Producto_Model();
                     $this->loadModel("design");
                     $dg = New Design_Model();
                     $this->loadModel("categoria");
                     $cat = New Categoria_Model();
-                    $data["id_producto"]=$pr->id=$_POST["id_producto"];
-                    $pr->user=$this->u->id;
-                    if($pr->like()){
-                        $producto=$pr->get();
+                    $data["id_producto"]=$p->id=$_POST["id_producto"];
+                    $p->user=$this->u->id;
+                    if($p->like()){
+                        $producto=$p->get();
                         $data["cat_id"]=$cat->id=$producto["categoria"];
                         $data["cat_nombre"]=$cat->get()["nombre"];
                         $data["dg-token"]=$dg->token=$producto["design"];
@@ -355,19 +355,19 @@
 
                         $creador = New Users_Model();
                         $design=$dg->get();
-                        $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                        $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
                         $data["username"]=$creador->user=$infocreador["user"];
                         $data["creador_avatar"]=$creador->getAvatar(64);
 
-                        if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
+                        if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                             $data["like_class"]='like';
                         }else{
                             $data["like_class"]='unlike';
                         }
-                        $data["contador_likes"]=$pr->getLikes();
-                        $data["contador_shares"]=$pr->getShares();
-                        $data["contador_comments"]=$pr->getContComentarios();
+                        $data["contador_likes"]=$p->getLikes();
+                        $data["contador_shares"]=$p->getShares();
+                        $data["contador_comments"]=$p->getContComentarios();
                         $data["animate"]="animated zoomIn";
                         echo $this->loadView('product','product_card',$data);
                     }else{
@@ -379,25 +379,25 @@
                     if(isset($_SESSION["login"]["user"])){
                         $infouser=$this->u->getUser();
                         $this->loadModel("producto");
-                        $pr = New Producto_Model();
+                        $p = New Producto_Model();
                         $this->loadModel("design");
                         $dg = New Design_Model();
                         $this->loadModel("categoria");
                         $cat = New Categoria_Model();
-                        $pr->id=$_POST["id_producto"];
-                        $pr->user=$infouser['id'];
+                        $p->id=$_POST["id_producto"];
+                        $p->user=$infouser['id'];
                         //print_r($_POST);
 
-                        $id1 = !isset($_POST["id_hermanos"][0]) ?  $pr->id : $_POST["id_hermanos"][0];
-                        $id2 = !isset($_POST["id_hermanos"][1]) ?  $pr->id : $_POST["id_hermanos"][1];
-                        $id3 = !isset($_POST["id_hermanos"][2]) ?  $pr->id : $_POST["id_hermanos"][2];
-                        $id4 = !isset($_POST["id_hermanos"][3]) ?  $pr->id : $_POST["id_hermanos"][3];
-                        $id5 = !isset($_POST["id_hermanos"][4]) ?  $pr->id : $_POST["id_hermanos"][4];
-                        if($producto=$pr->getNewRuletaItem($id1, $id2, $id3, $id4, $id5)){
+                        $id1 = !isset($_POST["id_hermanos"][0]) ?  $p->id : $_POST["id_hermanos"][0];
+                        $id2 = !isset($_POST["id_hermanos"][1]) ?  $p->id : $_POST["id_hermanos"][1];
+                        $id3 = !isset($_POST["id_hermanos"][2]) ?  $p->id : $_POST["id_hermanos"][2];
+                        $id4 = !isset($_POST["id_hermanos"][3]) ?  $p->id : $_POST["id_hermanos"][3];
+                        $id5 = !isset($_POST["id_hermanos"][4]) ?  $p->id : $_POST["id_hermanos"][4];
+                        if($producto=$p->getNewRuletaItem($id1, $id2, $id3, $id4, $id5)){
                             $creador = New Users_Model();
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                            $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
                             $data["id_producto"]=$producto["id"];
                             $data["cat_id"]=$cat->id=$producto["categoria"];
@@ -417,10 +417,10 @@
                     if(isset($_SESSION["login"]["user"])){
                         $infouser=$this->u->getUser();
                         $this->loadModel("producto");
-                        $pr = New Producto_Model();
-                        $pr->id=$_POST["producto"];
-                        $pr->user=$infouser['id'];
-                        if($pr->like()){
+                        $p = New Producto_Model();
+                        $p->id=$_POST["producto"];
+                        $p->user=$infouser['id'];
+                        if($p->like()){
                             echo true;
                         }else{
                             echo false;
@@ -435,10 +435,10 @@
                         $this->u->user=$_SESSION["login"]["user"];
                         $infouser=$this->u->getUser();
                         $this->loadModel("producto");
-                        $pr = New Producto_Model();
-                        $pr->id=$_POST["producto"];
-                        $pr->user=$infouser['id'];
-                        if($pr->unlike()){
+                        $p = New Producto_Model();
+                        $p->id=$_POST["producto"];
+                        $p->user=$infouser['id'];
+                        if($p->unlike()){
                             echo true;
                         }else{
                             echo false;
@@ -480,17 +480,50 @@
                         $this->u->idnum=trim($_POST["idnum"]);
                         $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
                         $this->u->paypal=trim($_POST["paypal"]);
-                        if(!empty($_POST["idnum"]) && !empty($_POST["birthday"]) && !empty($_POST["paypal"])){
+                        $this->u->iban=str_replace(' ', '', $_POST["iban"]);
+                        if(!empty($_POST["idnum"]) && !empty($_POST["birthday"]) && (!empty($_POST["paypal"]) || !empty($_POST["iban"]))){
                             if($this->u->updateUserCash()){
+                                //Enviamos un email a los que han solicitado compra y borramos
+                                $comprador = New Users_Model();
+                                $this->loadModel("producto");
+                                $p = New Producto_Model();
+                                $this->loadModel("categoria");
+                                $cat = New Categoria_Model();
+                                $this->loadModel("design");
+                                $dg = New Design_Model();
+                                $this->loadModel("email");
+                                $mail = new Email();
+                                $p->creador=$this->u->id;
+                                $lista_productos=$p->getProductosUser();
+                                foreach($lista_productos as $producto){
+                                    $p->id=$producto["id"];
+                                    $producto=$p->get();
+                                    $cat->id=$producto["categoria"];
+                                    $data["cat_nombre"]=$cat->get()["nombre"];
+                                    $data["token"]=$dg->token=$producto["design"];
+                                    $design=$dg->get();
+                                    $data["dg_nombre"]=$producto["nombre"];
+                                    $solicitudes=$p->getSolicitudesCompra();
+                                    foreach($solicitudes as $solicitud){
+                                        $comprador->id=$solicitud["user"];
+                                        $info_comprador=$comprador->getUserFromID();
+                                        $mail->to = $info_comprador["email"];
+                                        $mail->subject = PAGE_NAME." | [Producto a la venta]";
+                                        $data["user"]=$this->u->user;
+                                        $mail->getEmail("producto_disponible",$data);
+                                        $mail->sendEmail();
+                                    }
+                                }
+
                                 $data["titulo_mensaje"]="¡Información de pago actualizada!";
                                 $data["texto_mensaje"]="Tus información sobre pagos se ha actualizado correctamente.";
                             }else{
                                 $data["titulo_mensaje"]="Error";
-                                $data["texto_mensaje"]="Ha ocurrido un error al actualizar la información sobre pagos.";
+                                $data["texto_mensaje"]="Sólo puede haber un usuario con este DNI/CIF.";
                             }
                         }else{
                             $data["titulo_mensaje"]="Error";
-                            $data["texto_mensaje"]="Faltan datos obligatorios por rellenar.";
+                            $data["texto_mensaje"]="Faltan datos obligatorios por rellenar. Es necesario configurar al menos un método de pago";
                         }
                         $this->render("mensaje","mensaje",$data);
                     }else{
@@ -499,43 +532,53 @@
                 break;
 
                 case 'settings':
-                    $data["mensaje"]="";
-                    if(!empty($_POST)){
-                        $this->u->email=trim($_POST["email"]);
-                        $this->u->address=trim($_POST["address"]);
-                        $this->u->cp=trim($_POST["cp"]);
-                        $this->u->localidad=trim($_POST["localidad"]);
-                        $this->u->provincia=trim($_POST["provincia"]);
-                        $this->u->phone=trim($_POST["phone"]);
-                        if(!empty($_POST["email"]) && !empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
-                            if($this->u->updateUserInformation()){
-                                $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
+                    if(isset($_SESSION["login"])){
+                        $data["mensaje"]="";
+                        if(!empty($_POST)){
+                            $this->u->email=trim($_POST["email"]);
+                            $this->u->address=trim($_POST["address"]);
+                            $this->u->cp=trim($_POST["cp"]);
+                            $this->u->localidad=trim($_POST["localidad"]);
+                            $this->u->provincia=trim($_POST["provincia"]);
+                            $this->u->phone=trim($_POST["phone"]);
+                            if(!empty($_POST["email"]) && !empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
+                                if($this->u->updateUserInformation()){
+                                    $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
+                                }else{
+                                    $data["mensaje"]=$this->loadView('error','form_error','Error al guardar los datos');
+                                }
                             }else{
-                                $data["mensaje"]=$this->loadView('error','form_error','Error al guardar los datos');
+                                $data["mensaje"]=$this->loadView('error','form_error','Faltan datos por rellenar');
                             }
-                        }else{
-                            $data["mensaje"]=$this->loadView('error','form_error','Faltan datos por rellenar');
                         }
-                    }
 
-                    $user=$this->u->getUser();
-                    $data["nombre"]=$user["name"];
-                    $data["email"]=$user["email"];
-                    $data["idnum"]=$user["idnum"];
-                    if(!empty($user["idnum"])){
-                        $data["idnum"]=$data["idnum"]."\" readonly \" ";
+                        $user=$this->u->getUser();
+                        $data["nombre"]=$user["name"];
+                        $data["email"]=$user["email"];
+                        $data["idnum"]=$user["idnum"];
+                        if(!empty($user["idnum"])){
+                            $data["idnum"]=$data["idnum"]."\" readonly \" ";
+                        }
+                        if(!empty($user["birthday"])){
+                            $data["birthday"]=date("d/m/Y", strtotime($user["birthday"]));
+                        }else{
+                            $data["birthday"]="";
+                        }
+                        $data["address"]=$user["address"];
+                        $data["cp"]=$user["cp"];
+                        $data["localidad"]=$user["localidad"];
+                        $data["phone"]=$user["phone"];
+                        $data["paypal"]=$user["paypal"];
+                        $data["iban"]=$user["iban"];
+                        $data["credit"]=number_format($user["credit"], 2, ',', ' ');
+                        $data["provincia_selected"]=$user["provincia"];
+                        $data["provincia"]=$this->loadView("forms","provincia",$data);
+                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/settings.js'></script>";
+                        $this->render("user","settings",$data);
+                    }else{
+                        //redirigimos al login con redireccion de vuelta para aca
+                        header('Location: '.PAGE_DOMAIN.'/login?redirect='.$this->getURL());
                     }
-                    $data["birthday"]=date("d/m/Y", strtotime($user["birthday"]));
-                    $data["address"]=$user["address"];
-                    $data["cp"]=$user["cp"];
-                    $data["localidad"]=$user["localidad"];
-                    $data["phone"]=$user["phone"];
-                    $data["paypal"]=$user["paypal"];
-                    $data["credit"]=number_format($user["credit"], 2, ',', ' ');
-                    $data["provincia_selected"]=$user["provincia"];
-                    $data["provincia"]=$this->loadView("forms","provincia",$data);
-                    $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/settings.js'></script>";
-                    $this->render("user","settings",$data);
                 break;
 
                 default:
@@ -544,13 +587,13 @@
                         $creador->user=$_GET["user"];//nombre del creador
                         if($infocreador=$creador->getUser()){
                             $this->loadModel("producto");
-                            $pr = New Producto_Model();
+                            $p = New Producto_Model();
                             $this->loadModel("design");
                             $dg = New Design_Model();
                             $this->loadModel("categoria");
                             $cat = New Categoria_Model();
 
-                            $data["userid"]=$pr->creador=$creador->id=$infocreador["id"];
+                            $data["userid"]=$p->creador=$creador->id=$infocreador["id"];
                             $data["creador_user"]=$data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
                             $data["edit_button"]="";
                             $data['description']=$infocreador["description"];
@@ -566,32 +609,32 @@
                                 }
                             }
 
-                            $pr->user=$this->u->id;//asignamos el id del usuario de sesion
+                            $p->user=$this->u->id;//asignamos el id del usuario de sesion
 
                             switch(@$_GET["node"]){
                                 case 'designs':
-                                    $pr->category_parent=1;
-                                    $lista_productos=$pr->getProductosCategoryParentUser();
+                                    $p->category_parent=1;
+                                    $lista_productos=$p->getProductosCategoryParentUser();
                                 break;
 
                                 case 'crafts':
-                                    $pr->category_parent=2;
-                                    $lista_productos=$pr->getProductosCategoryUser();
+                                    $p->category_parent=2;
+                                    $lista_productos=$p->getProductosCategoryUser();
                                 break;
 
                                 case 'baul':
-                                    $pr->category_parent=30;
-                                    $lista_productos=$pr->getProductosCategoryUser();
+                                    $p->category_parent=30;
+                                    $lista_productos=$p->getProductosCategoryUser();
                                 break;
 
                                 case 'lists':
-                                    if($listas_productos=$pr->getListasUsadas()){
+                                    if($listas_productos=$p->getListasUsadas()){
                                         $lists="";
                                         foreach($listas_productos as $lista){
                                             $data["list_name"]=$lista["nombre"];
                                             $data["list_token"]=$lista["token"];
-                                            $data["id_producto"]=$pr->id=$lista["producto"];
-                                            $producto=$pr->get();
+                                            $data["id_producto"]=$p->id=$lista["producto"];
+                                            $producto=$p->get();
                                             $data["cat_id"]=$cat->id=$producto["categoria"];
                                             $data["cat_nombre"]=$cat->get()["nombre"];
                                             $data["dg-token"]=$dg->token=$producto["design"];
@@ -605,25 +648,25 @@
                                 break;
 
                                 case 'viewlist':
-                                    $pr->token_lista=$_GET["tokenlist"];
+                                    $p->token_lista=$_GET["tokenlist"];
                                     $data['banner']=$creador->getBanner();
-                                    $lista=$pr->getLista();
+                                    $lista=$p->getLista();
                                     $data["nombre_lista"]=$lista["nombre"];
-                                    $lista_productos=$pr->getProductosLista();
+                                    $lista_productos=$p->getProductosLista();
                                 break;
 
                                 default:
-                                    $lista_productos=$pr->getProductosUser();
+                                    $lista_productos=$p->getProductosUser();
                                     $data["nombre_lista"]="ÚLTIMOS PRODUCTOS";
                             }
 
                             if(!empty($lista_productos)){
                                 $data["lista_productos"]="";
                                 foreach($lista_productos as $producto){
-                                    $pr->id=$producto["id"];
-                                    if($pr->isActive() && ($creador->user==$this->u->user) || ($pr->isRevisado() && $creador->user!=$this->u->user)){
+                                    $p->id=$producto["id"];
+                                    if($p->isActive() && ($creador->user==$this->u->user) || ($p->isRevisado() && $creador->user!=$this->u->user)){
                                         $data["revisado"]=$producto["revisado"];
-                                        $data["id_producto"]=$pr->id=$producto["id"];
+                                        $data["id_producto"]=$p->id=$producto["id"];
                                         $data["cat_id"]=$cat->id=$producto["categoria"];
                                         $data["cat_nombre"]=$cat->get()["nombre"];
                                         $data["dg-token"]=$dg->token=$producto["design"];
@@ -631,14 +674,14 @@
                                         $data["dg-nombre"]=$producto["nombre"];
                                         $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
 
-                                        if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
+                                        if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                                             $data["like_class"]='like';
                                         }else{
                                             $data["like_class"]='unlike';
                                         }
-                                        $data["contador_likes"]=$pr->getLikes();
-                                        $data["contador_shares"]=$pr->getShares();
-                                        $data["contador_comments"]=$pr->getContComentarios();
+                                        $data["contador_likes"]=$p->getLikes();
+                                        $data["contador_shares"]=$p->getShares();
+                                        $data["contador_comments"]=$p->getContComentarios();
                                         if($producto["revisado"]==1){
                                             $data["product_card"]=$this->loadView('product','product_card',$data);
                                             $data["lista_productos"].=$this->loadView('product','product_card_col',$data);
