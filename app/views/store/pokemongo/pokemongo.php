@@ -159,6 +159,7 @@
                 <div class="col-md-6">
                     <h3 class="title" id="title"></h3>
                     <p class="description" id="description"></p>
+                    <h2 class="title">19,90€</h2>
                     <h4 class="title">Configura tu camiseta</h4>
                     <form action="#" method="post">
                         <div class="form-group diagonal-input">
@@ -191,6 +192,7 @@
                 <div class="col-md-6">
                     <h3 class="title" id="title"></h3>
                     <p class="description" id="description"></p>
+                    <h2 class="title">9,90€</h2>
                     <h4 class="title">Configura tu taza</h4>
                     <form action="#" method="post">
                         <div class="form-group label-floating diagonal-input">

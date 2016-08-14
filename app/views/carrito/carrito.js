@@ -39,7 +39,7 @@ $(document).ready(function(){
                 window.location.href = '/carrito';
             },
             error: function (){
-                alert('Error al añadir al carrito');
+                alert('Error al quitar del carrito');
             }
         });
     });

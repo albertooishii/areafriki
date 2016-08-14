@@ -93,7 +93,7 @@
                     <li class="dropdown">
                         <a href="/areastore">AREASTORE</a>
                     </li>
-                    <li id="vender" class="nomobile">
+                    <li id="vender">
                         <a href="/upload" class="btn btn-primary btn-round">
                             <i class="material-icons">edit</i>VENDER
                             <div class="ripple-container"></div>

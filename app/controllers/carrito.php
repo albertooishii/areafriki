@@ -251,7 +251,7 @@
                         if($car->setInfoEnvio()){
                             switch($_POST["pay_method"]){
                                 case 'transferencia':
-                                    if($car->vendedor==0){
+                                    if($vendedor->id==0){
                                         $data["iban"]=IBAN;
                                     }else{
                                         $data["iban"]=$info_vendedor["iban"];
@@ -260,7 +260,7 @@
                                 break;
 
                                 case 'paypal':
-                                    if($ped->vendedor==0){
+                                    if($vendedor->id==0){
                                         $data["paypal_email"]=PAYPAL;
                                     }else{
                                         $data["paypal_email"]=$info_vendedor["paypal"];

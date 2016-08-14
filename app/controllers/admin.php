@@ -356,65 +356,61 @@
                             }
                         break;
 
-                        case 'productos':
+                        case 'pedidos':
                             $this->loadModel('producto');
-                            $p = New Producto_Model;
+                            $p=New Producto_Model();
                             $this->loadModel('categoria');
-                            $c = New Categoria_Model;
-                            $this->loadModel('user');
-                            $u = New Users_Model;
-                            @$action=$_GET["action"];
+                            $cat=New Categoria_Model();
+                            $this->loadModel('pedido');
+                            $ped=New Pedido_Model();
+                            $this->loadModel("design");
+                            $dg=New Design_Model();
+                            $this->loadModel("provincia");
+                            $provincia=New Provincia_Model();
+                            $vendedor=New Users_Model();
+                            $comprador=New Users_Model();
+                            $creador=New Users_Model();
+                            $data["mensaje"]="";
+                            if(isset($_GET["token"])){
 
-                            $data["mensaje"]=$data["datos_productos"]="";
-                            switch($action){
-                                case 'revisar':
-                                    $p->id=$_GET["id"];
-                                    if($p->revisar()){
-                                        $data["mensaje"]=$this->loadView('success','form_success','Producto revisado correctamente');
-                                    }
-                                break;
-
-                                case 'delete':
-                                    $data["id"]=$p->id=$_GET["id"];
-                                    if($p->delete()){
-                                        $data["mensaje"]=$this->loadView('success','form_success','Producto borrado correctamente');
-                                    }else{
-                                        $data["mensaje"]=$this->loadView('error','form_error','Error al borrar el producto');
-                                    }
-                                break;
-                            }
-
-                            if($lista_productos=$p->getProductos()){
-
-                                foreach ($lista_productos as $producto){
-                                    $c->id=$producto["categoria"];
-                                    $categoria=$c->get()["nombre"];
-                                    $p->id=$producto["id"];
-
-                                    $u->id=$producto["user"];
-                                    $creador=$u->getUserFromID()["user"];
-
-                                    $data["datos_productos"].="
-                                        <tr>
-                                            <td>".$producto['id']."</td>
-                                            <td>".$producto['nombre']."</td>
-                                            <td>".str_replace('.',',',$producto['beneficio'])."€</td>
-                                            <td>".$producto['ventas']."</td>
-                                            <td>".$categoria."</td>
-                                            <td>".$creador."</td>
-                                            <td>".$producto['visitas']."</td>
-                                            <td>".$p->getLikes()."</td>
-                                            <td>".$producto['shares']."</td>
-                                            <td>".$producto['fecha_publicacion']."</td>
-                                            <td><a href='/simbiosis/productos?action=revisar&id=".$producto['id']."'>Revisar</a></td>
-                                            <td><a href='/simbiosis/productos?action=delete&id=".$producto['id']."'>Eliminar</a></td>
-                                        </tr>
-                                    ";
-                                }
                             }else{
-                                $data["datos_productos"]="</table>No hay productos";
+                                if($lista_pedidos=$ped->getPedidos()){
+                                    $data["listado_pedidos"]="";
+                                    foreach($lista_pedidos as $pedido){
+                                        $data["id"]=$pedido["id"];
+                                        $data["token"]=$pedido["token"];
+                                        //comprador
+                                        $data["comprador"]=$pedido["name"];
+                                        if(!empty($pedido["user"])){
+                                            $comprador->id=$pedido["user"];
+                                            $info_comprador=$comprador->getUserFromID();
+                                            $data["user"]=$info_comprador["user"];
+                                        }
+
+                                        //vendedor
+                                        $data["vendedor_id"]=$pedido["vendedor"];
+                                        if($pedido["vendedor"]!=0){
+                                            $vendedor->id=$pedido["vendedor"];
+                                            $info_vendedor=$vendedor->getUserFromID();
+                                            $data["vendedor"]=$info_vendedor["user"];
+                                        }else{
+                                            $data["vendedor"]=PAGE_NAME;
+                                        }
+
+                                        $data["fecha_pedido"]=$this->format_date($pedido["fecha_pedido"]);
+                                        $data["estado"]=$pedido["estado"];
+                                        $data["class_estado"]=$this->classEstado($data["estado"]);
+                                        $data["precio"]=number_format($pedido["precio"], 2, ',', ' ')."€";
+                                        $data["gastos_envio"]=number_format($pedido["gastos_envio"], 2, ',', ' ')."€";
+                                        $data["nota"]=$pedido["nota"];
+                                        $data["observaciones"]=$pedido["observaciones"];
+                                        $data["localizador"]=$pedido["localizador"];
+
+                                        $data["listado_pedidos"].=$this->loadView("admin", "pedidos/pedidos_row",$data);
+                                    }
+                                    $this->render('admin','pedidos/pedidos',$data);
+                                }
                             }
-                            $this->render('admin','productos',$data);
                         break;
 
                         case 'tags':
@@ -443,6 +439,17 @@
                 }
             }else{
                 header('Location: '.PAGE_DOMAIN.'/login?redirect='.$this->getURL());
+            }
+        }
+
+        function classEstado($estado){
+            switch($estado){
+                case 'pendiente': return "default"; break;
+                case 'pagado': return "rose"; break;
+                case 'procesado': return "warning"; break;
+                case 'enviado': return "info"; break;
+                case 'completado': return "success"; break;
+                case 'cancelado': return "danger"; break;
             }
         }
 

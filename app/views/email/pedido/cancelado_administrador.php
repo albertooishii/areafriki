@@ -11,4 +11,4 @@
 
 <p>En caso de haber realizado un pago deberá ser devuelto a través del mísmo sistema que fue pagado (<?=$data["metodo_pago"]?>).</p>
 
-Puedes gestionar este pedido desde este enlace <a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos/<?=$data["token"]?>"><?=$data["token"]?></a>
+Puedes gestionar este pedido desde este enlace <a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos?token=<?=$data["token"]?>"><?=$data["token"]?></a>

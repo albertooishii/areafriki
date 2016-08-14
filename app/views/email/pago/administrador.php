@@ -7,4 +7,4 @@
 <?php
   }
 ?>
- ha efectuado un pedido con código de referencia <?=$data["token"]?>. Puedes gestionar este pedido desde este enlace <a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos/<?=$data["token"]?>"><?=$data["token"]?></a>
+ ha efectuado un pedido con código de referencia <?=$data["token"]?>. Puedes gestionar este pedido desde este enlace <a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos?token=<?=$data["token"]?>"><?=$data["token"]?></a>

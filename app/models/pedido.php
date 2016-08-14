@@ -20,7 +20,11 @@
 
         function getPedidos()
         {
-            $query = "SELECT * FROM pedidos WHERE user= '".$this->user."' ORDER BY fecha_pedido DESC";
+            if(empty($this->user)){
+                $query = "SELECT * FROM pedidos ORDER BY fecha_pedido DESC";
+            }else{
+                $query = "SELECT * FROM pedidos WHERE user= '".$this->user."' ORDER BY fecha_pedido DESC";
+            }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_pedidos[]=$fila;
