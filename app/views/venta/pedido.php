@@ -1,4 +1,4 @@
-<div class="card pedido" data-token="<?=$data["token"]?>">
+<div class="card pedido" data-token="<?=$data["token"]?>" data-estado="<?=$data["estado"]?>">
     <div class="content">
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12">CÓDIGO DE REFERENCIA: <?=$data["token"]?></div>

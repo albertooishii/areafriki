@@ -7,7 +7,9 @@
 <?php
   }
 ?>
- ha cancelado un pedido con código de referencia <?=$data["token"]?>.</p>
+ ha cancelado un pedido con código de referencia <?=$data["token"]?> por el siguiente motivo:</p>
+
+    <p><cite><?=$data["observaciones"]?></cite></p>
 
 <p>En caso de haber realizado un pago deberá ser devuelto a través del mísmo sistema que fue pagado (<?=$data["metodo_pago"]?>).</p>
 

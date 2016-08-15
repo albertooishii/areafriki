@@ -38,8 +38,8 @@ $(document).ready(function(){
             success: function (response){
                 window.location.href = '/carrito';
             },
-            error: function (){
-                alert('Error al quitar del carrito');
+            error: function (response){
+               window.location.href = '/carrito';
             }
         });
     });

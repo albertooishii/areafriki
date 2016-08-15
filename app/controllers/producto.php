@@ -22,7 +22,11 @@
 
                         $pr->categoria=$producto["categoria"];
                         $pr->codigo=$_POST["size"];
-                        $orden=$_POST["orden"];
+                        if(isset($_POST["orden"])){
+                            $orden=$_POST["orden"];
+                        }else{
+                            $orden=1;
+                        }
 
                         if($precio=$pr->get($orden)){
                             echo number_format( $precio ,2,',','')."€";

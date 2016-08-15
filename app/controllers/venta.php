@@ -28,6 +28,18 @@
                             if($ar_pedido["vendedor"]==$this->u->id || $ar_pedido["vendedor"]==0){
                                 $ped->email=$ar_pedido["email"];
                                 $data["nombre"]=$ar_pedido["name"];
+
+                                //Calculo de cancelación
+                                $temp1=strtotime(date("Y-m-d H:i:s")); //hora actual
+                                if(!empty($ar_pedido["fecha_pago"])){
+                                    $temp2=strtotime($ar_pedido["fecha_pago"]); //hora del pago
+                                    $diferencia= $temp1-$temp2; //abs=valor absoluto :D
+                                    $horas=floor($diferencia/60/60); //floor=redondea hacia arriba :D
+                                    //echo "horas transcurridas: ".$horas;
+                                }else{
+                                    $horas=0;
+                                }
+
                                 switch($_POST["estado"]){
                                     case 'pagado':
                                         $mail->getEmail("pedido/pagado", $data);
@@ -71,14 +83,43 @@
                                         }
                                     break;
 
+                                    case 'procesado':
+                                        if(($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA){
+                                            $ped->estado=$_POST["estado"];
+                                            if($ped->changeEstado()){
+                                                echo true;
+                                            }else{
+                                                echo "No se ha podido cambiar el estado a este pedido";
+                                            }
+                                        }else{
+                                            echo "No puedes cambiar el estado del pedido hasta que hayan pasado ".TIEMPO_ESPERA." horas";
+                                        }
+                                    break;
+
                                     case 'enviado':
-                                        $data["localizador"]=$ped->localizador=$_POST["localizador"];
-                                        $mail->getEmail("pedido/enviado", $data);
-                                        $mail->to=$ped->email;
-                                        $mail->subject=PAGE_NAME." | [Pago enviado]";
-                                        $mail->sendEmail();
-                                        if($ped->enviar()){
-                                            echo true;
+                                        if(((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA)) || ($ar_pedido["estado"]=="procesado")){
+                                            $data["localizador"]=$ped->localizador=$_POST["localizador"];
+                                            $mail->getEmail("pedido/enviado", $data);
+                                            $mail->to=$ped->email;
+                                            $mail->subject=PAGE_NAME." | [Pedido enviado]";
+                                            $mail->sendEmail();
+                                            if($ped->enviar()){
+                                                echo true;
+                                            }
+                                        }else{
+                                            echo "No puedes cambiar el estado del pedido hasta que hayan pasado ".TIEMPO_ESPERA." horas";
+                                        }
+                                    break;
+
+                                    case 'completado':
+                                        if((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA) || $ar_pedido["estado"]=="procesado" || $ar_pedido["estado"]=="enviado"){
+                                            if($ped->completar()){
+                                                echo true;
+                                            }else{
+                                                echo "No se ha podido marcar este pedido como completado";
+                                            }
+                                        }else{
+                                            echo "No puedes cambiar el estado del pedido hasta que hayan pasado ".TIEMPO_ESPERA." horas";
                                         }
                                     break;
 
@@ -127,22 +168,6 @@
                                             echo "No se ha podido cancelar el pedido";
                                         }
                                     break;
-
-                                    case 'completado':
-                                        if($ped->completar()){
-                                            echo true;
-                                        }else{
-                                            echo "No se ha podido marcar este pedido como completado";
-                                        }
-                                    break;
-
-                                    default:
-                                        $ped->estado=$_POST["estado"];
-                                        if($ped->changeEstado()){
-                                            echo true;
-                                        }else{
-                                            echo "No se ha podido cambiar el estado a este pedido";
-                                        }
                                 }
                             }else{
                                 echo "Este pedido no corresponde a este vendedor";
@@ -243,23 +268,20 @@
                                 $data["estado_selector"]="";
                                 $key_estado = array_search($ar_pedido["estado"], $ar_estados);
                                 foreach($ar_estados as $key => $estado){
-                                    if(($estado!="procesado" && $estado!="enviado" && $estado!="completado") || $horas>=TIEMPO_ESPERA){
-                                        if(($ar_pedido["estado"]=="pendiente" && ($estado=="pagado" || $estado=="cancelado" || $estado=="pendiente")) || $ar_pedido["estado"]!="pendiente"){ //Si es pendiente solo puede aparecer como opciones pagado o cancelado
-                                            if($key >= $key_estado){ //No se puede cambiar a un estado anterior
-                                                if($estado==$ar_pedido["estado"]){
-                                                    $data["estado_selected"]="selected";
-                                                }else{
-                                                    $data["estado_selected"]="";
-                                                }
-
-                                                $data["class_estado"]=$this->classEstado($estado);
-                                                $data["estado"]=$estado;
-                                                $data["estado_selector"].=$this->loadView("venta","estado_selector",$data);
+                                        if($key >= $key_estado){ //No se puede cambiar a un estado anterior
+                                            if($estado==$ar_pedido["estado"]){
+                                                $data["estado_selected"]="selected";
+                                            }else{
+                                                $data["estado_selected"]="";
                                             }
+
+                                            $data["class_estado"]=$this->classEstado($estado);
+                                            $data["estado"]=$estado;
+                                            $data["estado_selector"].=$this->loadView("venta","estado_selector",$data);
                                         }
-                                    }
                                 }
 
+                                $data["estado"]=$ar_pedido["estado"];
                                 $data["localizador"]=$ar_pedido["localizador"];
 
                                 $data["fecha_pedido"]=$this->format_date($ar_pedido["fecha_pedido"]);
@@ -382,8 +404,8 @@
                                 $data["estado_selector"]="";
                                 $key_estado = array_search($ar_pedido["estado"], $ar_estados);
                                 foreach($ar_estados as $key => $estado){
-                                    if(($estado!="procesado" && $estado!="enviado" && $estado!="completado") || $horas>=TIEMPO_ESPERA){
-                                        if(($ar_pedido["estado"]=="pendiente" && ($estado=="pagado" || $estado=="cancelado" || $estado=="pendiente")) || $ar_pedido["estado"]!="pendiente"){ //Si es pendiente solo puede aparecer como opciones pagado o cancelado
+                                    /*if(($estado!="procesado" && $estado!="enviado" && $estado!="completado") || $horas>=TIEMPO_ESPERA){
+                                        if(($ar_pedido["estado"]=="pendiente" && ($estado=="pagado" || $estado=="cancelado" || $estado=="pendiente")) || $ar_pedido["estado"]!="pendiente"){ //Si es pendiente solo puede aparecer como opciones pagado o cancelado*/
                                             if($key >= $key_estado){ //No se puede cambiar a un estado anterior
                                                 if($estado==$ar_pedido["estado"]){
                                                     $data["estado_selected"]="selected";
@@ -395,10 +417,11 @@
                                                 $data["estado"]=$estado;
                                                 $data["estado_selector"].=$this->loadView("venta","estado_selector",$data);
                                             }
-                                        }
-                                    }
+                                        /*}
+                                    }*/
                                 }
 
+                                $data["estado"]=$ar_pedido["estado"];
                                 $data["localizador"]=$ar_pedido["localizador"];
 
                                 $data["fecha_pedido"]=$this->format_date($ar_pedido["fecha_pedido"]);

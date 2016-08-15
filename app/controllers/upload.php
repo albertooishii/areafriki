@@ -87,16 +87,6 @@
                                 $data["listas_productos"]="";
                             }
 
-                            /*$designs=$dg->getMyDesigns();
-                            $data["my_designs"]="";
-                            if(!empty($designs)){
-                                $data["nombre_creador"]=$this->u->user;
-                                foreach ($designs as $design){
-                                    $data["dg_token"]=$design["token"];
-                                    $data["dg_nombre"]=$design["nombre"];
-                                    $data["my_designs"].=$this->loadView("designer","my_designs", $data);
-                                }
-                            }*/
                             if(!empty($info_cat["precio_base"])){
                                 $cat->precio_base=$info_cat["precio_base"];
                                 $data["precio_base"]=str_replace('.', ',', $cat->precio_base);
@@ -204,8 +194,13 @@
                                 }
                             }else{ //SUBIDA DE ARTÍCULOS PARA VENTA (CRAFTS Y BAÚL)
                                 if(isset($_POST["usado"])){$pr->usado=1;}else{$pr->usado=0;}
-                                if(!empty($_POST["stock"])){$pr->stock=$_POST["stock"];}else{$pr->stock="NULL";}
-                                if(!empty($_POST["preparacion"])){$pr->preparacion=$_POST["preparacion"];}else{$pr->preparacion="NULL";}
+                                if(!empty($_POST["stock"])){
+                                    $pr->stock=$_POST["stock"];
+                                    $pr->preparacion="NULL";
+                                }elseif(!empty($_POST["preparacion"])){
+                                    $pr->stock="NULL";
+                                    $pr->preparacion=$_POST["preparacion"];
+                                }
                                 if(!empty($_POST["gastos_envio"])){$pr->gastos_envio=$_POST["gastos_envio"];}else{$pr->gastos_envio="NULL";}
                                 if(!empty($_POST["tiempo_envio"])){$pr->tiempo_envio=$_POST["tiempo_envio"];}else{$pr->tiempo_envio="NULL";}
 

@@ -445,7 +445,7 @@
         function classEstado($estado){
             switch($estado){
                 case 'pendiente': return "default"; break;
-                case 'pagado': return "rose"; break;
+                case 'pagado': return "primary"; break;
                 case 'procesado': return "warning"; break;
                 case 'enviado': return "info"; break;
                 case 'completado': return "success"; break;

@@ -435,7 +435,7 @@
         function setCraft()
         {
             $fecha=date ("Y-m-d H:i:s");
-            $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, fecha_publicacion, usado, stock, preparacion, gastos_envio, tiempo_envio) VALUES('$this->nombre', '$this->descripcion', '$this->beneficio', '$this->design', '$this->categoria', '$fecha', '$this->usado', '$this->stock', '$this->preparacion', '$this->gastos_envio', '$this->tiempo_envio')";
+            $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, fecha_publicacion, usado, stock, preparacion, gastos_envio, tiempo_envio) VALUES('$this->nombre', '$this->descripcion', $this->beneficio, '$this->design', '$this->categoria', '$fecha', $this->usado, $this->stock, $this->preparacion, $this->gastos_envio, $this->tiempo_envio)";
             //echo $query;
             if ($this->_db->query($query)){
                 $this->id=mysqli_insert_id($this->_db);

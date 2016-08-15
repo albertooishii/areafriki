@@ -30,6 +30,9 @@ $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 
     $('form').formValidation();
+    $("body").on("form","submit",function(){
+       $(this).formValidation();
+    });
 
     //SISTEMA DE BÚSQUEDA
     $("#header-search").click(function(e){

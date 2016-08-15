@@ -102,78 +102,82 @@
                                 $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
                                 $data["dg_categoria"]=$cat->get()["nombre"];
                                 $data["dg_nombre"]=$producto["nombre"];
-                                $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
-
-                                $creador->id=$design["user"];
-                                $data["dg_autor"]=$creador->getUserFromID()["user"];
-
-                                $data["atributos"]="";
-                                $swatributo=0;
-
-                                if(!empty($linea["color"])){
-                                    $p->codigo=$linea["color"];
-                                    $color=$p->getNombreColor();
-                                    $data["atributos"].="Color: ".$color;
-                                    $swatributo=1;
-                                }
-
-                                $p->modelo=$producto["modelo"];
-                                if(!empty($linea["size"])){
-                                    if($swatributo==1){
-                                        $data["atributos"].=", ";
-                                    }
-                                    if($valor=$p->getValor($linea["size"])["valor"]){
-                                        $data["atributos"].="Tamaño: ".$valor;
-                                    }elseif($talla=$p->getSize($linea["size"])["valor"]){
-                                        $data["atributos"].="Talla: ".$talla;
-                                    }else{
-                                        $data["atributos"].="Talla: ".$linea["size"];
-                                    }
-                                }
-
-                                $data["nota"]="";
-                                if(!empty($linea["nota"])){
-                                    $data["nota"]=$linea["nota"];
-                                }
-
                                 $data["stock"]=$producto["stock"];
                                 $data["cantidad"]=$linea["cantidad"];
 
-                                /*PRECIO----------*/
-                                $precio=$pr->get($linea["size"]);
-                                $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                                $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
-                                $precio_total_vendedor+=$precio*$linea["cantidad"];
-                                $subtotal+=$precio*$linea["cantidad"];
+                                if($data["stock"]>0 || $data["stock"]==NULL){
+                                    $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
 
-                                /*GASTOS_ENVIO----------*/
-                                $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
-                                $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
-                                $total_envio_vendedor+=$gastos_envio;
-                                $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                    $creador->id=$design["user"];
+                                    $data["dg_autor"]=$creador->getUserFromID()["user"];
 
-                                if($pr->vendedor==0){
-                                    $data["nombre_vendedor"]=PAGE_NAME;
-                                    if($precio_total_vendedor<MIN_ENVIO_GRATIS){
-                                        $total_envio_vendedor=GASTOS_ENVIO;
-                                        $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                    $data["atributos"]="";
+                                    $swatributo=0;
+
+                                    if(!empty($linea["color"])){
+                                        $p->codigo=$linea["color"];
+                                        $color=$p->getNombreColor();
+                                        $data["atributos"].="Color: ".$color;
+                                        $swatributo=1;
+                                    }
+
+                                    $p->modelo=$producto["modelo"];
+                                    if(!empty($linea["size"])){
+                                        if($swatributo==1){
+                                            $data["atributos"].=", ";
+                                        }
+                                        if($valor=$p->getValor($linea["size"])["valor"]){
+                                            $data["atributos"].="Tamaño: ".$valor;
+                                        }elseif($talla=$p->getSize($linea["size"])["valor"]){
+                                            $data["atributos"].="Talla: ".$talla;
+                                        }else{
+                                            $data["atributos"].="Talla: ".$linea["size"];
+                                        }
+                                    }
+
+                                    $data["nota"]="";
+                                    if(!empty($linea["nota"])){
+                                        $data["nota"]=$linea["nota"];
+                                    }
+
+                                    /*PRECIO----------*/
+                                    $precio=$pr->get($linea["size"]);
+                                    $data["precio"]=number_format($precio, 2, ',', ' ')."€";
+                                    $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                    $precio_total_vendedor+=$precio*$linea["cantidad"];
+                                    $subtotal+=$precio*$linea["cantidad"];
+
+                                    /*GASTOS_ENVIO----------*/
+                                    $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
+                                    $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
+                                    $total_envio_vendedor+=$gastos_envio;
+                                    $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+
+                                    if($pr->vendedor==0){
+                                        $data["nombre_vendedor"]=PAGE_NAME;
+                                        if($precio_total_vendedor<MIN_ENVIO_GRATIS){
+                                            $total_envio_vendedor=GASTOS_ENVIO;
+                                            $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                        }else{
+                                            $total_envio_vendedor=0;
+                                            $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                        }
+                                        $data["tiempo_envio"]=$data["tiempo_envio_total"]=TIEMPO_ENVIO*24;
+                                        $data["total_preparacion_vendedor"]=PREPARACION;
                                     }else{
-                                        $total_envio_vendedor=0;
-                                        $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                        $info_vendedor=$vendedor->getUserFromID();
+                                        $data["nombre_vendedor"]=$info_vendedor["user"];
+                                        $data["tiempo_envio"]=$producto["tiempo_envio"]*24;
+                                        //como tiempo de envio total marcamos el mayor de los productos del vendedor
+                                        if($data["tiempo_envio"]>$data["tiempo_envio_total"]){
+                                            $data["tiempo_envio_total"]=$data["tiempo_envio"];
+                                        }
                                     }
-                                    $data["tiempo_envio"]=$data["tiempo_envio_total"]=TIEMPO_ENVIO*24;
-                                    $data["total_preparacion_vendedor"]=PREPARACION;
+                                   $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
+                                    $data["productos_vendedor"].=$this->loadView("carrito","producto",$data);
                                 }else{
-                                    $info_vendedor=$vendedor->getUserFromID();
-                                    $data["nombre_vendedor"]=$info_vendedor["user"];
-                                    $data["tiempo_envio"]=$producto["tiempo_envio"]*24;
-                                    //como tiempo de envio total marcamos el mayor de los productos del vendedor
-                                    if($data["tiempo_envio"]>$data["tiempo_envio_total"]){
-                                        $data["tiempo_envio_total"]=$data["tiempo_envio"];
-                                    }
+                                    header('Location: '.PAGE_DOMAIN.'/carrito');
                                 }
-                               $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
-                                $data["productos_vendedor"].=$this->loadView("carrito","producto",$data);
                             }
                             $data["carrito_vendedor"]=$this->loadView("carrito","vendedor",$data);
 
@@ -487,10 +491,10 @@
                         foreach($carritos as $carrito){
                             $data["id_vendedor"]=$vendedor->id=$carrito["vendedor"];
                             $pedido=unserialize($carrito["pedido"]);
-                            $data["token"]=$carrito["token"];
+                            $car->token=$data["token"]=$carrito["token"];
                             $data["tiempo_envio_total"]=0;
                             foreach($pedido as $key => $linea){
-                                $data["linea"]=$key;
+                                $car->linea=$data["linea"]=$key;
                                 $pr->producto=$p->id=$linea["producto"];
                                 $producto=$p->get();
                                 $data["dg_token"]=$dg->token=$producto["design"];
@@ -498,57 +502,67 @@
                                 $cat->id=$pr->categoria=$p->categoria=$producto["categoria"];
                                 $data["dg_categoria"]=$cat->get()["nombre"];
                                 $data["dg_nombre"]=$producto["nombre"];
-                                $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
-
-                                $creador->id=$design["user"];
-                                $data["dg_autor"]=$creador->getUserFromID()["user"];
-
-                                $data["atributos"]="";
-                                $swatributo=0;
-
-                                if(!empty($linea["color"])){
-                                    $p->codigo=$linea["color"];
-                                    $color=$p->getNombreColor();
-                                    $data["atributos"].="color ".$color;
-                                    $swatributo=1;
-                                }
-
-                                $p->modelo=$producto["modelo"];
-                                if(!empty($linea["size"])){
-                                    if($swatributo==1){
-                                        $data["atributos"].=", ";
-                                    }
-                                    if($valor=$p->getValor($linea["size"])["valor"]){
-                                        $data["atributos"].="Tamaño: ".$valor;
-                                    }elseif($talla=$p->getSize($linea["size"])["valor"]){
-                                        $data["atributos"].="Talla: ".$talla;
-                                    }else{
-                                        $data["atributos"].="Talla: ".$linea["size"];
-                                    }
-                                }
-
-                                $data["nota"]="";
-                                if(!empty($linea["nota"])){
-                                    $data["nota"]=$linea["nota"];
-                                }
-
                                 $data["stock"]=$producto["stock"];
-                                $data["cantidad"]=$linea["cantidad"];
+                                $car->cantidad=$data["cantidad"]=$linea["cantidad"];
 
-                                /*PRECIO----------*/
-                                $precio=$pr->get($linea["size"]);
-                                $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                                $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
-                                $precio_total_vendedor+=$precio*$linea["cantidad"];
-                                $subtotal+=$precio*$linea["cantidad"];
+                                if($data["stock"]>0 || $data["stock"]==NULL){
+                                    $data["total_preparacion_vendedor"]+=$data["preparacion"]=$producto["preparacion"];
 
-                                /*GASTOS_ENVIO----------*/
-                                $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
-                                $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
-                                $total_envio_vendedor+=$gastos_envio;
-                                $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+                                    $creador->id=$design["user"];
+                                    $data["dg_autor"]=$creador->getUserFromID()["user"];
 
-                                $data["productos_vendedor"].=$this->loadView("carrito","producto", $data);
+                                    $data["atributos"]="";
+                                    $swatributo=0;
+
+                                    if(!empty($linea["color"])){
+                                        $p->codigo=$linea["color"];
+                                        $color=$p->getNombreColor();
+                                        $data["atributos"].="color ".$color;
+                                        $swatributo=1;
+                                    }
+
+                                    $p->modelo=$producto["modelo"];
+                                    if(!empty($linea["size"])){
+                                        if($swatributo==1){
+                                            $data["atributos"].=", ";
+                                        }
+                                        if($valor=$p->getValor($linea["size"])["valor"]){
+                                            $data["atributos"].="Tamaño: ".$valor;
+                                        }elseif($talla=$p->getSize($linea["size"])["valor"]){
+                                            $data["atributos"].="Talla: ".$talla;
+                                        }else{
+                                            $data["atributos"].="Talla: ".$linea["size"];
+                                        }
+                                    }
+
+                                    $data["nota"]="";
+                                    if(!empty($linea["nota"])){
+                                        $data["nota"]=$linea["nota"];
+                                    }
+
+                                    /*PRECIO----------*/
+                                    $precio=$pr->get($linea["size"]);
+                                    $data["precio"]=number_format($precio, 2, ',', ' ')."€";
+                                    $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                    $precio_total_vendedor+=$precio*$linea["cantidad"];
+                                    $subtotal+=$precio*$linea["cantidad"];
+
+                                    /*GASTOS_ENVIO----------*/
+                                    $data["gastos_envio_float"]=$gastos_envio=$producto["gastos_envio"];
+                                    $data["gastos_envio"]=number_format($gastos_envio, 2, ',', ' ')."€";
+                                    $total_envio_vendedor+=$gastos_envio;
+                                    $data["total_envio_vendedor"]=number_format($total_envio_vendedor, 2, ',', ' ')."€";
+
+                                    $data["productos_vendedor"].=$this->loadView("carrito","producto", $data);
+                                }else{
+                                    //No hay stock suficiente para este producto
+                                    $car->removeLinea();
+                                    if($data["stock"]==0){
+                                        $data["productos_vendedor"].=$this->loadView("carrito","agotado",$data);
+                                    }else{
+                                        $data["productos_vendedor"].=$this->loadView("carrito","stock_bajo",$data);
+                                    }
+                                }
                             }
                             if($vendedor->id==0){
                                 $data["nombre_vendedor"]=PAGE_NAME;

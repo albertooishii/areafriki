@@ -48,11 +48,6 @@
                         $this->u->rol="user";
                         $this->u->ip=$this->getIP();
                         if($this->u->register()){
-                            $this->loadModel("pedido");
-                            $ped = New Pedido_Model();
-                            $ped->user=$this->u->id;
-                            $ped->email=$this->u->email;
-                            $ped->asignarPedidos();
                             header ("Location: ".PAGE_DOMAIN);
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
@@ -83,6 +78,11 @@
                                 $car=New Carrito_Model();
                                 $car->user=$this->u->id;
                                 $car->asignar();
+                                $this->loadModel("pedido");
+                                $ped = New Pedido_Model();
+                                $ped->user=$this->u->id;
+                                $ped->email=$this->u->email;
+                                $ped->asignarPedidos();
                                 if(!empty($_POST["redirect"])){
                                     Header("Location: ".$_POST["redirect"]);
                                 }else{
@@ -99,6 +99,11 @@
                                     $car=New Carrito_Model();
                                     $car->user=$this->u->id;
                                     $car->asignar();
+                                    $this->loadModel("pedido");
+                                    $ped = New Pedido_Model();
+                                    $ped->user=$this->u->id;
+                                    $ped->email=$this->u->email;
+                                    $ped->asignarPedidos();
                                     if(!empty($_POST["redirect"])){
                                         Header("Location: ".$_POST["redirect"]);
                                     }else{
@@ -124,6 +129,11 @@
                                     $car=New Carrito_Model();
                                     $car->user=$this->u->id;
                                     $car->asignar();
+                                    $this->loadModel("pedido");
+                                    $ped = New Pedido_Model();
+                                    $ped->user=$this->u->id;
+                                    $ped->email=$this->u->email;
+                                    $ped->asignarPedidos();
                                     if(!empty($_POST["redirect"])){
                                         Header("Location: ".$_POST["redirect"]);
                                     }else{
@@ -503,15 +513,16 @@
                                     $data["token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
                                     $data["dg_nombre"]=$producto["nombre"];
-                                    $solicitudes=$p->getSolicitudesCompra();
-                                    foreach($solicitudes as $solicitud){
-                                        $comprador->id=$solicitud["user"];
-                                        $info_comprador=$comprador->getUserFromID();
-                                        $mail->to = $info_comprador["email"];
-                                        $mail->subject = PAGE_NAME." | [Producto a la venta]";
-                                        $data["user"]=$this->u->user;
-                                        $mail->getEmail("producto_disponible",$data);
-                                        $mail->sendEmail();
+                                    if($solicitudes=$p->getSolicitudesCompra()){
+                                        foreach($solicitudes as $solicitud){
+                                            $comprador->id=$solicitud["user"];
+                                            $info_comprador=$comprador->getUserFromID();
+                                            $mail->to = $info_comprador["email"];
+                                            $mail->subject = PAGE_NAME." | [Producto a la venta]";
+                                            $data["user"]=$this->u->user;
+                                            $mail->getEmail("producto_disponible",$data);
+                                            $mail->sendEmail();
+                                        }
                                     }
                                 }
 
