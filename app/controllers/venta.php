@@ -60,23 +60,25 @@
                                                     $data["dg_nombre"]=$producto["nombre"];
 
                                                     $creador->id=$design["user"];
-                                                    $info_creador=$creador->getUserFromID();
-                                                    $data["dg_autor"]=$info_creador["user"];
-                                                    $data["cantidad"]=$linea["cantidad"];
+                                                    if($creador->id>0){
+                                                        $info_creador=$creador->getUserFromID();
+                                                        $data["dg_autor"]=$info_creador["user"];
+                                                        $data["cantidad"]=$linea["cantidad"];
 
-                                                    $precio=$linea["precio"];
-                                                    $credito_anterior=$info_creador["credit"];
-                                                    $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
-                                                    $creador->credito=$credito=$linea["precio"]*$linea["cantidad"];
-                                                    $creador->updateCredito();
-                                                    $data["credito"]=number_format($credito, 2, ',', ' ')."€";
-                                                    $credito_actual=$credito_anterior+$credito;
-                                                    $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
+                                                        $precio=$linea["precio"];
+                                                        $credito_anterior=$info_creador["credit"];
+                                                        $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
+                                                        $creador->credito=$credito=$linea["precio"]*$linea["cantidad"];
+                                                        $creador->updateCredito();
+                                                        $data["credito"]=number_format($credito, 2, ',', ' ')."€";
+                                                        $credito_actual=$credito_anterior+$credito;
+                                                        $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
 
-                                                    $mail->getEmail("pago/designer", $data);
-                                                    $mail->to=$info_creador["email"];
-                                                    $mail->subject=PAGE_NAME." | [Producto vendido]";
-                                                    $mail->sendEmail();
+                                                        $mail->getEmail("pago/designer", $data);
+                                                        $mail->to=$info_creador["email"];
+                                                        $mail->subject=PAGE_NAME." | [Producto vendido]";
+                                                        $mail->sendEmail();
+                                                    }
                                                 }
                                             }
                                             echo true;
