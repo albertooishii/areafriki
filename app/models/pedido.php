@@ -54,6 +54,18 @@
             return false;
         }
 
+        function countPedidos(){
+            $query="SELECT count(*) as count FROM pedidos";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
+        function countNewPedidos(){
+            $query="SELECT count(*) as count FROM pedidos WHERE  DATE(fecha_pedido) = DATE(NOW())";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
         function getEstados()
         {
             $query = "SHOW COLUMNS FROM pedidos WHERE field = 'estado'";

@@ -22,3 +22,11 @@
     vertical-align: text-top;
     width: 16px;
 }
+
+#page-wrapper{
+    padding-bottom: 50px;
+}
+
+footer{
+    padding: 20px;
+}

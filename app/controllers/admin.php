@@ -15,6 +15,8 @@
                     $this->loadModel('precio');
                     $pre = New Precio_Model;
                     $creador = New Users_Model;
+                    $this->loadModel('pedido');
+                    $ped=New Pedido_Model();
 
                     @$node=$_GET["node"];
                     switch($node){
@@ -377,8 +379,6 @@
                             $p=New Producto_Model();
                             $this->loadModel('categoria');
                             $cat=New Categoria_Model();
-                            $this->loadModel('pedido');
-                            $ped=New Pedido_Model();
                             $this->loadModel("design");
                             $dg=New Design_Model();
                             $this->loadModel("provincia");
@@ -593,6 +593,8 @@
                             $data["count_newproductos"]=$p->countNoRevisados();
                             $data["count_users"]=$creador->countUsers();
                             $data["count_newusers"]=$creador->countNewUsers();
+                            $data["count_pedidos"]=$ped->countPedidos();
+                            $data["count_newpedidos"]=$ped->countNewPedidos();
                             $this->render('admin','index',$data);
                     }
                 }else{

@@ -73,7 +73,11 @@
         <div id="page-wrapper">
             <?=$page?>
         </div>
-
+        <footer>
+            <?php
+                require_once 'app/templates/backoffice/footer.php';
+            ?>
+        </footer>
     </div>
     <!-- /#wrapper -->
 
