@@ -188,8 +188,11 @@
                             }
 
                             $data["lista_producto"]=$p->token_lista=$producto["lista"];
-                            $data["listas"]=$p->getListas();
-                            $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                            if($data["listas"]=$p->getListas()){
+                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                            }else{
+                                $data["listas_productos"]="";
+                            }
 
 
                             if(!empty($producto["beneficio"])){

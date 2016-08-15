@@ -15,7 +15,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="dataTable_wrapper table-responsive">
-                    <table class="table table-striped table-bordered table-hover data-table" id="categorias">
+                    <table class="table table-striped table-bordered table-hover data-table" id="pedidos">
                         <thead>
                             <tr>
                                 <th>#</th>

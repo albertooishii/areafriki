@@ -37,6 +37,9 @@
         <!--Colorpicker -->
         <link rel="stylesheet" href="/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
 
+        <!--Bootstrap select-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
         <!--FormValidation-------------------------->
 		<script src="<?=PAGE_DOMAIN?>/vendor/formvalidation/js/formValidation.min.js"></script>
 		<link rel="stylesheet" href="<?=PAGE_DOMAIN?>/vendor/formvalidation/css/formValidation.min.css">
@@ -92,9 +95,14 @@
     <!--Colorpicker JavaScript-->
     <script src="/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
+    <!--Bootstrap select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-es_CL.min.js"></script>
+
     <!--Lightbox2------------>
     <script src="<?=PAGE_DOMAIN?>/vendor/lightbox2/src/js/lightbox.js"></script>
     <link rel="stylesheet" type="text/css" href="<?=PAGE_DOMAIN?>/vendor/lightbox2/src/css/lightbox.css" />
+    <?=@$data["custom_js"]?>
     <script>
         lightbox.option({
           'resizeDuration': 200,

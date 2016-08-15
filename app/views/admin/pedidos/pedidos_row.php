@@ -1,4 +1,4 @@
-<tr class="pedido <?=$data["trclass"]?>" data-token="<?=$data["token"]?>">
+<tr class="pedido" data-token="<?=$data["token"]?>">
     <td><?=$data["id"]?></td>
     <td><a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos?token=<?=$data["token"]?>"><?=$data["token"]?></a></td>
     <td>

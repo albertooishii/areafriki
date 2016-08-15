@@ -514,12 +514,13 @@
                                     $design=$dg->get();
                                     $data["dg_nombre"]=$producto["nombre"];
                                     if($solicitudes=$p->getSolicitudesCompra()){
+                                        //Avisamos a los potenciales compradores de que ya está disponible
                                         foreach($solicitudes as $solicitud){
                                             $comprador->id=$solicitud["user"];
                                             $info_comprador=$comprador->getUserFromID();
                                             $mail->to = $info_comprador["email"];
                                             $mail->subject = PAGE_NAME." | [Producto a la venta]";
-                                            $data["user"]=$this->u->user;
+                                            $data["user"]=$info_comprador["user"];
                                             $mail->getEmail("producto_disponible",$data);
                                             $mail->sendEmail();
                                         }

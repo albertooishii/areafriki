@@ -63,5 +63,8 @@ $(document).ready(function() {
         "responsive": true,
         "order": [[ 0, "desc" ]]
     });
+
+    $('.data-table').DataTable();
+
 });
 

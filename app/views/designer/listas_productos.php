@@ -1,7 +1,11 @@
 <?php
     foreach($data["listas"] as $lista){
-        if($lista["token"]==$data["lista_producto"]){
-            $selected="selected";
+        if(isset($data["lista_producto"])){
+            if($lista["token"]==$data["lista_producto"]){
+                $selected="selected";
+            }else{
+                $selected="";
+            }
         }else{
             $selected="";
         }

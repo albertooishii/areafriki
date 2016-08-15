@@ -1,4 +1,4 @@
-<tr class="categoria <?=$data["trclass"]?>" data-id="<?=$data["subcat_id"]?>">
+<tr class="categoria" data-id="<?=$data["subcat_id"]?>">
     <td><?=$data["subcat_id"]?></td>
     <td><?=$data["subcat_nombre"]?></td>
     <td><?=$data["subcat_descripcion"]?></td>
