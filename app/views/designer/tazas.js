@@ -34,7 +34,7 @@ var $fpd=$('#fpd'),
     },
     fpd = new FancyProductDesigner($fpd, pluginOpts);
 
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $("#fpd").bind('elementAdd', function(event, element){
             if(element.hasControls){
 
@@ -75,4 +75,4 @@ var $fpd=$('#fpd'),
                 }
             }
         });
-    });
+    });*/

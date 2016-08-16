@@ -51,11 +51,11 @@
                             header ("Location: ".PAGE_DOMAIN);
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("user/js", "register");
                             $this->render('user','register',$data);
                         }
                     }else{
-                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/register.js'></script>";
+                        $data["custom_js"]=$this->minifyJs("user/js", "register");
                         $this->render('user','register',$data);
                     }
                 break;
@@ -585,7 +585,7 @@
                         $data["credit"]=number_format($user["credit"], 2, ',', ' ');
                         $data["provincia_selected"]=$user["provincia"];
                         $data["provincia"]=$this->loadView("forms","provincia",$data);
-                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/settings.js'></script>";
+                        $data["custom_js"]=$this->minifyJs("user/js", "settings");
                         $this->render("user","settings",$data);
                     }else{
                         //redirigimos al login con redireccion de vuelta para aca
@@ -709,8 +709,7 @@
                                 $data["lista_productos"]=$this->loadView("error","form_error","No hay productos publicados.");
                             }
 
-                            //$data["custom_js"]=$this->minifyJs("user","js/user");
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/user/js/user.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("user/js", "user");
                             $this->render('user', 'user', $data);
                         }else{
                             $this->render('error','404',$data);

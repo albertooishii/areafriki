@@ -1,5 +1,5 @@
 <?php
-require 'min/utils.php';
+require_once 'min/utils.php';
 class MinificarController{
     public function css()
     {

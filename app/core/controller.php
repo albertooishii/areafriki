@@ -177,19 +177,17 @@
             return $buffer;
         }
 
-        public function minifyCss($css){
-            include_once 'min/utils.php';
-            $cssUri = Minify_getUri([
-                $css
-            ]);
+        public function minifyCss($folder, $file){
+            require_once 'min/utils.php';
+            $css="app/views/".$folder."/".$file.".css";
+            $cssUri = Minify_getUri([$css]);
             return "<link rel=stylesheet href='{$cssUri}'>";
         }
 
-        public function minifyJs($js){
-            include_once 'min/utils.php';
-            $jsUri = Minify_getUri([
-                $js
-            ]);
+        public function minifyJs($folder, $file){
+            require_once 'min/utils.php';
+            $js="app/views/".$folder."/".$file.".js";
+            $jsUri = Minify_getUri([$js]);
             return "<script src='{$jsUri}'></script>";
         }
 

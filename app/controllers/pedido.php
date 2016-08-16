@@ -198,7 +198,7 @@
                                 $data["nota"]=$ar_pedido["nota"];
 
                                 $data["datos_envio"]=$this->loadView("pedido", "datos_envio", $data);
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/pedido/pedido.js'></script>";
+                                $data["custom_js"]=$this->minifyJs("pedido", "pedido");
                                 $this->render("pedido","detalles_pedido",$data);
                             }else{
                                 $this->render("error","404",$data);
@@ -305,7 +305,7 @@
                                 $data["lista_pedidos"].=$this->loadView("pedido","pedido",$data); $data["total_preparacion_pedido"]=$precio_total_pedido=$total_envio_pedido=0;
                                 $data["productos_pedido"]="";
                             }
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/pedido/pedido.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("pedido", "pedido");
                             $this->render("pedido","myorders",$data);
                         }else{
                             //No tienes ningún pedido

@@ -303,7 +303,7 @@
                                 $data["tiempo_envio"]=$ar_pedido["tiempo_envio"]*24; $data["total_envio_pedido"]=number_format($ar_pedido["gastos_envio"], 2, ',', ' ')."€";
                                 $data["total_vendedor"]=number_format($ar_pedido["precio"], 2, ',', ' ')."€";
                                 $data["pedido"]=$this->loadView("venta","pedido",$data);
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/venta/venta.js'></script>";
+                                $data["custom_js"]=$this->minifyJs("venta", "venta");
                                 $this->render("venta","detalles_venta",$data);
                             }else{
                                 //No tienes ningún pedido
@@ -445,7 +445,7 @@
                                 $data["lista_pedidos"].=$this->loadView("venta","pedido",$data); $data["total_preparacion_pedido"]=$precio_total_pedido=$total_envio_pedido=0;
                                 $data["productos_pedido"]="";
                             }
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/venta/venta.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("venta", "venta");
                             $this->render("venta","mysales",$data);
                         }else{
                             //No tienes ningún pedido

@@ -215,7 +215,7 @@
                                 $data["nombre"]=$data["direccion"]=$data["cp"]=$data["localidad"]=$data["phone"]=$data["provincia_selected"]="";
                             }
                             $data["provincia"]=$this->loadView("forms","provincia",$data);
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/carrito/carrito.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("carrito", "carrito");
                             $this->render("carrito","checkout",$data);
                         }
                     }else{
@@ -589,7 +589,7 @@
                             $data["productos_vendedor"]="";
                         }
 
-                        $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/carrito/carrito.js'></script>";
+                        $data["custom_js"]=$this->minifyJs("carrito", "carrito");
                         $this->render("carrito","carrito",$data);
                     }else{
                         $this->render("carrito","empty",$data);

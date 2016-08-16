@@ -12,7 +12,7 @@
             <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/tazas/bounding-taza-completa.png" title="Bounding" data-parameters='{"x": 318, "y": 345}' />
         </div>
     </div>
-    <canvas id="pro"></canvas>
+    <!--<canvas id="pro"></canvas>-->
     <div class="inner">
         <h4><i class="material-icons">info_outline</i>DESCRIPCIÓN DEL PRODUCTO</h4>
         <p><?=$data["cat_desc"]?></p>

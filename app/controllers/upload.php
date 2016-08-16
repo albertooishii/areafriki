@@ -29,7 +29,7 @@
                                 foreach($hijos as $categoria){
                                     $data["lista_categorias"].="<option value='".$categoria["id"]."'>".strtoupper($categoria["nombre"])."</option>";
                                 }
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/upload/upload.js'></script>";
+                                $data["custom_js"]=$this->minifyJs("upload", "upload");
                                 $this->render("upload","segundo_paso_designer",$data);
                             break;
 
@@ -43,8 +43,8 @@
                                 }else{
                                     $data["listas_productos"]="";
                                 }
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/upload/upload.js'></script>";
-                                $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/crafts.js'></script>";
+                                $data["custom_js"]=$this->minifyJs("upload", "upload");
+                                $data["custom_js"].=$this->minifyJs("designer", "crafts");
                                 $this->render('designer','crafts',$data);
                             break;
 
@@ -58,8 +58,8 @@
                                 }else{
                                     $data["listas_productos"]="";
                                 }
-                                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/upload/upload.js'></script>";
-                                $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/baul.js'></script>";
+                                $data["custom_js"]=$this->minifyJs("upload", "upload");
+                                $data["custom_js"].=$this->minifyJs("designer", "baul");
                                 $this->render('designer','baul',$data);
                             break;
 
@@ -106,10 +106,11 @@
                                     $data["precios_sizes"].=$this->loadView("designer","precios_sizes",$data);
                                 }
                             }
-                            $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/designer/designer.js'></script>";
+                            $data["custom_js"]=$this->minifyJs("designer", "designer");
+                            $data["custom_js"].=$this->minifyJs("designer", "crafts");
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
-                            $data["custom_js"].="<script src='".PAGE_DOMAIN."/app/views/designer/".$cat->nombre.".js'></script>";
+                            $data["custom_js"].=$this->minifyJs("designer", $cat->nombre);
                             $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
                     		$data["custom_css"].="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
                             $data["designer"]=$this->loadView('designer',$cat->nombre,$data);

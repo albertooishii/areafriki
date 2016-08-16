@@ -191,7 +191,7 @@
                 }else{
                     $data["ruleta"]="¡Eres un ansias! ¡Ya le has dado like a todos los productos!";
                 }
-                $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/home/home.js'></script>";
+                $data["custom_js"]=$this->minifyJs("home", "home");
                 $this->render('home', 'home', $data);
             }
 

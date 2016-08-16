@@ -10,7 +10,7 @@
             switch(@$_GET["node"]){
                 default:
                     $data["page_title"] = "Pokémon Go - AreaStore";
-                    $data["custom_js"]="<script src='".PAGE_DOMAIN."/app/views/product/product_file.js'></script>";
+                    $data["custom_js"]=$this->minifyJs("product", "product_file");
                     $this->render("store/pokemongo","pokemongo",$data);
             }
         }

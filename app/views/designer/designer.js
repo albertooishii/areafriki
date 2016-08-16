@@ -53,11 +53,13 @@ $(document).ready(function() {
                 fd.append('categoria',$("#dg-categoria").data("id"));
                 var montajeblob=dataURLtoBlob(dataURL);
                 fd.append('montaje',montajeblob);
-                if(typeof fpd.getElementByTitle("Base")["fill"] != 'undefined' && typeof fpd.getElementByTitle("Base")["currentColor"] != 'undefined'){
-                    if(fpd.getElementByTitle("Base")["fill"] != false){
-                        fd.append('color',fpd.getElementByTitle("Base")["fill"]);
-                    }else{
-                        fd.append('color',fpd.getElementByTitle("Base")["currentColor"]);
+                if(typeof fpd.getElementByTitle("Base")!='undefined'){
+                    if(typeof fpd.getElementByTitle("Base")["fill"] != 'undefined' && typeof fpd.getElementByTitle("Base")["currentColor"] != 'undefined'){
+                        if(fpd.getElementByTitle("Base")["fill"] != false){
+                            fd.append('color',fpd.getElementByTitle("Base")["fill"]);
+                        }else{
+                            fd.append('color',fpd.getElementByTitle("Base")["currentColor"]);
+                        }
                     }
                 }
                 fd.append('modelo',fpd.getProduct()[0]['title']);
