@@ -56,9 +56,8 @@
             <h4><?=$data["total_producto"]?></h4>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-1 inner">
-            <button type="button" rel="tooltip" data-placement="left" title="" class="btn btn-simple remove" data-original-title="Eliminar del carrito">
-            <i class="material-icons">remove_shopping_cart</i>
-            <div class="ripple-container"></div></button>
+            <a href="#" rel="tooltip" data-placement="left" title="" class="btn btn-simple remove-producto" data-original-title="Eliminar del carrito">
+            <i class="material-icons">remove_shopping_cart</i></a>
         </div>
     </div>
 

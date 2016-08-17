@@ -38,6 +38,7 @@ $(document).ready(function() {
         var productfile=$(this).closest(".product_file");
         if(productfile.find("#cantidad").val()>=1){
             var parametros = {
+                "token": productfile.data("token"),
                 "id": productfile.data("id"),
                 "cantidad": productfile.find("#cantidad").val(),
                 "size": productfile.find("#size").val(),

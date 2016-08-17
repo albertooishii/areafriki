@@ -507,7 +507,7 @@
                                                 $data["stock"]=10000;
 
                                                 $data["custom_js"]=$this->minifyJs("product", "product_file");
-                                                $data["custom_js"]=$this->minifyJs("product", "comment_card");
+                                                $data["custom_js"].=$this->minifyJs("product", "comment_card");
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);
                                             }else{
@@ -558,7 +558,7 @@
 
                                                 $data["atributos"]="";
                                                 $data["custom_js"]=$this->minifyJs("product", "product_file");
-                                                $data["custom_js"]=$this->minifyJs("product", "comment_card");
+                                                $data["custom_js"].=$this->minifyJs("product", "comment_card");
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);
                                             }

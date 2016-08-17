@@ -60,7 +60,7 @@
                 <p><i class="material-icons">local_shipping</i> Total gastos de envío: <?=$data["total_envio_pedido"]?> </p>
             </div>
             <div class="col-md-3">
-                <p><strong><i class="material-icons">monetization_on</i> TOTAL: <?=$data["total_vendedor"]?></strong></p>
+                <p><strong class='text-primary'><i class="material-icons">monetization_on</i> TOTAL: <?=$data["total_vendedor"]?></strong> (IVA INCLUIDO)</p>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ pluginOpts = {
         minW:230,
         resizeToW:230,
         resizeToH:400,
-        resizable:false,
+        resizable:true,
         draggable:true,
         boundingBox: "Bounding",
         boundingBoxMode: "clipping",

@@ -55,7 +55,7 @@
 <div id="pokemongo-store">
     <div class="container wrapper">
         <div class="text-center">
-            <a href="" class="btn btn-round btn-facebook">POKéMON GO</a>
+            <a href="<?=PAGE_DOMAIN?>/areastore/pokemongo" class="btn btn-round btn-facebook">POKéMON GO</a>
         </div>
 
         <div class="tab-content tab-space">
@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOCV/store/thumb-AFPKGOCV.jpg')">
-                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCV" data-id="106" class="camiseta-selector">
+                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCV" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Valor</h3>
                                     <h3 class="card-price">19,90€</h3>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOCI/store/thumb-AFPKGOCI.jpg')">
-                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCI" data-id="107" class="camiseta-selector">
+                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCI" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Instinct</h3>
                                     <h3 class="card-price">19,90€</h3>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOCM/store/thumb-AFPKGOCM.jpg')">
-                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCM" data-id="108" class="camiseta-selector">
+                            <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCM" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Mystic</h3>
                                     <h3 class="card-price">19,90€</h3>
@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOTV/store/thumb-AFPKGOTV.jpg')">
-                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTV" data-id="110" class="taza-selector">
+                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTV" class="taza-selector">
                                 <div class="content">
                                     <h3 class="card-title">Taza Team Valor</h3>
                                     <h3 class="card-price">9,90€</h3>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOTI/store/thumb-AFPKGOTI.jpg')">
-                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTI" data-id="111" class="taza-selector">
+                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTI" class="taza-selector">
                                 <div class="content">
                                     <h3 class="card-title">Taza Team Instinct</h3>
                                     <h3 class="card-price">9,90€</h3>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOTM/store/thumb-AFPKGOTM.jpg')">
-                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTM" data-id="112" class="taza-selector">
+                            <a href="#taza" data-toggle="tab" aria-expanded="false" data-token="AFPKGOTM" class="taza-selector">
                                 <div class="content">
                                     <h3 class="card-title">Taza Team Mystic</h3>
                                     <h3 class="card-price">9,90€</h3>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane product_file" id="camiseta" data-id="">
+            <div class="tab-pane product_file" id="camiseta" data-token="">
                 <h2 class="text-center inner title">Camisetas gaming pokémon go</h2>
                 <div class="col-md-6">
                     <img src="">
@@ -185,7 +185,7 @@
                     </form>
                 </div>
             </div>
-            <div class="tab-pane product_file" id="taza" data-id="">
+            <div class="tab-pane product_file" id="taza" data-token="">
                 <div class="col-md-6">
                     <img src="">
                 </div>
@@ -216,7 +216,7 @@
             $("#camiseta img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
             $("#camiseta #title").text($(this).find(".card-title").text());
             $("#camiseta #description").text($(this).find(".card-description").text());
-            $("#camiseta").attr("data-id", $(this).data("id"));
+            $("#camiseta").attr("data-token", $(this).data("token"));
         });
 
         $(".taza-selector").click(function(){
@@ -224,7 +224,7 @@
             $("#taza img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
             $("#taza #title").text($(this).find(".card-title").text());
             $("#taza #description").text($(this).find(".card-description").text());
-            $("#taza").attr("data-id",$(this).data("id"));
+            $("#taza").attr("data-token",$(this).data("token"));
         });
     });
 

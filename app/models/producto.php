@@ -3,7 +3,7 @@
 
     class Producto_Model extends Database{
 
-        var $id, $nombre, $descripcion, $beneficio, $user, $creador, $design, $categoria, $category_parent, $color, $modelo, $tag, $tags, $valor, $codigo, $height, $width, $top, $left, $scale, $usado, $stock, $preparacion, $gastos_envio, $tiempo_envio, $comentario, $coment_parent,  $token_lista, $nombre_lista;
+        var $id, $nombre, $descripcion, $beneficio, $user, $creador, $design, $categoria, $category_parent, $color, $modelo, $tag, $tags, $valor, $codigo, $height, $width, $top, $left, $scale, $usado, $stock, $preparacion, $gastos_envio, $tiempo_envio, $comentario, $coment_parent,  $token_lista, $nombre_lista, $token;
 
         function __construct(){
            parent::__construct();

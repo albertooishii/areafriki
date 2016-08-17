@@ -24,23 +24,26 @@ $(document).ready(function(){
         }
     })
 
-    $(".remove").click(function(event){
+    $(".remove-producto").click(function(event){
         event.preventDefault();
-        var parametros = {
-            "linea": $(this).closest('.producto-carrito').data('linea'),
-            "token": $(this).closest(".card-vendedor").data("token")
-        };
+        if (confirm("¿Seguro que quieres eliminar este artículo?")) {
 
-        $.ajax({
-            data:parametros,
-            url: '/index.php?section=carrito&action=remove',
-            type: 'POST',
-            success: function (response){
-                window.location.href = '/carrito';
-            },
-            error: function (response){
-               window.location.href = '/carrito';
-            }
-        });
+            var parametros = {
+                "linea": $(this).closest('.producto-carrito').data("linea"),
+                "token": $(this).closest(".card-vendedor").data("token")
+            };
+
+            $.ajax({
+                data:parametros,
+                url: '/index.php?section=carrito&action=remove',
+                type: 'POST',
+                success: function (response){
+                    window.location.href = '/carrito';
+                },
+                error: function (response){
+                   alert("Error al quitar del carrito");
+                }
+            });
+        }
     });
 });

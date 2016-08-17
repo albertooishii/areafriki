@@ -22,8 +22,14 @@
                 case 'add':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $creador=New Users_Model();
-                        $p->id=$_POST["id"];
-                        $producto=$p->get();
+                        if(isset($_POST["id"])){
+                            $p->id=$_POST["id"];
+                            $producto=$p->get();
+                        }elseif(isset($_POST["token"])){
+                            $p->token=$_POST["token"];
+                            $producto=$p->getProductoWhereToken();
+                            $p->id=$producto["id"];
+                        }
                         $cat->id=$producto["categoria"];
                         $dg->token=$producto["design"];
                         $design=$dg->get();
@@ -40,7 +46,7 @@
                         if(!empty($_POST["nota"])){$nota=$_POST["nota"];}else{$nota="";}
 
                         $car->linea = array(
-                            "producto"    => $_POST["id"],
+                            "producto"    => $p->id,
                             "cantidad" => $_POST["cantidad"],
                             "size" => $size,
                             "color" => $color,
