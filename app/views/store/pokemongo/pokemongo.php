@@ -67,7 +67,7 @@
                             <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCV" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Valor</h3>
-                                    <h3 class="card-price">19,90€</h3>
+                                    <h3 class="card-price"><strike>19,90€</strike> - 17,90€</h3>
                                     <p class="card-description">
                                         Haz que brille la llama que hay en tu interior con esta camiseta del equipo rojo.
                                     </p>
@@ -81,7 +81,7 @@
                             <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCI" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Instinct</h3>
-                                    <h3 class="card-price">19,90€</h3>
+                                    <h3 class="card-price"><strike>19,90€</strike> - 17,90€</h3>
                                     <p class="card-description">
                                         Para los que confían en su instinto y talento innato.
                                     </p>
@@ -95,7 +95,7 @@
                             <a href="#camiseta" data-toggle="tab" aria-expanded="false" data-token="AFPKGOCM" class="camiseta-selector">
                                 <div class="content">
                                     <h3 class="card-title">Camiseta Team Mystic</h3>
-                                    <h3 class="card-price">19,90€</h3>
+                                    <h3 class="card-price"><strike>19,90€</strike> - 17,90€</h3>
                                     <p class="card-description">
                                         Que tus enemigos terminen congelados bajo la fria ventisca de Articuno.
                                     </p>
@@ -161,7 +161,7 @@
                 <div class="col-md-6">
                     <h3 class="title" id="title"></h3>
                     <p class="description" id="description"></p>
-                    <h2 class="title">19,90€</h2>
+                    <h2 class="card-price"><strike>19,90€</strike> - 17,90€</h2>
                     <h4 class="title">Configura tu camiseta</h4>
                     <form action="#" method="post">
                         <div class="form-group diagonal-input">
