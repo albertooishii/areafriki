@@ -22,7 +22,7 @@
     }
     if(!empty($data["nota"])){
 ?>
-            <p><?=$data["nota"]?></p>
+            <p>Nota: <?=$data["nota"]?></p>
 <?php
     }
 ?>

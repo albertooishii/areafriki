@@ -1,5 +1,5 @@
 <div id="home_banner">
-    <a href="<?=PAGE_DOMAIN?>/areastore">
+    <a href="<?=PAGE_DOMAIN?>/areastore/pokemongo">
         <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/home-banner.jpg)"></div>
     </a>
 </div>
@@ -41,9 +41,3 @@
         </div>
     </div>
 </div>
-<!--<div class="container wrapper">
-    <div>
-        <header><h2 class="subhead aligncenter inner">LOS MÁS POPULARES</h2></header>
-        <?=$data["mas_populares"]?>
-    </div>
-</div>-->

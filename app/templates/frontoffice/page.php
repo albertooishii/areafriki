@@ -115,8 +115,10 @@
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
         <script type="text/javascript" src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
         <script type="text/javascript" src="/vendor/material-kit-pro/js/material-kit.js"></script>
+        <script type="text/javascript" src="/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
         <?=$data["min_js"]?>
         <?=@$data["custom_js"]?>
+        <script type="text/javascript" src="/app/views/notification/notification.js"></script>
         <script type="text/javascript" src="/app/templates/frontoffice/js/common.js"></script>
         <script>
             lightbox.option({

@@ -78,6 +78,12 @@
                 $as->index_store();
             break;
 
+            case 'notification':
+                include_once 'app/controllers/notification.php';
+                $notify = new Notification();
+                $notify->index_notification();
+            break;
+
             case 'error':
                 include_once 'app/controllers/error.php';
                 $e = new Error();

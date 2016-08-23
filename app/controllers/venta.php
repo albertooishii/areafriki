@@ -16,6 +16,9 @@
             $provincia=New Provincia_Model();
             $vendedor=New Users_Model();
             $creador=New Users_Model();
+            $this->loadModel("notification");
+            $notify = New Notification_Model();
+
             @$action=$_GET["action"];
             switch($action){
                 case 'changeEstado':
@@ -78,6 +81,16 @@
                                                         $mail->to=$info_creador["email"];
                                                         $mail->subject=PAGE_NAME." | [Producto vendido]";
                                                         $mail->sendEmail();
+
+                                                        //Notificacion para el diseñador
+                                                        $notify->to=$creador->id;
+                                                        $notify->from=$this->u->id;
+                                                        $notify->producto=$p->id;
+                                                        $notify->titulo="Venta de producto";
+                                                        $notify->texto="Han comprado ".$producto["nombre"].". Se ha añadido el saldo correspondiente a tu cuenta.";
+                                                        $notify->url=$data["dg_categoria"]."/".$data["dg_token"];
+                                                        $notify->tipo="compra";
+                                                        $notify->set();
                                                     }
                                                 }
                                             }
@@ -212,7 +225,7 @@
                                     if(!empty($linea["color"])){
                                         $p->codigo=$linea["color"];
                                         $color=$p->getNombreColor();
-                                        $data["atributos"].="color ".$color;
+                                        $data["atributos"].="Color: ".$color;
                                         $swatributo=1;
                                     }
 
@@ -348,7 +361,7 @@
                                     if(!empty($linea["color"])){
                                         $p->codigo=$linea["color"];
                                         $color=$p->getNombreColor();
-                                        $data["atributos"].="color ".$color;
+                                        $data["atributos"].="Color: ".$color;
                                         $swatributo=1;
                                     }
 

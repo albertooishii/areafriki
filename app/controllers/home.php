@@ -27,6 +27,7 @@
                     $data["subhead"]="ETIQUETA: ".str_replace("-"," ",$pr->tag);
                 }else{
                     $lista_productos=$pr->getProductos();
+                    $data["subhead"]="";
                 }
                 if(!empty($lista_productos)){
                     foreach($lista_productos as $producto){

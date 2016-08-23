@@ -1,19 +1,33 @@
  <header class="masthead">
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sectionsNav">
         <div class="container">
-            <div id="navleft" class="navbar-header pull-left">
+            <div id="navleft" class="navbar-header pull-left" style="margin-left:5px;">
                 <a href="<?=PAGE_DOMAIN?>" title="<?=PAGE_NAME?>" class="navbar-brand">
                     <img class="logo img-responsive nomobile" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
                     <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-128x128.png" alt="<?=PAGE_NAME?>">
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
-                <ul class="nav navbar-nav navbar-right pull-right">
-                    <li>
-                        <div class="btn btn-white btn-round btn-raised btn-fab btn-fab-mini" id="header-cart">
-                            <a href="/carrito"><i class="material-icons">shopping_cart</i></a>
-                        </div>
-                        <span id="header-count-carrito"><?=$data["contador-carrito"]?></span>
+                <form class="navbar-form navbar-right" role="search" id="search-container">
+                    <div class="form-group form-white">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                    </div>
+                    <div id="search-results" class="dropdown">
+                        <ul class="dropdown-menu"></ul>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right pull-right" id="nav-actions">
+                    <li id="header-cart">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
+                    <?php
+                        if($data["contador-carrito"]>0){
+                    ?>
+                            <span class="header-count"><?=$data["contador-carrito"]?></span>
+                    <?php
+                        }
+                    ?>
+                        </a>
+
                     </li>
                     <?php
                         if(isset($_SESSION["login"])){
@@ -28,6 +42,7 @@
                         <ul class="dropdown-menu dropdown-dark">
                             <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">store</i> Mi tienda</a></li>
                             <li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>
+                            <li><a href="/mysales"><i class="material-icons">monetization_on</i> Mis ventas</a></li>
                             <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>
                             <li class="divider"></li>
                             <li><a href="/settings"><i class="material-icons">settings</i> Configuración</a></li>
@@ -42,14 +57,33 @@
                             <li><a href="/logout"><i class="material-icons">power_settings_new</i> Cerrar sesión</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown pull-right" id="header-notifications">
+                        <a id="notifications-icon" class='dropdown-toggle' href="#" data-toggle="dropdown">
+                            <i class="material-icons">notifications</i>
+                            <?php
+                                if($data["contador-notificaciones"]==0){
+                                    $count_noti_style="display:none";
+                                }else{
+                                    $count_noti_style="";
+                                }
+                            ?>
+                            <span class="header-count" style="<?=$count_noti_style?>"><?=$data["contador-notificaciones"]?></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-dark" id="notifications-panel">
+                            <li id="notifications-actions">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <a href="#" class="clear-notifications"><i class="material-icons">clear_all</i> Limpiar notificaciones</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <?php
                         }else{
                     ?>
                     <li class="pull-right" id="header-login">
-                        <a class='profile-photo' href="/login">
-                            <div class="profile-photo-small icon">
-                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/avatar/user.svg">
-                            </div>
+                        <a href="/login">
                             <span>INICIAR SESIÓN</span>
                         </a>
                     </li>

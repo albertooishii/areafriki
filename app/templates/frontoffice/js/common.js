@@ -34,23 +34,32 @@ $(document).ready(function() {
        $(this).formValidation();
     });
 
+    $('#notifications-panel').perfectScrollbar({"suppressScrollX":true});
+
     //SISTEMA DE BÚSQUEDA
     $("#header-search").click(function(e){
-        $(this).removeClass("btn-fab");
+        e.preventDefault();
         $(".masthead").addClass("searchmode");
-        $(this).find("input").show().focus();
+        $("#search-container ").show();
+        $("#search-container input").focus();
         e.stopPropagation();
     });
 
-    $("body").click(function(){
-        $("#header-search").addClass("btn-fab");
-        $(".masthead").removeClass("searchmode");
-        $("#header-search input").hide();
-        $("#search-results").hide();
+    $("#search-container").click(function(e){
+        e.stopPropagation();
+    });
+
+    $("body").click(function(e){
+        if($(".searchmode").length){
+            e.preventDefault();
+            $(".masthead").removeClass("searchmode");
+            $("#header-search input").hide();
+            $("#search-results").hide();
+        }
     });
 
     var timer;
-    $("#header-search input").keyup(function(e){
+    $("#search-container input").keyup(function(e){
         clearTimeout(timer);
         var ms = 500; //milliseconds
         var string=$(this).val();
@@ -80,7 +89,6 @@ $(document).ready(function() {
             $("#search-results").hide();
         }
     }
-
 
     //SISTEMA DE ETIQUETAS
     var engine = new Bloodhound({
@@ -117,8 +125,8 @@ $(document).ready(function() {
 
     var rangeSlider = $("input.slider").bootstrapSlider();
 
-    //RANGO BENEFICIO
 
+    //RANGO BENEFICIO
     $(".beneficio_range").change(function(e){
         var precio_venta=parseFloat($(this).val()) + parseFloat($(this).siblings(".precio_base").html().replace(',', '.'));
         $(this).closest(".form-group").find(".precio_venta").html(precio_venta.toFixed(2)+"€");
@@ -268,9 +276,9 @@ $(document).ready(function() {
     $("body").on("click", ".btn-copy", function(event){
         event.preventDefault();
         if(copyToClipboard($(this).children("input"))){
-            notify("Copiado al portapapeles");
+            tosnackbar("Copiado al portapapeles");
         }else{
-            notify("No se ha podido copiar el enlace");
+            tosnackbar("No se ha podido copiar el enlace");
         }
     });
 
@@ -352,7 +360,7 @@ $(document).ready(function() {
     });
 });
 
-function notify(string){
+function tosnackbar(string){
     var options =  {
         content: string, // text of the snackbar
     }

@@ -72,6 +72,8 @@
                 $car = new Carrito_Model();
                 $this->loadModel("categoria");
                 $cat = new Categoria_Model();
+                $this->loadModel("notification");
+                $notify = new Notification_Model();
 
                 $cat->parent=1;
                 $lista_categorias=$cat->getChilds();
@@ -80,8 +82,11 @@
                     $data["categorias_designer_header"].=$this->loadView("header","categories",$categoria["nombre"]);
                 }
 
-                $car->user=$this->u->id;
+                $notify->to=$car->user=$this->u->id;
                 $data["contador-carrito"]=$car->countCarrito();
+                $data["contador-notificaciones"]=$notify->countNotificaciones();
+                $lista_notificaciones=$notify->get();
+
                 if(!$this->u->getUser_activeaccount() && isset($_SESSION["login"])){
                     $data["header_advertencia"]=$this->loadView("header","advertencia");
                 }

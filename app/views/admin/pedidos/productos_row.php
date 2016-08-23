@@ -4,6 +4,7 @@
     <td><?=$data["dg_categoria"]?></td>
     <td><a href="<?=PAGE_DOMAIN?>/user/<?=$data["dg_autor"]?>"><?=$data["dg_autor"]?></a></td>
     <td><?=$data["precio"]?></td>
+    <td><?=$data["atributos"]?></td>
     <td><?=$data["cantidad"]?></td>
     <td><?=$data["total_producto"]?></td>
     <td><?=$data["nota"]?></td>

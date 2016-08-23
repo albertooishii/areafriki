@@ -4,7 +4,14 @@
         function index_users(){
 
             $creador = New Users_Model();
-
+            $this->loadModel("producto");
+            $p = New Producto_Model();
+            $this->loadModel("design");
+            $dg = New Design_Model();
+            $this->loadModel("categoria");
+            $cat = New Categoria_Model();
+            $this->loadModel("notification");
+            $notify = New Notification_Model();
             @$action=$_GET["action"];
             $data["reg_msg"]=$data["login_msg"]="";
             switch($action){
@@ -219,6 +226,7 @@
                         if($this->u->recoverPassword()){
                             $data["titulo_mensaje"]="¡Enhorabuena!";
                             $data["texto_mensaje"]="Se ha cambiado la contraseña correctamente. Ya puedes iniciar sesión con la nueva clave que has configurado.";
+                            $data["url"]=PAGE_DOMAIN."/login";
                             //$this->render('mensaje','mensaje',$data);
                         }else{
                             $data["titulo_mensaje"]="Error";
@@ -346,12 +354,6 @@
                 break;
 
                 case 'showCard':
-                    $this->loadModel("producto");
-                    $p = New Producto_Model();
-                    $this->loadModel("design");
-                    $dg = New Design_Model();
-                    $this->loadModel("categoria");
-                    $cat = New Categoria_Model();
                     $data["id_producto"]=$p->id=$_POST["id_producto"];
                     $p->user=$this->u->id;
                     if($p->like()){
@@ -388,12 +390,6 @@
                 case 'ruletaLike':
                     if(isset($_SESSION["login"]["user"])){
                         $infouser=$this->u->getUser();
-                        $this->loadModel("producto");
-                        $p = New Producto_Model();
-                        $this->loadModel("design");
-                        $dg = New Design_Model();
-                        $this->loadModel("categoria");
-                        $cat = New Categoria_Model();
                         $p->id=$_POST["id_producto"];
                         $p->user=$infouser['id'];
                         //print_r($_POST);
@@ -426,11 +422,20 @@
                 case 'like':
                     if(isset($_SESSION["login"]["user"])){
                         $infouser=$this->u->getUser();
-                        $this->loadModel("producto");
-                        $p = New Producto_Model();
                         $p->id=$_POST["producto"];
                         $p->user=$infouser['id'];
                         if($p->like()){
+                            $producto=$p->get();
+                            $dg->token=$producto["design"];
+                            $cat->id=$producto["categoria"];
+                            $notify->to=$dg->get()["user"];
+                            $notify->from=$this->u->id;
+                            $notify->producto=$p->id;
+                            $notify->titulo="Nuevo like";
+                            $notify->texto="A ".$this->u->user." le ha gustado ".$producto["nombre"].".";
+                            $notify->url=$cat->get()["nombre"]."/".$dg->token;
+                            $notify->tipo="like";
+                            $notify->set();
                             echo true;
                         }else{
                             echo false;
@@ -598,13 +603,6 @@
 
                         $creador->user=$_GET["user"];//nombre del creador
                         if($infocreador=$creador->getUser()){
-                            $this->loadModel("producto");
-                            $p = New Producto_Model();
-                            $this->loadModel("design");
-                            $dg = New Design_Model();
-                            $this->loadModel("categoria");
-                            $cat = New Categoria_Model();
-
                             $data["userid"]=$p->creador=$creador->id=$infocreador["id"];
                             $data["creador_user"]=$data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
                             $data["edit_button"]="";

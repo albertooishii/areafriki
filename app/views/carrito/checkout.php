@@ -96,7 +96,7 @@
                             <?=$data["form-pago"]?>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-round">Comprar</button>
+                            <button type="submit" class="btn btn-primary btn-round">Pagar</button>
                         </div>
                     </div>
                 </div>

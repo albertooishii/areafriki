@@ -14,21 +14,29 @@
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
-                <ul class="nav navbar-nav navbar-right pull-right">
-                    <li id="search-container">
-                        <div class="btn btn-white btn-round btn-raised btn-fab btn-fab-mini" id="header-search">
-                            <input type="text" class="form-control" style="display:none" placeholder="Buscar">
-                            <i class="material-icons">search</i>
-                            <div id="search-results" class="dropdown">
-                                <ul class="dropdown-menu"></ul>
-                            </div>
-                        </div>
+                <form class="navbar-form navbar-right" role="search" id="search-container">
+                    <div class="form-group form-white">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                    </div>
+                    <div id="search-results" class="dropdown">
+                        <ul class="dropdown-menu"></ul>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right pull-right" id="nav-actions">
+                    <li id="header-search">
+                        <a href="#"><i class="material-icons">search</i></a>
                     </li>
-                    <li>
-                        <div class="btn btn-white btn-round btn-raised btn-fab btn-fab-mini" id="header-cart">
-                            <a href="/carrito"><i class="material-icons">shopping_cart</i></a>
-                        </div>
-                        <span id="header-count-carrito"><?=$data["contador-carrito"]?></span>
+                    <li id="header-cart">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
+                    <?php
+                        if($data["contador-carrito"]>0){
+                    ?>
+                            <span class="header-count"><?=$data["contador-carrito"]?></span>
+                    <?php
+                        }
+                    ?>
+                        </a>
+
                     </li>
                     <?php
                         if(isset($_SESSION["login"])){
@@ -58,14 +66,33 @@
                             <li><a href="/logout"><i class="material-icons">power_settings_new</i> Cerrar sesión</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown pull-right" id="header-notifications">
+                        <a id="notifications-icon" class='dropdown-toggle' href="#" data-toggle="dropdown">
+                            <i class="material-icons">notifications</i>
+                            <?php
+                                if($data["contador-notificaciones"]==0){
+                                    $count_noti_style="display:none";
+                                }else{
+                                    $count_noti_style="";
+                                }
+                            ?>
+                            <span class="header-count" style="<?=$count_noti_style?>"><?=$data["contador-notificaciones"]?></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-dark" id="notifications-panel">
+                            <li id="notifications-actions">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <a href="#" class="clear-notifications"><i class="material-icons">clear_all</i> Limpiar notificaciones</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <?php
                         }else{
                     ?>
                     <li class="pull-right" id="header-login">
-                        <a class='profile-photo' href="/login">
-                            <div class="profile-photo-small icon">
-                                <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/avatar/user.svg">
-                            </div>
+                        <a href="/login">
                             <span>INICIAR SESIÓN</span>
                         </a>
                     </li>
@@ -128,3 +155,4 @@
 <div id="feedback" class="nomobile">
     <a href="/contacto">ERRORES O SUGERENCIAS</a>
 </div>
+<div id="notifications-wrapper"></div>

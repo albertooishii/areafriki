@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="coments-button">
-                    <a href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>#comments"><i class="fa fa-comments"></i>
+                    <a href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>#coments"><i class="fa fa-comments"></i>
                         <span class="contador"><?=$data["contador_comments"]?></span>
                     </a>
                 </li>

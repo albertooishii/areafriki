@@ -56,7 +56,7 @@
                                     </a>
                                 </li>
                                 <li class="coments-button">
-                                    <a href="#comments">
+                                    <a href="#coments">
                                         <i class="fa fa-comments"></i>
                                         <span class="contador"><?=$data["contador_comments"]?></span>
                                     </a>
@@ -161,11 +161,9 @@
                         ?>
                     </form>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6" id="comments">
+                <div class="col-md-12" id="coments">
                     <header>
-                        <h3>COMENTARIOS</h3>
+                        <h4><i class="material-icons">forum</i> COMENTARIOS</h4>
                     </header>
                     <section id="comments_area">
         <?php
@@ -174,7 +172,7 @@
                         <div class="media media-post">
                             <a class="pull-left author" href="/user/<?=$this->u->user?>">
                                 <div class="avatar">
-                                    <img src="/<?=$data["avatar"]?>">
+                                    <img class="media-object" alt="avatar de <?=$this->u->user?>" src="/<?=$data["avatar"]?>">
                                 </div>
                             </a>
                             <div class="media-body" id="new_comment_text">

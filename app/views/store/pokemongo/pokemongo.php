@@ -39,7 +39,7 @@
 
     #pokemongo-store input{
         background: white !important;
-        padding: 25px;
+        padding-left: 25px;
         font-size: 18px;
     }
 
@@ -154,7 +154,9 @@
             <div class="tab-pane product_file" id="camiseta" data-token="">
                 <h2 class="text-center inner title">Camisetas gaming pokémon go</h2>
                 <div class="col-md-6">
-                    <img src="">
+                    <a href="" data-lightbox="camiseta">
+                        <img src="" class="img-rounded img-raised">
+                    </a>
                 </div>
                 <div class="col-md-6">
                     <h3 class="title" id="title"></h3>
@@ -163,7 +165,7 @@
                     <h4 class="title">Configura tu camiseta</h4>
                     <form action="#" method="post">
                         <div class="form-group diagonal-input">
-                            <input type="text" class="form-control" placeholder="Nombre de entrenador" id="nota" name="nombre">
+                            <input type="text" class="form-control" placeholder="Nombre de entrenador (opcional)" id="nota" name="nombre">
                         </div>
                         <div class="form-group diagonal-input">
                             <label>Indica la talla</label>
@@ -187,7 +189,9 @@
             </div>
             <div class="tab-pane product_file" id="taza" data-token="">
                 <div class="col-md-6">
-                    <img src="">
+                    <a href="" data-lightbox="taza">
+                        <img src="" class="img-rounded img-raised">
+                    </a>
                 </div>
                 <div class="col-md-6">
                     <h3 class="title" id="title"></h3>
@@ -206,6 +210,10 @@
                 </div>
             </div>
         </div>
+        <div class="text-center">
+            <a class="twitter-timeline"  href="https://twitter.com/hashtag/goareafriki" data-widget-id="768045149901447172">Tweets sobre #goareafriki</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
     </div>
 </div>
 <script>
@@ -214,6 +222,7 @@
         $(".camiseta-selector").click(function(){
             var token=$(this).data("token");
             $("#camiseta img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
+            $("#camiseta a").attr("href", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
             $("#camiseta #title").text($(this).find(".card-title").text());
             $("#camiseta #description").text($(this).find(".card-description").text());
             $("#camiseta").attr("data-token", $(this).data("token"));
@@ -222,6 +231,7 @@
         $(".taza-selector").click(function(){
             var token=$(this).data("token");
             $("#taza img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
+            $("#taza a").attr("href", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
             $("#taza #title").text($(this).find(".card-title").text());
             $("#taza #description").text($(this).find(".card-description").text());
             $("#taza").attr("data-token",$(this).data("token"));

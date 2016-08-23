@@ -430,7 +430,7 @@
                                         if(!empty($linea["color"])){
                                             $p->codigo=$linea["color"];
                                             $color=$p->getNombreColor();
-                                            $data["atributos"].="color ".$color;
+                                            $data["atributos"].="Color ".$color;
                                             $swatributo=1;
                                         }
 

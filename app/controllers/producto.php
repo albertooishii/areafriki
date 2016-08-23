@@ -12,24 +12,30 @@
             $this->loadModel("design");
             $dg = New Design_Model();
             $creador = New Users_Model();
+            $this->loadModel("notification");
+            $notify = New Notification_Model();
 
             @$action=$_GET["action"];
             switch($action){
                 case 'getPrecioSize':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-                        $pr->producto=$p->id=$_POST["id"];
-                        $producto=$p->get();
+                        if(isset($_POST["id"])){
+                            $pr->producto=$p->id=$_POST["id"];
+                            $producto=$p->get();
 
-                        $pr->categoria=$producto["categoria"];
-                        $pr->codigo=$_POST["size"];
-                        if(isset($_POST["orden"])){
-                            $orden=$_POST["orden"];
-                        }else{
-                            $orden=1;
-                        }
+                            $pr->categoria=$producto["categoria"];
+                            $pr->codigo=$_POST["size"];
+                            if(isset($_POST["orden"])){
+                                $orden=$_POST["orden"];
+                            }else{
+                                $orden=1;
+                            }
 
-                        if($precio=$pr->get($orden)){
-                            echo number_format( $precio ,2,',','')."€";
+                            if($precio=$pr->get($orden)){
+                                echo number_format( $precio ,2,',','')."€";
+                            }else{
+                                echo "error";
+                            }
                         }else{
                             echo "error";
                         }
@@ -39,28 +45,37 @@
                 case 'solicitarCompra':
                     if(isset($_POST)){
                         $p->id=$_POST["id"];
-                        $p->user=$this->u->id;
-                        if($p->solicitarCompra()){
-                            $producto=$p->get();
-                            $cat->id=$producto["categoria"];
-                            $data["cat_nombre"]=$cat->get()["nombre"];
-                            $data["token"]=$dg->token=$producto["design"];
-                            $design=$dg->get();
-                            $creador->id=$design["user"];
-                            $data["dg_nombre"]=$producto["nombre"];
-                            $info_creador=$creador->getUserFromID();
-                            $data["nombre"]=$info_creador["user"];
-                            $this->loadModel("email");
-                            $mail=New Email();
-                            //Email para el vendedor
-                            $mail->getEmail("solicitar_producto", $data);
-                            $mail->to=$info_creador["email"];
-                            $mail->subject=PAGE_NAME." | [Solicitud de compra]";
-                            if($mail->sendEmail()){
-                                echo true;
-                            }else{
-                                echo false;
-                            }
+                        if(isset($_SESSION["login"])){
+                            $p->user=$this->u->id;
+                            $p->solicitarCompra();
+                        }
+                        $producto=$p->get();
+                        $cat->id=$producto["categoria"];
+                        $data["cat_nombre"]=$cat->get()["nombre"];
+                        $data["token"]=$dg->token=$producto["design"];
+                        $design=$dg->get();
+                        $notify->to=$creador->id=$design["user"];
+                        $data["dg_nombre"]=$producto["nombre"];
+                        $info_creador=$creador->getUserFromID();
+                        $data["nombre"]=$info_creador["user"];
+
+                        //Notificacion para el vendedor
+                        $notify->from=$this->u->id;
+                        $notify->producto=$p->id;
+                        $notify->titulo="Solicitud de compra";
+                        $notify->texto="Un usuario quiere comprar ".$producto["nombre"]." pero no tienes configuradas las opciones de pago.";
+                        $notify->url="settings";
+                        $notify->tipo="compra";
+                        $notify->set();
+
+                        //Email para el vendedor
+                        $this->loadModel("email");
+                        $mail=New Email();
+                        $mail->getEmail("solicitar_producto", $data);
+                        $mail->to=$info_creador["email"];
+                        $mail->subject=PAGE_NAME." | [Solicitud de compra]";
+                        if($mail->sendEmail()){
+                            echo true;
                         }else{
                             echo false;
                         }
@@ -125,9 +140,20 @@
                         $p->id=$_POST["producto"];
                         $data["comment_text"]=$p->comentario=$_POST["comentario"];
                         if($p->comentar()){
+                            $producto=$p->get();
+                            $dg->token=$producto["design"];
+                            $cat->id=$producto["categoria"];
+                            $notify->to=$dg->get()["user"];
+                            $notify->from=$this->u->id;
+                            $notify->producto=$p->id;
+                            $notify->titulo="Nuevo comentario";
+                            $notify->texto=$this->u->user.": ".$this->cutText($p->comentario,55);
+                            $notify->url=$cat->get()["nombre"]."/".$dg->token;
+                            $notify->tipo="like";
+                            $notify->set();
                             $data["comment_user"]=$this->u->getUserFromID()["user"];
                             $data["comment_avatar"]=$this->u->getAvatar(128);
-                            $data["comment_date"]="Ahora mismo";
+                            $data["comment_date"]=$this->format_date(date ("Y-m-d H:i:s"));
                             echo $this->loadView("product","comment_card", $data);
                         }else{
                             echo "false";

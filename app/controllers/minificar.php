@@ -16,6 +16,7 @@ class MinificarController{
             'vendor/cropper/cropper.min.css',
             'vendor/snackbarjs/dist/snackbar.min.css',
             'vendor/animate.css',
+            'vendor/perfect-scrollbar/css/perfect-scrollbar.min.css',
             //'app/templates/frontoffice/css/common.css',
         ]);
         return "<link rel=stylesheet href='{$cssUri}'>";

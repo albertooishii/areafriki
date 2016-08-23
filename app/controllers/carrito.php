@@ -15,6 +15,8 @@
             $cat=New Categoria_Model();
             $this->loadModel('pedido');
             $ped=New Pedido_Model();
+            $this->loadModel("notification");
+            $notify = New Notification_Model();
             $car->user=$this->u->id;
             @$action=$_GET["action"];
             switch($action){
@@ -438,6 +440,16 @@
                                                 $mail->to=$info_creador["email"];
                                                 $mail->subject=PAGE_NAME." | [Producto vendido]";
                                                 $mail->sendEmail();
+
+                                                //Notificacion para el diseñador
+                                                $notify->to=$creador->id;
+                                                $notify->from=$this->u->id;
+                                                $notify->producto=$p->id;
+                                                $notify->titulo="Venta de producto";
+                                                $notify->texto="Han comprado ".$producto["nombre"].". Se ha añadido el saldo correspondiente a tu cuenta.";
+                                                $notify->url=$data["dg_categoria"]."/".$data["dg_token"];
+                                                $notify->tipo="compra";
+                                                $notify->set();
                                             }
                                         }
                                     }else{//estado es pendiente
@@ -465,6 +477,16 @@
                                             }
                                         }
                                     }
+                                    //Notificacion para el vendedor
+                                    $notify->to=$vendedor->id;
+                                    $notify->from=$this->u->id;
+                                    $notify->producto=$p->id;
+                                    $notify->titulo="Venta de producto";
+                                    $notify->texto=$data["nombre"]." ha comprado ".$producto["nombre"].".";
+                                    $notify->url="mysales/".$data["token"];
+                                    $notify->tipo="compra";
+                                    $notify->set();
+
                                     //sumamos las ventas a los productos y si tienen stock le restamos las unidades vendidas
                                     foreach($pr->pedido as $linea){
                                         $p->id=$linea["producto"];
@@ -523,7 +545,7 @@
                                     if(!empty($linea["color"])){
                                         $p->codigo=$linea["color"];
                                         $color=$p->getNombreColor();
-                                        $data["atributos"].="color ".$color;
+                                        $data["atributos"].="Color: ".$color;
                                         $swatributo=1;
                                     }
 

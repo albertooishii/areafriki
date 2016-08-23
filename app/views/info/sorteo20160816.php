@@ -7,7 +7,7 @@
 
                 <h4>Estas bases corresponden al sorteo con fecha de (16 de agosto de 2016).</h4>
 
-                <p>Este sorteo está compuesto por:</p>
+                <h4>Este sorteo está compuesto por:</h4>
                 <div class="row">
                     <div class="col-md-10">
                         <ul>
@@ -23,7 +23,12 @@
                         </a>
                     </div>
                 </div>
-
+                <h4>También es posible adquirir las tazas y camisetas PokémonGO exclusivas de <?=PAGE_NAME?> en: </h4>
+                <div id="home_banner">
+                    <a href="<?=PAGE_DOMAIN?>/areastore/pokemongo">
+                        <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/home-banner.jpg); margin-top:0px; max-height:200px;"></div>
+                    </a>
+                </div>
 
                 <h4>Normas del sorteo:</h4>
                 <ul>
