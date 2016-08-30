@@ -210,9 +210,13 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <a class="twitter-timeline"  href="https://twitter.com/hashtag/goareafriki" data-widget-id="768045149901447172">Tweets sobre #goareafriki</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <div class="col-md-12">
+            <div class="inner divider"></div>
+            <h3 class="title text-center">Sube tu foto con #GOAREAFRIKI</h3>
+            <div class="text-center">
+                <a class="twitter-timeline"  href="https://twitter.com/hashtag/goareafriki" data-widget-id="768045149901447172">Tweets sobre #goareafriki</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
         </div>
     </div>
 </div>

@@ -63,10 +63,12 @@
                 }
                 $this->render('home', 'index_productos', $data);
             }else{
-                if(!$this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
-                    $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a! Te hemos enviado un email para poder activar tu cuenta y así acceder a todas las opciones que te ofrece ".PAGE_NAME.". Si no ves el mensaje revisa la bandeja de spam o correo no deseado, puede que haya terminado ahí por error. Se paciente, puede tardar hasta 5 minutos en llegar.");
-                }elseif($this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
-                    $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a a ".PAGE_NAME."! ¡Ya tienes tu cuenta activada correctamente!");
+                if(isset($_SESSION["login"])){
+                    if(!$this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
+                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a! Te hemos enviado un email para poder activar tu cuenta y así acceder a todas las opciones que te ofrece ".PAGE_NAME.". Si no ves el mensaje revisa la bandeja de spam o correo no deseado, puede que haya terminado ahí por error. Se paciente, puede tardar hasta 5 minutos en llegar.");
+                    }elseif($this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
+                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a a ".PAGE_NAME."! ¡Ya tienes tu cuenta activada correctamente!");
+                    }
                 }
 
                 //Los últimos productos
