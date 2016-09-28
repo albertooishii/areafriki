@@ -406,7 +406,6 @@
                                         $data["user"]=$info_comprador["user"];
                                     }
 
-
                                     $pedido=unserialize($ar_pedido["pedido"]);
                                     $data["token"]=$ar_pedido["token"];
                                     $data["total_preparacion_pedido"]=$data["productos_pedido"]="";
@@ -454,7 +453,9 @@
                                         /*PRECIO----------*/
                                         $precio=$linea["precio"];
                                         $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                                        $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+
+                                        $beneficio=$linea["beneficio"];
+                                        $data["beneficio"]=number_format($beneficio, 2, ',', ' ')."€";                                        $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
                                         $precio_total_pedido+=$precio*$linea["cantidad"];
                                         $subtotal+=$precio*$linea["cantidad"];
                                         $data["tbody"].=$this->loadView("admin","pedidos/productos_row", $data);

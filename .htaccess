@@ -2,8 +2,8 @@ AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>  
 RewriteEngine On
-#RewriteCond %{SERVER_PORT} 80
-#RewriteRule ^(.*)$ https://dev.areafriki.com/$1 [R,L]  
+RewriteCond %{HTTP_HOST} ^www.dev.areafriki.com [NC]
+RewriteRule ^(.*)$ http://dev.areafriki.com/$1 [L,R=301]  
 
 DirectoryIndex index.html index.php
 
@@ -82,8 +82,14 @@ RewriteRule ^upload/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step2&nod
 RewriteRule ^designer/([a-zA-Z0-9_-]+)$ index.php?section=upload&action=step3&categoria=$1 [QSA,L]
 RewriteRule ^designer/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step3&categoria=$1 [QSA,L]
 
-RewriteRule ^tag/(.*)$ index.php?section=home&tag=$1 [QSA,L]
-RewriteRule ^tag/(.*)$/$ index.php?section=home&tag=$1 [QSA,L]
+RewriteRule ^mailing/([a-zA-Z0-9_-]+)$ index.php?section=mailing&action=$1 [QSA,L]
+RewriteRule ^mailing/([a-zA-Z0-9_-]+)/$ index.php?section=mailing&action=$1 [QSA,L]  
+
+RewriteRule ^tag/(.*)/([0-9]+)$ index.php?section=home&tag=$1&page=$2 [QSA,L]
+RewriteRule ^tag/(.*)$/([0-9]+)/$ index.php?section=home&tag=$1&page=$2 [QSA,L]
+
+RewriteRule ^tag/(.*)$ index.php?section=home&tag=$1&page=1 [QSA,L]
+RewriteRule ^tag/(.*)$/$ index.php?section=home&tag=$1&page=1 [QSA,L]
 
 RewriteRule ^myorders$ index.php?section=pedido&action=myorders [QSA,L]
 RewriteRule ^myorders/$ index.php?section=pedido&action=myorders [QSA,L]
@@ -103,14 +109,17 @@ RewriteRule ^myuploads/$ index.php?section=producto&action=myuploads [QSA,L]
 RewriteRule ^settings$ index.php?section=user&action=settings [QSA,L]
 RewriteRule ^settings/$ index.php?section=user&action=settings [QSA,L]
 
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&categoria=$1&page=1 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1&page=1 [QSA,L]
+
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 
 RewriteRule ^pago$ index.php?section=pago [QSA,L]
 RewriteRule ^pago/$ index.php?section=pago [QSA,L]
-
-RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&categoria=$1 [QSA,L]
-RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1 [QSA,L]
 
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=$1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=$1 [QSA,L]

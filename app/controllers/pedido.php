@@ -301,7 +301,7 @@
                                 $data["metodo_pago"]=$ar_pedido["metodo_pago"];
                                 $data["total_preparacion_pedido"]=$ar_pedido["preparacion"];
                                 $data["tiempo_envio"]=$ar_pedido["tiempo_envio"]*24; $data["total_envio_pedido"]=number_format($ar_pedido["gastos_envio"], 2, ',', ' ')."€";
-                                $data["total_vendedor"]=number_format($ar_pedido["precio"], 2, ',', ' ')."€";
+                                $data["total_vendedor"]=number_format($ar_pedido["precio"]+$ar_pedido["gastos_envio"], 2, ',', ' ')."€";
                                 $data["lista_pedidos"].=$this->loadView("pedido","pedido",$data); $data["total_preparacion_pedido"]=$precio_total_pedido=$total_envio_pedido=0;
                                 $data["productos_pedido"]="";
                             }

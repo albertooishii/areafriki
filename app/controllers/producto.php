@@ -406,6 +406,7 @@
                                     $data["dg-token"]=$p->token=$dg->token=$_GET["token"];
                                     if($producto=$p->getProductoWhereToken()){
                                         $data["id_producto"]=$dg->id=$p->id=$pr->producto=$producto["id"];
+                                        $p->user=$this->u->id;
                                         $p->visitar();
                                         $design=$dg->get();
                                         $producto=$p->get();

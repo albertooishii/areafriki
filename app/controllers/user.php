@@ -55,6 +55,13 @@
                         $this->u->rol="user";
                         $this->u->ip=$this->getIP();
                         if($this->u->register()){
+                            if(isset($_POST["mailing"])){
+                                $this->loadModel("mailing");
+                                $mailing = New Mailing_Model();
+                                $mailing->user=$_POST["username"];
+                                $mailing->email=$_POST["email"];
+                                $mailing->set();
+                            }
                             header ("Location: ".PAGE_DOMAIN);
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
@@ -694,10 +701,10 @@
                                         $data["contador_comments"]=$p->getContComentarios();
                                         if($producto["revisado"]==1){
                                             $data["product_card"]=$this->loadView('product','product_card',$data);
-                                            $data["lista_productos"].=$this->loadView('product','product_card_col',$data);
+                                            $data["lista_productos"].=$this->loadView('product','product_card_col-xl-4',$data);
                                         }else{
                                             $data["product_card"]=$this->loadView('product','product_card_norevisado',$data);
-                                            $data["lista_productos"].=$this->loadView('product','product_card_col',$data);
+                                            $data["lista_productos"].=$this->loadView('product','product_card_col-xl-4',$data);
                                         }
                                     }
                                 }

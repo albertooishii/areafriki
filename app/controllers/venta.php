@@ -69,9 +69,10 @@
                                                         $data["cantidad"]=$linea["cantidad"];
 
                                                         $precio=$linea["precio"];
+                                                        $beneficio=$linea["beneficio"];
                                                         $credito_anterior=$info_creador["credit"];
                                                         $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
-                                                        $creador->credito=$credito=$linea["precio"]*$linea["cantidad"];
+                                                        $creador->credito=$credito=$beneficio*$linea["cantidad"];
                                                         $creador->updateCredito();
                                                         $data["credito"]=number_format($credito, 2, ',', ' ')."€";
                                                         $credito_actual=$credito_anterior+$credito;
@@ -164,9 +165,10 @@
                                                     $data["cantidad"]=$linea["cantidad"];
 
                                                     $precio=$linea["precio"];
+                                                    $beneficio=$linea["beneficio"];
                                                     $credito_anterior=$info_creador["credit"];
                                                     $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
-                                                    $creador->credito=$credito=$linea["precio"]*$linea["cantidad"];
+                                                    $creador->credito=$credito=$beneficio*$linea["cantidad"];
                                                     $creador->updateCredito();
                                                     $data["credito"]=number_format($credito, 2, ',', ' ')."€";
                                                     $credito_actual=$credito_anterior-$credito;

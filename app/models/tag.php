@@ -52,6 +52,16 @@
             return false;
         }
 
+        function getPopularTags($limit){
+            $query = "SELECT tag, count(tag) as count FROM producto_tag WHERE tag IN (SELECT nombre FROM tags WHERE activa=1) AND producto IN (SELECT id FROM productos  WHERE revisado=1 AND active=1) GROUP BY tag ORDER BY count DESC LIMIT $limit";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_tags[]=$fila;
+                }
+                return $lista_tags;
+            }
+            return false;
+        }
 
         function set()
         {

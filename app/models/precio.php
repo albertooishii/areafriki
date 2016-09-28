@@ -31,25 +31,25 @@
                 $this->categoria=$answer["categoria"];
                 $orden=$linea["size"];
                 $precio=$this->get($orden)*$linea["cantidad"];
-                if($this->vendedor===0){
-                    $total_af+=$precio;
-                    if($total_af<MIN_ENVIO_GRATIS){
-                        $this->gastos_envio+=GASTOS_ENVIO;
-                    }
-                }
                 $this->subtotal+=$precio;
-                $this->gastos_envio+=$this->getGastosEnvio();
             }
+            $this->getGastosEnvio();
             $this->precio_total=$this->subtotal+$this->gastos_envio;
         }
 
         function getGastosEnvio(){
-            if($this->vendedor===0){
-                return 0;
+            if($this->vendedor==0){
+                if($this->subtotal<MIN_ENVIO_GRATIS){
+                    $this->gastos_envio=GASTOS_ENVIO;
+                }else{
+                    $this->gastos_envio=0;
+                }
             }else{
-                $query = "SELECT gastos_envio FROM productos WHERE id= ".$this->producto;
-                $answer = $this->_db->query($query)->fetch_assoc();
-                return $answer["gastos_envio"];
+                foreach($this->pedido as $linea){
+                    $query = "SELECT gastos_envio FROM productos WHERE id= ".$linea["producto"];
+                    $answer = $this->_db->query($query)->fetch_assoc();
+                    $this->gastos_envio+=$answer["gastos_envio"];
+                }
             }
         }
 

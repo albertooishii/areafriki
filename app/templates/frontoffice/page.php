@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="canonical" hreflang="es" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>" />
-		<title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
+		<title><?=PAGE_NAME?> | <?=$data['page_title']?></title>
         <?=$data["meta_tags"]?>
         <meta name="apple-mobile-web-app-title" content="ÁreaFriki">
         <meta name="application-name" content="ÁreaFriki">
@@ -37,25 +37,45 @@
             <p>Tu navegador no soporta Javascript. Actualiza a un navegador más reciente o activa esta función para que la web funcione correctamente.</p>
             </div>
         </noscript>
-        <!--     Fonts and icons     -->
+        <!--Fonts and icons -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
         <!--Bootstrap -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
         <!--Bootstrap select-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-
         <!-- Material Kit -->
         <link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>
-
         <!--Bootstrap range slider -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
+        <!--DropdownJs-->
+		<link rel="stylesheet" href="/vendor/dropdownjs/jquery.dropdown.css">
+        <!--Bootstrap-tokenfield -->
+        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/bootstrap-tokenfield.min.css">
+        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/tokenfield-typeahead.min.css">
+        <!--OwlCarousel -->
+        <link rel="stylesheet" href="/vendor/owl-carousel/assets/owl.carousel.css">
+        <link rel="stylesheet" href="/vendor/owl-carousel/assets/owl.theme.default.min.css">
+        <!--FormValidation -->
+        <link rel="stylesheet" href="/vendor/formvalidation/css/formValidation.min.css">
+        <!--FileInput -->
+        <link rel="stylesheet" href="/vendor/bootstrap-fileinput/css/fileinput.min.css">
+        <!--Lightbox2 -->
+        <link rel="stylesheet" href="/vendor/lightbox2/dist/css/lightbox.min.css">
+        <!--Cropper -->
+        <link rel="stylesheet" href="/vendor/cropper/cropper.min.css">
+        <!--Snackbar -->
+        <link rel="stylesheet" href="/vendor/snackbarjs/dist/snackbar.min.css">
+        <!--Animate -->
+        <link rel="stylesheet" href="/vendor/animate.css">
+        <!--PerfectScrollbar -->
+        <link rel="stylesheet" href="/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
+        <!--emojis -->
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
         <?=@$data["custom_css"]?>
         <?=$data["min_css"]?>
-        <link rel="stylesheet" href="<?=PAGE_DOMAIN?>/app/templates/frontoffice/css/common.css">
-        <!--<script>
+        <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -63,7 +83,7 @@
 
             ga('create', 'UA-78536667-1', 'auto');
             ga('send', 'pageview');
-        </script>-->
+        </script>
         <!--jQuery--->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -100,26 +120,39 @@
         <!-- end: footer -->
         <!--Scripts -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
-
         <!--Bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/bootstrap.min.js"></script>
-
         <!--Bootstrap select-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-es_CL.min.js"></script>
-
         <!--Material design bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/material.min.js"></script>
-        <script type="text/javascript" src="/vendor/material-kit-pro/js/jquery.dropdown.js"></script>
-        <script type="text/javascript" src="/vendor/cookiechoices/cookiechoices.js"></script>
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
         <script type="text/javascript" src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
-        <script type="text/javascript" src="/vendor/material-kit-pro/js/material-kit.js"></script>
         <script type="text/javascript" src="/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+
+        <script type="text/javascript" src="/vendor/lightbox2/dist/js/lightbox.min.js"></script>
+
+        <!--FormValidation -->
+        <script type="text/javascript" src="/vendor/formvalidation/js/formValidation.min.js"></script>
+        <script type="text/javascript" src="/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/vendor/formvalidation/js/language/es_ES.js"></script>
+
+        <script type="text/javascript" src="/vendor/cropper/cropper.min.js"></script>
+
+        <!--Bootstrap fileinput -->
+        <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/plugins/sortable.min.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/locales/es.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/themes/gly.js"></script>
+
+        <script type="text/javascript" src="/vendor/owl-carousel/owl.carousel.min.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
+        <script type="text/javascript" src="/vendor/bootstrap-tokenfield/typeahead.bundle.min.js"></script>
+
         <?=$data["min_js"]?>
         <?=@$data["custom_js"]?>
-        <script type="text/javascript" src="/app/views/notification/notification.js"></script>
-        <script type="text/javascript" src="/app/templates/frontoffice/js/common.js"></script>
         <script>
             lightbox.option({
               'resizeDuration': 200,

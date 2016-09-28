@@ -134,6 +134,11 @@
                                                     data-fv-notempty-message="Acepta los términos para continuar"> He leído y acepto los <a href="/info/tos" target="_blank">términos y condiciones<i class="fa fa-external-link"></i></a>
                                                 </label>
                                             </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="suscribe" type="checkbox" name="suscribe">Deseo registrarme en el boletín informativo para estar al día de las ofertas y novedades de <?=PAGE_NAME?>.
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="footer text-center">

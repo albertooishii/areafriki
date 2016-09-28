@@ -62,12 +62,29 @@
             return false;
         }
 
-        function getProductosCategoria($limit=false)
+        function getProductosCategoria($limit=false, $order=false)
         {
-            if($limit){
-                $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC LIMIT $limit";
+            if(empty($order)){
+                $order="fecha_publicacion";
             }else{
-                 $query = "SELECT * FROM productos WHERE categoria = $this->categoria ORDER BY fecha_publicacion DESC";
+                switch($order){
+                    case 'likes':
+                        $order="likes";
+                    break;
+
+                    case 'sales':
+                        $order="ventas";
+                    break;
+
+                    default:
+                        $order="fecha_publicacion";
+                }
+            }
+
+            if($limit){
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND categoria=$this->categoria GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
+            }else{
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND categoria=$this->categoria GROUP BY productos.id ORDER BY $order DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -80,6 +97,13 @@
                 }
             }
             return false;
+        }
+
+        function countProductosCategoria()
+        {
+            $query = "SELECT count(*) as count FROM productos WHERE categoria = $this->categoria AND revisado=1 AND active=1 ";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
         }
 
         function getProductosCategoryUser()
@@ -118,10 +142,27 @@
 
         function getProductosTag($limit=false)
         {
-            if($limit){
-                $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') LIMIT $limit";
+            if(empty($order)){
+                $order="fecha_publicacion";
             }else{
-                 $query = "SELECT * FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag')";
+                switch($order){
+                    case 'likes':
+                        $order="likes";
+                    break;
+
+                    case 'sales':
+                        $order="ventas";
+                    break;
+
+                    default:
+                        $order="fecha_publicacion";
+                }
+            }
+
+            if($limit){
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
+            }else{
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -134,6 +175,12 @@
                 }
             }
             return false;
+        }
+
+        function countProductosTag(){
+            $query = "SELECT count(*) as count FROM productos WHERE id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND revisado=1 AND active=1 ";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
         }
 
         function getProductoWhereToken()
@@ -250,10 +297,35 @@
             return false;
         }
 
+        function getOnFire($limit=false){
+            $today = date ("Y-m-d");
+            $week = date('Y-m-d', strtotime('-1 weeks', strtotime($today)));
+
+            if(!empty($limit)){
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 GROUP BY productos.id ORDER BY popularidad DESC, likes.date DESC LIMIT ".$limit;
+            }else{
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user ) AS likes, (COUNT(distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos INNER JOIN ventas ON ventas.producto = productos.id INNER JOIN likes ON likes.producto = ventas.producto WHERE active =1 AND revisado =1 AND (ventas.fecha BETWEEN '$today' AND '$week' OR likes.date BETWEEN '$today' AND '$week') GROUP BY productos.id ORDER BY popularidad DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
         function userNotLikeProducto($limit)//recogemos los productos a los que no se les ha dado like
         {
-            $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND revisado=1 AND active=1 ORDER by RAND() LIMIT $limit";
-            $lista_not_like=array();
+            if(!empty($this->user)){
+                $query="SELECT * FROM productos WHERE id NOT IN (SELECT producto FROM likes WHERE user=$this->user) AND revisado=1 AND active=1 ORDER by RAND() LIMIT $limit";
+            }else{
+                $query="SELECT * FROM productos WHERE revisado=1 AND active=1 ORDER by RAND() LIMIT $limit";
+            }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_productos[]=$fila;
@@ -289,6 +361,31 @@
             $query = "SELECT visitas FROM productos WHERE id= ".$this->id;
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["visitas"];
+        }
+
+        function getLastViewsUser($limit)
+        {
+            if(!empty($this->user)){
+                $query = "SELECT DISTINCT * FROM productos WHERE id IN(SELECT producto FROM visitas WHERE user='$this->user' ORDER BY date DESC) LIMIT $limit";
+            }else{
+                if (preg_match( "/^([d]{1,3}).([d]{1,3}).([d]{1,3}).([d]{1,3})$/", getenv('HTTP_X_FORWARDED_FOR'))){
+                    $ip=getenv('HTTP_X_FORWARDED_FOR');
+                }else{
+                    $ip=getenv('REMOTE_ADDR');
+                }
+                $query = "SELECT DISTINCT * FROM productos WHERE id IN(SELECT producto FROM visitas WHERE ip='$ip' ORDER BY date DESC) LIMIT $limit";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
         }
 
         function getColores(){
@@ -456,7 +553,8 @@
 
         function like()
         {
-            $query="INSERT INTO likes (producto, user) VALUES('$this->id', '$this->user')";
+            $fecha=date ("Y-m-d H:i:s");
+            $query="INSERT INTO likes (producto, user, date) VALUES('$this->id', '$this->user', '$fecha')";
             if ( $this->_db->query($query) )
             return true;
             return false;
@@ -531,18 +629,41 @@
 
         function visitar()
         {
-            $query="UPDATE productos SET visitas=visitas+1 WHERE id='$this->id'";
-            if ( $this->_db->query($query) )
-            return true;
-            return false;
+            $fecha=date ("Y-m-d H:i:s");
+            if (preg_match( "/^([d]{1,3}).([d]{1,3}).([d]{1,3}).([d]{1,3})$/", getenv('HTTP_X_FORWARDED_FOR'))){
+                $ip=getenv('HTTP_X_FORWARDED_FOR');
+            }else{
+                $ip=getenv('REMOTE_ADDR');
+            }
+            if(!empty($this->user)){
+                $query="INSERT INTO visitas (date, user, ip, producto) VALUES ('$fecha', '$this->user', '$ip', '$this->id')";
+            }else{
+                $query="INSERT INTO visitas (date, ip, producto) VALUES ('$fecha', '$ip', '$this->id')";
+            }
+            if ($this->_db->query($query)){
+                $query="UPDATE productos SET visitas=visitas+1 WHERE id='$this->id'";
+                if ( $this->_db->query($query) )
+                return true;
+                return false;
+            }else{
+                return false;
+            }
         }
 
         function vender($cantidad)
         {
+            $fecha=date ("Y-m-d H:i:s");
             $query="UPDATE productos SET ventas=ventas+$cantidad, stock=stock-$cantidad WHERE id='$this->id'";
-            if ( $this->_db->query($query) )
-            return true;
-            return false;
+            if ( $this->_db->query($query) ){
+                $query="INSERT INTO ventas (producto, cantidad, fecha) VALUES ('$this->id', '$cantidad', '$fecha')";
+                if ( $this->_db->query($query) ){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
         }
 
         function cancelarVenta($cantidad){

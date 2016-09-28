@@ -6,7 +6,6 @@
 	include_once 'app/core/controller.php';
 
     //print_r($_REQUEST);
-
     if (isset($_GET["section"])){
         $section=$_GET['section'];
 
@@ -41,8 +40,7 @@
                 $p->index_productos();
             break;
 
-            /*administrador*/
-            case 'simbiosis':
+            case 'simbiosis':/*administrador*/
                 include_once 'app/controllers/admin.php';
                 $admin = new Admin();
                 $admin->index_admins();
@@ -58,6 +56,12 @@
                 include_once 'app/controllers/contacto.php';
                 $c = new Contacto();
                 $c->index_contacto();
+            break;
+
+            case 'mailing':
+                include_once 'app/controllers/mailing.php';
+                $mailing = new Mailing();
+                $mailing->index_mailing();
             break;
 
             case 'info':

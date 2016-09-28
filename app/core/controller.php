@@ -75,13 +75,6 @@
                 $this->loadModel("notification");
                 $notify = new Notification_Model();
 
-                $cat->parent=1;
-                $lista_categorias=$cat->getChilds();
-                $data["categorias_designer_header"]="";
-                foreach($lista_categorias as $categoria){
-                    $data["categorias_designer_header"].=$this->loadView("header","categories",$categoria["nombre"]);
-                }
-
                 $notify->to=$car->user=$this->u->id;
                 $data["contador-carrito"]=$car->countCarrito();
                 $data["contador-notificaciones"]=$notify->countNotificaciones();

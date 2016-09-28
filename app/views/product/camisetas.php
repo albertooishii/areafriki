@@ -29,6 +29,9 @@
             boundingBox: "Bounding",
             boundingBoxMode: "clipping",
         },
+        actions:  {
+            'right': ['zoom'],
+        },
         mainBarModules: [''],
         langJSON: '<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/lang/es.json',
         templatesDirectory: '<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/html/'

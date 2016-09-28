@@ -41,23 +41,23 @@
                             <ul class="stats product_buttons">
                                 <li class="<?=$data["like_class"]?>-button">
                                     <a href="#">
-                                        <i class="fa fa-heart"></i>
+                                        <i class="material-icons">favorite</i>
                                         <span class="contador"><?=$data["contador_likes"]?></span>
                                     </a>
                                 </li>
                                 <li class="views">
-                                    <i class="fa fa-eye"></i>
+                                    <i class="material-icons">remove_red_eye</i>
                                     <span class="contador"><?=$data["contador_visitas"]?></span>
                                 </li>
                                 <li class="share-button">
                                     <a href="#">
-                                        <i class="fa fa-share"></i>
+                                        <i class="material-icons">share</i>
                                         <span class="contador"><?=$data["contador_shares"]?></span>
                                     </a>
                                 </li>
                                 <li class="coments-button">
                                     <a href="#coments">
-                                        <i class="fa fa-comments"></i>
+                                        <i class="material-icons">rate_review</i>
                                         <span class="contador"><?=$data["contador_comments"]?></span>
                                     </a>
                                 </li>
@@ -161,7 +161,7 @@
                         ?>
                     </form>
                 </div>
-                <div class="col-md-12" id="coments">
+                <div class="col-md-12 col-sm-12 col-xs-12" id="coments">
                     <header>
                         <h4><i class="material-icons">forum</i> COMENTARIOS</h4>
                     </header>

@@ -27,7 +27,7 @@ $(document).ready(function() {
                 $("#edit_profile").removeClass("save_profile").text("Editar perfil");
                 $("*").removeClass("img_edit").removeAttr("contenteditable");
                 $("#user_avatar img, #user_banner_bg").removeAttr("data-toggle");
-                notify("¡Cambios guardados correctamente!");
+                tosnackbar("¡Cambios guardados correctamente!");
                 window.onbeforeunload = null;
             },
             error:  function () {

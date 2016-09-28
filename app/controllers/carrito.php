@@ -316,6 +316,7 @@
                                     $pr->categoria=$producto["categoria"];
                                     $precio=$pr->get($linea["size"]);
                                     $pedido[$key]["precio"]=$precio;
+                                    $pedido[$key]["beneficio"]=$pr->beneficio;
                                     if($vendedor->id>0){
                                         $ped->preparacion+=$producto["preparacion"];
                                         //como tiempo de envio marcamos el mayor de los productos del vendedor
@@ -331,7 +332,7 @@
                                 $ped->pedido=$pr->pedido=$pedido;
                                 $pr->getPrecioPedido();
                                 $ped->gastos_envio=$pr->gastos_envio;
-                                $ped->precio=$pr->precio_total;
+                                $ped->precio=$pr->subtotal;
                                 $data["precio_total"]=number_format($pr->precio_total, 2, ',', ' ')."€";;
 
                                 $ped->metodo_pago=$_GET["method"];
@@ -402,13 +403,7 @@
                                         $mail->subject=PAGE_NAME." | [Confirmación de pedido]";
                                         $mail->sendEmail();
 
-                                        //Email para el vendedor
-                                        if($vendedor->id>0){
-                                            $mail->getEmail("pago/vendedor", $data);
-                                            $mail->to=$info_vendedor["email"];
-                                            $mail->subject=PAGE_NAME." | [Nuevo pedido]";
-                                            $mail->sendEmail();
-                                        }else{//Email para el/los diseñador/es
+                                        if($vendedor->id==0){//Email para el/los diseñador/es
                                             $log.="emails para los diseñadores";
                                             foreach($pr->pedido as $linea){
                                                 $pr->producto=$p->id=$linea["producto"];
@@ -420,37 +415,45 @@
                                                 $data["dg_nombre"]=$producto["nombre"];
 
                                                 $creador->id=$design["user"];
-                                                $info_creador=$creador->getUserFromID();
-                                                $data["dg_autor"]=$info_creador["user"];
-                                                $data["cantidad"]=$linea["cantidad"];
+                                                if($creador->id!=0){
+                                                    $info_creador=$creador->getUserFromID();
+                                                    $data["dg_autor"]=$info_creador["user"];
+                                                    $data["cantidad"]=$linea["cantidad"];
 
-                                                $orden=$linea["size"];
-                                                $pr->modelo=$producto["modelo"];
+                                                    $orden=$linea["size"];
+                                                    $pr->modelo=$producto["modelo"];
 
-                                                $precio=$pr->get($orden);
-                                                $credito_anterior=$info_creador["credit"];
-                                                $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
-                                                $creador->credito=$credito=$pr->beneficio*$linea["cantidad"];
-                                                $creador->updateCredito();
-                                                $data["credito"]=number_format($credito, 2, ',', ' ')."€";
-                                                $credito_actual=$credito_anterior+$credito;
-                                                $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
+                                                    $precio=$pr->get($orden);
+                                                    $credito_anterior=$info_creador["credit"];
+                                                    $data["credito_anterior"]=number_format($credito_anterior, 2, ',', ' ')."€";
+                                                    $creador->credito=$credito=$pr->beneficio*$linea["cantidad"];
+                                                    $creador->updateCredito();
+                                                    $data["credito"]=number_format($credito, 2, ',', ' ')."€";
+                                                    $credito_actual=$credito_anterior+$credito;
+                                                    $data["credito_actual"]=number_format($credito_actual, 2, ',', ' ')."€";
 
-                                                $mail->getEmail("pago/designer", $data);
-                                                $mail->to=$info_creador["email"];
-                                                $mail->subject=PAGE_NAME." | [Producto vendido]";
-                                                $mail->sendEmail();
+                                                    $mail->getEmail("pago/designer", $data);
+                                                    $mail->to=$info_creador["email"];
+                                                    $mail->subject=PAGE_NAME." | [Producto vendido]";
+                                                    $mail->sendEmail();
 
-                                                //Notificacion para el diseñador
-                                                $notify->to=$creador->id;
-                                                $notify->from=$this->u->id;
-                                                $notify->producto=$p->id;
-                                                $notify->titulo="Venta de producto";
-                                                $notify->texto="Han comprado ".$producto["nombre"].". Se ha añadido el saldo correspondiente a tu cuenta.";
-                                                $notify->url=$data["dg_categoria"]."/".$data["dg_token"];
-                                                $notify->tipo="compra";
-                                                $notify->set();
+                                                    //Notificacion para el diseñador
+                                                    $notify->to=$creador->id;
+                                                    $notify->from=$this->u->id;
+                                                    $notify->producto=$p->id;
+                                                    $notify->titulo="Venta de producto";
+                                                    $notify->texto="Han comprado ".$producto["nombre"].". Se ha añadido el saldo correspondiente a tu cuenta.";
+                                                    $notify->url=$data["dg_categoria"]."/".$data["dg_token"];
+                                                    $notify->tipo="compra";
+                                                    $notify->set();
+                                                }
                                             }
+                                        }else{
+                                            //Email para el vendedor
+                                            $mail->getEmail("pago/vendedor", $data);
+                                            $mail->to=$info_vendedor["email"];
+                                            $mail->subject=PAGE_NAME." | [Nuevo pedido]";
+                                            $mail->sendEmail();
                                         }
                                     }else{//estado es pendiente
                                         if($_GET["method"]=="transferencia"){

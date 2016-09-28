@@ -1,26 +1,66 @@
-<footer>
+<footer class="footer footer-white footer-big">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12 inner">
-                <a href="<?=PAGE_DOMAIN?>">PORTADA</a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 inner">
-                <a href="/info/proteccion-datos">PROTECCIÓN DE DATOS</a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 inner">
-                <a href="/info/tos">TÉRMINOS Y CONDICIONES</a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12 inner">
-                <a href="/contacto">CONTACTO</a>
+        <div class="content aligncenter">
+            <ul class="nav navbar-nav text-center notablet">
+                <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/crafts'>Hecho a mano</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/baul'>Nuevo y usado</a></li>
+            </ul>
+            <div class="row text-center">
+                <div class="col-md-3 col-sm-6 col-xs-12 inner">
+                    <a href="<?=PAGE_DOMAIN?>">PORTADA</a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 inner">
+                    <a href="/info/proteccion-datos">PROTECCIÓN DE DATOS</a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 inner">
+                    <a href="/info/tos">TÉRMINOS Y CONDICIONES</a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 inner">
+                    <a href="/contacto">CONTACTO</a>
+                </div>
             </div>
         </div>
-        <div class="footer_social">
-            <a href="https://twitter.com/frikiarea" target="_blank"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.facebook.com/frikiarea" target="_blank"><i class="fa fa-facebook"></i></a>
-            <a href="https://instagram.com/areafriki/" target="_blank"><i class="fa fa-instagram"></i></a>
-        </div>
-        <div>
-            <p class="aligncenter">Diseñado y desarrollado por <a href="http://sirym.com" title="sirym.com" target="_blank">SIRYM</a>. ®AreaFriki - ©<?=date("Y")?> Todos los derechos reservados </p>
+
+        <hr>
+
+        <ul class="social-buttons">
+            <li>
+                <a href="https://twitter.com/frikiarea" target="_blank" class="btn btn-just-icon btn-round btn-twitter">
+	               <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/areafriki" target="_blank" class="btn btn-just-icon btn-round btn-facebook">
+                    <i class="fa fa-facebook-square"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://instagram.com/areafriki/" target="_blank" class="btn btn-just-icon btn-round btn-instagram">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://plus.google.com/u/0/b/110162063324615408307/110162063324615408307" target="_blank" class="btn btn-just-icon btn-round btn-google">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/channel/UC7Jdn3SXl4ArIf2pbYXtAZg" target="_blank" class="btn btn-just-icon btn-round btn-youtube">
+                    <i class="fa fa-youtube-play"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="copyright pull-center">
+            Diseñado y desarrollado por <a href="http://sirym.com" title="sirym.com" target="_blank">ÁREA DESIGN</a>. <?=PAGE_NAME?>® - Copyright © <?=date("Y")?> Todos los derechos reservados
         </div>
     </div>
 </footer>

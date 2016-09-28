@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="<?=PAGE_DOMAIN?>" title="<?=PAGE_NAME?>" class="navbar-brand">
-                    <img class="logo img-responsive nomobile" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nomobile notablet" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
                     <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-128x128.png" alt="<?=PAGE_NAME?>">
                 </a>
             </div>
@@ -105,17 +105,26 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        DISEÑOS<b class="caret"></b>
-                    </a>
+                            ROPA Y DECORACIÓN<b class="caret"></b>
+                        </a>
                         <ul class="dropdown-menu">
-                            <?=$data["categorias_designer_header"]?>
+                            <li class="dropdown-header">Ropa y complementos</li>
+                            <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
+                            <li class="dropdown-header">Decoración</li>
+                            <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
+                            <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="/crafts">CRAFTS</a>
+                        <a href="/crafts">HECHO A MANO</a>
                     </li>
                     <li class="dropdown">
-                        <a href="/baul">BAÚL</a>
+                        <a href="/baul">NUEVO Y USADO</a>
                     </li>
                     <li class="dropdown">
                         <a href="/areastore">AREASTORE</a>

@@ -15,6 +15,7 @@
                                 <th>Categoría</th>
                                 <th>Autor</th>
                                 <th>Precio</th>
+                                <th>Beneficio</th>
                                 <th>Atributos</th>
                                 <th>Cantidad</th>
                                 <th>Total</th>

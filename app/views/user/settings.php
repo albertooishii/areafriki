@@ -86,8 +86,7 @@
                         <p>Ajuste de información sobre pagos.</p>
                     </header>
 
-                    <p>Saldo: <?=$data["credit"]?> €</p>
-
+                    <p>Saldo: <?=$data["credit"]?> €<br>El pago del saldo acumulado se realizará entre los primeros 10 días de cada mes.</p>
                     <div class="form-group">
                        <label for="idnum" class="control-label">DNI/NIE/CIF</label>
                         <input type="text" class="form-control" name="idnum" id="idnum" value="<?=$data["idnum"]?>" autocomplete="off"
