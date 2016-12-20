@@ -1,7 +1,7 @@
 <div class="producto-carrito content" data-linea="<?=$data["linea"]?>">
     <div class="row">
         <div class="col-md-2 col-sm-2 col-xs-12">
-            <img class="img img-raised img-rounded" src="<?=PAGE_DOMAIN?>/designs/<?=$data["dg_autor"]?>/<?=$data["dg_token"]?>/<?=$data["dg_categoria"]?>/thumb-<?=$data["dg_token"]?>.jpg">
+            <img class="img img-raised img-rounded" src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["dg_autor"])?>/<?=$data["dg_token"]?>/<?=$data["dg_categoria"]?>/thumb-<?=$data["dg_token"]?>.jpg">
         </div>
         <div class="col-md-3 col-sm-3 col-xs-12">
 
@@ -9,7 +9,7 @@
     if($data["dg_autor"]!="areafriki"){
 ?>
             <h4><a href="<?=PAGE_DOMAIN?>/<?=$data["dg_categoria"]?>/<?=$data["dg_token"]?>"><?=$data["dg_nombre"]?></a></h4>
-            <p>por <a href="<?=PAGE_DOMAIN?>/user/<?=$data["dg_autor"]?>"><?=$data["dg_autor"]?></a></p>
+            <p>por <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["dg_autor"])?>"><?=$data["dg_autor"]?></a></p>
 <?php
     }else{
 ?>

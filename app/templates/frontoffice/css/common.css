@@ -752,6 +752,10 @@ footer a:hover{
     margin: 5px;
 }
 
+.col-xl-2 .product_card .product_author{
+    display: none;
+}
+
 .product_card .card-image, .product_card .card-image img{
     height: auto !important;
 }

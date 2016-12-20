@@ -120,7 +120,7 @@
                                     else{
                                         $data["trclass"]="";
                                     }
-                                    $source_folder="designs/".$data["username"]."/".$data["token"]."/".$data["categoria"];
+                                    $source_folder="designs/".$this->u->user2URL($data["username"])."/".$data["token"]."/".$data["categoria"];
 
                                     $data["file"]=glob($source_folder."/ORIGINAL-".$data["token"]."*")[0];
 
@@ -446,6 +446,10 @@
                                                 $data["atributos"].="Talla: ".$linea["size"];
                                             }
                                         }
+
+                                        $source_folder="designs/".$this->u->user2URL($data["dg_autor"])."/".$data["dg_token"]."/".$data["dg_categoria"];
+
+                                        @$data["file"]=glob($source_folder."/ORIGINAL-".$data["dg_token"]."*")[0];
 
                                         $data["nota"]=$linea["nota"];
                                         $data["cantidad"]=$linea["cantidad"];

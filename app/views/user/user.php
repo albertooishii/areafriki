@@ -59,8 +59,8 @@
                         ?>
                         <i class="material-icons">&#xE157;</i>Enlace de referido <span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Si compartes este enlace ganarás una comisión entre el 2% y 6% por cada persona que traigas a <?=PAGE_NAME?>."><i class="material-icons">info_outline</i></span>
                         <span class="text-primary btn-copy">
-                            <?=PAGE_DOMAIN?>?ref=<?=$this->u->user?>
-                            <input type="hidden" value="<?=PAGE_DOMAIN?>?ref=<?=$this->u->user?>">
+                            <?=PAGE_DOMAIN?>?ref=<?=$this->u->user2URL($this->u->user)?>
+                            <input type="hidden" value="<?=PAGE_DOMAIN?>?ref=<?=$this->u->user2URL($this->u->user)?>">
                         </span>
                         <?php
                             }
@@ -72,16 +72,16 @@
             <section class="col-md-9">
                 <div class="row inner">
                     <div class="btn-group btn-group-justified btn-group-raised" id="user_menu">
-                        <a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>" class="btn btn-raised btn-default option-button"><i class="material-icons">home</i> Inicio</a>
+                        <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>" class="btn btn-raised btn-default option-button"><i class="material-icons">home</i> Inicio</a>
                         <div class="btn-group">
-                            <a href="bootstrap-elements.html" data-target="#" class="btn dropdown-toggle option-button" data-toggle="dropdown"><i class="material-icons">label</i> Categorías <span class="caret"></span></a>
+                            <a href="#" data-target="#" class="btn dropdown-toggle option-button" data-toggle="dropdown"><i class="material-icons">label</i> Categorías <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/designs">Diseños</a></li>
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/crafts">Crafts</a></li>
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/baul">Baúl</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/designs">Diseños</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/crafts">Crafts</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/baul">Baúl</a></li>
                             </ul>
                         </div>
-                        <a href="<?=PAGE_DOMAIN?>/user/<?=$data["username"]?>/lists" class="btn btn-raised btn-default option-button"><i class="material-icons">library_books</i> LISTAS</a>
+                        <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/lists" class="btn btn-raised btn-default option-button"><i class="material-icons">library_books</i> LISTAS</a>
                     </div>
                     <div id="user_products">
                         <header>

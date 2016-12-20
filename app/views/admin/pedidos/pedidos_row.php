@@ -5,7 +5,7 @@
         <?php
             if($data["vendedor_id"]!=0){
         ?>
-        <a href="<?=PAGE_DOMAIN?>/user/<?=$data["vendedor"]?>" target="_blank"><?=$data["vendedor"]?></a>
+        <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["vendedor"])?>" target="_blank"><?=$data["vendedor"]?></a>
         <?php
             }else{
         ?>
@@ -19,7 +19,7 @@
         <?php
             if(isset($data["user"])){
         ?>
-            (<a href="<?=PAGE_DOMAIN?>/user/<?=$data["user"]?>" target="_blank"><?=$data["user"]?></a>)
+            (<a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["user"])?>" target="_blank"><?=$data["user"]?></a>)
         <?php
             }
         ?>

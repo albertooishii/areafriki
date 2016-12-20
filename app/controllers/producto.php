@@ -499,7 +499,7 @@
                                                         $data["top"]=$producto["top_pos"];
                                                         $data["scale"]=$producto["scale"];
 
-                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png";
+                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $creador->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png";
                                                         $img_design = new Imagick($data["img_design"]);
 
                                                         $img_design_sizes=$img_design->getImageGeometry();

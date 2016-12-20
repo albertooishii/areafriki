@@ -136,7 +136,7 @@
                             $pr->token_lista=$_POST["listas_productos"];
                         }
                         $data["token"]=$pr->design=$dg->token=$_POST["token"];
-                        $upload_folder ='designs/'.$this->u->user.'/'.$dg->token;
+                        $upload_folder ='designs/'.$this->u->user2URL($this->u->user).'/'.$dg->token;
                         $design_name = $dg->token;
 
                         $height = 700;

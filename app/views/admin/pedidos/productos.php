@@ -10,7 +10,6 @@
                     <table class="table table-striped table-bordered table-hover data-table productos" id="crafts">
                         <thead>
                             <tr>
-                                <th>Token</th>
                                 <th>Nombre</th>
                                 <th>Categoría</th>
                                 <th>Autor</th>
@@ -20,6 +19,7 @@
                                 <th>Cantidad</th>
                                 <th>Total</th>
                                 <th>Nota</th>
+                                <th>Descargar</th>
                             </tr>
                         </thead>
                         <tbody>

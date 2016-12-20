@@ -53,10 +53,10 @@
                             <div class="profile-photo-small">
                                 <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>">
                             </div>
-                            <span class="nomobile notablet" id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><?=$_SESSION["login"]["user"]?></span>
+                            <span class="nomobile notablet" id="login_user" data-user="<?=$this->u->user?>" data-userurl="<?=$this->u->user2URL($this->u->user)?>" data-id="<?=$this->u->id?>"><?=$_SESSION["login"]["user"]?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-dark">
-                            <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">store</i> Mi tienda</a></li>
+                            <li><a href="/user/<?=$this->u->user2URL($_SESSION["login"]["user"])?>"><i class="material-icons">store</i> Mi tienda</a></li>
                             <li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>
                             <li><a href="/mysales"><i class="material-icons">monetization_on</i> Mis ventas</a></li>
                             <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>

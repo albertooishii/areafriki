@@ -125,7 +125,7 @@
             //comrpobar si tiene avatar subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/avatar";
             //if(!$size){$size=150;}
-            $avatar=$dir."/".$this->user."/".$size.".jpg?d=".time();
+            $avatar=$dir."/".$this->user2URL($this->user)."/".$size.".jpg?d=".time();
             $generic_avatar=$dir."/"."user.svg";
             $query = "SELECT avatar FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();
@@ -143,7 +143,7 @@
                //comrpobar si tiene banner subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/banner";
             //if(!$size){$size=1920;}
-            $banner=$dir."/".$this->user."/".$size.".jpg?d=".time();
+            $banner=$dir."/".$this->user2URL($this->user)."/".$size.".jpg?d=".time();
             $generic_banner=$dir."/"."banner.jpg";
             $query = "SELECT banner FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();
@@ -480,6 +480,14 @@
             if ( $this->_db->query($query) )
             return true;
             return $this->genera_codigos_registro();
+        }
+
+        function user2URL($username){
+            return str_replace(" ", "-", $username);
+        }
+
+        function URL2user($urluser){
+            return str_replace("-", " ", $urluser);
         }
 
         function calculaedad($fechanacimiento){

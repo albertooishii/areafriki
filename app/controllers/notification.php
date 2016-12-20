@@ -47,7 +47,7 @@
                                         $producto=$p->get();
                                         $dg->token=$producto["design"];
                                         $cat->id=$producto["categoria"];
-                                        $data["notification_icon"]=PAGE_DOMAIN."/designs/".$this->u->user."/".$dg->token."/".$cat->get()["nombre"]."/thumb-".$dg->token.".jpg";
+                                        $data["notification_icon"]=PAGE_DOMAIN."/designs/".$this->u->user2URL($this->u->user)."/".$dg->token."/".$cat->get()["nombre"]."/thumb-".$dg->token.".jpg";
                                     break;
                                 }
                                 $data["unformat_date"]=$notificacion["fecha"];

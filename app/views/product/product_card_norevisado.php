@@ -6,11 +6,11 @@
         </h5>
     </div>
         <a class="product_url" href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>">
-            <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg">
+            <img src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg">
         </a>
         <div class="footer content">
             <div class="product_author author">
-                <a href="/user/<?=$data["username"]?>">
+                <a href="/user/<?=$this->u->user2URL($data["username"])?>">
                     <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
                     <span><?=$data["username"]?></span>
                 </a>

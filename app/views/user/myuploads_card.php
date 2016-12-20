@@ -1,5 +1,5 @@
 <tr class="producto-card" data-producto="<?=$data["producto"]?>">
-    <td><a href="<?=PAGE_DOMAIN?>/<?=$data["dg_categoria"]?>/<?=$data["dg_token"]?>"><img src="<?=PAGE_DOMAIN?>/designs/<?=$data["dg_autor"]?>/<?=$data["dg_token"]?>/<?=$data["dg_categoria"]?>/thumb-<?=$data["dg_token"]?>.jpg"></a></td>
+    <td><a href="<?=PAGE_DOMAIN?>/<?=$data["dg_categoria"]?>/<?=$data["dg_token"]?>"><img src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["dg_autor"])?>/<?=$data["dg_token"]?>/<?=$data["dg_categoria"]?>/thumb-<?=$data["dg_token"]?>.jpg"></a></td>
     <td>
         <h4><a href="<?=PAGE_DOMAIN?>/<?=$data["dg_categoria"]?>/<?=$data["dg_token"]?>"><?=$data["dg_nombre"]?></a></h4>
         <p>Categoría: <?=ucfirst($data["dg_categoria"])?></p>

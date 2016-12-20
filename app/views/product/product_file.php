@@ -22,8 +22,8 @@
         <?php
             }else{
         ?>
-                            <a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
-                                <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
+                            <a href="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
+                                <img src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
                             </a>
         <?php
             }
@@ -31,7 +31,7 @@
                         </div>
                         <div class="footer content">
                             <div class="product_author author">
-                                <a href="/user/<?=$data["username"]?>">
+                                <a href="/user/<?=$this->u->user2URL($data["username"])?>">
                                     <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
                                     <span><?=$data["username"]?></span>
                                 </a>
@@ -174,7 +174,7 @@
             if(isset($_SESSION["login"])){
         ?>
                         <div class="media media-post">
-                            <a class="pull-left author" href="/user/<?=$this->u->user?>">
+                            <a class="pull-left author" href="/user/<?=$this->u->user2URL($this->u->user)?>">
                                 <div class="avatar">
                                     <img class="media-object" alt="avatar de <?=$this->u->user?>" src="/<?=$data["avatar"]?>">
                                 </div>

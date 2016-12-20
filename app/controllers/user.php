@@ -597,7 +597,7 @@
                 default:
                     if(isset($_GET["user"])){
 
-                        $creador->user=$_GET["user"];//nombre del creador
+                        $creador->user=$creador->URL2user($_GET["user"]);//nombre del creador
                         if($infocreador=$creador->getUser()){
                             $data["userid"]=$p->creador=$creador->id=$infocreador["id"];
                             $data["creador_user"]=$data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
