@@ -1,0 +1,73 @@
+@media only screen and (min-width: 1201px){
+    .store-page {
+        padding-top: 0px !important;
+    }
+}
+
+.card-description, .card-title{
+    font-family: 'Shadows Into Light Two', cursive !important;
+}
+
+main{
+    overflow: visible;
+}
+
+h2, h3, h4, p{
+    color: white !important;
+}
+
+.card-description{
+    font-size: 120%;
+}
+
+.card-price{
+    font-weight: 700;
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    margin-top: 0;
+}
+
+label{
+    color: white !important;
+}
+
+.imgthumb{
+    width: 56px !important;
+    height: 56px !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 10px !important;
+    z-index: 99 !important;
+}
+
+.imgthumb a{
+    display: block;
+}
+
+.card{
+    cursor: pointer;
+}
+
+#menu-store, #hamburger{
+    display: none !important;
+}
+
+#logokawaii{
+    margin-bottom: 20px;
+}
+
+#logokawaii img{
+    max-width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.buypreview{
+    position: relative !important;
+    bottom: 20px !important;
+}
+
+.store-page .card:hover .buypreview {
+    visibility: hidden;
+}

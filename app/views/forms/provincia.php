@@ -1,8 +1,8 @@
 <?php
-    $this->loadModel("provincia");
-    $provincia = New Provincia_Model();
+    $this->loadModel("address");
+    $address = New Address_Model();
     $data["lista_provincias"]="";
-    $provincias=$provincia->get();
+    $provincias=$address->getProvincias();
     foreach($provincias as $provincia){
         $selected ="";
         if($provincia["id"]==@$data["provincia_selected"]){

@@ -32,16 +32,14 @@
             if(empty($this->reply_to_name)){$this->reply_to_name=PAGE_NAME;}
             require_once DIR.'/vendor/PHPMailer/PHPMailerAutoload.php';
             $mail = new PHPMailer();
-            if($this->from==NOREPLY_EMAIL){
-                $mail->isSMTP();
-                //$mail->SMTPDebug = 2;
-                $mail->Host = SMTP_HOST;
-                $mail->Port = SMTP_PORT;
-                $mail->SMTPAuth = true;
-                //$mail->SMTPSecure = SMTP_SECURE;
-                $mail->Username = SMTP_EMAIL;
-                $mail->Password = SMTP_PASS;
-            }
+            $mail->isSMTP();
+            //$mail->SMTPDebug = 2;
+            $mail->Host = SMTP_HOST;
+            $mail->Port = SMTP_PORT;
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = SMTP_SECURE;
+            $mail->Username = SMTP_EMAIL;
+            $mail->Password = SMTP_PASS;
             $mail->setFrom($this->from, $this->from_name);
             $mail->addReplyTo($this->reply_to, $this->reply_to_name);
             $mail->addAddress($this->to, $this->to);

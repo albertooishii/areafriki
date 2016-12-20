@@ -5,7 +5,7 @@
                 <div class="col-md-4 col-md-offset-4">
 
                     <div class="card card-signup">
-                        <h2 class="text-center">Entrar</h2>
+                        <h2 class="text-center">Inciar sesión</h2>
                         <div class="row">
                             <div class="col-md-12">
                                 <form id="registrationForm" method="post" action="/login"
@@ -27,11 +27,11 @@
                                                     data-fv-stringlength="true"
                                                     data-fv-stringlength-min="3"
                                                     data-fv-stringlength-max="100"
-                                                    data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
+                                                    data-fv-stringlength-message="Debe tener entre 3 y 20 caracteres"
 
                                                     data-fv-regexp="true"
-                                                    data-fv-regexp-regexp="^[a-zA-Z0-9_\.@]+$"
-                                                    data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                                    data-fv-regexp-regexp="^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_. +@]+$"
+                                                    data-fv-regexp-message="Solo puede tener letras, números, guiones bajos, espacios y puntos" />
                                             </div>
                                         </div>
 
@@ -77,7 +77,7 @@
                                     </div>
                                 </form>
                                 <div class="footer text-center">
-                                    <a href="/register" class="btn btn-primary btn-round">NO TENGO UNA CUENTA</a>
+                                    <a href="/register" class="btn btn-primary btn-round">REGISTRARSE</a>
                                 </div>
                             </div>
                         </div>

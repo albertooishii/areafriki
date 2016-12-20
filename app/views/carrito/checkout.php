@@ -1,8 +1,14 @@
+<style>
+    #vender-mobile, #feedback, .checkout-buttons{
+        display: none !important;
+    }
+</style>
+
 <div class="container wrapper">
-    <h3 class="title text-center">INFORMACIÓN DE ENVÍO</h3>
+    <h3 class="title text-center">Información de envío</h3>
     <p>Introduce y revisa tus datos personales y la dirección donde quieres que lleguen los envíos. Selecciona el método de pago que vas a utilizar y una vez esté todo a tu gusto dale a <strong>Pagar</strong></p>
 
-    <form action="<?=PAGE_DOMAIN?>/carrito/pago" method="post">
+    <form id="payment-form" action="<?=PAGE_DOMAIN?>/carrito/pago" method="post">
         <div class="row inner">
             <div class="col-md-8">
                 <div class="panel panel-default">
@@ -53,7 +59,7 @@
 
                             <div class="form-group label-floating">
                                 <label for="inputCP" class="control-label">Código Postal</label>
-                                <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" required name="cp"
+                                <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" required name="cp" data-stripe="address_zip"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="El código postal es obligatorio"
                                     data-fv-stringlength-min="5"
@@ -96,7 +102,7 @@
                             <?=$data["form-pago"]?>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-round">Pagar</button>
+                            <button type="submit" class="btn btn-primary btn-round">Completar pago</button>
                         </div>
                     </div>
                 </div>

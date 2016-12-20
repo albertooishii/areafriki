@@ -2,7 +2,7 @@
     class Home extends Controller{
 
         function index_home(){
-            $data['page_title'] = "Tienda friki: camisetas, decoración, segunda mano";
+            $data['page_title'] = "Tienda friki de camisetas, sudaderas y decoración.";
             $this->loadModel("producto");
             $pr = New Producto_Model();
             $this->loadModel("design");
@@ -17,7 +17,7 @@
                 $pr->user=0;
             }
             $lista_productos=$product_cards="";
-            if(!empty($_GET)){
+            if(!empty($_GET["categoria"]) || !empty($_GET["tag"])){
                 $items=30;
                 $data["curpage"]=$page=$_GET["page"];
                 if(isset($_GET["orderby"])){
@@ -27,23 +27,29 @@
                 }
                 if(isset($_GET["categoria"])){
                     $cat->nombre=$_GET["categoria"];
-                    $info_categoria=$cat->getWhereNombre();
-                    $pr->categoria=$info_categoria["id"];
-                    $nombre_categoria=$info_categoria["descripcion_corta"];
-                    $data["sourcepage"]=PAGE_DOMAIN."/".$info_categoria["nombre"];
-                    $limit1=$items*($page-1)+1;
-                    $totalitems=$pr->countProductosCategoria();
-                    $data["totalpages"]=$totalpages=ceil($totalitems/$items);
-                    $lista_productos=$pr->getProductosCategoria($limit1.", ".$items, $data["order"]);
-                    $data["subhead"]=$nombre_categoria;
+                    if($info_categoria=$cat->getWhereNombre()){
+                        $pr->categoria=$info_categoria["id"];
+                        $data["nombre"]=$info_categoria["nombre"];
+                        $data["descripcion_corta"]=$nombre_categoria=$info_categoria["descripcion_corta"];
+                        $data["descripcion"]=$info_categoria["descripcion"];
+                        $data["sourcepage"]=PAGE_DOMAIN."/".$info_categoria["nombre"];
+                        $limit1=$items*($page-1);
+                        $totalitems=$pr->countProductosCategoria();
+                        $data["totalpages"]=$totalpages=ceil($totalitems/$items);
+                        $lista_productos=$pr->getProductosCategoria($limit1.", ".$items, $data["order"]);
+                        $data["subhead"]=$nombre_categoria;
+                        $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
+                    }
                 }elseif(isset($_GET["tag"])){
                     $pr->tag=urldecode($_GET["tag"]);
                     $data["sourcepage"]=PAGE_DOMAIN."/tag/".$_GET["tag"];
-                    $limit1=$items*($page-1)+1;
+                    $limit1=$items*($page-1);
                     $totalitems=$pr->countProductosTag();
                     $data["totalpages"]=$totalpages=ceil($totalitems/$items);
                     $lista_productos=$pr->getProductosTag($limit1.", ".$items, $data["order"]);
+                    $data["nombre-tag"]=str_replace("-"," ",$pr->tag);
                     $data["subhead"]="#".str_replace("-"," ",$pr->tag);
+                    $data["meta_tags"]=$this->loadView("meta","meta-tag",$data);
                 }
                 if(!empty($lista_productos)){
                     foreach($lista_productos as $producto){
@@ -54,11 +60,16 @@
                         $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
                         $data["cat_id"]=$cat->id=$producto["categoria"];
-                        $data["cat_nombre"]=$cat->get()["nombre"];
+                        $categoria=$cat->get();
+                        $data["cat_nombre"]=$categoria["nombre"];
                         $creador->user=$data["username"]=$infocreador["user"];
                         $data["creador_avatar"]=$creador->getAvatar(64);
-                        $data["dg-nombre"]=$producto["nombre"];
-                        $data["dg-descripcion"]=$producto["descripcion"];
+                        //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
+                        if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
+                            $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
+                        }else{
+                            $data["dg-nombre"]=$producto["nombre"];
+                        }
 
                         if($pr->userLikeProducto()){
                             $data["like_class"]='like';
@@ -73,27 +84,21 @@
                     }
                     $data["last_uploads"]=$product_cards;
                     $data["pagination"]=$this->loadView("product", "pagination", $data);
+                    $data["tag_list"]="";
+                    $lista_tags=$t->getPopularTags(20);
+                    foreach($lista_tags as $tag){
+                        $data["nombre_tag"]=$tag["tag"];
+                        $data["tag_list"].=$this->loadView("product","tag_list",$data);
+                    }
+                    $data["custom_js"]=$this->minifyJs("home", "index_productos");
+                    $data["cta-vender"]=$this->loadView("home","cta-vender",$data);
+                    $this->render('home', 'index_productos', $data);
                 }else{
                     $data["last_uploads"]=$this->loadView("error", "form_error", "No se han encontrado resultados");
                     $data["pagination"]="";
+                    $this->render("error","404", $data);
                 }
-                $data["tag_list"]="";
-                $lista_tags=$t->getPopularTags(20);
-                foreach($lista_tags as $tag){
-                    $data["nombre_tag"]=$tag["tag"];
-                    $data["tag_list"].=$this->loadView("product","tag_list",$data);
-                }
-                $data["custom_js"]=$this->minifyJs("home", "index_productos");
-                $this->render('home', 'index_productos', $data);
             }else{
-                if(isset($_SESSION["login"])){
-                    if(!$this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
-                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a! Te hemos enviado un email para poder activar tu cuenta y así acceder a todas las opciones que te ofrece ".PAGE_NAME.". Si no ves el mensaje revisa la bandeja de spam o correo no deseado, puede que haya terminado ahí por error. Se paciente, puede tardar hasta 5 minutos en llegar.");
-                    }elseif($this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
-                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a a ".PAGE_NAME."! ¡Ya tienes tu cuenta activada correctamente!");
-                    }
-                }
-
                 /*LOS MÁS POPULARES*/
                 $data["carousel_item"]="";
                 if($lista_mas_populares=$pr->getOnFire(8)){
@@ -107,10 +112,16 @@
                             $infocreador=$creador->getUserFromID();
                             $data["id_producto"]=$pr->id;
                             $data["cat_id"]=$cat->id=$producto["categoria"];
-                            $data["cat_nombre"]=$cat->get()["nombre"];
+                            $categoria=$cat->get();
+                            $data["cat_nombre"]=$categoria["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
                             $data["creador_avatar"]=$creador->getAvatar(64);
-                            $data["dg-nombre"]=$producto["nombre"];
+                            //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
+                            if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
+                                $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
+                            }else{
+                                $data["dg-nombre"]=$producto["nombre"];
+                            }
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                                 $data["like_class"]='like';
                             }else{
@@ -142,10 +153,16 @@
                             $infocreador=$creador->getUserFromID();
                             $data["id_producto"]=$pr->id;
                             $data["cat_id"]=$cat->id=$producto["categoria"];
-                            $data["cat_nombre"]=$cat->get()["nombre"];
+                            $categoria=$cat->get();
+                            $data["cat_nombre"]=$categoria["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
                             $data["creador_avatar"]=$creador->getAvatar(64);
-                            $data["dg-nombre"]=$this->cutText($producto["nombre"],15);
+                            //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
+                            if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
+                                $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
+                            }else{
+                                $data["dg-nombre"]=$producto["nombre"];
+                            }
                             if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
                                 $data["like_class"]='like';
                             }else{
@@ -160,7 +177,7 @@
                     }
                     $data["visitas_recientes"]=$product_cards;
                 }else{
-                     $data["visitas_recientes"]=$this->loadView("error", "form_error", "No hay productos vistos recientemente");
+                     $data["visitas_recientes"]=$this->loadView("error", "form_error", "Aquí aparecerán los productos que vayas visitando");
                 }
 
 
@@ -191,6 +208,7 @@
 
 
                 $data["custom_js"]=$this->minifyJs("home", "home");
+                $data["cta-vender"]=$this->loadView("home","cta-vender",$data);
                 $this->render('home', 'home', $data);
             }
 

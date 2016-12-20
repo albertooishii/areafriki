@@ -4,6 +4,7 @@ class MinificarController{
     public function css()
     {
         $cssUri = Minify_getUri([ // a list of files
+            'vendor/material-kit-pro/css/material-kit.css',
             'app/templates/frontoffice/css/common.css'
         ]);
         return "<link rel=stylesheet href='{$cssUri}'>";

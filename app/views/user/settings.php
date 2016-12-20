@@ -1,7 +1,7 @@
 <div class="container wrapper">
     <ul class="nav nav-pills nav-pills-danger">
         <li class="active"><a href="#personal_information" data-toggle="tab" aria-expanded="false">DATOS PERSONALES</a></li>
-        <li class=""><a href="#cash_information" data-toggle="tab" aria-expanded="false">INFORMACIÓN SOBRE VENTAS</a></li>
+        <li class=""><a href="#cash_information" data-toggle="tab" aria-expanded="false">CONFIGURACIÓN DE PAGOS</a></li>
         <li class=""><a href="#change_password" data-toggle="tab" aria-expanded="true">CAMBIAR CONTRASEÑA</a></li>
     </ul>
     <div class="tab-content tab-space">
@@ -13,8 +13,8 @@
                     data-fv-icon-invalid="glyphicon glyphicon-remove"
                     data-fv-icon-validating="glyphicon glyphicon-refresh">
 
-                    <header class="subhead">
-                        <h4><i class="material-icons">contact_mail</i> Datos personales</h4>
+                    <header>
+                        <h3 class="title text-primary"><i class="material-icons">contact_mail</i> Datos personales</h3>
                         <p>Aquí puedes cambiar los ajustes de información personal sobre tu cuenta.</p>
                     </header>
                     <?=$data["mensaje"]?>
@@ -28,45 +28,67 @@
                             data-fv-emailaddress="true"
                             data-fv-emailaddress-message="No has introducido una dirección de e-mail válida" />
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="inputDireccion">Dirección</label>
-                        <input type="text" class="form-control" id="inputDireccion" value="<?=$data["address"]?>" placeholder="Calle, número, planta, letra, escalera" name="address"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="La dirección es obligatoria"   />
-                    </div>
-
-                    <div class="form-group label-floating">
-                        <label class="control-label" for="inputCP">Código Postal</label>
-                        <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" name="cp"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="El código postal es obligatorio"
-                            data-fv-stringlength-min="5"
-                            data-fv-stringlength-max="5"/>
-                    </div>
-
-                    <div class="form-group label-floating">
-                        <label class="control-label" for="inputLocalidad">Localidad</label>
-                        <input type="text" class="form-control" id="inputLocalidad" value="<?=$data["localidad"]?>" name="localidad"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="La localidad es obligatoria"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="inputLocalidad">Provincia</label>
-                        <?=$data["provincia"]?>
-                    </div>
-
                     <div class="form-group label-floating">
                         <label class="control-label" for="inputTelefono">Número de teléfono</label>
                         <input type="text" class="form-control" id="inputTelefono" name="phone" value="<?=$data["phone"]?>"
                             data-fv-notempty="true"
                             data-fv-notempty-message="El número de teléfono es necesario">
                     </div>
+                    <div class="form-group">
+                        <label class="control-label" for="inputFechaNacimiento">Fecha de nacimiento (DD/MM/YYYY)</label>
+                        <input type="text" class="form-control" id="inputFechaNacimiento" placeholder="DD/MM/YYYY" name="birthday" value="<?=$data["birthday"]?>"
+                            data-fv-notempty="true"
+                            data-fv-notempty-message="Introduce tu fecha de nacimiento">
+                    </div>
 
                     <div class="form-group">
+                        <label class="control-label" for="inputLocalidad">País</label>
+                        <?=$data["pais"]?>
+                    </div>
+
+                    <div id="info_spain">
+                        <div class="form-group">
+                            <label class="control-label" for="inputDireccion">Dirección</label>
+                            <input type="text" class="form-control" id="inputDireccion" value="<?=$data["address"]?>" placeholder="Calle, número, planta, letra, escalera" name="address"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="La dirección es obligatoria"   />
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label" for="inputCP">Código Postal</label>
+                            <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" name="cp"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="El código postal es obligatorio"
+                                data-fv-stringlength-min="5"
+                                data-fv-stringlength-max="5"/>
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label" for="inputLocalidad">Localidad</label>
+                            <input type="text" class="form-control" id="inputLocalidad" value="<?=$data["localidad"]?>" name="localidad"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="La localidad es obligatoria"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="inputLocalidad">Provincia</label>
+                            <?=$data["provincia"]?>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="idnum" class="control-label">DNI/NIE/CIF</label>
+                            <input type="text" class="form-control" name="idnum" id="idnum" value="<?=$data["idnum"]?>" autocomplete="off"
+                                data-fv-notempty="true"
+                                data-fv-notempty-message="Es necesario el número del documento para garantizar la identidad de nuestros vendedores"
+                                data-fv-id="true"
+                                data-fv-id-country="ES"
+                                data-fv-id-message="El número de identificación no es válido"/>
+                            <label class="control-label" for="idnum">El número de identificación debe tener la letra MAYÚSCULA. Ejemplo: 012345678Z</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-raised btn-round" name="signup" value="Sign up"><i class="material-icons">save</i> Guardar los cambios</button>
-                        <a href="#" class="btn btn-danger btn-raised btn-round"><i class="material-icons">warning</i> Borrar la cuenta</a>
+                        <!--<a href="#" class="btn btn-danger btn-raised btn-round"><i class="material-icons">warning</i> Borrar la cuenta</a>-->
                     </div>
                 </form>
             </div>
@@ -81,34 +103,19 @@
                     data-fv-icon-invalid="glyphicon glyphicon-remove"
                     data-fv-icon-validating="glyphicon glyphicon-refresh">
 
-                    <header class="subhead">
-                        <h4><i class="material-icons">monetization_on</i> Información sobre ventas</h4>
-                        <p>Ajuste de información sobre pagos.</p>
+                    <header>
+                        <h3 class="title text-primary"><i class="material-icons">monetization_on</i> Configuración de pagos</h3>
+                        <p>Configura aquí los métodos de pago de los que dispones para poder cobrar por tus productos vendidos:</p>
                     </header>
+                    <ul style="padding-left:20px;">
+                        <li>El beneficio ganado en los <strong>productos vendidos con tus diseños</strong> quedará acumulado como saldo en tu cuenta y se ingresará en la cuenta que tengas configurada entre los primeros 10 días de cada mes. <strong>Saldo actual: <?=$data["credit"]?> €</strong></li>
+                        <li>El pago de los <strong>productos hechos a mano, nuevos y segunda mano</strong> se realizará directamente en tu cuenta sin ningún tipo de comisión por nuestra parte.</li>
+                    </ul>
 
-                    <p>Saldo: <?=$data["credit"]?> €<br>El pago del saldo acumulado se realizará entre los primeros 10 días de cada mes.</p>
-                    <div class="form-group">
-                       <label for="idnum" class="control-label">DNI/NIE/CIF</label>
-                        <input type="text" class="form-control" name="idnum" id="idnum" value="<?=$data["idnum"]?>" autocomplete="off"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="Es necesario el número del documento para garantizar la identidad de nuestros vendedores"
-                            data-fv-id="true"
-                            data-fv-id-country="ES"
-                            data-fv-id-message="El número de identificación no es válido"/>
-                        <label class="control-label" for="idnum">El número de identificación debe tener la letra MAYÚSCULA. Ejemplo: 012345678Z</label>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="inputFechaNacimiento">Fecha de nacimiento (DD/MM/YYYY)</label>
-                        <input type="text" class="form-control" id="inputFechaNacimiento" placeholder="DD/MM/YYYY" name="birthday" value="<?=$data["birthday"]?>"
-                            data-fv-notempty="true"
-                            data-fv-notempty-message="Introduce tu fecha de nacimiento">
-                    </div>
-
-                    <p class="inner">MÉTODOS DE PAGO:</p>
+                    <p class="inner"><i class="fa fa-paypal"></i> PayPal:</p>
                     <div class="form-group label-floating">
                         <label class="control-label" for="inputPaypal">
-                            <i class="fa fa-paypal"></i> Cuenta de PAYPAL (usuario@email.com)
+                            Cuenta de PAYPAL (usuario@email.com)
                         </label>
                         <input type="email" class="form-control" id="inputPaypal" name="paypal" value="<?=$data["paypal"]?>"
                             data-fv-notempty-message="Introduce el email de tu cuenta de paypal"
@@ -116,9 +123,16 @@
                             data-fv-emailaddress-message="La cuenta de paypal no es correcta">
                     </div>
 
+                    <p class="inner"><i class="material-icons">&#xE84F;</i> Transferencia bancaria:</p>
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="inputBanco">
+                            Entidad bancaria (nombre del banco)
+                        </label>
+                        <input type="text" class="form-control" id="inputBanco" name="banco" value="<?=$data["banco"]?>"/>
+                    </div>
                     <div class="form-group label-floating">
                         <label class="control-label" for="inputIBAN">
-                            <i class="material-icons">credit_card</i> Cuenta bancaria (IBAN)
+                            Cuenta bancaria (IBAN)
                         </label>
                         <input type="text" class="form-control" id="inputIBAN" name="iban" value="<?=$data["iban"]?>"
                             data-fv-iban="true"
@@ -143,8 +157,8 @@
                     data-fv-icon-invalid="glyphicon glyphicon-remove"
                     data-fv-icon-validating="glyphicon glyphicon-refresh">
 
-                    <header class="subhead">
-                        <h4><i class="material-icons">vpn_key</i> Cambiar contraseña</h4>
+                    <header>
+                        <h3 class="title text-primary"><i class="material-icons">vpn_key</i> Cambiar contraseña</h3>
                         <p>Cambia la contraseña de acceso a tu cuenta.</p>
                     </header>
                     <div class="form-group label-floating">

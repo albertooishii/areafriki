@@ -18,9 +18,7 @@
         <?php
             if($data["cat_parent"]==1){
         ?>
-                            <!--<a href="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["dg-token"]?>.png" data-lightbox="image-1" data-title="<?=$data["dg-nombre"]?>">-->
-                                <?=$data["montaje"]?>
-                            <!--</a>-->
+                <?=$data["montaje"]?>
         <?php
             }else{
         ?>
@@ -41,23 +39,23 @@
                             <ul class="stats product_buttons">
                                 <li class="<?=$data["like_class"]?>-button">
                                     <a href="#">
-                                        <i class="material-icons">favorite</i>
+                                        <i class="material-icons">&#xE87D;</i>
                                         <span class="contador"><?=$data["contador_likes"]?></span>
                                     </a>
                                 </li>
                                 <li class="views">
-                                    <i class="material-icons">remove_red_eye</i>
+                                    <i class="material-icons">&#xE417;</i>
                                     <span class="contador"><?=$data["contador_visitas"]?></span>
                                 </li>
                                 <li class="share-button">
                                     <a href="#">
-                                        <i class="material-icons">share</i>
+                                        <i class="material-icons">&#xE80D;</i>
                                         <span class="contador"><?=$data["contador_shares"]?></span>
                                     </a>
                                 </li>
                                 <li class="coments-button">
                                     <a href="#coments">
-                                        <i class="material-icons">rate_review</i>
+                                        <i class="material-icons">&#xE560;</i>
                                         <span class="contador"><?=$data["contador_comments"]?></span>
                                     </a>
                                 </li>
@@ -87,6 +85,7 @@
                        <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
                        <p>Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["nombre_categoria"]?></a> Etiquetas: <?=$data["tags"]?></p>
                         <?php
+                        if($this->getCountry()=="ES"){
                             if($data["stock"]<=5 && $data["stock"]>0){
                         ?>
                                 <p class="text-warning">¡Últimas <?=$data["stock"]?> unidades!</p>
@@ -158,6 +157,11 @@
                         <?php
                             }
                             }
+                        }else{
+                        ?>
+                            <p class="text-danger">Aún no está disponible la opción de compra desde tu país.<br>Pero puedes vender productos personalizados con tus diseños <a href='<?=PAGE_DOMAIN?>/upload/designs'>OK!</a></p>
+                        <?php
+                        }
                         ?>
                     </form>
                 </div>

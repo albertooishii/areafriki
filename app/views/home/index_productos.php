@@ -1,4 +1,5 @@
-<div class="container wrapper">
+<?=$data["cta-vender"]?>
+<div class="container">
     <header>
         <h2 class="aligncenter title"><?=$data["subhead"]?></h2>
     </header>
@@ -45,7 +46,7 @@
             </div>
             <div class="col-sm-9 col-md-9">
                 <div class="order aligncentermobile">
-                    <i class="material-icons">sort</i> Ordenar por:
+                    <p><i class="material-icons">sort</i> Ordenar por:</p>
                     <select class="form-control" id="select-order" data-url="<?=$data["sourcepage"]?>">
                         <option value="date" <?php if($data["order"]=='date')echo "selected";?>>
                             Más recientes
@@ -59,8 +60,10 @@
                     </select>
                 </div>
                 <?=$data["last_uploads"]?>
-                <?=$data["pagination"]?>
             </div>
+        </div>
+        <div class="row">
+            <?=$data["pagination"]?>
         </div>
     </div>
 </div>

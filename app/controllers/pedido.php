@@ -11,8 +11,8 @@
             $ped=New Pedido_Model();
             $this->loadModel("design");
             $dg=New Design_Model();
-            $this->loadModel("provincia");
-            $provincia=New Provincia_Model();
+            $this->loadModel("address");
+            $address=New Address_Model();
             $vendedor=New Users_Model();
             $creador=New Users_Model();
             @$action=$_GET["action"];
@@ -192,8 +192,8 @@
                                 $data["address"]=$ar_pedido["address"];
                                 $data["cp"]=$ar_pedido["cp"];
                                 $data["localidad"]=$ar_pedido["localidad"];
-                                $provincia->id=$ar_pedido["provincia"];
-                                $data["provincia"]=$provincia->getNombre();
+                                $address->id=$ar_pedido["provincia"];
+                                $data["provincia"]=$address->getNombreProvincia();
                                 $data["phone"]=$ar_pedido["phone"];
                                 $data["nota"]=$ar_pedido["nota"];
 

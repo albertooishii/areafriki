@@ -1,0 +1,16 @@
+main{
+    overflow: visible;
+}
+
+h2, h3, h4, p{
+    color: white !important;
+}
+
+.card-price{
+    font-weight: 700;
+    font-family: "Roboto Slab", "Times New Roman", serif;
+}
+
+label{
+    color: white !important;
+}

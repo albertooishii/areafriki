@@ -20,13 +20,8 @@
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="<?=$data["precio_total"]?>">
         <input type="hidden" name="notify_url" value="<?=PAGE_DOMAIN?>/carrito?action=notify&method=paypal" />
-        <input type="hidden" name="return" value="<?=PAGE_DOMAIN?>/myorders">
+        <input type="hidden" name="return" value="<?=PAGE_DOMAIN?>/carrito/completed">
         <input type="hidden" name="cancel_return" value="<?=PAGE_DOMAIN?>/carrito">
         <button type="submit" class="btn btn-default">Pulse aquí si no se le redirige automáticamente.</button>
     </form>
 </div>
-<script type="text/javascript">
-    $( document ).ready(function() {
-        $("#paypal").submit();
-    });
-</script>

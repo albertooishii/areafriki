@@ -3,7 +3,7 @@
 
     class Users_Model extends Database{
 
-        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $iban, $birthday, $idnum, $codigo_beta, $credito;
+        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $pais, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $banco, $iban, $birthday, $idnum, $codigo_beta, $credito, $referral;
 
         function __construct(){
            parent::__construct();
@@ -46,13 +46,13 @@
         }
 
         function countUsers(){
-            $query="SELECT count(*) as count FROM users WHERE active=1";
+            $query="SELECT count(*) as count FROM users";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["count"];
         }
 
         function countNewUsers(){
-            $query="SELECT count(*) as count FROM users WHERE active=1 AND DATE(creation_date) = DATE(NOW())";
+            $query="SELECT count(*) as count FROM users WHERE DATE(creation_date) = DATE(NOW())";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["count"];
         }
@@ -82,7 +82,13 @@
 
         function updateUserInformation()
         {
-            $query="UPDATE users SET email='$this->email', address='$this->address', cp='$this->cp', localidad='$this->localidad', provincia='$this->provincia', phone='$this->phone' WHERE id='$this->id'";
+            if($this->pais==28){//Si es español
+                $query="UPDATE users SET email='$this->email', pais='$this->pais', birthday='$this->birthday', idnum='$this->idnum', address='$this->address', cp='$this->cp', localidad='$this->localidad', provincia='$this->provincia', phone='$this->phone' WHERE id='$this->id'";
+                echo $query;
+            }else{//Si no es español
+                $query="UPDATE users SET email='$this->email', pais='$this->pais', birthday='$this->birthday', idnum=NULL, address=NULL, cp=NULL, localidad=NULL, provincia=NULL, phone='$this->phone' WHERE id='$this->id'";
+            }
+
             if ( $this->_db->query($query))
             return true;
             return false;
@@ -90,7 +96,7 @@
 
         function updateUserCash()
         {
-            $query="UPDATE users SET birthday='$this->birthday', idnum='$this->idnum', paypal='$this->paypal', iban='$this->iban' WHERE id='$this->id'";
+            $query="UPDATE users SET paypal='$this->paypal', banco='$this->banco', iban='$this->iban' WHERE id='$this->id'";
             if ( $this->_db->query($query))
             return true;
             return false;
@@ -119,7 +125,7 @@
             //comrpobar si tiene avatar subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/avatar";
             //if(!$size){$size=150;}
-            $avatar=$dir."/".$this->user."/".$size.".jpg";
+            $avatar=$dir."/".$this->user."/".$size.".jpg?d=".time();
             $generic_avatar=$dir."/"."user.svg";
             $query = "SELECT avatar FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();
@@ -137,7 +143,7 @@
                //comrpobar si tiene banner subido, sino se muestra el generico
             $dir="app/templates/frontoffice/img/banner";
             //if(!$size){$size=1920;}
-            $banner=$dir."/".$this->user."/".$size.".jpg";
+            $banner=$dir."/".$this->user."/".$size.".jpg?d=".time();
             $generic_banner=$dir."/"."banner.jpg";
             $query = "SELECT banner FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();
@@ -190,7 +196,11 @@
             $new_date=date ("Y-m-d H:i:s");
             $pass=sha1(GLOBAL_TOKEN.$this->pass);
 
-            $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol')";
+            if(isset($this->referral)){
+                $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol, referral) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol', '$this->referral')";
+            }else{
+                 $query = "INSERT INTO users (user, email, pass, name, creation_date, creation_ip, rol) VALUES ('$this->user', '$this->email', UNHEX('$pass'), '$this->name' ,'$new_date', '$this->ip', '$this->rol')";
+            }
             if ( $this->_db->query($query) )
             return mysqli_insert_id($this->_db);
             return false;
@@ -279,8 +289,8 @@
 
                 if($loginrec==1){
                     //echo "hola";
-                    setcookie("user", $this->user, strtotime('+15 days'));
-                    setcookie("pass", $this->pass, strtotime('+15 days'));
+                    setcookie("user", $this->user, strtotime('+15 days'), '/');
+                    setcookie("pass", $this->pass, strtotime('+15 days'), '/');
                 }
                 return true;
             }
@@ -290,8 +300,8 @@
         //Logout user
         function logout(){
             unset($_SESSION["login"]);
-            setcookie("user", '', strtotime('-15 days'));
-            setcookie("pass", '', strtotime('-15 days'));
+            setcookie("user", '', strtotime('-15 days'), '/');
+            setcookie("pass", '', strtotime('-15 days'), '/');
             session_destroy();
             Header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
             Header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");

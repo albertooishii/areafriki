@@ -14,7 +14,7 @@
 
     <p>Jorge Manuel Bueno Mendez (en adelante, el “Titular de la Web”) </p>
     <p>Número de identificación: 80079483-S</p>
-    <p>Domicilio: Nicolás López de Velasco 11f 06004 Badajoz</p>
+    <p>Domicilio: C/Zurbarán, número 1, planta 2, oficina 3, 06002 Badajoz</p>
     <p>Email: central@areafriki.com</p>
 
 
@@ -48,5 +48,5 @@
 
     <h4 class="subhead">DERECHOS </h4>
 
-    <p>Puede ejercer sus derechos de acceso, rectificación, cancelación y oposición, remitiendo una comunicación escrita a la que deberá acompañar una copia de su documento nacional de identidad, pasaporte u otro documento válido que lo identifique, la petición que realiza, su dirección a efectos de notificaciones, la fecha y su firma, junto con los documentos que acrediten la petición, en su caso, a la dirección Nicolás López de Velasco 11f 06004 Badajoz, o bien enviando un correo electrónico a central@areafriki.com. </p>
+    <p>Puede ejercer sus derechos de acceso, rectificación, cancelación y oposición, remitiendo una comunicación escrita a la que deberá acompañar una copia de su documento nacional de identidad, pasaporte u otro documento válido que lo identifique, la petición que realiza, su dirección a efectos de notificaciones, la fecha y su firma, junto con los documentos que acrediten la petición, en su caso, a la dirección C/Zurbarán, número 1, planta 2, oficina 3, 06002 Badajoz, o bien enviando un correo electrónico a central@areafriki.com. </p>
 </div>

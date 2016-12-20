@@ -61,7 +61,7 @@
         }
 
         function countNewPedidos(){
-            $query="SELECT count(*) as count FROM pedidos WHERE  DATE(fecha_pedido) = DATE(NOW())";
+            $query="SELECT count(*) as count FROM pedidos WHERE estado='pendiente' OR estado='pagado'";
             $answer = $this->_db->query($query)->fetch_assoc();
             return $answer["count"];
         }

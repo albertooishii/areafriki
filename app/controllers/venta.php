@@ -12,8 +12,8 @@
             $this->loadModel('precio');
             $this->loadModel("design");
             $dg=New Design_Model();
-            $this->loadModel("provincia");
-            $provincia=New Provincia_Model();
+            $this->loadModel("address");
+            $address=New Address_Model();
             $vendedor=New Users_Model();
             $creador=New Users_Model();
             $this->loadModel("notification");
@@ -52,6 +52,8 @@
                                         if($ped->pagar()){
                                             //Si el vendedor es la página tenemos que pagar a los diseñadores
                                             if($ar_pedido["vendedor"]==0){
+
+                                                //Pago de diseñador
                                                 $pedido=unserialize($ar_pedido["pedido"]);
                                                 foreach($pedido as $linea){
                                                     $p->id=$linea["producto"];
@@ -261,8 +263,8 @@
                                 $data["address"]=$ar_pedido["address"];
                                 $data["cp"]=$ar_pedido["cp"];
                                 $data["localidad"]=$ar_pedido["localidad"];
-                                $provincia->id=$ar_pedido["provincia"];
-                                $data["provincia"]=$provincia->getNombre();
+                                $address->id=$ar_pedido["provincia"];
+                                $data["provincia"]=$address->getNombreProvincia();
                                 $data["phone"]=$ar_pedido["phone"];
                                 $data["nota"]=$ar_pedido["nota"];
 
@@ -336,6 +338,8 @@
                 default:
                     if(isset($_SESSION["login"])){
                         $ped->vendedor=$this->u->id;
+                        $vendedor_info=$this->u->getUserFromID();
+                        $data["credit"]=number_format($vendedor_info["credit"], 2, ',', ' ');
                         if($lista_pedidos=$ped->getVentas()){
                             $data["lista_pedidos"]="";
                             foreach($lista_pedidos as $ar_pedido){
@@ -397,8 +401,8 @@
                                 $data["address"]=$ar_pedido["address"];
                                 $data["cp"]=$ar_pedido["cp"];
                                 $data["localidad"]=$ar_pedido["localidad"];
-                                $provincia->id=$ar_pedido["provincia"];
-                                $data["provincia"]=$provincia->getNombre();
+                                $address->id=$ar_pedido["provincia"];
+                                $data["provincia"]=$address->getNombreProvincia();
                                 $data["phone"]=$ar_pedido["phone"];
                                 $data["nota"]=$ar_pedido["nota"];
 
@@ -461,9 +465,10 @@
                                 $data["productos_pedido"]="";
                             }
                             $data["custom_js"]=$this->minifyJs("venta", "venta");
+                            $data["credit_info"]=$this->loadView("venta","credit",$data);
                             $this->render("venta","mysales",$data);
                         }else{
-                            //No tienes ningún pedido
+                            $data["credit_info"]=$this->loadView("venta","credit",$data);
                             $this->render("venta","empty",$data);
                         }
                     }else{

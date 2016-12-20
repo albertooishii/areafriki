@@ -18,11 +18,10 @@
                     <table class="table table-striped table-bordered table-hover data-table" id="pedidos">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Fecha</th>
                                 <th>TOKEN</th>
                                 <th>Vendedor</th>
                                 <th>Comprador</th>
-                                <th>Fecha</th>
                                 <th>Estado</th>
                                 <th>Precio</th>
                                 <th>Gastos envío</th>

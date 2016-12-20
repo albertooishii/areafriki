@@ -15,35 +15,6 @@
             @$action=$_GET["action"];
             $data["reg_msg"]=$data["login_msg"]="";
             switch($action){
-
-                case 'register_comprador':
-                    $data['page_title']="Bienvenido a ".PAGE_NAME;
-                    if($_POST){
-                        $this->u->user=$_POST["username"];
-                        $this->u->email=$_POST["email"];
-                        $this->u->pass=md5($_POST["password"]);
-                        $this->u->name=$_POST["firstName"]." ".$_POST["lastName"];
-                        $this->u->phone=$_POST["phone"];
-                        $this->u->address=$_POST["direccion"];
-                        $this->u->cp=$_POST["cp"];
-                        $this->u->localidad=$_POST["localidad"];
-                        $this->u->provincia=$_POST["provincia"];
-                        $this->u->rol="comprador";
-                        $this->u->ip=$this->getIP();
-                        if($this->u->register()){
-                            header ("Location: ".PAGE_DOMAIN);
-                        }else{
-                            $data["provincia"]=$this->loadView("forms","provincia",$data);
-                            $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos.");
-                            $this->render('user','comprador_form',$data);
-                        }
-                    }else{
-                        $data["provincia"]=$this->loadView("forms","provincia",$data);
-                        $data["reg_msg"]=$this->loadView('error','form_error',"Faltan datos obligatorios en el formulario.");
-                        $this->render('user','comprador_form',$data);
-                    }
-                break;
-
                 case 'register':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
                     $data["reg_msg"]="";
@@ -54,6 +25,9 @@
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->rol="user";
                         $this->u->ip=$this->getIP();
+                        if(isset($_COOKIE["referral"])){
+                            $this->u->referral=$_COOKIE["referral"];
+                        }
                         if($this->u->register()){
                             if(isset($_POST["mailing"])){
                                 $this->loadModel("mailing");
@@ -62,7 +36,11 @@
                                 $mailing->email=$_POST["email"];
                                 $mailing->set();
                             }
-                            header ("Location: ".PAGE_DOMAIN);
+                            if(!empty($_POST["redirect"])){
+                                Header("Location: ".$_POST["redirect"]);
+                            }else{
+                                Header("Location: ".PAGE_DOMAIN);
+                            }
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
                             $data["custom_js"]=$this->minifyJs("user/js", "register");
@@ -139,6 +117,7 @@
                                 $this->u->pass=$_SESSION["login"]["pass"];
                                 //Intentamos activar con la sesion iniciada
                                 if($this->u->activate($_REQUEST["activation_key"])){
+                                    $this->u->updateVecesLogin();
                                     $this->loadModel('carrito');
                                     $car=New Carrito_Model();
                                     $car->user=$this->u->id;
@@ -499,11 +478,10 @@
 
                 case 'updatecash':
                     if(!empty($_POST)){
-                        $this->u->idnum=trim($_POST["idnum"]);
-                        $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
                         $this->u->paypal=trim($_POST["paypal"]);
+                        $this->u->banco=trim($_POST["banco"]);
                         $this->u->iban=str_replace(' ', '', $_POST["iban"]);
-                        if(!empty($_POST["idnum"]) && !empty($_POST["birthday"]) && (!empty($_POST["paypal"]) || !empty($_POST["iban"]))){
+                        if(!empty($_POST["paypal"]) || !empty($_POST["iban"])){
                             if($this->u->updateUserCash()){
                                 //Enviamos un email a los que han solicitado compra y borramos
                                 $comprador = New Users_Model();
@@ -543,7 +521,7 @@
                                 $data["texto_mensaje"]="Tus información sobre pagos se ha actualizado correctamente.";
                             }else{
                                 $data["titulo_mensaje"]="Error";
-                                $data["texto_mensaje"]="Sólo puede haber un usuario con este DNI/CIF.";
+                                $data["texto_mensaje"]="Error al guardar los datos.";
                             }
                         }else{
                             $data["titulo_mensaje"]="Error";
@@ -559,12 +537,16 @@
                     if(isset($_SESSION["login"])){
                         $data["mensaje"]="";
                         if(!empty($_POST)){
+                            print_r($_POST);
                             $this->u->email=trim($_POST["email"]);
                             $this->u->address=trim($_POST["address"]);
                             $this->u->cp=trim($_POST["cp"]);
                             $this->u->localidad=trim($_POST["localidad"]);
                             $this->u->provincia=trim($_POST["provincia"]);
                             $this->u->phone=trim($_POST["phone"]);
+                            $this->u->pais=$_POST["pais"];
+                            $this->u->idnum=trim($_POST["idnum"]);
+                            $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
                             if(!empty($_POST["email"]) && !empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
                                 if($this->u->updateUserInformation()){
                                     $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
@@ -588,11 +570,18 @@
                         }else{
                             $data["birthday"]="";
                         }
+                        if(empty($user["pais"])){
+                            $data["pais_selected"]=28;
+                        }else{
+                            $data["pais_selected"]=$user["pais"];
+                        }
+                        $data["pais"]=$this->loadView("forms","pais",$data);
                         $data["address"]=$user["address"];
                         $data["cp"]=$user["cp"];
                         $data["localidad"]=$user["localidad"];
                         $data["phone"]=$user["phone"];
                         $data["paypal"]=$user["paypal"];
+                        $data["banco"]=$user["banco"];
                         $data["iban"]=$user["iban"];
                         $data["credit"]=number_format($user["credit"], 2, ',', ' ');
                         $data["provincia_selected"]=$user["provincia"];

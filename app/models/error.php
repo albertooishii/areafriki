@@ -14,10 +14,7 @@
             $mail = new Email();
 
             $data["codigo_error"]=$this->codigo_error;
-            if(isset($_SESSION["login"])){
-                $from=$this->u->getUser()["email"];
-            }
-            $this->loadModel("email");
+            require_once DIR.'/app/models/email.php';
             $mail = new Email();
             $mail->to = ERROR_EMAIL;
             $mail->from = $this->from_email;

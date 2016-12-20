@@ -13,7 +13,7 @@
 
     <p>Jorge Manuel Bueno Mendez (en adelante, el “Titular de la Web”) </p>
     <p>Número de identificación: 80079483-S</p>
-    <p>Domicilio: C/ Nicolás López de Velasco, 11F 06004 Badajoz</p>
+    <p>Domicilio: C/Zurbarán, número 1, planta 2, oficina 3, 06002 Badajoz</p>
     <p>Email: central@areafriki.com</p>
 
 

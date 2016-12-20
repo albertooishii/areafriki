@@ -1,66 +1,8 @@
-<style>
-    main{
-        overflow: visible;
-    }
-
-    #pokemongo-store{
-        background-color: #002456;
-        background-image: url(<?=PAGE_DOMAIN?>/app/views/store/pokemongo/pokegostore.jpg);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-
-    h2, h3, h4, p{
-        color: white !important;
-    }
-
-    #pokemongo-store img{
-        width: 100%;
-    }
-
-    #pokemongo-store .card .content{
-        padding-top: 80px;
-        padding-bottom: 80px;
-        visibility: hidden;
-    }
-
-    #pokemongo-store .card:hover .content{
-        visibility: visible;
-    }
-
-    #pokemongo-store .card-background:after{
-        visibility: hidden;
-    }
-
-    #pokemongo-store .card-background:hover:after{
-        visibility: visible;
-    }
-
-    #pokemongo-store input{
-        background: white !important;
-        padding-left: 25px;
-        font-size: 18px;
-    }
-
-    .card-price{
-        font-weight: 700;
-        font-family: "Roboto Slab", "Times New Roman", serif;
-    }
-
-    label{
-        color: white !important;
-    }
-</style>
-<div id="pokemongo-store">
+<div class="store-page" style="background-image: url(<?=PAGE_DOMAIN?>/app/views/store/pokemongo/background.jpg);">
     <div class="container wrapper">
-        <div class="text-center">
-            <a href="<?=PAGE_DOMAIN?>/areastore/pokemongo" class="btn btn-round btn-facebook">POKéMON GO</a>
-        </div>
-
         <div class="tab-content tab-space">
             <div class="tab-pane active" id="pill1">
-                <h2 class="text-center inner title">Camisetas gaming pokémon go</h2>
+                <h2 class="text-center title">Camisetas gaming pokémon go</h2>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFPKGOCV/store/thumb-AFPKGOCV.jpg')">
@@ -220,26 +162,3 @@
         </div>-->
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-
-        $(".camiseta-selector").click(function(){
-            var token=$(this).data("token");
-            $("#camiseta img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
-            $("#camiseta a").attr("href", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
-            $("#camiseta #title").text($(this).find(".card-title").text());
-            $("#camiseta #description").text($(this).find(".card-description").text());
-            $("#camiseta").attr("data-token", $(this).data("token"));
-        });
-
-        $(".taza-selector").click(function(){
-            var token=$(this).data("token");
-            $("#taza img").attr("src", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
-            $("#taza a").attr("href", "<?=PAGE_DOMAIN?>/designs/areafriki/"+token+"/store/thumb-"+token+".jpg");
-            $("#taza #title").text($(this).find(".card-title").text());
-            $("#taza #description").text($(this).find(".card-description").text());
-            $("#taza").attr("data-token",$(this).data("token"));
-        });
-    });
-
-</script>

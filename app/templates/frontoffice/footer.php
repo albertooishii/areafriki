@@ -1,7 +1,7 @@
 <footer class="footer footer-white footer-big">
     <div class="container">
         <div class="content aligncenter">
-            <ul class="nav navbar-nav text-center notablet">
+            <ul class="nav navbar-nav text-center notablet nomobile">
                 <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
@@ -47,13 +47,13 @@
                     <i class="fa fa-instagram"></i>
                 </a>
             </li>
-            <li>
+            <!--<li>
                 <a href="https://plus.google.com/u/0/b/110162063324615408307/110162063324615408307" target="_blank" class="btn btn-just-icon btn-round btn-google">
                     <i class="fa fa-google-plus"></i>
                 </a>
-            </li>
+            </li>-->
             <li>
-                <a href="https://www.youtube.com/channel/UC7Jdn3SXl4ArIf2pbYXtAZg" target="_blank" class="btn btn-just-icon btn-round btn-youtube">
+                <a href="https://www.youtube.com/areafriki" target="_blank" class="btn btn-just-icon btn-round btn-youtube">
                     <i class="fa fa-youtube-play"></i>
                 </a>
             </li>

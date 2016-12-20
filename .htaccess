@@ -2,10 +2,14 @@ AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>  
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^www.dev.areafriki.com [NC]
-RewriteRule ^(.*)$ http://dev.areafriki.com/$1 [L,R=301]  
 
-DirectoryIndex index.html index.php
+RewriteCond %{HTTP_HOST} ^www.dev.areafriki.com [NC]
+RewriteRule ^(.*)$ https://dev.areafriki.com/$1 [L,R=301] 
+
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://dev.areafriki.com/$1 [R,L]
+
+DirectoryIndex index.html index.php 
 
 RewriteRule ^404$ index.php?section=404 [QSA,L]
 RewriteRule ^404/$ index.php?section=404 [QSA,L]
@@ -25,11 +29,11 @@ RewriteRule ^logout/$ index.php?section=user&action=logout [QSA,L]
 RewriteRule ^login/recoverpass$ index.php?section=user&action=recoverpass [QSA,L]
 RewriteRule ^login/recoverpass/$ index.php?section=user&action=recoverpass [QSA,L]
 
-RewriteRule ^areastore$ index.php?section=store [QSA,L]
-RewriteRule ^areastore/$ index.php?section=store [QSA,L]
+RewriteRule ^store$ index.php?section=store [QSA,L]
+RewriteRule ^store/$ index.php?section=store [QSA,L]
 
-RewriteRule ^areastore/([a-zA-Z0-9_-]+)$ index.php?section=store&node=$1 [QSA,L]
-RewriteRule ^areastore/([a-zA-Z0-9_-]+)/$ index.php?section=store&node=$1 [QSA,L]
+RewriteRule ^store/([a-zA-Z0-9_-]+)$ index.php?section=store&node=$1 [QSA,L]
+RewriteRule ^store/([a-zA-Z0-9_-]+)/$ index.php?section=store&node=$1 [QSA,L]
 
 RewriteRule ^carrito$ index.php?section=carrito [QSA,L]
 RewriteRule ^carrito/$ index.php?section=carrito [QSA,L]
@@ -40,23 +44,26 @@ RewriteRule ^carrito/checkout/$ index.php?section=carrito&action=checkout [QSA,L
 RewriteRule ^carrito/pago$ index.php?section=carrito&action=pago [QSA,L]
 RewriteRule ^carrito/pago/$ index.php?section=carrito&action=pago [QSA,L] 
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/lists$ index.php?section=user&node=lists&user=$1 [L]
-RewriteRule ^user/([a-zA-Z0-9_-]+)/lists/$ index.php?section=user&node=lists&user=$1 [L]
+RewriteRule ^carrito/completed$ index.php?section=carrito&action=completed [QSA,L]
+RewriteRule ^carrito/completed/$ index.php?section=carrito&action=completed [QSA,L] 
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/designs$ index.php?section=user&node=designs&user=$1 [L]
-RewriteRule ^user/([a-zA-Z0-9_-]+)/designs/$ index.php?section=user&node=designs&user=$1 [L]
+RewriteRule ^user/(.*)/lists$ index.php?section=user&node=lists&user=$1 [L]
+RewriteRule ^user/(.*)/lists/$ index.php?section=user&node=lists&user=$1 [L]
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/crafts$ index.php?section=user&node=crafts&user=$1 [L]
-RewriteRule ^user/([a-zA-Z0-9_-]+)/crafts/$ index.php?section=user&node=crafts&user=$1 [L]
+RewriteRule ^user/(.*)/designs$ index.php?section=user&node=designs&user=$1 [L]
+RewriteRule ^user/(.*)/designs/$ index.php?section=user&node=designs&user=$1 [L]
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/baul$ index.php?section=user&node=baul&user=$1 [L]
-RewriteRule ^user/([a-zA-Z0-9_-]+)/baul/$ index.php?section=user&node=baul&user=$1 [L]
+RewriteRule ^user/(.*)/crafts$ index.php?section=user&node=crafts&user=$1 [L]
+RewriteRule ^user/(.*)/crafts/$ index.php?section=user&node=crafts&user=$1 [L]
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L] 
-RewriteRule ^user/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L]
+RewriteRule ^user/(.*)/baul$ index.php?section=user&node=baul&user=$1 [L]
+RewriteRule ^user/(.*)/baul/$ index.php?section=user&node=baul&user=$1 [L]
 
-RewriteRule ^user/([a-zA-Z0-9_-]+)$ index.php?section=user&action=view&user=$1 [QSA,L]
-RewriteRule ^user/([a-zA-Z0-9_-]+)/$ index.php?section=user&action=view&user=$1 [QSA,L]
+RewriteRule ^user/(.*)/([a-zA-Z0-9_-]+)$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L] 
+RewriteRule ^user/(.*)/([a-zA-Z0-9_-]+)/$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L]
+
+RewriteRule ^user/(.*)$ index.php?section=user&action=view&user=$1 [QSA,L]
+RewriteRule ^user/(.*)/$ index.php?section=user&action=view&user=$1 [QSA,L]
 
 RewriteRule ^simbiosis$ index.php?section=simbiosis [QSA,L]
 RewriteRule ^simbiosis/$ index.php?section=simbiosis [QSA,L]
@@ -135,8 +142,16 @@ ErrorDocument 500 /404
 <ifmodule mod_expires.c>
 ExpiresActive On
 ExpiresDefault A3600
-#<filesmatch ".(jpg|JPG|gif|GIF|png|css|ico|js|html|woff2)$">
-<filesmatch ".(jpg|JPG|gif|GIF|png|ico|html|woff2)$">
+#<filesmatch ".(jpg|JPG|gif|GIF|png|svg|css|ico|js|html|woff2)$">
+<filesmatch ".(jpg|JPG|gif|GIF|png|svg|ico|html|woff2)$">
 ExpiresDefault "access plus 7 day"
 </filesmatch>
 </ifmodule>
+
+<IfModule mod_headers.c>
+Header set Strict-Transport-Security "max-age=10886400; includeSubDomains; preload" env=HTTPS
+</IfModule>
+
+<IfModule pagespeed_module>
+    Modpagespeed Off
+</IfModule>

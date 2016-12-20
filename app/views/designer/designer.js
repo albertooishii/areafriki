@@ -68,7 +68,7 @@ $(document).ready(function() {
                 fd.append('scale',fpd.getCustomElements()[0]["element"].scaleX);
                 var designblob=dataURLtoBlob(fpd.getCustomElements()[0]['element']['source']);
                 fd.append('design',designblob);
-                publicarDesign(fd, $("#dg-categoria").data("id"), $("#token").val(), fpd);
+                publicarDesign(fd, $("#token").val(), fpd);
             });
         }
         e.stopPropagation();
@@ -86,7 +86,7 @@ function unloadPage(){
 window.onbeforeunload = unloadPage;
 
 //PUBLICAR PRODUCTOS DESIGNER
-function publicarDesign(data, categoria, token, fpd)
+function publicarDesign(data, token, fpd)
 {
     $.ajax({
         type: "POST",
@@ -95,7 +95,7 @@ function publicarDesign(data, categoria, token, fpd)
         processData:false,
         contentType:false,
         beforeSend: function(){
-            $("body").append("<div id='load'><div class='sk-folding-cube'><div class='sk-cube1 sk-cube'></div><div class='sk-cube2 sk-cube'></div><div class='sk-cube4 sk-cube'></div><div class='sk-cube3 sk-cube'></div></div></div>");
+            $("body").append("<div id='load'><div class='chart' id='uploadprogress'><p></p><span></span><canvas id='progresscanvas'></canvas></div></div>");
         },
         error: function( jqXHR, textStatus, errorThrown ) {
 
@@ -129,6 +129,7 @@ function publicarDesign(data, categoria, token, fpd)
             ajax.upload.addEventListener("progress", function (event) {
                 //_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
                 var percent = (event.loaded / event.total) * 100;
+                uploadProgress(parseInt(percent));
                 console.log(percent);
                 //_("progressBar").value = Math.round(percent);
                 //_("status").innerHTML = Math.round(percent)+"% uploaded... please wait";
@@ -142,11 +143,61 @@ function publicarDesign(data, categoria, token, fpd)
                 console.log(response);
                 $(".modal-title").html("ERROR");
                 $(".modal-body").html("Ha ocurrido un error al subir tu producto. Nuestro sistema recopilará la información sobre este error. Se te notificará por email cuando haya sido solucionado.");
+                /*$(".modal-body").html("Lo sentimos, ha habido un error al publicar los archivos. Revisa el formato y vuelve a intentarlo. Gracias.");*/
                 $('#modalDg').modal({backdrop: 'static', keyboard: false});
-                $(".close-modal").click(function(){
+                /*$(".close-modal").click(function(){
                     window.location.href="/";
-                });
+                });*/
             }
         }
     });
+}
+
+function uploadProgress(percent){
+    var el= $("#uploadprogress");
+
+    var options = {
+        percent:  percent || 0,
+        size: el.data('size') || 220,
+        lineWidth: el.data('line') || 15,
+        rotate: el.data('rotate') || 0
+    }
+
+    var canvas = document.getElementById("progresscanvas");
+    var span = el.find('span');
+    var texto = el.find('p');
+
+    if(percent<100){
+        texto.html("SUBIENDO ARCHIVOS");
+    }else{
+        texto.html("FINALIZANDO");
+    }
+
+    span.html(parseInt(options.percent) + '%');
+
+    if (typeof(G_vmlCanvasManager) !== 'undefined') {
+        G_vmlCanvasManager.initElement(canvas);
+    }
+
+    var ctx = canvas.getContext('2d');
+    canvas.width = canvas.height = options.size;
+
+    ctx.translate(options.size / 2, options.size / 2); // change center
+    ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI); // rotate -90 deg
+
+    //imd = ctx.getImageData(0, 0, 240, 240);
+    var radius = (options.size - options.lineWidth) / 2;
+
+    var drawCircle = function(color, lineWidth, percent) {
+            percent = Math.min(Math.max(0, percent || 1), 1);
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+            ctx.strokeStyle = color;
+            ctx.lineCap = 'round'; // butt, round or square
+            ctx.lineWidth = lineWidth
+            ctx.stroke();
+    };
+
+    drawCircle('#efefef', options.lineWidth, 100 / 100);
+    drawCircle('#FF5722', options.lineWidth, options.percent / 100);
 }

@@ -52,7 +52,18 @@ $(document).ready(function() {
                 type: 'POST',
                 success: function (response){
                     if(response==1){
-                        location.href="/carrito";
+                        $(".header-count").html(parseInt($(".header-count").html()) + parseInt(productfile.find("#cantidad").val()));
+                        $("#header-cart").show();
+                        $(".modal-dialog").removeClass("modal-lg").addClass("modal-md");
+                        $(".modal-header").html("¡Producto añadido al carrito!");
+                        $(".modal-body").html("Se ha añadido el producto correctamente al carrito");
+
+                        if(productfile.data("return")){
+                            $(".modal-footer").html("<a href='#' class='btn btn-primary btn-round' data-dismiss='modal'>Seguir comprando</a><a href='/carrito?return="+productfile.data("return")+"' class='btn btn-default btn-round'>Ver el carrito</a>");
+                        }else{
+                            $(".modal-footer").html("<a href='#' class='btn btn-primary btn-round' data-dismiss='modal'>Seguir comprando</a><a href='/carrito' class='btn btn-default btn-round'>Ver el carrito</a>");
+                        }
+                        $(".modal").modal("show");
                     }else{
                         alert(response);
                     }

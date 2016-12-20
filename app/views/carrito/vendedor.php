@@ -20,8 +20,38 @@
         </div>
         <div class="row">
             <div  class="col-md-12 text-center">
+                <?php
+                    if($data["total_envio_vendedor_float"] > 0 && $data["id_vendedor"]==0){
+                        $diferencia_float=MIN_ENVIO_GRATIS-$data["total_vendedor_float"];
+                        $diferencia=number_format($diferencia_float, 2, ',', ' ');
+                        if($diferencia_float>5){
+                ?>
+                <p>Llega a <?=number_format(MIN_ENVIO_GRATIS, 2, ',', ' ')?>€ para conseguir los gastos de envío gratis.</p>
+                <?php
+                        }else{
+                ?>
+                <p>¡Con <?=$diferencia?>€ más, tus gastos de envío gratis!</p>
+                <?php
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+        <div class="row checkout-buttons">
+            <div  class="col-md-12 text-center">
                 <form method="post" action="<?=PAGE_DOMAIN?>/carrito/checkout">
                     <input type="hidden" name="token" value="<?=$data["token"]?>">
+                    <?php
+                        if(isset($_GET["return"])){
+                    ?>
+                    <a href="<?=PAGE_DOMAIN?>/<?=$_GET["return"]?>" class="btn btn-default btn-round btn-md">Seguir comprando</a>
+                    <?php
+                        }else{
+                    ?>
+                    <a href="<?=PAGE_DOMAIN?>" class="btn btn-default btn-round btn-md">Seguir comprando</a>
+                    <?php
+                        }
+                    ?>
                     <button type="submit" class="btn btn-primary btn-round btn-md">Finalizar pedido</button>
                 </form>
             </div>

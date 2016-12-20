@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/app/views/designer/designer.css">
 <div class="container wrapper">
     <!-- Modal -->
     <div class="modal fade" id="modalDg" tabindex="-1" role="dialog" aria-labelledby="modalDgLabel">

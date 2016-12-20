@@ -64,19 +64,22 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <span class="input-group-addon" id="basic-addon3"><i class="material-icons">assignment_ind</i> <?=str_replace('https://','',PAGE_DOMAIN)?>/user/</span>
-                                                <input type="text" class="form-control" name="username" id="username"
+                                                <span class="input-group-addon" id="basic-addon3">
+                                                    <i class="material-icons">assignment_ind</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Nombre de usuario" name="username" id="username"
+                                                    maxlength="30"
                                                     data-fv-notempty="true"
                                                     data-fv-notempty-message="Nombre de usuario requerido"
 
                                                     data-fv-stringlength="true"
                                                     data-fv-stringlength-min="3"
-                                                    data-fv-stringlength-max="20"
-                                                    data-fv-stringlength-message="El nombre de usuario tiene que tener entre 3 y 20 caracteres"
+                                                    data-fv-stringlength-max="30"
+                                                    data-fv-stringlength-message="Debe tener entre 3 y 30 caracteres"
 
                                                     data-fv-regexp="true"
-                                                    data-fv-regexp-regexp="^[a-zA-Z0-9_\. ]+$"
-                                                    data-fv-regexp-message="El nombre de usuario solo puede tener letras, números, guiones bajos y puntos" />
+                                                    data-fv-regexp-regexp="^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_. ]+$"
+                                                    data-fv-regexp-message="Solo puede tener letras, números, guiones bajos, espacios y puntos" />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -134,13 +137,15 @@
                                                     data-fv-notempty-message="Acepta los términos para continuar"> He leído y acepto los <a href="/info/tos" target="_blank">términos y condiciones<i class="fa fa-external-link"></i></a>
                                                 </label>
                                             </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input id="suscribe" type="checkbox" name="suscribe">Deseo registrarme en el boletín informativo para estar al día de las ofertas y novedades de <?=PAGE_NAME?>.
-                                                </label>
-                                            </div>
                                         </div>
                                     </div>
+                                    <?php
+                                        if(isset($_GET["redirect"])){
+                                    ?>
+                                        <input type="hidden" name="redirect" value="<?=$_GET["redirect"]?>">
+                                    <?php
+                                        }
+                                    ?>
                                     <div class="footer text-center">
                                         <button type="submit" class="btn btn-primary btn-round" name="signup" value="Sign up">¡ADELANTE!</button>
                                     </div>

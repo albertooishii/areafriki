@@ -1,0 +1,33 @@
+#uploadprogress {
+    position: fixed;
+    top:40%;
+    left: 40%;
+}
+
+#uploadprogress p {
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    margin-top: 75px;
+}
+
+#uploadprogress canvas {
+    display: block;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#uploadprogress span {
+    color:#555;
+    display:block;
+    text-align:center;
+    width:220px;
+    font-size:40px;
+    font-weight:bold;
+    margin-left:5px;
+}
+
+#uploadprogress input {
+    width: 200px;
+}

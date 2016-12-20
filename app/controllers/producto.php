@@ -508,6 +508,9 @@
 
                                                         $data["montaje"]=$this->loadView("product","camisetas",$data);
 
+                                                        $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
+                                                        $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
+                                                        $data["custom_js"].=$this->minifyJs("product", "camisetas");
                                                         $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
                                                     break;
 
@@ -524,16 +527,18 @@
                                                         $data["height"]=$height=$img_design_sizes["height"];
 
                                                         $data["montaje"]=$this->loadView("product","sudaderas",$data);
-
+                                                        $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
+                                                        $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
+                                                        $data["custom_js"].=$this->minifyJs("product", "sudaderas");
                                                         $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
                                                     break;
 
                                                     default:
-                                                        $data["montaje"]="<img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'>";
+                                                        $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 }
                                                 $data["stock"]=10000;
 
-                                                $data["custom_js"]=$this->minifyJs("product", "product_file");
+                                                $data["custom_js"].=$this->minifyJs("product", "product_file");
                                                 $data["custom_js"].=$this->minifyJs("product", "comment_card");
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);

@@ -1,5 +1,5 @@
 <tr class="pedido" data-token="<?=$data["token"]?>">
-    <td><?=$data["id"]?></td>
+    <td data-order="<?=strtotime($data["fecha_pedido"])?>"><?=$data["fecha_pedido"]?></td>
     <td><a href="<?=PAGE_DOMAIN?>/simbiosis/pedidos?token=<?=$data["token"]?>"><?=$data["token"]?></a></td>
     <td>
         <?php
@@ -24,7 +24,6 @@
             }
         ?>
     </td>
-    <td><?=$data["fecha_pedido"]?></td>
     <td><span class="label label-<?=$data["class_estado"]?>"><?=$data["estado"]?></span></td>
     <td><?=$data["precio"]?></td>
     <td><?=$data["gastos_envio"]?></td>

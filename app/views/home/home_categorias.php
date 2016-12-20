@@ -4,9 +4,9 @@
             <a href="<?=PAGE_DOMAIN?>/camisetas">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/camisetas.jpg" alt="camisetas">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         CAMISETAS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -16,9 +16,9 @@
             <a href="<?=PAGE_DOMAIN?>/sudaderas">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/sudaderas.jpg" alt="sudaderas">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         SUDADERAS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -28,9 +28,9 @@
             <a href="<?=PAGE_DOMAIN?>/stickers">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/stickers.jpg" alt="stickers">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         STICKERS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -40,9 +40,9 @@
             <a href="<?=PAGE_DOMAIN?>/posters">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/posters.jpg" alt="posters">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         PÓSTERS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -52,9 +52,9 @@
             <a href="<?=PAGE_DOMAIN?>/vinilos">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/vinilos.jpg" alt="vinilos">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         VINILOS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -64,9 +64,9 @@
             <a href="<?=PAGE_DOMAIN?>/lienzos">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/lienzos.jpg" alt="lienzos">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         LIENZOS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -76,9 +76,9 @@
             <a href="<?=PAGE_DOMAIN?>/tazas">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/tazas.jpg" alt="tazas">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         TAZAS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -88,9 +88,9 @@
             <a href="<?=PAGE_DOMAIN?>/chapas">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/chapas.jpg" alt="chapas">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         CHAPAS
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -100,9 +100,9 @@
             <a href="<?=PAGE_DOMAIN?>/crafts">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/crafts.jpg" alt="hecho a mano">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         HECHO A MANO
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>
@@ -112,9 +112,9 @@
             <a href="<?=PAGE_DOMAIN?>/baul">
                 <div class="card-image">
                     <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/baul.jpg" alt="nuevo y usado">
-                    <div class="card-title">
+                    <h3 class="card-title">
                         NUEVO Y USADO
-                    </div>
+                    </h3>
                 </div>
             </a>
         </div>

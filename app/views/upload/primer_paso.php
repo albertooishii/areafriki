@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <h3 class="title aligncenter">Crea tu propia tienda friki · Tu marcas tus beneficios · Totalmente gratis</h4>
+            <h3 class="title aligncenter">Crea tu propia tienda friki · Tu marcas tus beneficios · Totalmente gratis</h3>
         </div>
     </div>
 </div>

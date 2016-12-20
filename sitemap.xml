@@ -59,11 +59,11 @@
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>https://areafriki.com/upload</loc>
+  <loc>https://areafriki.com/register</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>https://areafriki.com/info/empresa</loc>
+  <loc>https://areafriki.com/upload</loc>
   <changefreq>daily</changefreq>
 </url>
 <url>
@@ -76,10 +76,6 @@
 </url>
 <url>
   <loc>https://areafriki.com/contacto</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/login/recoverpass</loc>
   <changefreq>daily</changefreq>
 </url>
 </urlset>

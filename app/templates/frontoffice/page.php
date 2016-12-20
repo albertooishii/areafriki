@@ -4,31 +4,22 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link rel="canonical" hreflang="es" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>" />
+        <link rel="canonical" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>" />
+        <link rel="alternate" hreflang="es" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>">
 		<title><?=PAGE_NAME?> | <?=$data['page_title']?></title>
         <?=$data["meta_tags"]?>
-        <meta name="apple-mobile-web-app-title" content="ÁreaFriki">
-        <meta name="application-name" content="ÁreaFriki">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="msapplication-TileImage" content="/app/templates/frontoffice/img/icons/mstile-144x144.png">
-        <meta name="msapplication-config" content="/app/templates/frontoffice/img/icons/browserconfig.xml">
-        <meta name="theme-color" content="#222222">
-        <link rel="apple-touch-icon" sizes="57x57" href="/app/templates/frontoffice/img/icons/apple-touch-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/app/templates/frontoffice/img/icons/apple-touch-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/app/templates/frontoffice/img/icons/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/app/templates/frontoffice/img/icons/apple-touch-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/app/templates/frontoffice/img/icons/apple-touch-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/app/templates/frontoffice/img/icons/apple-touch-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/app/templates/frontoffice/img/icons/apple-touch-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/app/templates/frontoffice/img/icons/apple-touch-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/app/templates/frontoffice/img/icons/apple-touch-icon-180x180.png">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/app/templates/frontoffice/img/icons/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/android-chrome-192x192.png" sizes="192x192">
-        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-96x96.png" sizes="96x96">
         <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-16x16.png" sizes="16x16">
         <link rel="manifest" href="/app/templates/frontoffice/img/icons/manifest.json">
-        <link rel="mask-icon" href="/app/templates/frontoffice/img/icons/safari-pinned-tab.svg">
+        <link rel="mask-icon" href="/app/templates/frontoffice/img/icons/safari-pinned-tab.svg" color="#353535">
         <link rel="shortcut icon" href="/app/templates/frontoffice/img/icons/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="<?=PAGE_NAME?>">
+        <meta name="application-name" content="<?=PAGE_NAME?>">
+        <meta name="msapplication-config" content="/app/templates/frontoffice/img/icons/browserconfig.xml">
+        <meta name="theme-color" content="#353535">
+
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -37,42 +28,13 @@
             <p>Tu navegador no soporta Javascript. Actualiza a un navegador más reciente o activa esta función para que la web funcione correctamente.</p>
             </div>
         </noscript>
+        <!--Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Material Kit -->
+        <!--<link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>-->
         <!--Fonts and icons -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-        <!--Bootstrap -->
-        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <!--Bootstrap select-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-        <!-- Material Kit -->
-        <link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>
-        <!--Bootstrap range slider -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
-        <!--DropdownJs-->
-		<link rel="stylesheet" href="/vendor/dropdownjs/jquery.dropdown.css">
-        <!--Bootstrap-tokenfield -->
-        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/bootstrap-tokenfield.min.css">
-        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/tokenfield-typeahead.min.css">
-        <!--OwlCarousel -->
-        <link rel="stylesheet" href="/vendor/owl-carousel/assets/owl.carousel.css">
-        <link rel="stylesheet" href="/vendor/owl-carousel/assets/owl.theme.default.min.css">
-        <!--FormValidation -->
-        <link rel="stylesheet" href="/vendor/formvalidation/css/formValidation.min.css">
-        <!--FileInput -->
-        <link rel="stylesheet" href="/vendor/bootstrap-fileinput/css/fileinput.min.css">
-        <!--Lightbox2 -->
-        <link rel="stylesheet" href="/vendor/lightbox2/dist/css/lightbox.min.css">
-        <!--Cropper -->
-        <link rel="stylesheet" href="/vendor/cropper/cropper.min.css">
-        <!--Snackbar -->
-        <link rel="stylesheet" href="/vendor/snackbarjs/dist/snackbar.min.css">
-        <!--Animate -->
-        <link rel="stylesheet" href="/vendor/animate.css">
-        <!--PerfectScrollbar -->
-        <link rel="stylesheet" href="/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
-        <!--emojis -->
-        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-
         <?=@$data["custom_css"]?>
         <?=$data["min_css"]?>
         <script>
@@ -81,13 +43,9 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-78536667-1', 'auto');
+            ga('create', '<?=GOOGLE_ANALYTICS?>', 'auto');
             ga('send', 'pageview');
         </script>
-        <!--jQuery--->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
         <script>
           window.fbAsyncInit = function() {
             FB.init({
@@ -105,6 +63,36 @@
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
+        <!-- Facebook Pixel Code -->
+        <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window,document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+         fbq('init', '164226414047284');
+        fbq('track', 'PageView');
+        </script>
+        <noscript>
+         <img height="1" width="1"
+        src="https://www.facebook.com/tr?id=164226414047284&ev=PageView
+        &noscript=1"/>
+        </noscript>
+        <!-- End Facebook Pixel Code -->
+        <!-- Hotjar Tracking Code for http://dev.areafriki.com -->
+        <script>
+            (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:<?=HOTJAR?>,hjsv:5};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
 	</head>
 	<body>
       <!-- header -->
@@ -118,17 +106,45 @@
       <!-- footer -->
         <?=$footer?>
         <!-- end: footer -->
+        <!--Style (footer css)-->
+        <!--FormValidation -->
+        <link rel="stylesheet" href="/vendor/formvalidation/css/formValidation.min.css">
+        <!--FileInput -->
+        <link rel="stylesheet" href="/vendor/bootstrap-fileinput/css/fileinput.min.css">
+        <!--Lightbox2 -->
+        <link rel="stylesheet" href="/vendor/lightbox2/dist/css/lightbox.min.css">
+        <!--Cropper -->
+        <link rel="stylesheet" href="/vendor/cropper/cropper.min.css">
+        <!--Animate -->
+        <link rel="stylesheet" href="/vendor/animate.css">
+        <!--PerfectScrollbar -->
+        <link rel="stylesheet" href="/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
+        <!--Bootstrap range slider -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
+        <!--Bootstrap select-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+        <!--DropdownJs-->
+		<link rel="stylesheet" href="/vendor/dropdownjs/jquery.dropdown.css">
+        <!--Bootstrap-tokenfield -->
+        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/bootstrap-tokenfield.min.css">
+        <link rel="stylesheet" href="/vendor/bootstrap-tokenfield/css/tokenfield-typeahead.min.css">
+        <!--Snackbar -->
+        <link rel="stylesheet" href="/vendor/snackbarjs/dist/snackbar.min.css">
+        <link rel="stylesheet" href="/vendor/snackbarjs/themes-css/material.css">
+
         <!--Scripts -->
+        <!--jQuery--->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
         <!--Bootstrap-->
-        <script type="text/javascript" src="/vendor/material-kit-pro/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!--Bootstrap select-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-es_CL.min.js"></script>
         <!--Material design bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/material.min.js"></script>
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
-        <script type="text/javascript" src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
         <script type="text/javascript" src="/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
 
         <script type="text/javascript" src="/vendor/lightbox2/dist/js/lightbox.min.js"></script>
@@ -137,7 +153,6 @@
         <script type="text/javascript" src="/vendor/formvalidation/js/formValidation.min.js"></script>
         <script type="text/javascript" src="/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
         <script type="text/javascript" src="/vendor/formvalidation/js/language/es_ES.js"></script>
-
         <script type="text/javascript" src="/vendor/cropper/cropper.min.js"></script>
 
         <!--Bootstrap fileinput -->
@@ -147,7 +162,6 @@
         <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/locales/es.js"></script>
         <script type="text/javascript" src="/vendor/bootstrap-fileinput/js/themes/gly.js"></script>
 
-        <script type="text/javascript" src="/vendor/owl-carousel/owl.carousel.min.js"></script>
         <script type="text/javascript" src="/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
         <script type="text/javascript" src="/vendor/bootstrap-tokenfield/typeahead.bundle.min.js"></script>
 

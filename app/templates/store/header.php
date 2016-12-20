@@ -2,9 +2,15 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sectionsNav">
         <div class="container">
             <div id="navleft" class="navbar-header pull-left" style="margin-left:5px;">
+                <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#menu-store" id="hamburger">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a href="<?=PAGE_DOMAIN?>" title="<?=PAGE_NAME?>" class="navbar-brand">
-                    <img class="logo img-responsive nomobile" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
-                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-128x128.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nomobile notablet" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" alt="<?=PAGE_NAME?>">
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
@@ -17,19 +23,26 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right pull-right" id="nav-actions">
-                    <li id="header-cart">
-                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
                     <?php
                         if($data["contador-carrito"]>0){
                     ?>
+                    <li id="header-cart">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
                             <span class="header-count"><?=$data["contador-carrito"]?></span>
-                    <?php
-                        }
-                    ?>
                         </a>
 
                     </li>
                     <?php
+                        }else{
+                    ?>
+                    <li id="header-cart" style="display:none;">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
+                            <span class="header-count"><?=$data["contador-carrito"]?></span>
+                        </a>
+
+                    </li>
+                    <?php
+                        }
                         if(isset($_SESSION["login"])){
                     ?>
                     <li class="dropdown pull-right" id="header-user">
@@ -82,10 +95,11 @@
                     <?php
                         }else{
                     ?>
-                    <li class="pull-right" id="header-login">
-                        <a href="/login">
-                            <span>INICIAR SESIÓN</span>
-                        </a>
+                    <li>
+                        <a href="/register?redirect=<?=$this->getURL()?>"><span>REGISTRO</span></a>
+                    </li>
+                    <li>
+                        <a href="/login?redirect=<?=$this->getURL()?>"><span>LOGIN</span></a>
                     </li>
                     <?php
                         }
@@ -94,10 +108,20 @@
             </div>
         </div>
     </nav>
-    <div id="vender-mobile" class="nodesktop">
-        <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">edit</i></a>
-    </div>
 </header>
+<div class="collapse navbar-collapse pull-left text-center" id="menu-store">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="<?=PAGE_DOMAIN?>/store/kawaii" class="btn btn-round btn-nintenderos"><img src="<?=PAGE_DOMAIN?>/app/views/store/kawaii/logo_icon.png" class="store-icon"></a>
+        </li>
+        <li>
+            <a href="<?=PAGE_DOMAIN?>/store/nintenderos" class="btn btn-round btn-nintenderos"><img src="<?=PAGE_DOMAIN?>/app/views/store/nintenderos/icon.png" class="store-icon">NINTENDEROS</a>
+        </li>
+        <li>
+            <a href="<?=PAGE_DOMAIN?>/store/pokemongo" class="btn btn-round btn-facebook"><img src="<?=PAGE_DOMAIN?>/app/views/store/pokemongo/icon.png" class="store-icon">POKéMON GO</a>
+        </li>
+    </ul>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="modalDg" tabindex="-1" role="dialog" aria-labelledby="modalDgLabel">
   <div class="modal-dialog modal-lg" role="document">

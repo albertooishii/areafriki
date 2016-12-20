@@ -2,7 +2,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sectionsNav">
         <div class="container">
             <div id="navleft" class="navbar-header pull-left">
-                <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#menu">
+                <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#menu" id="hamburger">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -10,7 +10,7 @@
                 </button>
                 <a href="<?=PAGE_DOMAIN?>" title="<?=PAGE_NAME?>" class="navbar-brand">
                     <img class="logo img-responsive nomobile notablet" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
-                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-128x128.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" alt="<?=PAGE_NAME?>">
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
@@ -26,19 +26,26 @@
                     <li id="header-search">
                         <a href="#"><i class="material-icons">search</i></a>
                     </li>
-                    <li id="header-cart">
-                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
                     <?php
                         if($data["contador-carrito"]>0){
                     ?>
+                    <li id="header-cart">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
                             <span class="header-count"><?=$data["contador-carrito"]?></span>
-                    <?php
-                        }
-                    ?>
                         </a>
 
                     </li>
                     <?php
+                        }else{
+                    ?>
+                    <li id="header-cart" style="display:none;">
+                        <a href="/carrito"><i class="material-icons">shopping_cart</i>
+                            <span class="header-count"><?=$data["contador-carrito"]?></span>
+                        </a>
+
+                    </li>
+                    <?php
+                        }
                         if(isset($_SESSION["login"])){
                     ?>
                     <li class="dropdown pull-right" id="header-user">
@@ -46,7 +53,7 @@
                             <div class="profile-photo-small">
                                 <img class="img-circle img-responsive" src="<?=PAGE_DOMAIN?>/<?=$this->u->getAvatar()?>">
                             </div>
-                            <span class="nomobile" id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><?=$_SESSION["login"]["user"]?></span>
+                            <span class="nomobile notablet" id="login_user" data-user="<?=$this->u->user?>" data-id="<?=$this->u->id?>"><?=$_SESSION["login"]["user"]?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-dark">
                             <li><a href="/user/<?=$_SESSION["login"]["user"]?>"><i class="material-icons">store</i> Mi tienda</a></li>
@@ -91,14 +98,35 @@
                     <?php
                         }else{
                     ?>
-                    <li class="pull-right" id="header-login">
-                        <a href="/login">
-                            <span>INICIAR SESIÓN</span>
-                        </a>
+                    <li>
+                        <?php
+                            if($this->getURL()==PAGE_DOMAIN."/"){
+                        ?>
+                        <a href="/register"><span>REGISTRO</span></a>
+                        <?php
+                            }else{
+                        ?>
+                        <a href="/register?redirect=<?=$this->getURL()?>"><span>REGISTRO</span></a>
+                        <?php
+                            }
+                        ?>
                     </li>
+                    <li>
+                        <?php
+                            if($this->getURL()==PAGE_DOMAIN."/"){
+                        ?>
+                        <a href="/login"><span>LOGIN</span></a>
+                        <?php
+                            }else{
+                        ?>
+                        <a href="/login?redirect=<?=$this->getURL()?>"><span>LOGIN</span></a>
+                        <?php
+                            }
+                        ?>
                     <?php
                         }
                     ?>
+                    </li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse pull-left" id="menu">
@@ -127,21 +155,29 @@
                         <a href="/baul">NUEVO Y USADO</a>
                     </li>
                     <li class="dropdown">
-                        <a href="/areastore">AREASTORE</a>
+                        <a href="/store">AREASTORE</a>
                     </li>
-                    <li id="vender">
-                        <a href="/upload" class="btn btn-primary btn-round">
-                            <i class="material-icons">edit</i>VENDER
-                            <div class="ripple-container"></div>
+                    <li id="vender" class="nomobile notablet">
+                        <a href="/upload" class="text-primary">
+                            VENDER
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div id="vender-mobile" class="nodesktop">
-        <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">edit</i></a>
+    <div id="vender-mobile">
+        <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">&#xE2C6;</i></a>
     </div>
+    <?php
+        if(isset($data["primer_login"])){
+    ?>
+    <div id="primerlogin" class="container-fluid">
+        <?=$data["primer_login"]?>
+    </div>
+    <?php
+        }
+    ?>
 </header>
 <!-- Modal -->
 <div class="modal fade" id="modalDg" tabindex="-1" role="dialog" aria-labelledby="modalDgLabel">
@@ -162,6 +198,6 @@
     </div>
 </div>
 <div id="feedback" class="nomobile">
-    <a href="/contacto">ERRORES O SUGERENCIAS</a>
+    <a href="/contacto"><i class="material-icons">&#xE87F;</i> Feedback</a>
 </div>
 <div id="notifications-wrapper"></div>

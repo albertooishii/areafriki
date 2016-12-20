@@ -7,12 +7,12 @@
             $this->loadModel("precio");
             $pre = New Precio_Model();
 
-            switch(@$_GET["node"]){
-                default:
-                    $data["page_title"] = "Pokémon Go - AreaStore";
-                    $data["custom_js"]=$this->minifyJs("product", "product_file");
-                    $this->render("store/pokemongo","pokemongo",$data);
-            }
+            if(!isset($_GET["node"])){$node="index";}else{$node=$_GET["node"];}
+            $data["meta_tags"]=$this->loadView("store/".$node, "meta");
+            $data["custom_js"]=$this->minifyJs("product", "product_file");
+            @$data["custom_js"].=$this->minifyJs("store/".$node, "script");
+            @$data["custom_css"]=$this->minifyCss("store/".$node, "style");
+            $this->render("store/".$node, $node, $data);
         }
     }
 ?>

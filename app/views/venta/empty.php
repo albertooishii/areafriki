@@ -1,5 +1,6 @@
-<div class="container wrapper text-center">
-    <i class="material-icons big-icon">monetization_on</i>
-    <h3>No hay ventas</h3>
-    <p>No se han encontrado ventas realizadas con esta cuenta.</p>
+<div class="container wrapper" id="mysales">
+    <?=$data["credit_info"]?>
+    <h3 class="title">Historial de ventas</h3>
+    <p>Ventas de productos hechos a mano y artículos nuevos o segunda mano.</p>
+    <p class="text-danger">No se han encontrado ventas realizadas con esta cuenta.</p>
 </div>

@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?=$data["count_newpedidos"]?></div>
-                        <div>Nuevos pedidos hoy</div>
+                        <div>Nuevos pedidos</div>
                     </div>
                 </div>
             </div>

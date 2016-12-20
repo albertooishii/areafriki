@@ -49,6 +49,13 @@ main a, main a:focus, main a:hover {
     background: none;
 }
 
+@media (max-width: 991px){
+    .navbar .navbar-nav > li {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
 .aligncenter{
     text-align: center !important;
     display: table !important;
@@ -86,7 +93,8 @@ main a, main a:focus, main a:hover {
     }
 }
 
-@media only screen and (max-width : 1200px) {
+
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
     .notablet{
         display: none !important;
     }
@@ -99,8 +107,16 @@ main a, main a:focus, main a:hover {
 }
 
 .big-icon{
-    font-size: 150px;
-    color: #EBEBEC;
+    font-size: 150px !important;
+    color: #BBBBBB !important;
+}
+
+.pbig{
+    font-size: 150% !important;
+}
+
+.nowrap{
+    white-space: nowrap;
 }
 
 @media only screen and (max-width : 768px) {
@@ -390,11 +406,16 @@ a.well{
     background-color: #ff5722;
 }
 
+#vender a{
+    font-weight: bold;
+    color: #fbb808 !important;
+}
+
 #vender-mobile{
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 3;
+    z-index: 100;
 }
 
 #header-user>a{
@@ -405,6 +426,18 @@ a.well{
     display: inline-block;
     vertical-align: middle;
     font-size: 12px;
+}
+
+#primerlogin{
+    margin-top: 67px;
+    margin-bottom: -69px;
+    padding: 0;
+}
+
+#primerlogin div{
+    height: auto;
+    font-size: 12px;
+    margin-bottom: 0;
 }
 
 /*MENUBAR--------------------------*/
@@ -440,13 +473,13 @@ footer a:hover{
 
 #feedback{
     bottom: auto;
-    left: -100px;
+    left: -45px;
     top: 45%;
     right: auto;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     position: fixed;
-    background-color: #353535;
+    background-color: #ffb700;
     font-size: 16px;
     z-index: 99;
 }
@@ -454,7 +487,7 @@ footer a:hover{
 #feedback a{
     padding: 10px;
     display: block;
-    color: #ffb700 !important;
+    color: #353535 !important;
 }
 
 #feedback a:hover{
@@ -501,7 +534,7 @@ footer a:hover{
 }
 
 #home_banner_bg{
-    height: 350px;
+    height: 200px;
     background-position: center;
     background-repeat: no-repeat;
     -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
@@ -513,9 +546,84 @@ footer a:hover{
 
 @media only screen and (max-width : 768px) {
     #home_banner_bg{
-        height: 200px;
+        height: 120px;
         width: auto;
     }
+}
+
+#home{
+    background-color: white;
+    margin-top: 69px;
+}
+
+#home h1{
+    font-size: 200%;
+}
+
+#home h2{
+    font-size: 180%;
+    line-height: 1.4em;
+    margin: 20px 0 10px;
+}
+
+#home_categories{
+    padding-top: 10px;
+}
+
+#home #home_categories h2{
+    font-size: 120%;
+}
+
+#home h3{
+    line-height: 1.55em;
+}
+
+#cta-vender{
+    background-color: #fbb808;
+    height: 80px;
+    margin-top: 69px;
+}
+
+#home #cta-vender{
+    margin-top: 0;
+}
+
+#cta-vender img{
+    height: 80px;
+    display: block;
+    width: auto;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#cta-vender h2{
+    padding: 0;
+    font-size: 90%;
+}
+
+@media only screen and (max-width : 768px) {
+    #cta-vender{
+        height: 60px !important;
+        margin-top: -10px !important;
+    }
+
+    #cta-vender h2{
+        font-size: 80% !important;
+        margin-top: 7px;
+    }
+
+    #cta-vender a.btn{
+        margin-top: 10px !important;
+    }
+}
+
+#cta-vender a.btn{
+    text-align: center;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
 }
 
 #home_slider_wrapper img{
@@ -551,7 +659,7 @@ footer a:hover{
     padding: 10px 0 20px 0;
 }
 
-#ruleta h3, #ruleta p{
+#ruleta h2, #ruleta p{
     color: white;
 }
 
@@ -600,11 +708,17 @@ footer a:hover{
     text-align: right;
 }
 
+#last-productos .order p{
+    display: inline-block;
+    vertical-align: middle;
+}
+
 #last-productos .order .form-group{
     margin-top: 0;
     display: inline-block;
     margin-left: 15px;
     width: 200px;
+    vertical-align: middle;
 }
 
 #last-productos .lista_categorias{
@@ -638,6 +752,10 @@ footer a:hover{
     margin: 5px;
 }
 
+.product_card .card-image, .product_card .card-image img{
+    height: auto !important;
+}
+
 .owl-carousel .owl-item img{
     display: inherit;
 }
@@ -659,10 +777,6 @@ footer a:hover{
     text-align: center;
 }
 
-.product_buttons .coments-button{
-    margin-bottom: -35px;
-}
-
 .product_card .fa, .product_file .fa, .product_card .material-icons{
     font-size: 26px !important;
     vertical-align: text-bottom;
@@ -677,10 +791,12 @@ footer a:hover{
 }
 
 .product_card.card .category-social {
-    word-break: break-word;
     font-size: 12px;
     margin: 0;
     font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .product_card.card .author{
@@ -692,6 +808,7 @@ footer a:hover{
 .product_card.card .author a{
     color: white;
     text-shadow: black 1px 1px 5px;
+    padding: 16px;
 }
 
 .product_card .product_info p{
@@ -1093,7 +1210,33 @@ footer a:hover{
 /*UPLOAD---------------*/
 
 #primer_paso img{
-    width: 130px;
+    width: 200px;
+}
+
+#designs-step2 p{
+    color: white !important;
+    z-index: 2;
+    position: relative;
+    margin-top: -20px;
+}
+
+#designs-step2 .container{
+    max-width: 768px;
+}
+
+#designs-step2 .card{
+    padding-top: 30px;
+    margin-bottom: 0;
+}
+
+#designs-step2 .btn{
+    font-size: 11px !important;
+    width: 100%;
+}
+
+#designs-step2 .btn .material-icons{
+    font-size: 16px !important;
+    vertical-align: middle;
 }
 
 #upload_main nav p{
@@ -1179,7 +1322,7 @@ footer a:hover{
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.6);
-    z-index: 999;
+    z-index: 9999;
 }
 
 .sk-folding-cube {
@@ -1413,36 +1556,104 @@ footer a:hover{
     margin: 5px;
 }
 
-/*BREAK POINT*/
-@media (max-width: 1200px) {
-    .navbar-header {
+/*AREASTORE------*/
+
+#menu-store{
+    position: relative;
+    top: 65px;
+    z-index: 2;
+    width: 100%;
+}
+
+@media only screen and (min-width : 1201px) {
+    #menu-store{
+        top: 100px;
+    }
+
+    #menu-store>ul{
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
         float: none;
     }
-    .navbar-left,.navbar-right {
-        float: none !important;
+
+    #menu-store>ul>li{
+        margin-left: 5px;
+        margin-right: 5px;
     }
-    .navbar-toggle {
-        display: block;
+
+    .store-page{
+        padding-top: 100px;
     }
-    .navbar-collapse {
-        border-top: 1px solid transparent;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+@media only screen and (max-width : 1200px) {
+    #menu-store{
+        background-color: #333;
     }
-    .navbar-fixed-top {
-        top: 0;
-        border-width: 0 0 1px;
+}
+
+.store-page .card-price{
+    font-size: 22px;
+}
+
+.store-page .form-group{
+    margin: 0;
+}
+
+.store-page{
+    background-color: #f5f5f5;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.store-page img{
+    width: 100%;
+}
+
+.store-page .card .content{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    visibility: hidden;
+}
+
+.store-page .card:hover .content{
+    visibility: visible;
+}
+
+.store-page .card-background:after{
+    visibility: hidden;
+}
+
+.store-page .card-background:hover:after{
+    visibility: visible;
+}
+
+.store-page input, .store-page .form-control, .store-page .form-group .form-control{
+    background: white !important;
+    padding-left: 25px;
+    font-size: 18px;
+}
+
+.btn.btn-nintenderos, .btn.btn-nintenderos:hover, .btn.btn-nintenderos:active, .btn.btn-nintenderos:focus{
+    background-color: #efefef !important;
+    color: #333;
+}
+
+img.store-icon{
+    height: 24px !important;
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+}
+
+@media only screen and (max-width : 768px) {
+    .card .card-image .card-title{
+        font-size: 85% !important;
     }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav>li {
-        float: none;
-    }
-    .navbar-nav>li>a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .collapse.in{
-        display:block !important;
-    }
+}
+
+.modal-footer .btn{
+    margin-bottom: 0;
 }

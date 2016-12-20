@@ -9,6 +9,7 @@
         {
             $this->loadModel('user');
             $this->u = new Users_Model();
+
             if(isset($_COOKIE["user"]) && isset($_COOKIE["pass"])){
                 $this->u->user=$_COOKIE["user"];
                 $this->u->pass=$_COOKIE["pass"];
@@ -23,6 +24,11 @@
                 $info_user=$this->u->getUser();
                 $this->u->id=$info_user["id"];
                 $this->u->email=$info_user["email"];
+            }
+
+            if(!empty($_GET["ref"])){
+                $this->loadModel("referer");
+                $ref = new Referer_Model();
             }
         }
 
@@ -68,6 +74,14 @@
                 $data["min_js"]=$m->js();
                 $data["min_css"]=$m->css();
 
+                if(isset($_SESSION["login"])){
+                    if(!$this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
+                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a! Te hemos enviado un email para poder activar tu cuenta y así acceder a todas las opciones que te ofrece ".PAGE_NAME.". Si no ves el mensaje revisa la bandeja de spam o correo no deseado, puede que haya terminado ahí por error. Se paciente, puede tardar hasta 5 minutos en llegar.");
+                    }elseif($this->u->getUser_activeaccount() && $this->u->vecesLogueado()==1){
+                        $data["primer_login"]=$this->loadView("success","form_success","¡Bienvenido/a a ".PAGE_NAME."! ¡Ya tienes tu cuenta activada correctamente!");
+                    }
+                }
+
                 $this->loadModel("carrito");
                 $car = new Carrito_Model();
                 $this->loadModel("categoria");
@@ -85,13 +99,18 @@
                 }
                 if(@$_GET["section"]=='store'){
                     $header=$this->loadTemplate("store", "header", $data);
+                    $footer=$this->loadTemplate("store", "footer", $data);
+                    $page=$this->loadView($folder, $view, $data);
+                    ob_start();                      // start capturing output
+                    include_once 'app/templates/store/page.php';   // execute the file
                 }else{
                     $header=$this->loadTemplate("frontoffice", "header", $data);
+                    $footer=$this->loadTemplate("frontoffice", "footer", $data);
+                    $page=$this->loadView($folder, $view, $data);
+                    ob_start();                      // start capturing output
+                    include_once 'app/templates/frontoffice/page.php';   // execute the file
                 }
-                $footer=$this->loadTemplate("frontoffice", "footer", $data);
-                $page=$this->loadView($folder, $view, $data);
-                ob_start();                      // start capturing output
-                include_once 'app/templates/frontoffice/page.php';   // execute the file
+
                 $html = ob_get_contents();    // get the contents from the buffer
                 ob_end_clean();
                 echo $this->minifyHtml($html);
@@ -105,11 +124,26 @@
         }
 
         public function getIP(){
-            if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARTDED_FOR'] != '') {
-                return $_SERVER['HTTP_X_FORWARDED_FOR'];
-            } else {
-                return $_SERVER['REMOTE_ADDR'];
+            if (isset($_SERVER["HTTP_CLIENT_IP"])){
+                return $_SERVER["HTTP_CLIENT_IP"];
+            }elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
+                return $_SERVER["HTTP_X_FORWARDED_FOR"];
+            }elseif (isset($_SERVER["HTTP_X_FORWARDED"])){
+                return $_SERVER["HTTP_X_FORWARDED"];
+            }elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])){
+                return $_SERVER["HTTP_FORWARDED_FOR"];
+            }elseif (isset($_SERVER["HTTP_FORWARDED"])){
+                return $_SERVER["HTTP_FORWARDED"];
+            }else{
+                return $_SERVER["REMOTE_ADDR"];
             }
+        }
+
+        public function getCountry(){
+            $adapter     = new \Ivory\HttpAdapter\CurlHttpAdapter();
+            $geocoder = new \Geocoder\Provider\IpInfoDb($adapter, '00e5547711eec5d70d9e0fa575417329cd176f88ae3af16c86a5984c1dbe2963');
+            $countryCode = $geocoder->geocode($this->getIP())->get(0)->getCountryCode();
+            return $countryCode;
         }
 
         public function getURL(){

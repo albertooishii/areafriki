@@ -24,20 +24,47 @@
                 </div>
                 <ul>
                     <li class="username aligncenter"><?=$data["username"]?></li>
-                    <li>
+                    <li class="user_info_field">
                         <div class="user_info_description">
                             <span placeholder="Descripción"><?=$data["description"]?></span>
                         </div>
                     </li>
-                    <li>
+                    <?php
+                        if(!empty($data["ocupacion"])){
+                            $display='block';
+                        }else{
+                            $display='none';
+                        }
+                    ?>
+                    <li style="display:<?=$display?>" class="user_info_field">
                         <div class="user_info_ocupacion">
                             <i class="material-icons">work</i><span placeholder="Trabajo u ocupación"><?=$data["ocupacion"]?></span>
                         </div>
                     </li>
-                    <li>
+                    <?php
+                        if(!empty($data["intereses"])){
+                            $display='block';
+                        }else{
+                            $display='none';
+                        }
+                    ?>
+                    <li style="display:<?=$display?>" class="user_info_field">
                         <div class="user_info_intereses">
                             <i class="material-icons">sms</i><span placeholder="Intereses"><?=$data["intereses"]?></span>
                         </div>
+                    </li>
+                    <li>
+                        <?php
+                            if($data["username"]==$this->u->user){
+                        ?>
+                        <i class="material-icons">&#xE157;</i>Enlace de referido <span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Si compartes este enlace ganarás una comisión entre el 2% y 6% por cada persona que traigas a <?=PAGE_NAME?>."><i class="material-icons">info_outline</i></span>
+                        <span class="text-primary btn-copy">
+                            <?=PAGE_DOMAIN?>?ref=<?=$this->u->user?>
+                            <input type="hidden" value="<?=PAGE_DOMAIN?>?ref=<?=$this->u->user?>">
+                        </span>
+                        <?php
+                            }
+                        ?>
                     </li>
                     <li class="aligncenter"><?=$data["edit_button"]?></li>
                </ul>

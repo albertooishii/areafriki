@@ -8,6 +8,7 @@ $(document).ready(function() {
         window.onbeforeunload = unloadPage;
         $("#user_avatar img, #user_banner_bg").attr("data-toggle","dropdown");
         $("#user_banner_bg, #user_avatar img").addClass("img_edit");
+        $(".user_info_field").show();
         $("div[class ^=user_info_] span").attr("contenteditable","true");
         $(this).addClass("save_profile").text("Guardar cambios");
     });
@@ -25,8 +26,18 @@ $(document).ready(function() {
             type: 'POST',
             success:  function (success) {
                 $("#edit_profile").removeClass("save_profile").text("Editar perfil");
+
+                if($(".user_info_ocupacion span").html().trim() == ''){
+                    $(".user_info_ocupacion").parent("li").hide();
+                }
+
+                if($(".user_info_intereses span").html().trim() == ''){
+                    $(".user_info_intereses").parent("li").hide();
+                }
+
                 $("*").removeClass("img_edit").removeAttr("contenteditable");
                 $("#user_avatar img, #user_banner_bg").removeAttr("data-toggle");
+
                 tosnackbar("¡Cambios guardados correctamente!");
                 window.onbeforeunload = null;
             },

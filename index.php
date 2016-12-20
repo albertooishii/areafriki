@@ -3,6 +3,7 @@
     header("Content-type: text/html; charset=UTF-8");
 
     include_once 'app/core/config.php';
+    include_once '../../vendor/autoload.php';
 	include_once 'app/core/controller.php';
 
     //print_r($_REQUEST);
@@ -97,7 +98,6 @@
             default:
                 $controller = new Controller();
                 $controller->render('error','404');
-            break;
         }
     }else{
         $section='home';

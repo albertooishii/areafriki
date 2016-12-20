@@ -1,0 +1,1 @@
+<title><?=PAGE_NAME?> | <?=$data['page_title']?></title>
