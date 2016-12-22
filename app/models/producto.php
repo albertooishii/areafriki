@@ -65,7 +65,7 @@
         function getProductosCategoria($limit=false, $order=false)
         {
             if(empty($order)){
-                $order="fecha_publicacion";
+                $order="likes.date DESC, popularidad";
             }else{
                 switch($order){
                     case 'likes':
@@ -76,8 +76,12 @@
                         $order="ventas";
                     break;
 
-                    default:
+                    case 'date':
                         $order="fecha_publicacion";
+                    break;
+
+                    default:
+                        $order="likes.date DESC, popularidad";
                 }
             }
 
@@ -147,7 +151,7 @@
         function getProductosTag($limit=false)
         {
             if(empty($order)){
-                $order="fecha_publicacion";
+                $order="likes.date DESC, popularidad";
             }else{
                 switch($order){
                     case 'likes':
@@ -158,8 +162,12 @@
                         $order="ventas";
                     break;
 
-                    default:
+                    case 'date':
                         $order="fecha_publicacion";
+                    break;
+
+                    default:
+                        $order="likes.date DESC, popularidad";
                 }
             }
 

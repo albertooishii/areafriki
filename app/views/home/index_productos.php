@@ -1,7 +1,7 @@
 <?=$data["cta-vender"]?>
 <div class="container">
     <header>
-        <h2 class="aligncenter title"><?=$data["subhead"]?></h2>
+        <h2 class="text-center title" style="margin-bottom:0 !important; clear:both;"><?=$data["subhead"]?></h2>
     </header>
     <div id="last-productos">
         <div class="row">
@@ -48,11 +48,11 @@
                 <div class="order aligncentermobile">
                     <p><i class="material-icons">sort</i> Ordenar por:</p>
                     <select class="form-control" id="select-order" data-url="<?=$data["sourcepage"]?>">
+                        <option value="onfire" <?php if($data["order"]=='onfire')echo "selected";?>>
+                            On fire
+                        </option>
                         <option value="date" <?php if($data["order"]=='date')echo "selected";?>>
                             Más recientes
-                        </option>
-                        <option value="sales" <?php if($data["order"]=='sales')echo "selected";?>>
-                            Más vendidos
                         </option>
                         <option value="likes" <?php if($data["order"]=='likes')echo "selected";?>>
                             Más likes
