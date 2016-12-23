@@ -1,3 +1,12 @@
+<?php
+    $data["page_title"]=$data['dg-nombre'];
+    if(!empty($data["description"])){
+        $descripcion=$data["description"];
+    }else{
+        $descripcion="Entra para ver la tienda de ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus handmades y artículos de segunda mano.";
+    }
+?>
+<title><?=$data['dg-nombre']?> | <?=PAGE_NAME?></title>
 <meta name="description" content="<?=$data["dg-descripcion"]?>">
 
 <!--OpenGraph/facebook-->
@@ -42,18 +51,32 @@
     "name" : "<?=$data["dg-nombre"]?>",
     "image": "<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg",
     "description": "<?=$data["dg-descripcion"]?>",
+    "brand": "<?=PAGE_NAME?>",
     "productID": "<?=$data["dg-token"]?>",
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "<?=$data["contador_likes"]?>",
-        "reviewCount": "<?=$data["contador_comments"]?>"
-    },
     "offers": {
         "@type": "Offer",
         "priceCurrency": "EUR",
         "price": "<?=$data["precio_float"]?>",
+<?php
+    if($data["condition"]=="new"){
+?>
+        "itemCondition": "http://schema.org/NewCondition",
+<?php
+    }else{
+?>
         "itemCondition": "http://schema.org/UsedCondition",
+<?php
+    }
+    if($data["stock"]>0){
+?>
         "availability": "http://schema.org/InStock"
+<?php
+    }else{
+ ?>
+        "availability": "http://schema.org/SoldOut"
+ <?php
+    }
+?>
     }
 }
 </script>

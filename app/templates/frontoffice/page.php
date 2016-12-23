@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="canonical" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>" />
         <link rel="alternate" hreflang="es" href="<?=PAGE_DOMAIN.$_SERVER["REQUEST_URI"]?>">
-		<title><?=PAGE_NAME?> | <?=$data['page_title']?></title>
         <?=$data["meta_tags"]?>
 
         <link rel="apple-touch-icon" sizes="180x180" href="/app/templates/frontoffice/img/icons/apple-touch-icon.png">

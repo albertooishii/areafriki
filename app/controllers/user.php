@@ -600,13 +600,14 @@
                         $creador->user=$creador->URL2user($_GET["user"]);//nombre del creador
                         if($infocreador=$creador->getUser()){
                             $data["userid"]=$p->creador=$creador->id=$infocreador["id"];
-                            $data["creador_user"]=$data["username"]=$data['page_title']=$creador->user=$infocreador["user"];
+                            $data["creador_user"]=$data["username"]=$creador->user=$infocreador["user"];
                             $data["edit_button"]="";
                             $data['description']=$infocreador["description"];
                             $data['id']=$infocreador["id"];
                             $data['ocupacion']=$infocreador["ocupacion"];
                             $data['intereses']=$infocreador["intereses"];
                             $data['avatar']=$creador->getAvatar(300);
+                            $data['meta-avatar']=$creador->getAvatar(500);
                             $data["creador_avatar"]=$creador->getAvatar(64);
                             $data['banner']=$creador->getBanner();
                             if(isset($_SESSION["login"])){
@@ -704,6 +705,7 @@
                             }
 
                             $data["custom_js"]=$this->minifyJs("user/js", "user");
+                            $data["meta_tags"]=$this->loadView("meta","meta-usuario",$data);
                             $this->render('user', 'user', $data);
                         }else{
                             $this->render('error','404',$data);

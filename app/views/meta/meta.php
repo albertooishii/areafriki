@@ -1,3 +1,4 @@
+<title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
 <meta name="description" content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki.">
 <meta property="og:title" content="<?=PAGE_NAME?> | <?=$data["page_title"]?>" />
 <meta property="og:description" content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki." />

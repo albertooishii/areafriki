@@ -417,7 +417,7 @@
                                             $data["creador_avatar"]=$creador->getAvatar(64);
                                             $data['banner']=$creador->getBanner();
                                             $data["dg-token"]=$_GET["token"];
-                                            $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
+                                            $data["dg-nombre"]=$producto["nombre"];
                                             $data["dg-descripcion"]=$producto["descripcion"];
                                             $lista_tags=$p->getTags();
                                             $data["tags"]="";
@@ -537,6 +537,12 @@
                                                         $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 }
                                                 $data["stock"]=10000;
+
+                                                if(strpos(strtolower($data["dg-nombre"]), strtolower(substr($data["nombre_categoria"], 0, -1)))!==0){
+                                                    $data["dg-nombre"]=ucwords(substr($data["nombre_categoria"], 0, -1)." ".$data["dg-nombre"]);
+                                                }else{
+                                                    $data["dg-nombre"]=$data["dg-nombre"];
+                                                }
 
                                                 $data["custom_js"].=$this->minifyJs("product", "product_file");
                                                 $data["custom_js"].=$this->minifyJs("product", "comment_card");

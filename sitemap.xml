@@ -51,31 +51,7 @@
   <changefreq>daily</changefreq>
 </url>
 <url>
-  <loc>https://areafriki.com/carrito</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/login</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/register</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
   <loc>https://areafriki.com/upload</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/info/proteccion-datos</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/info/tos</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>https://areafriki.com/contacto</loc>
   <changefreq>daily</changefreq>
 </url>
 </urlset>

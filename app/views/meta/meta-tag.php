@@ -1,3 +1,4 @@
+<title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
 <meta name="description" content="Resultados de búsqueda de <?=$data["subhead"]?>">
 
 <!--OpenGraph/facebook-->
