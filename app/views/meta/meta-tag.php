@@ -6,7 +6,7 @@
 <meta property="og:description" content="Resultados de búsqueda de <?=$data["subhead"]?>" />
 <meta property="fb:app_id" content="1215279765157571"/>
 <meta property="og:url" content="<?=$data["sourcepage"]?>"/>
-<meta property="og:site_name" content="<?=$data["dg-nombre"]?> | <?=PAGE_NAME?>" />
+<meta property="og:site_name" content="<?=PAGE_NAME?>" />
 
 <!--twitter-->
 <meta name="twitter:card" content="summary_large_image" />

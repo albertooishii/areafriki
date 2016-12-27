@@ -14,7 +14,7 @@
         // Leer categorias
         function getCategorias()
         {
-            $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, parent, orden FROM categorias ORDER BY orden ASC";
+            $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, parent, orden FROM categorias WHERE visible=1 ORDER BY orden ASC";
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_categorias[]=$fila;

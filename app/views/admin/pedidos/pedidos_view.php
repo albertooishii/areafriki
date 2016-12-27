@@ -16,7 +16,7 @@
                 <?php
                     if($data["id_vendedor"]!=0){
                 ?>
-                <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["vendedor"])?>" target="_blank"><?=$data["nvendedor"]?></a>
+                <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["vendedor"])?>" target="_blank"><?=$data["vendedor"]?></a>
                 <?php
                     }else{
                 ?>

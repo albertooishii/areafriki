@@ -95,6 +95,12 @@
                 $e->index_error();
             break;
 
+            case 'sitemap':
+                include_once 'app/controllers/sitemap.php';
+                $sm = new Sitemapgen();
+                $sm->index_sitemapgen();
+            break;
+
             default:
                 $controller = new Controller();
                 $controller->render('error','404');

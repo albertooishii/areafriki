@@ -12,7 +12,6 @@
     .navbar-brand{
         margin-left: 20px;
     }
-
 </style>
 <div class="page-header header-filter" data-parallax="active" style="background-image: url(<?=PAGE_DOMAIN?>/app/views/info/registro_designer_bg.jpg); transform: translate3d(0px, 0px, 0px);">
     <div class="container wrapper">

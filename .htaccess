@@ -116,6 +116,9 @@ RewriteRule ^myuploads/$ index.php?section=producto&action=myuploads [QSA,L]
 RewriteRule ^settings$ index.php?section=user&action=settings [QSA,L]
 RewriteRule ^settings/$ index.php?section=user&action=settings [QSA,L]
 
+RewriteRule ^sitemap$ index.php?section=sitemap [L]
+RewriteRule ^sitemap/$ index.php?section=sitemap [L]
+
 RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
 
@@ -124,9 +127,6 @@ RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1&page=1 [QSA,
 
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
-
-RewriteRule ^pago$ index.php?section=pago [QSA,L]
-RewriteRule ^pago/$ index.php?section=pago [QSA,L]
 
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=$1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=$1 [QSA,L]

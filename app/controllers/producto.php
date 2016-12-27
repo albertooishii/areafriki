@@ -534,7 +534,7 @@
                                                     break;
 
                                                     default:
-                                                        $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$data["username"]."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
+                                                        $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 }
                                                 $data["stock"]=10000;
 

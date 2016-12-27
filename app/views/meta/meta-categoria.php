@@ -9,7 +9,7 @@
 <meta property="og:image" content="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/<?=$data["nombre"]?>.jpg" />
 <meta property="og:image:width" content="512" />
 <meta property="og:image:height" content="512" />
-<meta property="og:site_name" content="<?=$data["dg-nombre"]?> | <?=PAGE_NAME?>" />
+<meta property="og:site_name" content="<?=PAGE_NAME?>" />
 
 <!--twitter-->
 <meta name="twitter:card" content="summary_large_image" />

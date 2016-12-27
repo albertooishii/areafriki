@@ -55,7 +55,7 @@
                 case 'login':
                     $data['page_title']="Bienvenido a ".PAGE_NAME;
                     if(!empty($_POST["username"])){
-                        if(preg_match('#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
+                        if(preg_match('#^[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
                             $this->u->email=$_POST["username"];
                         }else{
                             $this->u->user=$_POST["username"];
@@ -166,7 +166,7 @@
                 case 'recoverpass':
                     $data['page_title']="He olvidado mi contraseña";
                     if(isset($_POST["username"])){
-                        if(preg_match('#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
+                        if(preg_match('#^[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
                             $this->u->email=$_POST["username"];
                         }else{
                             $this->u->user=$_POST["username"];
@@ -537,7 +537,7 @@
                     if(isset($_SESSION["login"])){
                         $data["mensaje"]="";
                         if(!empty($_POST)){
-                            print_r($_POST);
+                            //print_r($_POST);
                             $this->u->email=trim($_POST["email"]);
                             $this->u->address=trim($_POST["address"]);
                             $this->u->cp=trim($_POST["cp"]);
@@ -551,7 +551,7 @@
                                 if($this->u->updateUserInformation()){
                                     $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
                                 }else{
-                                    $data["mensaje"]=$this->loadView('error','form_error','Error al guardar los datos');
+                                    $data["mensaje"]=$this->loadView('error','form_error','Error al guardar los datos. Ya hay un usuario registrado con los mismos datos (Número de teléfono o DNI/NIE/CIF)');
                                 }
                             }else{
                                 $data["mensaje"]=$this->loadView('error','form_error','Faltan datos por rellenar');

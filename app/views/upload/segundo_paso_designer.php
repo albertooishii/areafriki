@@ -1,3 +1,8 @@
+<style>
+    #primerlogin{
+        margin-bottom: 0 !important;
+    }
+</style>
 <div class="features-5" id="designs-step2" style="background-image: url('<?=PAGE_DOMAIN?>/app/views/upload/step2-bg.jpg')">
     <div class="col-md-8 col-md-offset-2 text-center">
         <h2 class="title">Sube tus diseños o ilustraciones</h2>

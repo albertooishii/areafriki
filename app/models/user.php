@@ -10,11 +10,27 @@
         }
 
         // Read functions-----------------------------------------------------//
+        //Lista completa de usuarios
+        function getUsers()
+        {
+            $query="SELECT * FROM users WHERE active=1";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_usuarios[]=$fila;
+                }
+                if(!empty($lista_usuarios)){
+                    return $lista_usuarios;
+                }else{
+                    return false;
+                }
+            }
+        }
+
 
         // Leer info usuario desde nombre usuario
         function getUser()
         {
-            $query = "SELECT * FROM users WHERE user LIKE '%$this->user%'";
+            $query = "SELECT * FROM users WHERE user LIKE '$this->user'";
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL)
             return $answer;
@@ -84,11 +100,9 @@
         {
             if($this->pais==28){//Si es español
                 $query="UPDATE users SET email='$this->email', pais='$this->pais', birthday='$this->birthday', idnum='$this->idnum', address='$this->address', cp='$this->cp', localidad='$this->localidad', provincia='$this->provincia', phone='$this->phone' WHERE id='$this->id'";
-                echo $query;
             }else{//Si no es español
                 $query="UPDATE users SET email='$this->email', pais='$this->pais', birthday='$this->birthday', idnum=NULL, address=NULL, cp=NULL, localidad=NULL, provincia=NULL, phone='$this->phone' WHERE id='$this->id'";
             }
-
             if ( $this->_db->query($query))
             return true;
             return false;
@@ -272,7 +286,7 @@
                 $answer = $this->_db->query($query)->fetch_assoc(); //password and user
                 $this->user=$answer["user"];
             }
-
+echo $query;
             if ($answer!=NULL){
                 //borramos sesion por si hay otra iniciada de otro usuario
                 unset($_SESSION["login"]);

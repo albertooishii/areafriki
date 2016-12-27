@@ -3,7 +3,7 @@
     <a href="#">
         <figure>
         <div class="card-image">
-            <img src="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg" alt="<?=$data["dg-token"]?>">
+            <img src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["cat_nombre"]?>/thumb-<?=$data["dg-token"]?>.jpg" alt="<?=$data["dg-token"]?>">
         </div>
         </figure>
         <div class="heart_animate"><i class="icon material-icons">favorite_border</i></div>
