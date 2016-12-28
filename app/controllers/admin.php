@@ -17,6 +17,8 @@
                     $creador = New Users_Model;
                     $this->loadModel('pedido');
                     $ped=New Pedido_Model();
+                    $this->loadModel("notification");
+                    $notify = New Notification_Model();
 
                     @$node=$_GET["node"];
                     switch($node){
@@ -40,6 +42,16 @@
                                     $mail->to = $designer["email"];
                                     $mail->subject = "Producto aprobado - ".PAGE_NAME;
                                     $mail->getEmail('producto_aprobado', $data);
+
+                                    $notify->to=$creador->id;
+                                    $notify->from=0;
+                                    $notify->producto=$p->id;
+                                    $notify->titulo="Producto aprobado";
+                                    $notify->texto="Toca aquí para compartirlo en tus redes sociales y que se enteren tus amigos.";
+                                    $notify->url=$data["categoria"]."/".$data["token"];
+                                    $notify->tipo="aprobado";
+                                    $notify->class="share-button";
+                                    $notify->set();
 
                                     if ($mail->sendEmail()){
                                         echo true;

@@ -35,6 +35,7 @@
                             foreach($lista_notificaciones as $notificacion){
                                 $data["notification_url"]=PAGE_DOMAIN."/".$notificacion["url"];
                                 $data["notification_type"]=$notificacion["tipo"];
+                                $data["notification_class"]=$notificacion["class"];
                                 switch($notificacion["tipo"]){
                                     //comentario, compra, follow, like, publicacion, noticia
                                     case 'comentario': case 'follow': case 'like': case 'publicacion';
@@ -42,11 +43,11 @@
                                         $from_user->user=$from_user->getUserFromID()["user"];
                                         $data["notification_icon"]=PAGE_DOMAIN."/".$from_user->getAvatar();
                                     break;
-                                    case 'compra':
-                                        $p->id=$notificacion["producto"];
+                                    case 'compra': case 'aprobado':
+                                        $data["id"]=$p->id=$notificacion["producto"];
                                         $producto=$p->get();
-                                        $dg->token=$producto["design"];
-                                        $cat->id=$producto["categoria"];
+                                        $data["token"]=$dg->token=$producto["design"];
+                                        $data["categoria"]=$cat->id=$producto["categoria"];
                                         $data["notification_icon"]=PAGE_DOMAIN."/designs/".$this->u->user2URL($this->u->user)."/".$dg->token."/".$cat->get()["nombre"]."/thumb-".$dg->token.".jpg";
                                     break;
                                 }
@@ -76,6 +77,7 @@
                                     $data[$key]["title"]=$notificacion["title"];
                                     $data[$key]["text"]=$notificacion["text"];
                                     $data[$key]["url"]=PAGE_DOMAIN."/".$notificacion["url"];
+                                    $data[$key]["class"]=PAGE_DOMAIN."/".$notificacion["class"];
                                     $data[$key]["tipo"]=$notificacion["tipo"];
                                     switch($notificacion["tipo"]){
                                         //comentario, compra, follow, like, publicacion, noticia
@@ -84,12 +86,12 @@
                                             $from_user->user=$from_user->getUserFromID()["user"];
                                             $data[$key]["icon"]=PAGE_DOMAIN."/".$from_user->getAvatar();
                                         break;
-                                        case 'compra':
+                                        case 'compra': case 'aprobado':
                                             $p->id=$notificacion["producto"];
                                             $producto=$p->get();
                                             $dg->token=$producto["design"];
                                             $cat->id=$producto["categoria"];
-                                            $data[$key]["icon"]=PAGE_DOMAIN."/designs/".$this->u->user."/".$dg->token."/".$cat->get()["nombre"]."/thumb-".$dg->token.".jpg";
+                                            $data[$key]["icon"]=PAGE_DOMAIN."/designs/".$this->u->user2URL($this->u->user)."/".$dg->token."/".$cat->get()["nombre"]."/thumb-".$dg->token.".jpg";
                                         break;
 
                                         default:

@@ -38,7 +38,7 @@ $(document).ready(function() {
                     console.log(event.data);
                     notifications_list=JSON.parse(event.data);
                     $.each(notifications_list, function(index, notification){
-                        notify(notification.title, notification.text, notification.url, notification.tipo, notification.from_user, notification.icon);
+                        notify(notification.title, notification.text, notification.url, notification.tipo, notification.from_user, notification.icon, notification.class);
                     });
                 }
             });

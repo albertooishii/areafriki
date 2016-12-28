@@ -3,7 +3,7 @@
 
     class Notification_Model extends Database{
 
-        var $fecha, $to, $from, $producto, $titulo, $texto, $url, $tipo, $visto, $leido;
+        var $fecha, $to, $from, $producto, $titulo, $texto, $url, $tipo, $class, $visto, $leido;
 
         function __construct(){
            parent::__construct();
@@ -12,7 +12,7 @@
         //Funciones de lectura
         function get()
         {
-            $query="SELECT * FROM notificaciones WHERE to_user='$this->to' AND leido=0";
+            $query="SELECT * FROM notificaciones WHERE to_user='$this->to' AND leido=0 ORDER BY fecha DESC";
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $this->fecha=$fila["fecha"];
@@ -58,7 +58,11 @@
         {
             if($this->to!=$this->from){
                 $this->fecha=date ("Y-m-d H:i:s");
-                $query="INSERT INTO notificaciones (fecha, to_user, from_user, producto, title, text, url, tipo) VALUES ('$this->fecha', '$this->to', '$this->from', '$this->producto', '$this->titulo', '$this->texto', '$this->url', '$this->tipo')";
+                if(!empty($this->class)){
+                    $query="INSERT INTO notificaciones (fecha, to_user, from_user, producto, title, text, url, class, tipo) VALUES ('$this->fecha', '$this->to', '$this->from', '$this->producto', '$this->titulo', '$this->texto', '$this->url', '$this->class', '$this->tipo')";
+                }else{
+                    $query="INSERT INTO notificaciones (fecha, to_user, from_user, producto, title, text, url, tipo) VALUES ('$this->fecha', '$this->to', '$this->from', '$this->producto', '$this->titulo', '$this->texto', '$this->url', '$this->tipo')";
+                }
                 if ( $this->_db->query($query) )
                 return true;
                 return false;

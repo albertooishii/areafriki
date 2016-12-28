@@ -233,8 +233,8 @@ $(document).ready(function() {
         $("*").removeClass("share-button-selected");
         $(this).parent(".share-button").addClass("share-button-selected");
         var selected=$(this);
-        var categoria= $(this).closest(".product").data("categoria");
-        var token= $(this).closest(".product").data("token");
+        var categoria= $(this).closest(".product, .notification").data("categoria");
+        var token= $(this).closest(".product, .notification").data("token");
         $(".modal-dialog").removeClass("modal-lg").addClass("modal-sm");
         $(".modal-title").html("Compartir");
         $(".modal-body").html("<p>Comparte este producto en las redes sociales</p>");

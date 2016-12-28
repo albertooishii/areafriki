@@ -1,5 +1,5 @@
 <li class="notification-container">
-    <div class="notification notification_header <?=$data["notification_type"]?>" data-fecha="<?=$data["unformat_date"]?>">
+    <div class="notification notification_header <?=$data["notification_type"]?> <?=$data["notification_class"]?>" data-fecha='<?=$data["unformat_date"]?>' data-id='<?=$data["id"]?>' data-token='<?=$data["token"]?>' data-categoria='<?=$data["categoria"]?>'>
         <a href="<?=$data["notification_url"]?>">
             <div class="row">
                 <div class='col-md-3 col-sm-3 col-xs-3'>
