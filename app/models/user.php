@@ -11,9 +11,16 @@
 
         // Read functions-----------------------------------------------------//
         //Lista completa de usuarios
-        function getUsers()
+        function getUsers($filter=false)
         {
-            $query="SELECT * FROM users WHERE active=1";
+            switch($filter){
+                case 'active':
+                    $query="SELECT * FROM users WHERE active=1";
+                break;
+
+                default:
+                    $query="SELECT * FROM users";
+            }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_usuarios[]=$fila;
@@ -25,7 +32,6 @@
                 }
             }
         }
-
 
         // Leer info usuario desde nombre usuario
         function getUser()
@@ -286,7 +292,7 @@
                 $answer = $this->_db->query($query)->fetch_assoc(); //password and user
                 $this->user=$answer["user"];
             }
-echo $query;
+
             if ($answer!=NULL){
                 //borramos sesion por si hay otra iniciada de otro usuario
                 unset($_SESSION["login"]);

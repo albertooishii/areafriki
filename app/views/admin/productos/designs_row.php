@@ -1,5 +1,5 @@
 <tr class="producto <?=$data["trclass"]?>" data-id="<?=$data["id"]?>">
-    <td data-order="<?=strtotime($data["fecha"])?>"><?=$data["fecha"]?></td>
+    <td data-order="<?=strtotime($data["fecha_sql"])?>"><?=$data["fecha"]?></td>
     <td><a target="_blank" href="<?=PAGE_DOMAIN?>/<?=$data["categoria"]?>/<?=$data["token"]?>"><?=$data["token"]?></a></td>
     <td><?=$data["categoria"]?></td>
     <td><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>" target="_blank"><?=$data["username"]?></a></td>

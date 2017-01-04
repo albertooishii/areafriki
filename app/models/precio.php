@@ -38,17 +38,20 @@
         }
 
         function getGastosEnvio(){
-            if($this->vendedor==0){
+            $sw=0;
+            foreach($this->pedido as $linea){
+                $query = "SELECT gastos_envio FROM productos WHERE id= ".$linea["producto"];
+                $answer = $this->_db->query($query)->fetch_assoc();
+                if(!is_null($answer["gastos_envio"])){
+                    $sw=1;
+                    $this->gastos_envio+=$answer["gastos_envio"];
+                }
+            }
+            if($sw==0){
                 if($this->subtotal<MIN_ENVIO_GRATIS){
                     $this->gastos_envio=GASTOS_ENVIO;
                 }else{
                     $this->gastos_envio=0;
-                }
-            }else{
-                foreach($this->pedido as $linea){
-                    $query = "SELECT gastos_envio FROM productos WHERE id= ".$linea["producto"];
-                    $answer = $this->_db->query($query)->fetch_assoc();
-                    $this->gastos_envio+=$answer["gastos_envio"];
                 }
             }
         }

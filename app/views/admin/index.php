@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="<?=PAGE_DOMAIN?>/simbiosis/usuarios">
                 <div class="panel-footer">
                     <span class="pull-left">Total: <?=$data["count_users"]?></span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

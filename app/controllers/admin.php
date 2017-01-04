@@ -102,6 +102,7 @@
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$pre->producto=$producto["id"];
+                                    $data["fecha_sql"]=$producto["fecha_publicacion"];
                                     $data["fecha"]=$this->format_date($producto["fecha_publicacion"]);
                                     $data["token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
@@ -148,6 +149,7 @@
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$producto["id"];
+                                    $data["fecha_sql"]=$producto["fecha_publicacion"];
                                     $data["fecha"]=$this->format_date($producto["fecha_publicacion"]);
                                     $data["token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
@@ -181,6 +183,7 @@
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$producto["id"];
+                                    $data["fecha_sql"]=$producto["fecha_publicacion"];
                                     $data["fecha"]=$this->format_date($producto["fecha_publicacion"]);
                                     $data["token"]=$dg->token=$producto["design"];
                                     $design=$dg->get();
@@ -590,6 +593,31 @@
                                     $this->render('admin','pedidos/pedidos',$data);
                                 }
                             }
+                        break;
+
+                        case 'usuarios':
+                            $data["tbody"]="";
+                            $data["txtexport"]="Email,User\r\n";
+                            $lista_usuarios=$this->u->getUsers();
+                            foreach($lista_usuarios as $usuario){
+                                $data["id"]=$usuario["id"];
+                                $data["user"]=$usuario["user"];
+                                $data["email"]=$usuario["email"];
+                                $data["nombre"]=$usuario["name"];
+                                $data["telefono"]=$usuario["phone"];
+                                $data["idnum"]=$usuario["idnum"];
+                                $data["banco"]=$usuario["banco"]. " ".$usuario["iban"];
+                                $data["paypal"]=$usuario["paypal"];
+                                $data["credito"]=number_format($usuario["credit"],2,',','');
+                                $data["referral"]=$usuario["referral"];
+
+                                $data["tbody"].=$this->loadView("admin", "usuarios/usuarios_row", $data);
+                                $data["txtexport"].=$usuario["email"].",".$usuario["user"]."\r\n";
+                            }
+                            $data["txtexport"]=trim($data["txtexport"],',');
+                            //Exportar echo "\"".$usuario["user"]."\" <".$usuario["email"].">, ";
+
+                            $this->render('admin','usuarios/usuarios',$data);
                         break;
 
                         case 'tags':

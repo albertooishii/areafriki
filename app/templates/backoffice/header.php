@@ -64,6 +64,9 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
+                    <a href="/simbiosis/usuarios"><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
+                </li>
+                <li>
                     <a href="/simbiosis/categorias"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Categorias</a>
                 </li>
             </ul>
