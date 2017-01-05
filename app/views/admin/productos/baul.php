@@ -14,7 +14,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="dataTable_wrapper  table-responsive">
-                    <table class="table table-striped table-bordered table-hover data-table uploads" id="crafts">
+                    <table class="table table-striped table-bordered table-hover data-table" id="crafts">
                         <thead>
                             <tr>
                                 <th>Fecha</th>

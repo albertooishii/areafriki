@@ -22,7 +22,7 @@
                             <h3 class="card-title">Taza Rosquilla Gatuna</h3>
                             <p class="card-description">Las rosquillas más kawaii han llegado y están para comérselas. <small>(Solo incluye la taza)</small></p>
                             <!--<h3 class="card-price"><strike>11,90€</strike> - 9,90€</h3>-->
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -42,7 +42,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza I Love Lollipop</h3>
                             <p class="card-description">¿A quién no le gustan las piruletas? <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -69,7 +69,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Onigiri oishii</h3>
                             <p class="card-description">A este gatito le encantan las bolitas de arroz, ¡pero no le gusta compartir! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -96,7 +96,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Muffin Kawaii</h3>
                             <p class="card-description">Solo puedo pensar en una cosa cuando veo esta taza, ¡En comer! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -125,7 +125,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Gatitos Ñampazampa</h3>
                             <p class="card-description">¡Tres gatitos saltando de alegría con su comida preferida! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -152,7 +152,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Conejito Feliz</h3>
                             <p class="card-description">¡Las zanahorias y los conejitos kawaii  hacen muy buena pareja! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -172,7 +172,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Love Ice Creams</h3>
                             <p class="card-description">Por que hay personas a las que nos gustan los helados todo el año <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -199,7 +199,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Perritos Glotones</h3>
                             <p class="card-description">Estos perritos se parecen mucho a nosotros, ¡nada más pensamos en comida! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -226,7 +226,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Kawaii desu ne!</h3>
                             <p class="card-description">¿Cuál es la taza más kawaii de todas? ¡Pues la que pone Kawaii en japonés!</p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -253,7 +253,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza I Love Cats</h3>
                             <p class="card-description">¡La taza perfecta para los amantes de los gatos! <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">
@@ -273,7 +273,7 @@
                         <div class="content">
                             <h3 class="card-title">Taza Liebre Campera</h3>
                             <p class="card-description">Ideal para los amantes de las liebres y los conejos <small>(Solo incluye la taza)</small></p>
-                            <h3 class="card-price">11,00€ (Envío 24h)</h3>
+                            <h3 class="card-price">11,00€ (Envío GRATIS)</h3>
                             <form action="#" method="post">
                                 <div class="form-group label-floating diagonal-input">
                                     <input id="cantidad" type="number" min="1" name="cantidad" class="form-control" value="1" placeholder="Indica la cantidad">

@@ -10,12 +10,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Listado de usuarios
-                <a href='data:,<?=$data["txtexport"]?>' download="listausuarios.csv">Exportar</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="dataTable_wrapper table-responsive">
-                    <table class="table table-striped table-bordered table-hover data-table uploads" id="designs">
+                    <table class="table table-striped table-bordered table-hover data-table" id="usuarios">
                         <thead>
                             <tr>
                                 <th>ID</th>

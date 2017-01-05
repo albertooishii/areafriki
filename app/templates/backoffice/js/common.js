@@ -59,12 +59,17 @@ $(document).ready(function() {
 
     $("form").formValidation();
 
-    $('.uploads').DataTable({
+    $('.data-table').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Spanish.json"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         "responsive": true,
         "order": [[ 0, "desc" ]]
     });
-
-    $('.data-table').DataTable();
 
 });
 

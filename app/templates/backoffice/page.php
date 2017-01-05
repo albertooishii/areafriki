@@ -21,7 +21,8 @@
         <!-- Timeline CSS -->
         <link href="/app/templates/backoffice/dist/css/timeline.css" rel="stylesheet">
         <!-- DataTables CSS -->
-        <link href="/app/templates/backoffice/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+        <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.bootstrap.min.css">
 
         <!-- Custom CSS -->
         <link href="/app/templates/backoffice/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -93,8 +94,13 @@
     <script src="/app/templates/backoffice/bower_components/raphael/raphael-min.js"></script>
     <script src="/app/templates/backoffice/bower_components/morrisjs/morris.min.js"></script>
     <!-- DataTables JavaScript -->
-    <script src="/app/templates/backoffice/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="/app/templates/backoffice/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
 
     <!--Colorpicker JavaScript-->
     <script src="/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>

@@ -30,3 +30,7 @@
 footer{
     padding: 20px;
 }
+
+.dataTables_filter{
+    float: right;
+}
