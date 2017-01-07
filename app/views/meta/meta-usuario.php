@@ -3,7 +3,7 @@
     if(!empty($data["description"])){
         $data["descripcion"]=$data["description"];
     }else{
-        $data["descripcion"]="Entra para ver la tienda de ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus handmades y artículos de segunda mano.";
+        $data["descripcion"]="Entra para ver la tienda de ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus manualidades y artículos de segunda mano.";
     }
 ?>
 <title><?=$data['page_title']?> | <?=PAGE_NAME?></title>

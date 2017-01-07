@@ -1,7 +1,7 @@
-<title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
-<meta name="description" content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki.">
+<title><?=PAGE_NAME?>: <?=$data['page_title']?></title>
+<meta name="description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis.">
 <meta property="og:title" content="<?=PAGE_NAME?> | <?=$data["page_title"]?>" />
-<meta property="og:description" content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki." />
+<meta property="og:description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." />
 
 <!--facebook-->
 <meta property="og:url" content="<?=PAGE_DOMAIN?>" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@frikiarea" />
 <meta name="twitter:title" content="<?=PAGE_NAME?> | <?=$data["page_title"]?>" />
-<meta name="twitter:description" content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki." />
+<meta name="twitter:description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." />
 <meta name="twitter:creator" content="@frikiarea" />
 <meta name="twitter:image" content="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" />
 
@@ -24,7 +24,7 @@
 
 <!--<meta itemtype="http://schema.org/Product" itemscope="itemscope" />-->
 <meta content="Camisetas, sudaderas, tazas, pósters, vinilos de decoración, cuadros de lienzo, chapas, skins para consolas, handmades, etc..." itemprop="headline" />
-<meta content="Compra y vende camisetas, sudaderas, decoración, handmades, productos nuevos y de segunda mano. Crea tu propia tienda friki." itemprop="description" />
+<meta content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." itemprop="description" />
 <meta content="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" itemprop="image" />
 
 <script type="application/ld+json">
@@ -35,7 +35,7 @@
   "url" : "https://areafriki.com",
   "sameAs" : [
     "https://twitter.com/frikiarea",
-    "https://plus.google.com/110162063324615408307/",
+    "https://plus.google.com/+areafrikies",
     "https://www.facebook.com/areafriki/",
     "https://www.instagram.com/areafriki/"
  ]

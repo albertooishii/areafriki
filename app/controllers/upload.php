@@ -303,7 +303,7 @@
 
                 default:
                     if($this->getCountry()=="ES"){
-                        $data['page_title'] = "Vende ropa y decoración con tus diseños, handmades y segunda mano.";
+                        $data['page_title'] = "Vende camisetas personalizadas con tus diseños, manualidades y segunda mano.";
                         $this->render('upload', 'primer_paso',$data);
                     }else{
                         Header("Location: ".PAGE_DOMAIN."/upload/designs");

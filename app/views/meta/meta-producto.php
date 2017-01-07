@@ -3,15 +3,15 @@
     if(!empty($data["description"])){
         $descripcion=$data["description"];
     }else{
-        $descripcion="Entra para ver la tienda de ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus handmades y artículos de segunda mano.";
+        $descripcion=$data['dg-nombre']." por ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus manualidades y artículos de segunda mano.";
     }
 ?>
-<title><?=$data['dg-nombre']?> | <?=PAGE_NAME?></title>
-<meta name="description" content="<?=$data["dg-descripcion"]?>">
+<title><?=PAGE_NAME?>: <?=$data["page_title"]?></title>
+<meta name="description" content="<?=$descripcion?>">
 
 <!--OpenGraph/facebook-->
-<meta property="og:title" content="<?=$data["dg-nombre"]?> | <?=PAGE_NAME?>" />
-<meta property="og:description" content="<?=$data["dg-descripcion"]?>" />
+<meta property="og:title" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta property="og:description" content="<?=$descripcion?>" />
 <meta property="fb:app_id" content="1215279765157571"/>
 <meta property="og:url" content="<?=PAGE_DOMAIN?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>"/>
 <meta property="og:image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg" />
@@ -23,13 +23,13 @@
 <meta property="product:price:currency" content="EUR" />
 <meta property="product:availability" content="in stock" />
 <meta property="product:condition" content="<?=$data["condition"]?>" />
-<meta property="og:site_name" content="<?=$data["dg-nombre"]?> | <?=PAGE_NAME?>" />
+<meta property="og:site_name" content="<?=PAGE_NAME?>" />
 
 <!--twitter-->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@frikiarea" />
-<meta name="twitter:title" content="<?=$data["page_title"]?> | <?=PAGE_NAME?>" />
-<meta name="twitter:description" content="<?=$data["dg-descripcion"]?>" />
+<meta name="twitter:title" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta name="twitter:description" content="<?=$descripcion?>" />
 <meta name="twitter:creator" content="@frikiarea" />
 <meta name="twitter:image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg" />
 <meta name="twitter:data1" content="<?=$data["dg-token"]?>" />
@@ -39,8 +39,8 @@
 
 <!--Google plus-->
 <link rel="publisher" href="https://plus.google.com/113929769526461516040">
-<meta itemprop="name" content="<?=$data["page_title"]?> | <?=PAGE_NAME?>" />
-<meta itemprop="description" content="<?=$data["dg-descripcion"]?>"/>
+<meta itemprop="name" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta itemprop="description" content="<?=$descripcion?>"/>
 <meta itemprop="image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg"/>
 
 <script type="application/ld+json">
@@ -50,7 +50,7 @@
     "url" : "<?=PAGE_DOMAIN?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>",
     "name" : "<?=$data["dg-nombre"]?>",
     "image": "<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg",
-    "description": "<?=$data["dg-descripcion"]?>",
+    "description": "<?=$descripcion?>",
     "brand": "<?=PAGE_NAME?>",
     "productID": "<?=$data["dg-token"]?>",
     "offers": {

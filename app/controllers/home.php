@@ -2,7 +2,6 @@
     class Home extends Controller{
 
         function index_home(){
-            $data['page_title'] = "Tienda friki de camisetas, sudaderas y decoración.";
             $this->loadModel("producto");
             $pr = New Producto_Model();
             $this->loadModel("design");
@@ -28,7 +27,7 @@
                 if(isset($_GET["categoria"])){
                     $cat->nombre=$_GET["categoria"];
                     if($info_categoria=$cat->getWhereNombre()){
-                        $pr->categoria=$info_categoria["id"];
+                        $t->categoria=$pr->categoria=$info_categoria["id"];
                         $data["nombre"]=$info_categoria["nombre"];
                         $data["descripcion_corta"]=$nombre_categoria=$info_categoria["descripcion_corta"];
                         $data["descripcion"]=$info_categoria["descripcion"];
@@ -38,6 +37,13 @@
                         $data["totalpages"]=$totalpages=ceil($totalitems/$items);
                         $lista_productos=$pr->getProductosCategoria($limit1.", ".$items, $data["order"]);
                         $data["subhead"]=$nombre_categoria;
+                        $popular_tags=$t->getPopularTagsFromCategoria(6);
+                        $data["lista_tags_populares"]='';
+                        foreach($popular_tags as $tag_popular){
+                            $data["lista_tags_populares"].=" ".str_replace("-"," ",$tag_popular["tag"]). ",";
+                        }
+                        $data["lista_tags_populares"]=trim($data["lista_tags_populares"],',')."...";
+                        $data['page_title'] = "Tienda friki de ".$nombre_categoria;
                         $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
                     }
                 }elseif(isset($_GET["tag"])){
@@ -49,6 +55,7 @@
                     $lista_productos=$pr->getProductosTag($limit1.", ".$items, $data["order"]);
                     $data["nombre-tag"]=str_replace("-"," ",$pr->tag);
                     $data["subhead"]="#".str_replace("-"," ",$pr->tag);
+                    $data['page_title'] = "Tienda friki con productos de ".$data["nombre-tag"];
                     $data["meta_tags"]=$this->loadView("meta","meta-tag",$data);
                 }
                 if(!empty($lista_productos)){
@@ -206,7 +213,7 @@
                 /*HOME CATEGORIAS*/
                 $data["home_categorias"]=$this->loadView("home","home_categorias", $data);
 
-
+                $data['page_title'] = "Tienda friki de camisetas, manualidades y segunda mano.";
                 $data["custom_js"]=$this->minifyJs("home", "home");
                 $data["cta-vender"]=$this->loadView("home","cta-vender",$data);
                 $this->render('home', 'home', $data);
