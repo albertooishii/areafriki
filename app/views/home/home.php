@@ -12,9 +12,9 @@
     </div>
     <div id="home_categories">
         <header>
-            <h1 class="title text-center nomobile">Compra y vende cualquier producto friki</h1>
+            <h1 class="title text-center nomobile">La tienda friki donde podrás comprar y vender</h1>
         </header>
-        <h2 class="title text-center nomobile">Camisetas, sudaderas, complementos, decoración para el hogar, handmades, coleccionismo, segunda mano...</h2>
+        <h2 class="title text-center nomobile">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>
         <!--<header>
             <h2 class="title text-center">¡Descubre cientos de productos frikis!</h2>
         </header>-->

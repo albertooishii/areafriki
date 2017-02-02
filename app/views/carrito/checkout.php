@@ -103,6 +103,7 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-round">Completar pago</button>
+                            <p style="font-size:70%; line-height: initial;">Dándole a completar pago entendemos que aceptas los términos y condiciones de Compra y Devolución de <?=PAGE_NAME?>.</p>
                         </div>
                     </div>
                 </div>

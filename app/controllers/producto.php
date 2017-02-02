@@ -398,6 +398,7 @@
                         $data["nombre_categoria"]=$cat->nombre=$categoria=$_GET["categoria"];
                         if($info_cat=$cat->getWhereNombre()){
                             $data["cat_id"]=$pr->categoria=$p->categoria=$cat->id=$info_cat["id"];
+                            $data["cat_short_desc"]=$info_cat["descripcion_corta"];
                             $data["cat_desc"]=$info_cat["descripcion"];
 
                             if($categoria=$cat->get()){
@@ -461,6 +462,8 @@
                                                     $data["comment_text"]=$comentario["comentario"];
                                                     $data["comments_list"].=$this->loadView("product","comment_card", $data);
                                                 }
+                                            }else{
+                                                $data["comments_list"]="<p><small>No hay comentarios</p></small>";
                                             }
 
                                             $data["cat_parent"]=$categoria["parent"];
@@ -495,6 +498,7 @@
 
                                                 switch($data["nombre_categoria"]){
                                                     case 'camisetas':
+                                                        $data["indicaciones_size"]="* Ancho: medidas desde el contorno 1cm por debajo de las mangas.<br>* Alto: medidas desde el punto más alto del hombro hasta el final de la prenda.";
                                                         $data["left"]=$producto["left_pos"];
                                                         $data["top"]=$producto["top_pos"];
                                                         $data["scale"]=$producto["scale"];
@@ -515,6 +519,7 @@
                                                     break;
 
                                                     case 'sudaderas':
+                                                        $data["indicaciones_size"]="* Ancho: medidas desde el contorno 1cm por debajo de las mangas.<br>* Alto: medidas desde el punto más alto del hombro hasta el final de la prenda.";
                                                         $data["left"]=$producto["left_pos"];
                                                         $data["top"]=$producto["top_pos"];
                                                         $data["scale"]=$producto["scale"];
@@ -534,6 +539,7 @@
                                                     break;
 
                                                     default:
+                                                        $data["indicaciones_size"]="";
                                                         $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 }
                                                 $data["stock"]=10000;

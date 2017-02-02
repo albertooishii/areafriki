@@ -9,8 +9,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="<?=PAGE_DOMAIN?>" title="<?=PAGE_NAME?>" class="navbar-brand">
-                    <img class="logo img-responsive nomobile notablet" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header-navidad.png" alt="<?=PAGE_NAME?>">
-                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-mobile-navidad.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nomobile notablet" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/logo-header.png" alt="<?=PAGE_NAME?>">
+                    <img class="logo img-responsive nodesktop" src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" alt="<?=PAGE_NAME?>">
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
@@ -152,10 +152,10 @@
                         <a href="/crafts">HECHO A MANO</a>
                     </li>
                     <li class="dropdown">
-                        <a href="/baul">NUEVO Y USADO</a>
+                        <a href="/baul">SEGUNDA MANO</a>
                     </li>
                     <li class="dropdown">
-                        <a href="/store">AREASTORE</a>
+                        <a href="/store">EDICIÓN LIMITADA</a>
                     </li>
                     <li id="vender" class="nomobile notablet">
                         <a href="/upload" class="text-primary">

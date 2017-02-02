@@ -6,6 +6,8 @@
             $creador = New Users_Model();
             $this->loadModel("producto");
             $p = New Producto_Model();
+            $this->loadModel("precio");
+            $pr = New Precio_Model();
             $this->loadModel("design");
             $dg = New Design_Model();
             $this->loadModel("categoria");
@@ -246,7 +248,7 @@
                         $this->u->user=$_SESSION["login"]["user"];
                         $infouser=$this->u->getUser();
                         $this->u->id=$infouser['id'];
-                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user;
+                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user2URL($this->u->user);
                         if (!file_exists($upload_folder)) {
                             mkdir($upload_folder, 0777, true);
                         }
@@ -274,7 +276,7 @@
 
                 case 'deleteAvatar':
                     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user;
+                        $upload_folder ='app/templates/frontoffice/img/avatar/'.$this->u->user2URL($this->u->user);
                         if($this->u->deleteAvatar()){
                             if(unlink($upload_folder)){
                                 echo true;
@@ -293,7 +295,7 @@
                         $this->u->user=$_SESSION["login"]["user"];
                         $infouser=$this->u->getUser();
                         $this->u->id=$infouser['id'];
-                        $upload_folder ='app/templates/frontoffice/img/banner/'.$this->u->user;
+                        $upload_folder ='app/templates/frontoffice/img/banner/'.$this->u->user2URL($this->u->user);
                         if (!file_exists($upload_folder)) {
                             mkdir($upload_folder, 0777, true);
                         }
@@ -322,13 +324,9 @@
 
                 case 'deleteBanner':
                     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-                        $upload_folder ='app/templates/frontoffice/img/banner';
-                        $this->u->user=$_SESSION["login"]["user"];
-                        $infouser=$this->u->getUser();
-                        $this->u->id=$infouser['id'];
-                        $banner_name = $this->u->id."-".$_SESSION["login"]["user"].'.jpg';
+                        $upload_folder ='app/templates/frontoffice/img/banner/'.$this->u->user2URL($this->u->user);
                         if($this->u->deleteBanner()){
-                            if(unlink($upload_folder."/".$banner_name)){
+                            if(unlink($upload_folder)){
                                 echo true;
                             }else{
                                 echo false;
@@ -340,11 +338,11 @@
                 break;
 
                 case 'showCard':
-                    $data["id_producto"]=$p->id=$_POST["id_producto"];
+                    $data["id_producto"]=$pr->producto=$p->id=$_POST["id_producto"];
                     $p->user=$this->u->id;
                     if($p->like()){
                         $producto=$p->get();
-                        $data["cat_id"]=$cat->id=$producto["categoria"];
+                        $data["cat_id"]=$cat->id=$pr->categoria=$producto["categoria"];
                         $data["cat_nombre"]=$cat->get()["nombre"];
                         $data["dg-token"]=$dg->token=$producto["design"];
                         $design=$dg->get();
@@ -357,7 +355,7 @@
                         $infocreador=$creador->getUserFromID();
                         $data["username"]=$creador->user=$infocreador["user"];
                         $data["creador_avatar"]=$creador->getAvatar(64);
-
+                        $data["precio"]=number_format($pr->get(),2,',','')."€";
                         if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                             $data["like_class"]='like';
                         }else{
@@ -620,18 +618,24 @@
 
                             switch(@$_GET["node"]){
                                 case 'designs':
-                                    $p->category_parent=1;
+                                    $cat->id=$p->category_parent=1;
                                     $lista_productos=$p->getProductosCategoryParentUser();
+                                    $data["descripcion_corta"]=$data["descripcion_corta"]=$cat->get()["descripcion_corta"];
+                                    $data["meta_tags"]=$this->loadView("meta","meta-usuario-categoria",$data);
                                 break;
 
                                 case 'crafts':
-                                    $p->category_parent=2;
+                                    $cat->id=$p->category_parent=2;
                                     $lista_productos=$p->getProductosCategoryUser();
+                                    $data["descripcion_corta"]=$cat->get()["descripcion_corta"];
+                                    $data["meta_tags"]=$this->loadView("meta","meta-usuario-categoria",$data);
                                 break;
 
                                 case 'baul':
-                                    $p->category_parent=30;
+                                    $cat->id=$p->category_parent=30;
                                     $lista_productos=$p->getProductosCategoryUser();
+                                    $data["descripcion_corta"]=$cat->get()["descripcion_corta"];
+                                    $data["meta_tags"]=$this->loadView("meta","meta-usuario-categoria",$data);
                                 break;
 
                                 case 'lists':
@@ -649,7 +653,8 @@
                                             $data["dg-nombre"]=$producto["nombre"];
                                             $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                                             $lists.=$this->loadView('user','list_card',$data);
-                                            $data["nombre_lista"]="LISTAS PERSONALIZADAS";
+                                            $data["nombre_lista"]="Listas personalizadas";
+                                            $data["meta_tags"]=$this->loadView("meta","meta-usuario-lists",$data);
                                         }
                                     }
                                 break;
@@ -660,11 +665,13 @@
                                     $lista=$p->getLista();
                                     $data["nombre_lista"]=$lista["nombre"];
                                     $lista_productos=$p->getProductosLista();
+                                    $data["meta_tags"]=$this->loadView("meta","meta-usuario-viewlist",$data);
                                 break;
 
                                 default:
                                     $lista_productos=$p->getProductosUser();
-                                    $data["nombre_lista"]="ÚLTIMOS PRODUCTOS";
+                                    $data["nombre_lista"]="Últimos productos";
+                                    $data["meta_tags"]=$this->loadView("meta","meta-usuario",$data);
                             }
 
                             if(!empty($lista_productos)){
@@ -673,13 +680,14 @@
                                     $p->id=$producto["id"];
                                     if($p->isActive() && ($creador->user==$this->u->user) || ($p->isRevisado() && $creador->user!=$this->u->user)){
                                         $data["revisado"]=$producto["revisado"];
-                                        $data["id_producto"]=$p->id=$producto["id"];
-                                        $data["cat_id"]=$cat->id=$producto["categoria"];
+                                        $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
+                                        $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
                                         $data["cat_nombre"]=$cat->get()["nombre"];
                                         $data["dg-token"]=$dg->token=$producto["design"];
                                         $design=$dg->get();
                                         $data["dg-nombre"]=$producto["nombre"];
                                         $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
+                                        $data["precio"]=number_format($pr->get(),2,',','')."€";
 
                                         if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                                             $data["like_class"]='like';
@@ -705,7 +713,6 @@
                             }
 
                             $data["custom_js"]=$this->minifyJs("user/js", "user");
-                            $data["meta_tags"]=$this->loadView("meta","meta-usuario",$data);
                             $this->render('user', 'user', $data);
                         }else{
                             $this->render('error','404',$data);

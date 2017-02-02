@@ -15,22 +15,17 @@
                 </a>
             </div>
             <ul class="stats product_buttons">
+                <li class="precio_card">
+                    <?=$data["precio"]?>
+                </li>
                 <li class="<?=$data["like_class"]?>-button">
                     <a href="#">
                         <i class="material-icons">&#xE87D;</i>
-                        <!--<span class="contador"><?=$data["contador_likes"]?></span>-->
                     </a>
                 </li>
                 <li class="share-button">
                     <a href="#">
                         <i class="material-icons">&#xE80D;</i>
-                        <!--<span class="contador"><?=$data["contador_shares"]?></span>-->
-                    </a>
-                </li>
-                <li class="coments-button">
-                    <a href="/<?=$data["cat_nombre"]?>/<?=$data["dg-token"]?>#coments">
-                        <i class="material-icons">&#xE560;</i>
-                        <!--<span class="contador"><?=$data["contador_comments"]?></span>-->
                     </a>
                 </li>
             </ul>

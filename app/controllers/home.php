@@ -3,17 +3,19 @@
 
         function index_home(){
             $this->loadModel("producto");
-            $pr = New Producto_Model();
+            $p = New Producto_Model();
             $this->loadModel("design");
             $dg = New Design_Model();
             $this->loadModel("categoria");
             $cat = New Categoria_Model();
             $this->loadModel("tag");
             $t = New Tag_Model();
+            $this->loadModel("precio");
+            $pr = New Precio_Model();
             if(isset($_SESSION["login"])){
-                $pr->user=$this->u->id;//asignamos el id del usuario de sesion
+                $p->user=$this->u->id;//asignamos el id del usuario de sesion
             }else{
-                $pr->user=0;
+                $p->user=0;
             }
             $lista_productos=$product_cards="";
             if(!empty($_GET["categoria"]) || !empty($_GET["tag"])){
@@ -27,16 +29,17 @@
                 if(isset($_GET["categoria"])){
                     $cat->nombre=$_GET["categoria"];
                     if($info_categoria=$cat->getWhereNombre()){
-                        $t->categoria=$pr->categoria=$info_categoria["id"];
+                        $t->categoria=$p->categoria=$info_categoria["id"];
                         $data["nombre"]=$info_categoria["nombre"];
                         $data["descripcion_corta"]=$nombre_categoria=$info_categoria["descripcion_corta"];
                         $data["descripcion"]=$info_categoria["descripcion"];
                         $data["sourcepage"]=PAGE_DOMAIN."/".$info_categoria["nombre"];
                         $limit1=$items*($page-1);
-                        $totalitems=$pr->countProductosCategoria();
+                        $totalitems=$p->countProductosCategoria();
                         $data["totalpages"]=$totalpages=ceil($totalitems/$items);
-                        $lista_productos=$pr->getProductosCategoria($limit1.", ".$items, $data["order"]);
+                        $lista_productos=$p->getProductosCategoria($limit1.", ".$items, $data["order"]);
                         $data["subhead"]=$nombre_categoria;
+                        $data["subtitle"]=$data["descripcion"];
                         $popular_tags=$t->getPopularTagsFromCategoria(6);
                         $data["lista_tags_populares"]='';
                         foreach($popular_tags as $tag_popular){
@@ -47,30 +50,32 @@
                         $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
                     }
                 }elseif(isset($_GET["tag"])){
-                    $pr->tag=urldecode($_GET["tag"]);
+                    $p->tag=urldecode($_GET["tag"]);
                     $data["sourcepage"]=PAGE_DOMAIN."/tag/".$_GET["tag"];
                     $limit1=$items*($page-1);
-                    $totalitems=$pr->countProductosTag();
+                    $totalitems=$p->countProductosTag();
                     $data["totalpages"]=$totalpages=ceil($totalitems/$items);
-                    $lista_productos=$pr->getProductosTag($limit1.", ".$items, $data["order"]);
-                    $data["nombre-tag"]=str_replace("-"," ",$pr->tag);
-                    $data["subhead"]="#".str_replace("-"," ",$pr->tag);
+                    $lista_productos=$p->getProductosTag($limit1.", ".$items, $data["order"]);
+                    $data["nombre-tag"]=str_replace("-"," ",$p->tag);
+                    $data["subhead"]="#".str_replace("-"," ",$p->tag);
+                    $data["subtitle"]="";
                     $data['page_title'] = "Tienda friki con productos de ".$data["nombre-tag"];
                     $data["meta_tags"]=$this->loadView("meta","meta-tag",$data);
                 }
                 if(!empty($lista_productos)){
                     foreach($lista_productos as $producto){
-                        $data["id_producto"]=$pr->id=$producto["id"];
+                        $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
                         $creador = New Users_Model();
                         $data["dg-token"]=$dg->token=$producto["design"];
                         $design=$dg->get();
-                        $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                        $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
-                        $data["cat_id"]=$cat->id=$producto["categoria"];
+                        $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
                         $categoria=$cat->get();
                         $data["cat_nombre"]=$categoria["nombre"];
                         $creador->user=$data["username"]=$infocreador["user"];
                         $data["creador_avatar"]=$creador->getAvatar(64);
+                        $data["precio"]=number_format($pr->get(),2,',','')."€";
                         //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
                         if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
                             $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
@@ -78,13 +83,13 @@
                             $data["dg-nombre"]=$producto["nombre"];
                         }
 
-                        if($pr->userLikeProducto()){
+                        if($p->userLikeProducto()){
                             $data["like_class"]='like';
                         }else{
                             $data["like_class"]='unlike';
                         }
-                        $data["contador_likes"]=$pr->getLikes();
-                        $data["contador_shares"]=$pr->getShares();
+                        $data["contador_likes"]=$p->getLikes();
+                        $data["contador_shares"]=$p->getShares();
                         $data["contador_comments"]=0;
                         $data["product_card"]=$this->loadView('product','product_card',$data);
                         $product_cards.=$this->loadView('product','product_card_col-xl-4',$data);
@@ -108,35 +113,36 @@
             }else{
                 /*LOS MÁS POPULARES*/
                 $data["carousel_item"]="";
-                if($lista_mas_populares=$pr->getOnFire(8)){
+                if($lista_mas_populares=$p->getOnFire(8)){
                     foreach ($lista_mas_populares as $producto){
-                        $pr->id=$producto["id"];
-                        if($pr->isActive() && $pr->isRevisado()){
+                        $p->id=$producto["id"];
+                        if($p->isActive() && $p->isRevisado()){
                             $creador = New Users_Model();
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                            $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
-                            $data["id_producto"]=$pr->id;
-                            $data["cat_id"]=$cat->id=$producto["categoria"];
+                            $data["id_producto"]=$pr->producto=$p->id;
+                            $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
                             $categoria=$cat->get();
                             $data["cat_nombre"]=$categoria["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
                             $data["creador_avatar"]=$creador->getAvatar(64);
+                            $data["precio"]=number_format($pr->get(),2,',','')."€";
                             //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
                             if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
                                 $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
                             }else{
                                 $data["dg-nombre"]=$producto["nombre"];
                             }
-                            if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
+                            if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                                 $data["like_class"]='like';
                             }else{
                                 $data["like_class"]='unlike';
                             }
-                            $data["contador_likes"]=$pr->getLikes();
-                            $data["contador_shares"]=$pr->getShares();
-                            $data["contador_comments"]=$pr->getContComentarios();
+                            $data["contador_likes"]=$p->getLikes();
+                            $data["contador_shares"]=$p->getShares();
+                            $data["contador_comments"]=$p->getContComentarios();
                             $data["product_card"]=$this->loadView('product','product_card',$data);
                             $product_cards.=$this->loadView('product','product_card_col-xl-3',$data);
                         }
@@ -148,36 +154,37 @@
 
                 /*LOS ÚLTIMOS VISITADOS*/
                 $data["carousel_item"]=$product_cards="";
-                $pr->user=$this->u->id;
-                if($lista_ultimos_vistos=$pr->getLastViewsUser(6)){
+                $p->user=$this->u->id;
+                if($lista_ultimos_vistos=$p->getLastViewsUser(6)){
                     foreach ($lista_ultimos_vistos as $producto){
-                        $pr->id=$producto["id"];
-                        if($pr->isActive() && $pr->isRevisado()){
+                        $p->id=$producto["id"];
+                        if($p->isActive() && $p->isRevisado()){
                             $creador = New Users_Model();
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                            $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
-                            $data["id_producto"]=$pr->id;
-                            $data["cat_id"]=$cat->id=$producto["categoria"];
+                            $data["id_producto"]=$pr->producto=$p->id;
+                            $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
                             $categoria=$cat->get();
                             $data["cat_nombre"]=$categoria["nombre"];
                             $data["username"]=$creador->user=$infocreador["user"];
                             $data["creador_avatar"]=$creador->getAvatar(64);
+                            $data["precio"]=number_format($pr->get(),2,',','')."€";
                             //Añadimos al título del producto la categoría en singular si es diseño y no está ya incluida en el título
                             if($categoria["parent"]==1 && strpos(strtolower($producto["nombre"]), strtolower(substr($data["cat_nombre"], 0, -1)))!==0){
                                 $data["dg-nombre"]=ucwords(substr($data["cat_nombre"], 0, -1)." ".$producto["nombre"]);
                             }else{
                                 $data["dg-nombre"]=$producto["nombre"];
                             }
-                            if(isset($_SESSION["login"]) && $pr->userLikeProducto()){
+                            if(isset($_SESSION["login"]) && $p->userLikeProducto()){
                                 $data["like_class"]='like';
                             }else{
                                 $data["like_class"]='unlike';
                             }
-                            $data["contador_likes"]=$pr->getLikes();
-                            $data["contador_shares"]=$pr->getShares();
-                            $data["contador_comments"]=$pr->getContComentarios();
+                            $data["contador_likes"]=$p->getLikes();
+                            $data["contador_shares"]=$p->getShares();
+                            $data["contador_comments"]=$p->getContComentarios();
                             $data["product_card"]=$this->loadView('product','product_card',$data);
                             $product_cards.=$this->loadView('product','product_card_col-xl-2',$data);
                         }
@@ -190,16 +197,16 @@
 
                 /*Mostrar productos que no has dado like (6)*/
                 $data["ruleta"]="";
-                if($lista_not_like=$pr->userNotLikeProducto(6)){
+                if($lista_not_like=$p->userNotLikeProducto(6)){
                     foreach($lista_not_like as $key => $producto){
-                        $pr->id=$producto["id"];
-                        if($pr->isActive() && $pr->isRevisado()){
+                        $p->id=$producto["id"];
+                        if($p->isActive() && $p->isRevisado()){
                             $creador = New Users_Model();
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $creador->id=$pr->creador=$design["user"]; //asignamos el id del creador
+                            $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
-                            $data["id_producto"]=$pr->id;
+                            $data["id_producto"]=$p->id;
                             $data["cat_id"]=$cat->id=$producto["categoria"];
                             $data["cat_nombre"]=$cat->get()["nombre"];
                             $data["username"]=$infocreador["user"];
