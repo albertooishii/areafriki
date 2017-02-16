@@ -5,57 +5,33 @@
 </style>
 
 <div id="home">
-    <div id="home_banner">
+    <nav class="navbar nomobile" style="margin:0!important;padding:0!important;">
+        <div class="container">
+            <ul class="nav navbar-nav text-center aligncenter">
+                <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Cine</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Series</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Cómics</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/tazas'>Manga & Anime</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/chapas'>Videojuegos</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Literatura fantástica</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Kawaii</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Cultura friki</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--<div id="home_banner">
         <a href="<?=PAGE_DOMAIN?>/store/kawaii">
-            <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/views/store/kawaii/banner.jpg)"></div>
+            <div id="home_banner_bg" class="container-fluid" style="background-image:url()"></div>
         </a>
-    </div>
+    </div>-->
     <div id="home_categories">
-        <header>
+        <!--<header>
             <h1 class="title text-center nomobile">La tienda friki donde podrás comprar y vender</h1>
         </header>
-        <h2 class="title text-center nomobile">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>
+        <h2 class="title text-center nomobile">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>-->
         <!--<header>
             <h2 class="title text-center">¡Descubre cientos de productos frikis!</h2>
         </header>-->
-        <?=$data["cta-vender"]?>
-        <div id="home_shipping" class="nomobile">
-            <div class="container">
-                <div class="col-md-4 col-sm-4">
-                    <div class="info-horizontal">
-                        <div class="icon icon-info">
-                            <i class="material-icons">local_shipping</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Envío gratuito</h4>
-                            <p>Para pedidos de ropa y decoración superiores a 25€.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="info-horizontal">
-                        <div class="icon icon-rose">
-                            <i class="material-icons">timer</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">48 horas</h4>
-                            <p>Envíos en 48 horas para los productos indicados.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="info-horizontal">
-                        <div class="icon icon-success">
-                            <i class="material-icons">verified_user</i>
-                        </div>
-                        <div class="description">
-                            <h4 class="info-title">Compra garantizada</h4>
-                            <p>En todos los productos de vendedores verificados.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container carousel_container">
             <?=$data["home_categorias"]?>
         </div>
@@ -73,22 +49,6 @@
             <a href="<?=PAGE_DOMAIN?>/upload" class="btn btn-round btn-primary btn-lg">¡EMPIEZA AHORA!</a>
         </div>
     </div>
-    <nav class="navbar notablet nomobile">
-        <div class="container">
-            <ul class="nav navbar-nav text-center aligncenter">
-                <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/crafts'>Hecho a mano</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/baul'>Nuevo y usado</a></li>
-            </ul>
-        </div>
-    </nav>
     <div class="container carousel_container">
         <div>
             <header>

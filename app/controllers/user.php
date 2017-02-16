@@ -149,6 +149,24 @@
 
                 break;
 
+                case 'login_api':
+                    if(isset($_POST["username"]) && isset($_POST["password"])){
+                        if(preg_match('#^[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
+                                $this->u->email=$_POST["username"];
+                        }else{
+                            $this->u->user=$_POST["username"];
+                        }
+                        $this->u->pass=md5($_POST["password"]);
+                        if($ar_user=$this->u->login()){
+                            echo json_encode($ar_user);
+                        }else{
+                            echo false;
+                        }
+                    }else{
+                        echo false;
+                    }
+                break;
+
                 case 'sendactivation':
                     if(isset($_SESSION["login"]) && !$this->u->getUser_activeaccount()){
                         $this->u->email=$this->u->getUser()["email"];

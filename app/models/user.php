@@ -285,10 +285,10 @@
             //PASSWORD=SHA1(GLOBAL_TOKEN.MD5(PASS)) EL PASSWORD DEBE LLEGAR AQUÍ CON EL MD5 YA PUESTO
             $pass=sha1(GLOBAL_TOKEN.$this->pass);
             if(isset($this->user)){
-                $query = "SELECT * FROM users WHERE user='$this->user' AND pass=UNHEX('$pass')";
+                $query = "SELECT id, user, email, name, description, active FROM users WHERE user='$this->user' AND pass=UNHEX('$pass')";
                 $answer = $this->_db->query($query)->fetch_assoc(); //bd_password
             }elseif(isset($this->email)){
-                $query = "SELECT * FROM users WHERE email='$this->email' AND pass=UNHEX('$pass')";
+                $query = "SELECT id, user, email, name, description, active FROM users WHERE email='$this->email' AND pass=UNHEX('$pass')";
                 $answer = $this->_db->query($query)->fetch_assoc(); //password and user
                 $this->user=$answer["user"];
             }
@@ -312,7 +312,7 @@
                     setcookie("user", $this->user, strtotime('+15 days'), '/');
                     setcookie("pass", $this->pass, strtotime('+15 days'), '/');
                 }
-                return true;
+                return $answer;
             }
             return false;
         }
