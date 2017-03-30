@@ -14,18 +14,20 @@
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
-                <form class="navbar-form navbar-right" role="search" id="search-container">
-                    <div class="form-group form-white">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                    </div>
-                    <div id="search-results" class="dropdown">
-                        <ul class="dropdown-menu"></ul>
-                    </div>
-                </form>
                 <ul class="nav navbar-nav navbar-right pull-right" id="nav-actions">
-                    <li id="header-search">
-                        <a href="#"><i class="material-icons">search</i></a>
-                    </li>
+                    <li class="nodesktop notablet dropdown">
+                        <a href="#" data-target="#search-nav" href="#" data-toggle="collapse" class="search-mobile"><i class="material-icons">search</i></a>
+                    </li>                    
+                    
+                    <form class="navbar-form pull-left nomobile search-container" role="search" action="<?=PAGE_DOMAIN?>" method="get">
+                        <div class="form-group form-white">
+                            <input type="text" class="form-control" placeholder="Busca productos y artistas" name="search" value="<?=@$_GET["search"]?>" autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-white btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
+                        <div class="dropdown search-results" style="display:none">
+                            <ul class="dropdown-menu"></ul>
+                        </div>
+                    </form>
                     <?php
                         if($data["contador-carrito"]>0){
                     ?>
@@ -131,41 +133,84 @@
             </div>
             <div class="collapse navbar-collapse pull-left" id="menu">
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            ROPA Y DECORACIÓN<b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">Ropa y complementos</li>
-                            <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
-                            <li class="dropdown-header">Decoración</li>
-                            <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
-                            <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorías <b class="caret"></b></a>
+                        <ul class="dropdown-menu mega-dropdown-menu row">
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Productos personalizados</li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
+                                    <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>                   
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Productos hechos a mano</li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/ropa-handmade">Ropa y moda</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/complementos-handmade">Complementos y accesorios</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/hogar-handmade">Hogar y decoración</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/cosplay-handmade">Cosplay</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/electronica-handmade">Electrónica</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/toys-handmade">Juegos, figuras y peluches</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/materiales-handmade">Materiales y herramientas</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/otros-handmade">Otros</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Nuevo y de segunda mano</li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/ropa-secondhand">Ropa y moda</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/complementos-secondhand">Complementos y accesorios</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/hogar-secondhand">Hogar y decoración</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/electronica-secondhand">Videojuegos y electrónica</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/lectura-secondhand">Cómics y lectura</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/audiovisual-secondhand">Películas, series y música</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/toys-secondhand">Juegos, figuras y peluches</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/otros-secondhand">Otros</a></li> 
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Edición limitada</li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/store/pokemongo">Pokémon GO</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/store/nintenderos">Nintenderos</a></li>
+                                    <li><a href="<?=PAGE_DOMAIN?>/store/kawaii">Kawaii</a></li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="/crafts">HECHO A MANO</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="/baul">SEGUNDA MANO</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="/store">EDICIÓN LIMITADA</a>
                     </li>
                     <li id="vender" class="nomobile notablet">
                         <a href="/upload" class="text-primary">
                             VENDER
                         </a>
                     </li>
+                    <li class="dropdown">
+                        <a href="https://blog.areafriki.com" target="_blank">
+                            BLOG
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
+        <div class="collapse nodesktop notablet" id="search-nav">
+            <form class="navbar-form search-container" role="search" action="<?=PAGE_DOMAIN?>" method="get">
+                <div class="form-group form-white">
+                    <input type="text" class="form-control" placeholder="Busca productos y artistas" name="search" value="<?=@$_GET["search"]?>" autocomplete="off" id="search-mobile-input">
+                </div>
+                <button type="submit" class="btn btn-white btn-raised btn-fab btn-fab-mini"><i class="material-icons">search</i></button>
+                <div class="dropdown search-results" style="display:none">
+                    <ul class="dropdown-menu"></ul>
+                </div>
+            </form>
+        </div>
     </nav>
+
     <div id="vender-mobile">
         <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">&#xE2C6;</i></a>
     </div>

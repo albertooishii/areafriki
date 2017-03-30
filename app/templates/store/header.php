@@ -14,14 +14,6 @@
                 </a>
             </div>
             <div id="navright" class="navbar-header pull-right">
-                <form class="navbar-form navbar-right" role="search" id="search-container">
-                    <div class="form-group form-white">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                    </div>
-                    <div id="search-results" class="dropdown">
-                        <ul class="dropdown-menu"></ul>
-                    </div>
-                </form>
                 <ul class="nav navbar-nav navbar-right pull-right" id="nav-actions">
                     <?php
                         if($data["contador-carrito"]>0){

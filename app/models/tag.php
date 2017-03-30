@@ -77,7 +77,11 @@
                 while($fila = $answer->fetch_assoc()){
                     $lista_tags[]=$fila;
                 }
-                return $lista_tags;
+                if(!empty($lista_tags)){
+                  return $lista_tags;                  
+                }else{
+                    return false;
+                }
             }
             return false;
         }

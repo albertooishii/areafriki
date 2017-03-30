@@ -17,6 +17,10 @@
             $ped=New Pedido_Model();
             $this->loadModel("notification");
             $notify = New Notification_Model();
+            $this->loadModel("promo_code");
+            $promo = New Promo_code_Model();
+            
+            
             $car->user=$this->u->id;
             @$action=$_GET["action"];
             switch($action){
@@ -24,6 +28,7 @@
                 case 'add':
                     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         $creador=New Users_Model();
+                        $referral=New Users_Model();
                         if(isset($_POST["id"])){
                             $p->id=$_POST["id"];
                             $producto=$p->get();
@@ -56,7 +61,12 @@
                             "fecha" => date ("Y-m-d H:i:s"),
                             "activo" => true,
                         );
-
+                        
+                        if(isset($_COOKIE["referral"])){
+                            $referral->user=$_COOKIE["referral"];
+                            $car->referral=$referral->getUser()["id"];
+                        }
+                        
                         if($car->add()){
                             echo true;
                         }else{
@@ -213,6 +223,21 @@
                                     header('Location: '.PAGE_DOMAIN.'/carrito');
                                 }
                             }
+                            
+                            //PromoCode
+                            if(isset($_COOKIE["promo"])){
+                                $data["promo_token"]=$promo->token=$_COOKIE["promo"];
+                                $promo->getPromo();
+                                if($_COOKIE["promo"]=="SWITCH2017"){
+                                    if($promo->vendedor==$vendedor->id){
+                                        $data["total_vendedor_float"]=$precio_total_vendedor + $total_envio_vendedor - ($promo->porcentaje_desc*($precio_total_vendedor+$total_envio_vendedor)/100);
+                                        $data["total_nodesc"]=$data["total_vendedor"];
+                                        $data["total_vendedor"]=number_format($data["total_vendedor_float"], 2, ',', ' ')."€";
+                                        $data["info_promo"]=$this->loadView("carrito","info_promo",$data);
+                                    }
+                                }
+                            }
+                            
                             $data["carrito_vendedor"]=$this->loadView("carrito","vendedor",$data);
 
                             if($pr->vendedor==0){
@@ -277,6 +302,16 @@
 
                         $pr->getPrecioPedido();
                         $data["precio_total"]=number_format($pr->precio_total, 2);
+                        //PromoCode
+                        if(isset($_COOKIE["promo"])){
+                            $data["promo_token"]=$promo->token=$_COOKIE["promo"];
+                            $promo->getPromo();
+                            if($_COOKIE["promo"]=="SWITCH2017"){
+                                if($promo->vendedor==$vendedor->id){
+                                    $data["precio_total"]=number_format($pr->precio_total - $promo->porcentaje_desc*$pr->precio_total/100, 2);
+                                }
+                            }
+                        }
 
                         //Guardamos en el carrito la información de envío
                         $car->name=$_POST["name"];
@@ -347,6 +382,7 @@
                                 $vendedor->id=$ped->vendedor=$carrito["vendedor"];
                                 $pedido=unserialize($carrito["pedido"]);
                                 $ped->preparacion=0;
+                                $ped->referral=$carrito["referral"];
                                 foreach($pedido as $key => $linea){
                                     $p->id=$pr->producto=$linea["producto"];
                                     $producto=$p->get();
@@ -505,21 +541,13 @@
                                                     $notify->set();
                                                 }
                                             }
+                                            
                                             //Comisión de referral
-                                            if(isset($_COOKIE["referral"])){
-                                                $this->loadModel("referer");
-                                                $ref=New Referer_Model();
-                                                $ref->referral=$_COOKIE["referral"];
-                                                $ref->precio=$ped->precio;
-                                                if($info_comision=$ref->getComision()){
-                                                    $referral=New Users_Model();
-                                                    $referral->id=$info_comision["id"];
-                                                    $referral->credito=$info_comision["comision"];
-                                                    $referral->updateCredito();
-                                                    //borramos la cookie para que no vuelva a añadir comision por compras
-                                                    setcookie("referral", '', strtotime('-1 days'), '/');
-                                                }
-                                            }
+                                            $this->loadModel("referer");
+                                            $ref=New Referer_Model();
+                                            $ref->referral=$ped->referral;
+                                            $ref->precio=$ped->precio;
+                                            $ref->addComision();                                            
                                         }else{
                                             //Email para el vendedor
                                             $mail->getEmail("pago/vendedor", $data);
@@ -581,7 +609,7 @@
                         }else{
                             $this->render("error","404",$data);
                         }
-                        $this->write_log($log, "LOG");
+                        $this->write_log($log, "LOG", "log_payment");
                     }else{
                         $this->render("error","404",$data);
                     }
@@ -721,6 +749,21 @@
                                $data["total_envio_vendedor_float"]=$total_envio_vendedor;
                                 $data["total_vendedor_float"]=$precio_total_vendedor;
                                 $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
+                                
+                                //PromoCode
+                                if(isset($_COOKIE["promo"])){
+                                    $data["promo_token"]=$promo->token=$_COOKIE["promo"];
+                                    $promo->getPromo();
+                                    if($_COOKIE["promo"]=="SWITCH2017"){
+                                        if($promo->vendedor==$vendedor->id){
+                                            $data["total_vendedor_float"]=($precio_total_vendedor + $total_envio_vendedor) - (($promo->porcentaje_desc*($precio_total_vendedor + $total_envio_vendedor))/100);
+                                            $data["total_nodesc"]=$data["total_vendedor"];
+                                            $data["total_vendedor"]=number_format($data["total_vendedor_float"], 2, ',', ' ')."€";
+                                            $data["info_promo"]=$this->loadView("carrito","info_promo",$data);
+                                        }
+                                    }
+                                }
+                                
                                 $data["lista_productos"].=$this->loadView("carrito","vendedor",$data);
                                $data["total_preparacion_vendedor"]=$precio_total_vendedor=$total_envio_vendedor=0;
                                 $data["productos_vendedor"]="";

@@ -96,6 +96,12 @@
                                                         $notify->set();
                                                     }
                                                 }
+                                                //Comisión de referral
+                                                $this->loadModel("referer");
+                                                $ref=New Referer_Model();
+                                                $ref->referral=$ped->referral;
+                                                $ref->precio=$ped->precio;
+                                                $ref->addComision();   
                                             }
                                             echo true;
                                         }

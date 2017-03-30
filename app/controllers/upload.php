@@ -27,7 +27,7 @@
                                 $this->render("upload","segundo_paso_designer",$data);
                             break;
 
-                            case 'crafts':
+                            case 'handmades':
                                 $dg->genera_token();
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
@@ -37,11 +37,11 @@
                                 }else{
                                     $data["listas_productos"]="";
                                 }
-                                $data["custom_js"]=$this->minifyJs("designer", "crafts");
-                                $this->render('designer','crafts',$data);
+                                $data["custom_js"]=$this->minifyJs("designer", "handmades");
+                                $this->render('designer','handmades',$data);
                             break;
 
-                            case 'baul':
+                            case 'secondhand':
                                 $dg->genera_token();
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
@@ -51,8 +51,8 @@
                                 }else{
                                     $data["listas_productos"]="";
                                 }
-                                $data["custom_js"]=$this->minifyJs("designer", "baul");
-                                $this->render('designer','baul',$data);
+                                $data["custom_js"]=$this->minifyJs("designer", "secondhand");
+                                $this->render('designer','secondhand',$data);
                             break;
 
                             default:
@@ -104,7 +104,7 @@
                                 }
                             }
                             $data["custom_js"]=$this->minifyJs("designer", "designer");
-                            $data["custom_js"].=$this->minifyJs("designer", "crafts");
+                            $data["custom_js"].=$this->minifyJs("designer", "handmades");
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
                             $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
                             $data["custom_js"].=$this->minifyJs("designer", $cat->nombre);
@@ -194,7 +194,7 @@
                             }else{
                                 $codigo_error= "No se ha podido convertir a jpg y/o borrar el original png";
                             }
-                        }else{ //SUBIDA DE ARTÍCULOS PARA VENTA (CRAFTS Y BAÚL)
+                        }else{ //SUBIDA DE ARTÍCULOS PARA VENTA (handmades Y BAÚL)
                             if(isset($_POST["usado"])){$pr->usado=1;}else{$pr->usado=0;}
                             if(!empty($_POST["stock"])){
                                 $pr->stock=$_POST["stock"];

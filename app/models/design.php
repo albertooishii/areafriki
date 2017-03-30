@@ -3,7 +3,7 @@
 
     class Design_Model extends Database{
 
-        var $nombre, $token, $categoria, $user, $publi;
+        var $nombre, $token, $categoria, $user, $publi, $fecha;
 
         function __construct(){
            parent::__construct();
@@ -15,9 +15,15 @@
         {
             $query = "SELECT * FROM designs WHERE token = '$this->token'";
             $answer = $this->_db->query($query)->fetch_assoc();
-            if ($answer!=NULL)
-            return $answer;
-            return false;
+            if ($answer!=NULL){
+                $this->token=$answer["token"];
+                $this->user=$answer["user"];
+                $this->fecha=$answer["fecha"];
+                $this->publi=$answer["publi"];
+                return $answer;
+            }else{
+                return false;
+            }
         }
 
         function getAllDesigns()
@@ -52,6 +58,21 @@
             }
             return false;
         }
+        
+        function getTopicsDesign(){
+            $query="SELECT topic FROM design_topic WHERE design='$this->token'";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){ 
+                    $lista_topics[]=$fila["topic"];
+                }
+                if(!empty($lista_topics)){
+                    return $lista_topics;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
 // Escritura -----------------------------------------------------//
 
         function set(){
@@ -64,6 +85,22 @@
             }
         }
 
+        function setTopicsDesign($topics){
+            $query="DELETE FROM design_topic WHERE design='$this->token'";
+            if ($this->_db->query($query)){
+                foreach($topics as $topic){
+                    $query="INSERT INTO design_topic(design, topic) VALUES('$this->token', '$topic')";
+                    if (!$this->_db->query($query)){
+                        break;
+                        return false;
+                    }
+                }
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
         function genera_token() {
             $chars = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z');
 

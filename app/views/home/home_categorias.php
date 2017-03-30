@@ -74,7 +74,7 @@
         </div>
         <div class="product_card col-md-3 col-sm-3 col-xs-6">
             <div class="card card-plain">
-                <a href="<?=PAGE_DOMAIN?>/crafts">
+                <a href="<?=PAGE_DOMAIN?>/handmades">
                     <div class="card-image">
                         <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/crafts.jpg" alt="hecho a mano">
                         <h3 class="card-title">
@@ -86,7 +86,7 @@
         </div>
         <div class="product_card col-md-3 col-sm-3 col-xs-6">
             <div class="card card-plain">
-                <a href="<?=PAGE_DOMAIN?>/baul">
+                <a href="<?=PAGE_DOMAIN?>/secondhand">
                     <div class="card-image">
                         <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/categorias/baul.jpg" alt="nuevo y usado">
                         <h3 class="card-title">
@@ -97,12 +97,17 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 inner">
+    <div class="col-md-4">
+        <a href="<?=PAGE_DOMAIN?>/store/dogswitch">
+            <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/cta-dogswitch.jpg" style="width:100%;height:100%;">
+        </a>
+    </div>
+    <!--<div class="col-md-4 inner">
         <header>
             <h1 class="text-center">La tienda friki<br> donde puedes <strong>comprar</strong></h1>
         </header>
         <h2 class="text-center">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>
         <h1 class="text-center">...y <strong>vender</strong></h1>
-        <a href="https://dev.areafriki.com/upload" class="btn btn-round btn-warning text-center aligncenter">¡Adelante!</a>
-    </div>
+        <a href="<?=PAGE_DOMAIN?>/upload" class="btn btn-round btn-warning text-center aligncenter">¡Adelante!</a>
+    </div>-->
 </article>

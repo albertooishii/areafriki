@@ -76,9 +76,9 @@
                         <div class="btn-group">
                             <a href="#" data-target="#" class="btn dropdown-toggle option-button" data-toggle="dropdown"><i class="material-icons">label</i> Categorías <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/designs">ROPA Y DECORACIÓN</a></li>
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/crafts">HECHO A MANO</a></li>
-                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/baul">NUEVO Y USADO</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/designs">Productos personalizados</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/handmades">Manualidades</a></li>
+                                <li><a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/secondhand">Segunda mano</a></li>
                             </ul>
                         </div>
                         <a href="<?=PAGE_DOMAIN?>/user/<?=$this->u->user2URL($data["username"])?>/lists" class="btn btn-raised btn-default option-button"><i class="material-icons">library_books</i> LISTAS</a>

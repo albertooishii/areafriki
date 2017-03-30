@@ -3,7 +3,7 @@
 
     class Pedido_Model extends Database{
 
-        var $pedido, $vendedor, $token, $producto, $size, $color, $estado, $metodo_pago, $precio, $gastos_envio, $user, $name, $email, $address, $cp, $provincia, $localidad, $phone, $nota, $observaciones, $preparacion, $tiempo_envio, $localizador;
+        var $pedido, $vendedor, $token, $producto, $size, $color, $estado, $metodo_pago, $precio, $gastos_envio, $user, $name, $email, $address, $cp, $provincia, $localidad, $phone, $nota, $observaciones, $preparacion, $tiempo_envio, $localizador, $referral;
 
         function __construct(){
            parent::__construct();
@@ -94,9 +94,9 @@
             }
 
             if($this->estado=="pendiente"){
-                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota')";
+                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota, referral) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota', '$this->referral')";
             }elseif($this->estado=="pagado"){
-                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, fecha_pago, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$fecha_pago', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota')";
+                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, fecha_pago, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota, referral) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$fecha_pago', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota', '$this->referral')";
             }
 
             if ($this->_db->query($query))

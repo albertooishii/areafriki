@@ -37,39 +37,33 @@ $(document).ready(function() {
     $('#notifications-panel').perfectScrollbar({"suppressScrollX":true});
 
     //SISTEMA DE BÚSQUEDA
-    $("#header-search").click(function(e){
-        e.preventDefault();
-        $(".masthead").addClass("searchmode");
-        $("#search-container ").show();
-        $("#search-container input").focus();
-        e.stopPropagation();
-    });
-
-    $("#search-container").click(function(e){
+    $(".search-container").click(function(e){
         e.stopPropagation();
     });
 
     $("body").click(function(e){
-        if($(".searchmode").length){
+        if($(".search-results").is(":visible")){
             e.preventDefault();
-            $(".masthead").removeClass("searchmode");
-            $("#header-search input").hide();
-            $("#search-results").hide();
+            $(".search-results").hide(); 
         }
     });
 
     var timer;
-    $("#search-container input").keyup(function(e){
+    $(".search-container input").keyup(function(e){
         clearTimeout(timer);
         var ms = 500; //milliseconds
         var string=$(this).val();
-        $("#search-results").show();
-        $("#search-results ul").html("<li>Buscando...</li>");
+        $(".search-results").show();
+        $(".search-results ul").html("<li><a>Buscando...</a></li>");
         timer = setTimeout(function(){
             search(string);
         }, ms);
     });
 
+    $(".search-container input").focus(function(e){
+        $(this).keyup();
+    });
+                                       
     function search(string){
         if(string!=''){
             var parametros={
@@ -81,15 +75,19 @@ $(document).ready(function() {
                 url: "?section=producto&action=search",
                 data: parametros,
                 success: function (response){
-                    $("#search-results").addClass("open");
-                    $("#search-results ul").html(response);
+                    $(".search-results").addClass("open");
+                    $(".search-results ul").html(response);
                 }
             });
         }else{
-            $("#search-results").hide();
+            $(".search-results").hide();
         }
     }
 
+    $(".search-mobile").click(function(){
+       $("#search-mobile-input").focus();
+    });
+    
     //SISTEMA DE ETIQUETAS
     var engine = new Bloodhound({
         remote: {

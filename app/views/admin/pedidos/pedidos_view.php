@@ -62,6 +62,7 @@
             <?php
             }
             ?>
+            <p>Correo electrónico: <a href="mailto:<?=$data["email"]?>"><?=$data["email"]?></a></p>
         </div>
     </div>
 </div>

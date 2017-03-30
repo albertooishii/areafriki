@@ -10,18 +10,18 @@
                 <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/crafts'>Hecho a mano</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/baul'>Nuevo y usado</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/handmades'>Manualidades</a></li>
+                <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Segunda mano</a></li>
             </ul>
             <div class="row text-center">
-                <div class="col-md-3 col-sm-6 col-xs-12 inner">
-                    <a href="<?=PAGE_DOMAIN?>">PORTADA</a>
-                </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 inner">
                     <a href="/info/proteccion-datos">PROTECCIÓN DE DATOS</a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 inner">
                     <a href="/info/tos">TÉRMINOS Y CONDICIONES</a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 inner">
+                    <a href="/info/faq">PREGUNTAS Y RESPUESTAS</a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 inner">
                     <a href="/contacto">CONTACTO</a>
@@ -47,11 +47,6 @@
                     <i class="fa fa-instagram"></i>
                 </a>
             </li>
-            <!--<li>
-                <a href="https://plus.google.com/u/0/b/110162063324615408307/110162063324615408307" target="_blank" class="btn btn-just-icon btn-round btn-google">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>-->
             <li>
                 <a href="https://www.youtube.com/areafriki" target="_blank" class="btn btn-just-icon btn-round btn-youtube">
                     <i class="fa fa-youtube-play"></i>

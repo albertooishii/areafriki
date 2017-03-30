@@ -30,6 +30,10 @@
                 $this->loadModel("referer");
                 $ref = new Referer_Model();
             }
+            if(!empty($_GET["promo"])){
+                $this->loadModel("promo_code");
+                $promo = new Promo_code_Model();
+            }
         }
 
         public function loadHelper($helperName){
@@ -238,9 +242,9 @@
             rmdir($source);
         }
 
-        public function write_log($cadena, $type=false)
+        public function write_log($cadena, $type=false, $file="log")
         {
-            $arch = fopen(realpath( '.' )."/logs/".date("Y-m-d").".txt", "a+");
+            $arch = fopen(realpath( '.' )."/logs/".$file.".txt", "a+");
 
             fwrite($arch, "[".date("Y-m-d H:i:s.u")." - ".$type." - ".$_SERVER['REMOTE_ADDR']."] ".$cadena."\n");
             fclose($arch);

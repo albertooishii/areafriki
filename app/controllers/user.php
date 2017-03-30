@@ -642,14 +642,14 @@
                                     $data["meta_tags"]=$this->loadView("meta","meta-usuario-categoria",$data);
                                 break;
 
-                                case 'crafts':
+                                case 'handmades':
                                     $cat->id=$p->category_parent=2;
                                     $lista_productos=$p->getProductosCategoryUser();
                                     $data["descripcion_corta"]=$cat->get()["descripcion_corta"];
                                     $data["meta_tags"]=$this->loadView("meta","meta-usuario-categoria",$data);
                                 break;
 
-                                case 'baul':
+                                case 'secondhand':
                                     $cat->id=$p->category_parent=30;
                                     $lista_productos=$p->getProductosCategoryUser();
                                     $data["descripcion_corta"]=$cat->get()["descripcion_corta"];

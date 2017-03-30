@@ -5,33 +5,8 @@
 </style>
 
 <div id="home">
-    <nav class="navbar nomobile" style="margin:0!important;padding:0!important;">
-        <div class="container">
-            <ul class="nav navbar-nav text-center aligncenter">
-                <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Cine</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Series</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Cómics</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/tazas'>Manga & Anime</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/chapas'>Videojuegos</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Literatura fantástica</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Kawaii</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Cultura friki</a></li>
-            </ul>
-        </div>
-    </nav>
-    <!--<div id="home_banner">
-        <a href="<?=PAGE_DOMAIN?>/store/kawaii">
-            <div id="home_banner_bg" class="container-fluid" style="background-image:url()"></div>
-        </a>
-    </div>-->
+    <?=$data["secondary-navbar"]?>
     <div id="home_categories">
-        <!--<header>
-            <h1 class="title text-center nomobile">La tienda friki donde podrás comprar y vender</h1>
-        </header>
-        <h2 class="title text-center nomobile">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>-->
-        <!--<header>
-            <h2 class="title text-center">¡Descubre cientos de productos frikis!</h2>
-        </header>-->
         <div class="container carousel_container">
             <?=$data["home_categorias"]?>
         </div>
@@ -39,7 +14,7 @@
     <div class="container-fluid nomobile" id="banner_upload">
         <div class="container">
             <a href="<?=PAGE_DOMAIN?>/upload">
-                <header>
+                <header> 
                     <h3 class="title">¡<?=PAGE_NAME?> somos todos!</h3>
                 </header>
                 <h4 class="title">Pon a la venta cualquier producto friki: sube tus diseños, vende tus creaciones artesanales y todo lo que ya no uses.</h4>

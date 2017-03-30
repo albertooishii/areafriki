@@ -1,0 +1,85 @@
+@media only screen and (min-width: 1201px){
+    .store-page {
+        padding-top: 0px !important;
+    }
+}
+
+main{
+    overflow: visible;
+}
+
+h1, h2, h3, h4, p, label{
+    color: #353535 !important;
+}
+
+h1{
+    color: #f20000 !important;
+}
+
+.imgthumb{
+    width: 56px !important;
+    height: 56px !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 10px !important;
+    z-index: 99 !important;
+}
+
+.imgthumb a{
+    display: block;
+}
+
+.card{
+    cursor: pointer;
+}
+
+#menu-store, #hamburger{
+    display: none !important;
+}
+
+.buypreview{
+    position: relative !important;
+    bottom: 20px !important;
+}
+
+.store-page .card:hover .buypreview {
+    visibility: hidden;
+}
+
+.card-background{
+    height: 500px;
+}
+
+.card-image a{
+    display: block;
+}
+
+h1{
+    font-size: 190% !important;
+}
+
+h2{
+    font-size: 120% !important;
+}
+
+h3{
+    font-size: 160% !important;
+}
+
+p, h3{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+small{
+    font-size: 80% !important;
+}
+
+.product_file{
+    margin-top: 50px;
+}
+
+#cantidad{
+    border: 1px solid #9a9a9a;
+    width: 120px;
+}

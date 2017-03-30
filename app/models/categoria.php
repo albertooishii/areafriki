@@ -12,9 +12,14 @@
         // Read functions-----------------------------------------------------//
 
         // Leer categorias
-        function getCategorias()
+        function getCategorias($tipo=false)
         {
-            $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, parent, orden FROM categorias WHERE visible=1 ORDER BY orden ASC";
+            $filter="";
+            if(!empty($tipo)){
+                $filter=" AND tipo='$tipo' ";
+            }
+            
+            $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, parent, orden FROM categorias WHERE visible=1 $filter ORDER BY orden ASC";
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
                     $lista_categorias[]=$fila;

@@ -10,9 +10,9 @@
                 <a href="/upload/designs">
                     <div class="content">
                         <div class="icon icon-info">
-<img src="/app/templates/frontoffice/img/layout/design.png" alt="Generic placeholder image" width="140px" height="140px">
+<img src="/app/templates/frontoffice/img/layout/design.png" alt="Productos personalizados" width="140px" height="140px">
                         </div>
-                        <h3 class="card-title">Ropa y decoración</h3>
+                        <h3>Productos personalizados</h3>
                         <p class="card-description">
                             ¿Eres diseñador? Personaliza los artículos con tus diseños: camisetas, sudaderas, tazas, lienzos, chapas...
                         </p>
@@ -23,14 +23,14 @@
         </div>
         <div class="col-md-4">
             <div class="card card-pricing card-raised">
-                <a href="/upload/crafts">
+                <a href="/upload/handmades">
                     <div class="content">
                         <div class="icon icon-info">
-<img src="/app/templates/frontoffice/img/layout/craft.png" alt="Generic placeholder image">
+<img src="/app/templates/frontoffice/img/layout/handmades.png" alt="manualidades">
                         </div>
-                        <h3 class="card-title">Hecho a mano</h3>
+                        <h3>Hecho a mano</h3>
                         <p class="card-description">
-                            ¿Haces manualidades? Sube aquí tus creaciones: amigurumis, papercraft, hamas, cosplays, goma eva, máquinas arcade...
+                            ¿Haces manualidades? Sube aquí tus creaciones: amigurumis, paperhandmades, hamas, cosplays, goma eva, máquinas arcade...
                         </p>
                         <button class="btn btn-primary btn-round">Vender mis handmades</button>
                     </div>
@@ -39,12 +39,12 @@
         </div>
         <div class="col-md-4">
             <div class="card card-pricing card-raised">
-                <a href="/upload/baul">
+                <a href="/upload/secondhand">
                     <div class="content">
                         <div class="icon icon-info">
-<img src="/app/templates/frontoffice/img/layout/baul.png" alt="Generic placeholder image">
+<img src="/app/templates/frontoffice/img/layout/secondhand.png" alt="segundamano">
                         </div>
-                        <h3 class="card-title">Nuevo y Usado</h3>
+                        <h3>Segundamano y nuevo</h3>
                         <p class="card-description">
                             ¿Tienes cosas para vender nuevas o de segunda mano? Cómics, videojuegos, videoconsolas, juegos de mesa, figuras...
                         </p>

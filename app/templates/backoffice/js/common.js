@@ -55,6 +55,31 @@ $(document).ready(function() {
         });
     });
 
+    $('.select-topic').on('changed.bs.select', function (e) {
+        e.preventDefault();
+        var selected=$(this);
+        var parametros = {
+            id: $(this).closest(".producto").data("id"),
+            topics: $(this).val()
+        }
+
+        $.ajax({
+            method: "POST",
+            url: '/simbiosis/designs?node=changeTopic',
+            data:parametros,
+            success: function(response){
+                if(response==1){
+                    console.log("Topics guardados correctamente");
+                }else{
+                    console.log(response);
+                }
+            },
+            error: function(){
+                alert("error ajax");
+            }
+        })
+    });
+    
     $('.colorpicker-input').colorpicker();
 
     $("form").formValidation();

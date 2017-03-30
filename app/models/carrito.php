@@ -3,7 +3,7 @@
 
     class Carrito_Model extends Database{
 
-        var $id, $token, $pedido, $user, $linea, $cantidad, $vendedor;
+        var $id, $token, $pedido, $user, $linea, $cantidad, $vendedor, $referral;
 
         function __construct(){
            parent::__construct();
@@ -106,12 +106,12 @@
             }
         }
 
-        function set()
+        function set() 
         {
             $fecha_pedido=date ("Y-m-d H:i:s");
             $pedido=serialize($this->pedido);
             if(empty($this->user)){$user='NULL';}else{$user=$this->user;}
-            $query="INSERT INTO carritos (token, vendedor, user, phpsessid, pedido, fecha) VALUES('$this->token', $this->vendedor, $user, '".$_COOKIE["PHPSESSID"]."', '$pedido', '$fecha_pedido') ON DUPLICATE KEY UPDATE pedido= '$pedido', fecha='$fecha_pedido'";
+            $query="INSERT INTO carritos (token, vendedor, user, phpsessid, pedido, fecha, referral) VALUES('$this->token', $this->vendedor, $user, '".$_COOKIE["PHPSESSID"]."', '$pedido', '$fecha_pedido', '$this->referral') ON DUPLICATE KEY UPDATE pedido= '$pedido', fecha='$fecha_pedido'";
 
             if ( $this->_db->query($query) )
             return true;

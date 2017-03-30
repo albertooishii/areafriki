@@ -96,9 +96,19 @@
                             }
                         break;
 
+                        case 'changeTopic':
+                            $p->id=$id=$_POST["id"];
+                            $topics=$_POST["topics"];
+                            $dg->token=$p->get()["design"];
+                            if($dg->setTopicsDesign($topics)){
+                                echo true;
+                            }
+                        break;
+                            
                         case 'designs':
                             $data["tbody"]="";
                             $p->category_parent=1;
+                            $data["lista_topics"]=$c->getCategorias('topic');
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$pre->producto=$producto["id"];
@@ -115,6 +125,11 @@
                                     $data["categoria"]=$categoria["nombre"];
                                     $data["nombre"]=$producto["nombre"];
                                     $data["descripcion"]=$producto["descripcion"];
+                                    
+                                    if(!$data["topics_design"]=$dg->getTopicsDesign()){
+                                        $data["topics_design"]=array();
+                                    }
+                                    
                                     if(!empty($producto["beneficio"])){
                                         $data["beneficio"]=number_format($pre->getBeneficio(), 2, ',', ' ')."€";
                                     }else{
@@ -146,6 +161,7 @@
                         case 'crafts':
                             $data["tbody"]="";
                             $p->category_parent=2;
+                            $data["lista_topics"]=$c->getCategorias('topic');
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$producto["id"];
@@ -161,6 +177,11 @@
                                     $data["categoria"]=$c->get()["nombre"];
                                     $data["nombre"]=$producto["nombre"];
                                     $data["descripcion"]=$producto["descripcion"];
+                                    
+                                    if(!$data["topics_design"]=$dg->getTopicsDesign()){
+                                        $data["topics_design"]=array();
+                                    }
+                                    
                                     $data["beneficio"]=$producto["beneficio"];
 
                                     if($producto["revisado"]==1){
@@ -180,6 +201,7 @@
                          case 'baul':
                             $data["tbody"]="";
                             $p->category_parent=30;
+                            $data["lista_topics"]=$c->getCategorias('topic');
                             if($lista_productos=$p->getProductos()){
                                 foreach($lista_productos as $producto){
                                     $data["id"]=$producto["id"];
@@ -195,6 +217,11 @@
                                     $data["categoria"]=$c->get()["nombre"];
                                     $data["nombre"]=$producto["nombre"];
                                     $data["descripcion"]=$producto["descripcion"];
+                                    
+                                    if(!$data["topics_design"]=$dg->getTopicsDesign()){
+                                        $data["topics_design"]=array();
+                                    }
+                                    
                                     $data["beneficio"]=$producto["beneficio"];
 
                                     if($producto["revisado"]==1){
@@ -250,11 +277,15 @@
                             @$action=$_GET["action"];
                             switch($action){
                                 case 'new':
+                                    $data["mensaje"]="";
                                     $data["id"]="";
-                                    $data["nombre"]="";
-                                    $data["descripcion"]="";
-                                    $data["precio_base"]="";
-                                    $data["precio_tope"]="";
+                                    $data["cat_nombre"]="";
+                                    $data["cat_descripcion"]="";
+                                    $data["cat_descripcion_corta"]="";
+                                    $data["cat_precio_base"]="";
+                                    $data["cat_precio_tope"]="";
+                                    $data["atributos"]="";
+                                    $data["subcategorias"]="";
                                     $this->render('admin','categorias/categorias_edit',$data);
                                 break;
 
@@ -343,8 +374,10 @@
                                             $data["subcat_descripcion_corta"]=$subcategoria["descripcion_corta"];
                                             $data["datos_subcategorias"].=$this->loadView("admin","categorias/subcategorias_row",$data);
                                         }
-                                        $data["subcategorias"]=$this->loadView("admin","categorias/subcategorias",$data);
+                                    }else{
+                                        $data["datos_subcategorias"]="";
                                     }
+                                    $data["subcategorias"]=$this->loadView("admin","categorias/subcategorias",$data);
                                     $data["parent_id"]=$categoria["parent"];
                                     $this->render('admin','categorias/categorias_edit',$data);
                                 break;
@@ -488,6 +521,7 @@
                                     $data["provincia"]=$address->getNombreProvincia();
                                     $data["phone"]=$ar_pedido["phone"];
                                     $data["nota"]=$ar_pedido["nota"];
+                                    $data["email"]=$ar_pedido["email"];
 
                                     //Calculo de cancelación
                                     $temp1=strtotime(date("Y-m-d H:i:s")); //hora actual
@@ -567,6 +601,8 @@
                                             $comprador->id=$pedido["user"];
                                             $info_comprador=$comprador->getUserFromID();
                                             $data["user"]=$info_comprador["user"];
+                                        }else{
+                                            $data["user"]=NULL;
                                         }
 
                                         //vendedor

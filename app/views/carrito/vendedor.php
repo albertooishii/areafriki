@@ -3,6 +3,7 @@
         <h4 class="card-title">Vendido por <?=$data["nombre_vendedor"]?></h4>
     </div>
         <?=$data["productos_vendedor"]?>
+        <?=$data["info_promo"]?>
     <div class="content">
         <div class="row text-center">
             <div class="col-md-3">
@@ -15,7 +16,18 @@
                 <p><i class="material-icons">local_shipping</i> Total gastos de envío: <?=$data["total_envio_vendedor"]?> </p>
             </div>
             <div class="col-md-3">
-                <p><strong class="text-primary"><i class="material-icons">monetization_on</i> TOTAL: <?=$data["total_vendedor"]?></strong> (IVA INCLUIDO)</p>
+                <p>
+                    <strong class="text-primary"><i class="material-icons">monetization_on</i>
+                    TOTAL: 
+                    <?php
+                        if(isset($data["total_nodesc"])){
+                    ?>
+                    <strike><?=$data["total_nodesc"]?></strike>
+                    <?php
+                        }
+                    ?>
+                    <?=$data["total_vendedor"]?></strong> (IVA INCLUIDO)
+                </p>
             </div>
         </div>
         <div class="row">

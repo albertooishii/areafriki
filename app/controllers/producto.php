@@ -318,8 +318,8 @@
 
                 case 'search':
                     if(!empty($_POST["string"])){
-                        $string=$_POST["string"];
-                        if($resultados=$p->search($string)){
+                        $p->search=$_POST["string"];
+                        if($resultados=$p->search(10)){
                             $lista_productos="";
                             foreach($resultados as $producto){
                                 $creador = New Users_Model();
@@ -331,13 +331,13 @@
                                 $data["cat_id"]=$cat->id=$producto["categoria"];
                                 $data["cat_nombre"]=$cat->get()["nombre"];
                                 $data["username"]=$creador->user=$infocreador["user"];
-                                $data["avatar"]=$creador->getAvatar(64);
+                                $data["avatar"]=$creador->getAvatar(32);
                                 $data["dg-descripcion"]=$this->cutText($producto["descripcion"],60);
                                 $data["dg-nombre"]=$producto["nombre"];
                                 $lista_productos.=$this->loadView("header", "search", $data);
                             }
                         }else{
-                            $lista_productos="<li>No hay resultados</li>";
+                            $lista_productos="";
                         }
                         echo $lista_productos;
                     }

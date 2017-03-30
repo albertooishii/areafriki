@@ -53,11 +53,11 @@ RewriteRule ^user/(.*)/lists/$ index.php?section=user&node=lists&user=$1 [L]
 RewriteRule ^user/(.*)/designs$ index.php?section=user&node=designs&user=$1 [L]
 RewriteRule ^user/(.*)/designs/$ index.php?section=user&node=designs&user=$1 [L]
 
-RewriteRule ^user/(.*)/crafts$ index.php?section=user&node=crafts&user=$1 [L]
-RewriteRule ^user/(.*)/crafts/$ index.php?section=user&node=crafts&user=$1 [L]
+RewriteRule ^user/(.*)/handmades$ index.php?section=user&node=handmades&user=$1 [L]
+RewriteRule ^user/(.*)/handmades/$ index.php?section=user&node=handmades&user=$1 [L]
 
-RewriteRule ^user/(.*)/baul$ index.php?section=user&node=baul&user=$1 [L]
-RewriteRule ^user/(.*)/baul/$ index.php?section=user&node=baul&user=$1 [L]
+RewriteRule ^user/(.*)/secondhand$ index.php?section=user&node=secondhand&user=$1 [L]
+RewriteRule ^user/(.*)/secondhand/$ index.php?section=user&node=secondhand&user=$1 [L]
 
 RewriteRule ^user/(.*)/([a-zA-Z0-9_-]+)$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L] 
 RewriteRule ^user/(.*)/([a-zA-Z0-9_-]+)/$ index.php?section=user&node=viewlist&user=$1&tokenlist=$2 [L]
@@ -92,11 +92,14 @@ RewriteRule ^designer/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step3&c
 RewriteRule ^mailing/([a-zA-Z0-9_-]+)$ index.php?section=mailing&action=$1 [QSA,L]
 RewriteRule ^mailing/([a-zA-Z0-9_-]+)/$ index.php?section=mailing&action=$1 [QSA,L]  
 
-RewriteRule ^tag/(.*)/([0-9]+)$ index.php?section=home&tag=$1&page=$2 [QSA,L]
-RewriteRule ^tag/(.*)$/([0-9]+)/$ index.php?section=home&tag=$1&page=$2 [QSA,L]
+RewriteRule ^tag/(.*)/([0-9]+)$ https://dev.areafriki.com/$1/$2 [L,R=301]
+RewriteRule ^tag/(.*)$ https://dev.areafriki.com/$1 [L,R=301] 
 
-RewriteRule ^tag/(.*)$ index.php?section=home&tag=$1&page=1 [QSA,L]
-RewriteRule ^tag/(.*)$/$ index.php?section=home&tag=$1&page=1 [QSA,L]
+RewriteRule ^crafts$ https://dev.areafriki.com/handmades [L,R=301]
+RewriteRule ^crafts/(.*)$ https://dev.areafriki.com/handmades/$1 [L,R=301] 
+
+RewriteRule ^baul$ https://dev.areafriki.com/secondhand [L,R=301]
+RewriteRule ^baul/(.*)$ https://dev.areafriki.com/secondhand/$1 [L,R=301] 
 
 RewriteRule ^myorders$ index.php?section=pedido&action=myorders [QSA,L]
 RewriteRule ^myorders/$ index.php?section=pedido&action=myorders [QSA,L]
@@ -119,11 +122,13 @@ RewriteRule ^settings/$ index.php?section=user&action=settings [QSA,L]
 RewriteRule ^sitemap$ index.php?section=sitemap [L]
 RewriteRule ^sitemap/$ index.php?section=sitemap [L]
 
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?section=home&categoria=$1&page=$2 [QSA,L]
+RewriteRule ^promo/(.*)$ index.php?promo=$1 [L]
 
-RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&categoria=$1&page=1 [QSA,L]
-RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&categoria=$1&page=1 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?section=home&search=$1&page=$2 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?section=home&search=$1&page=$2 [QSA,L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=home&search=$1&page=1 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&search=$1&page=1 [QSA,L]
 
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]

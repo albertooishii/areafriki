@@ -18,12 +18,11 @@
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Token</th>
-                                <th>Categoría</th>
-                                <th>Autor</th>
-                                <th>Email</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>Autor</th>
+                                <th>Categoría</th>
+                                <th>Temática</th>
                                 <th>Beneficio</th>
                                 <th>Comprobación</th>
                                 <th>Validar</th>

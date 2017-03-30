@@ -1,4 +1,4 @@
-<?=$data["cta-vender"]?>
+<?=$data["secondary-navbar"]?>
 <div class="container">
     <div id="last-productos">
         <div class="row">

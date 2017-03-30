@@ -12,55 +12,65 @@
             $t = New Tag_Model();
             $this->loadModel("precio");
             $pr = New Precio_Model();
+            $creador = New Users_Model();
             if(isset($_SESSION["login"])){
                 $p->user=$this->u->id;//asignamos el id del usuario de sesion
             }else{
                 $p->user=0;
             }
             $lista_productos=$product_cards="";
-            if(!empty($_GET["categoria"]) || !empty($_GET["tag"])){
+
+            if(!empty($_GET["search"])){
                 $items=30;
-                $data["curpage"]=$page=$_GET["page"];
+                if(isset($_GET["page"])){
+                    $data["curpage"]=$page=$_GET["page"];
+                }else{
+                    $data["curpage"]=$page=1;
+                }
                 if(isset($_GET["orderby"])){
                     $data["order"]=$_GET["orderby"];
                 }else{
                     $data["order"]=false;
                 }
-                if(isset($_GET["categoria"])){
-                    $cat->nombre=$_GET["categoria"];
-                    if($info_categoria=$cat->getWhereNombre()){
-                        $t->categoria=$p->categoria=$info_categoria["id"];
-                        $data["nombre"]=$info_categoria["nombre"];
-                        $data["descripcion_corta"]=$nombre_categoria=$info_categoria["descripcion_corta"];
-                        $data["descripcion"]=$info_categoria["descripcion"];
-                        $data["sourcepage"]=PAGE_DOMAIN."/".$info_categoria["nombre"];
-                        $limit1=$items*($page-1);
-                        $totalitems=$p->countProductosCategoria();
-                        $data["totalpages"]=$totalpages=ceil($totalitems/$items);
-                        $lista_productos=$p->getProductosCategoria($limit1.", ".$items, $data["order"]);
-                        $data["subhead"]=$nombre_categoria;
-                        $data["subtitle"]=$data["descripcion"];
-                        $popular_tags=$t->getPopularTagsFromCategoria(6);
+                
+                $cat->nombre=$creador->user=$p->search=trim(str_replace("-"," ",urldecode($_GET["search"])));
+                
+                if($info_categoria=$cat->getWhereNombre()){ //Primero comprobamos si es una categoria
+                    $t->categoria=$p->categoria=$info_categoria["id"];
+                    $data["nombre"]=$info_categoria["nombre"];
+                    $data["descripcion_corta"]=$nombre_categoria=$info_categoria["descripcion_corta"];
+                    $data["descripcion"]=$info_categoria["descripcion"];
+                    $data["sourcepage"]=PAGE_DOMAIN."/".$info_categoria["nombre"];
+                    $limit1=$items*($page-1);
+                    $totalitems=$p->countProductosCategoria();
+                    $data["totalpages"]=$totalpages=ceil($totalitems/$items);
+                    $lista_productos=$p->getProductosCategoria($limit1.", ".$items, $data["order"]);
+                    $data["subhead"]=$nombre_categoria;
+                    $data["subtitle"]=$data["descripcion"];
+                    if($popular_tags=$t->getPopularTagsFromCategoria(6)){
                         $data["lista_tags_populares"]='';
                         foreach($popular_tags as $tag_popular){
                             $data["lista_tags_populares"].=" ".str_replace("-"," ",$tag_popular["tag"]). ",";
                         }
                         $data["lista_tags_populares"]=trim($data["lista_tags_populares"],',')."...";
-                        $data['page_title'] = "Tienda friki de ".$nombre_categoria;
-                        $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
+                    }else{
+                        $data["lista_tags_populares"]="";
                     }
-                }elseif(isset($_GET["tag"])){
-                    $p->tag=urldecode($_GET["tag"]);
-                    $data["sourcepage"]=PAGE_DOMAIN."/tag/".$_GET["tag"];
+                    $data['page_title'] = "Tienda friki de ".$nombre_categoria;
+                    $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
+                }elseif($info_creador=$creador->getUser()){ //Comprobamos si es un usuario
+                    Header("Location: ".PAGE_DOMAIN."/user/".$creador->user2URL($info_creador["user"]));
+                }else{
+                    $data["search"]=$p->search;
+                    $data["sourcepage"]=PAGE_DOMAIN."/".$_GET["search"];
                     $limit1=$items*($page-1);
-                    $totalitems=$p->countProductosTag();
+                    $totalitems=$p->countProductosSearch();
                     $data["totalpages"]=$totalpages=ceil($totalitems/$items);
-                    $lista_productos=$p->getProductosTag($limit1.", ".$items, $data["order"]);
-                    $data["nombre-tag"]=str_replace("-"," ",$p->tag);
-                    $data["subhead"]="#".str_replace("-"," ",$p->tag);
-                    $data["subtitle"]="";
-                    $data['page_title'] = "Tienda friki con productos de ".$data["nombre-tag"];
-                    $data["meta_tags"]=$this->loadView("meta","meta-tag",$data);
+                    $lista_productos=$p->search($limit1.", ".$items, $data["order"]);
+                    $data['page_title'] = $data["subhead"] = "Resultados de búsqueda de ".$data["search"];
+                    $data["subtitle"]="Total de productos encontrados: $totalitems"; 
+
+                    $data["meta_tags"]=$this->loadView("meta","meta-search",$data);
                 }
                 if(!empty($lista_productos)){
                     foreach($lista_productos as $producto){
@@ -96,20 +106,20 @@
                     }
                     $data["last_uploads"]=$product_cards;
                     $data["pagination"]=$this->loadView("product", "pagination", $data);
-                    $data["tag_list"]="";
-                    $lista_tags=$t->getPopularTags(20);
-                    foreach($lista_tags as $tag){
-                        $data["nombre_tag"]=$tag["tag"];
-                        $data["tag_list"].=$this->loadView("product","tag_list",$data);
-                    }
-                    $data["custom_js"]=$this->minifyJs("home", "index_productos");
-                    $data["cta-vender"]=$this->loadView("home","cta-vender",$data);
-                    $this->render('home', 'index_productos', $data);
                 }else{
-                    $data["last_uploads"]=$this->loadView("error", "form_error", "No se han encontrado resultados");
+                    $data["subtitle"]="<p class='alert text-danger'>No se han encontrado productos que coincidan con esta búsqueda.</p>";
+                    $data["last_uploads"]="";
                     $data["pagination"]="";
-                    $this->render("error","404", $data);
                 }
+                $data["tag_list"]="";
+                $lista_tags=$t->getPopularTags(20);
+                foreach($lista_tags as $tag){
+                    $data["nombre_tag"]=$tag["tag"];
+                    $data["tag_list"].=$this->loadView("product","tag_list",$data);
+                }
+                $data["custom_js"]=$this->minifyJs("home", "index_productos");
+                $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
+                $this->render('home', 'index_productos', $data);
             }else{
                 /*LOS MÁS POPULARES*/
                 $data["carousel_item"]="";
@@ -117,7 +127,6 @@
                     foreach ($lista_mas_populares as $producto){
                         $p->id=$producto["id"];
                         if($p->isActive() && $p->isRevisado()){
-                            $creador = New Users_Model();
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
                             $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
@@ -222,7 +231,7 @@
 
                 $data['page_title'] = "Tienda friki de camisetas, manualidades y segunda mano.";
                 $data["custom_js"]=$this->minifyJs("home", "home");
-                $data["cta-vender"]=$this->loadView("home","cta-vender",$data);
+                $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
                 $this->render('home', 'home', $data);
             }
 
