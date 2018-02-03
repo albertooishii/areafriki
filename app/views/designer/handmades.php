@@ -40,7 +40,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12" id="design-info">
+            <div class="col-lg-5 col-md-12 col-sm-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#info"><i class="material-icons">info</i><span class="text-tab nomobile">Información</span></a></li>
                     <li><a data-toggle="tab" href="#stock"><i class="fa fa-cubes"></i><span class="text-tab nomobile">Stock</span></a></li>
@@ -64,7 +64,7 @@
                         <label>
                             <p>DESCRIPCIÓN</p>
                         </label>
-                        <p><textarea maxlength="250" name="descripcion" style="width:100%;height: 60px; resize:none; overflow:auto;" class="form-control" placeholder="Describe tu diseño"></textarea></p>
+                        <p><textarea maxlength="250" name="descripcion" style="width:100%;height: 60px; resize:none; overflow:auto;" class="form-control" placeholder="Describe tu producto"></textarea></p>
                     </div>
                     <div class="form-group">
                         <h4><i class="material-icons">playlist_add</i> AÑADIR A UNA LISTA</h4>

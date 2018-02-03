@@ -8,8 +8,20 @@
     <?=$data["secondary-navbar"]?>
     <div id="home_categories">
         <div class="container carousel_container">
+                <!--<header>
+                    <h1 class="text-center">La tienda friki donde puedes <strong>Comprar</strong> y <strong><a href="<?=PAGE_DOMAIN?>/upload">Vender</strong></h1>
+                </header>-->
             <?=$data["home_categorias"]?>
         </div>
+    </div>
+    <div id="home_posts" class="container">
+        <header>
+            <h2 class="title aligncentermobile"><i class="material-icons">art_track</i>Últimas entradas del blog</h2>
+        </header>
+        <div class="row">
+            <?=$data["home_posts"]?>
+        </div>
+        <h3 class="aligncenter"><a href="<?=BLOG_DOMAIN?>" class="btn btn-round btn-primary">Más entradas</a></h3>
     </div>
     <div class="container-fluid nomobile" id="banner_upload">
         <div class="container">
@@ -62,41 +74,4 @@
     <?php
         }
     ?>
-    <div class="subscribe-line subscribe-line-image">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="text-center">
-                        <header>
-                            <h2 class="title">Recibe las mejores ofertas en tu email</h2>
-                        </header>
-                        <p class="description">
-                            Registrate en el boletín informativo para estar al día de las ofertas y novedades de <?=PAGE_NAME?>.
-                        </p>
-                    </div>
-                    <div class="card card-raised card-form-horizontal">
-                        <div class="content">
-                            <form method="post" action="<?=PAGE_DOMAIN?>/mailing/set">
-                                <div class="row">
-                                    <div class="col-sm-8">
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">mail</i>
-                                            </span>
-                                            <div class="form-group is-empty"><input type="email" placeholder="Tu email..." class="form-control" name="email"><span class="material-input"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-block">Subscribirse</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

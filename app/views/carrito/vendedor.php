@@ -3,7 +3,7 @@
         <h4 class="card-title">Vendido por <?=$data["nombre_vendedor"]?></h4>
     </div>
         <?=$data["productos_vendedor"]?>
-        <?=$data["info_promo"]?>
+        <?=@$data["info_promo"]?>
     <div class="content">
         <div class="row text-center">
             <div class="col-md-3">

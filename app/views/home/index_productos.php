@@ -22,7 +22,6 @@
 
                         <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
-                        <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
                     </ul>
 

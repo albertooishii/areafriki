@@ -8,7 +8,6 @@
                 <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
-                <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/handmades'>Manualidades</a></li>
                 <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Segunda mano</a></li>
@@ -55,7 +54,7 @@
         </ul>
 
         <div class="copyright pull-center">
-            Diseñado y desarrollado por <a href="https://areadgn.com" title="areadgn.com" target="_blank">ÁREA DESIGN</a>. <?=PAGE_NAME?>® - Copyright © <?=date("Y")?> Todos los derechos reservados
+            Diseñado y desarrollado con <i class="material-icons love">&#xE87D;</i> por <?=PAGE_NAME?>® | Copyright © <?=date("Y")?> Todos los derechos reservados
         </div>
     </div>
 </footer>

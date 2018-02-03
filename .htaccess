@@ -89,6 +89,9 @@ RewriteRule ^upload/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step2&nod
 RewriteRule ^designer/([a-zA-Z0-9_-]+)$ index.php?section=upload&action=step3&categoria=$1 [QSA,L]
 RewriteRule ^designer/([a-zA-Z0-9_-]+)/$ index.php?section=upload&action=step3&categoria=$1 [QSA,L]
 
+RewriteRule ^mailing$ index.php?section=mailing [QSA,L]
+RewriteRule ^mailing/$ index.php?section=mailing [QSA,L]  
+
 RewriteRule ^mailing/([a-zA-Z0-9_-]+)$ index.php?section=mailing&action=$1 [QSA,L]
 RewriteRule ^mailing/([a-zA-Z0-9_-]+)/$ index.php?section=mailing&action=$1 [QSA,L]  
 

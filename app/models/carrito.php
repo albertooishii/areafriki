@@ -13,9 +13,9 @@
         {
             if(!is_null($this->vendedor)){
                 if(isset($_SESSION["login"]) || !empty($this->user)){
-                    $query = "SELECT * FROM carritos WHERE vendedor=$this->vendedor AND user= ".$this->user;
+                    $query = "SELECT * FROM carritos WHERE vendedor=$this->vendedor AND pagado=0 AND user= ".$this->user;
                 }elseif(isset($_COOKIE["PHPSESSID"])){
-                    $query = "SELECT * FROM carritos WHERE vendedor=$this->vendedor AND phpsessid= '".$_COOKIE["PHPSESSID"]."'";
+                    $query = "SELECT * FROM carritos WHERE vendedor=$this->vendedor AND pagado=0 AND phpsessid= '".$_COOKIE["PHPSESSID"]."'";
                 }
             }elseif(!empty($this->token)){
                 $query = "SELECT * FROM carritos WHERE token='$this->token'";
@@ -31,7 +31,7 @@
         function getCarritosUser()
         {
             if(isset($_SESSION["login"]) || !empty($this->user)){
-                $query = "SELECT * FROM carritos WHERE user= $this->user ORDER BY vendedor ASC";
+                $query = "SELECT * FROM carritos WHERE user= $this->user AND pagado=0 ORDER BY vendedor ASC";
                 if($answer=$this->_db->query($query)){
                     while($fila = $answer->fetch_assoc()){
                         $lista_carritos[]=$fila;
@@ -44,7 +44,7 @@
                 }
                 return false;
             }elseif(isset($_COOKIE["PHPSESSID"])){
-                $query = "SELECT * FROM carritos WHERE phpsessid= '".$_COOKIE["PHPSESSID"]."' ORDER BY vendedor ASC";
+                $query = "SELECT * FROM carritos WHERE phpsessid= '".$_COOKIE["PHPSESSID"]."' AND pagado=0 ORDER BY vendedor ASC";
                 if($answer=$this->_db->query($query)){
                     while($fila = $answer->fetch_assoc()){
                         $lista_carritos[]=$fila;
@@ -131,6 +131,13 @@
             $fecha=date ("Y-m-d H:i:s");
             $query="UPDATE carritos SET pedido='".serialize($this->pedido)."', fecha='$fecha' WHERE token='$this->token'";
 
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function pagar(){
+            $query="UPDATE carritos set pagado=1 WHERE token='$this->token'";
             if ( $this->_db->query($query) )
             return true;
             return false;

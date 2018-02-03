@@ -68,20 +68,25 @@
             return false;
         }
 
-        function getChilds($param='enabled')
+        function getChilds($param='enabled', $tipo=false)
         {
             //$param: 'all', 'enabled', 'disabled'
+            $filter="";
+            if(!empty($tipo)){
+                $filter=" AND tipo='$tipo' ";
+            }
+
             switch($param){
                 case 'all':
-                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visible FROM categorias WHERE parent = ".$this->parent." ORDER by orden ASC";
+                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visible FROM categorias WHERE parent = ".$this->parent." $filter ORDER by orden ASC";
                 break;
 
                 case 'disabled':
-                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visile FROM categorias WHERE visible=0 AND parent = ".$this->parent." ORDER by orden ASC";
+                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visile FROM categorias WHERE visible=0 AND parent = ".$this->parent." $filter ORDER by orden ASC";
                 break;
 
                 default:
-                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visible FROM categorias WHERE visible=1 AND parent = ".$this->parent." ORDER by orden ASC";
+                    $query = "SELECT id, nombre, descripcion, descripcion_corta, precio_base, beneficio, orden, visible FROM categorias WHERE visible=1 AND parent = ".$this->parent." $filter ORDER by orden ASC";
             }
 //echo $query;
             if($answer=$this->_db->query($query)){

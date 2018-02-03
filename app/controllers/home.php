@@ -13,6 +13,8 @@
             $this->loadModel("precio");
             $pr = New Precio_Model();
             $creador = New Users_Model();
+            $this->loadModel("blog");
+            $blog = New Blog_Model();
             if(isset($_SESSION["login"])){
                 $p->user=$this->u->id;//asignamos el id del usuario de sesion
             }else{
@@ -228,6 +230,16 @@
 
                 /*HOME CATEGORIAS*/
                 $data["home_categorias"]=$this->loadView("home","home_categorias", $data);
+
+                /*HOME POSTS*/
+                $blog->getPosts();
+                $data['home_posts'] = '';
+                foreach ($blog->posts as $post) {
+                    $post['date'] = $this->format_date($post['date']);
+                    $creador->user = $post['author_user'];
+                    $post['author_avatar'] = $creador->getAvatar(64);
+                    $data["home_posts"].=$this->loadView("home", "home_posts", $post);
+                }
 
                 $data['page_title'] = "Tienda friki de camisetas, manualidades y segunda mano.";
                 $data["custom_js"]=$this->minifyJs("home", "home");

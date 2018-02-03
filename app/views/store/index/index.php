@@ -13,16 +13,6 @@
             </div>
             <div class="product_card col-md-3 col-sm-3 col-xs-6">
                 <div class="card card-plain">
-                    <a href="<?=PAGE_DOMAIN?>/store/nintenderos">
-                        <div class="card-image">
-                            <img src="<?=PAGE_DOMAIN?>/app/views/store/nintenderos/nintenderos.jpg" alt="nintenderos">
-                            <div class="card-title"> NINTENDEROS </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="product_card col-md-3 col-sm-3 col-xs-6">
-                <div class="card card-plain">
                     <a href="<?=PAGE_DOMAIN?>/store/pokemongo">
                         <div class="card-image">
                             <img src="<?=PAGE_DOMAIN?>/app/views/store/pokemongo/pokemongo.jpg" alt="pokemongo">

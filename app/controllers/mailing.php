@@ -29,6 +29,34 @@
                 case 'delete':
 
                 break;
+
+                default:
+                    if(isset($_SESSION["login"])) {
+                        $this->u->name = $info_user=$this->u->getUser()['name'];
+                        if(isset($_POST["mailing"])){
+                            $this->loadModel("mailing");
+                            $mailing = New Mailing_Model();
+                            $mailing->user=$_POST["username"];
+                            $mailing->email=$_POST["email"];
+                            $mailing->set();
+                        }
+
+                        if(!empty($_POST["redirect"])){
+                            $data['skip'] = $_POST["redirect"];
+                        }else{
+                            $data['skip'] = PAGE_DOMAIN;
+                        }
+                        $this->render('mailing', 'mailing', $data);
+
+
+                        /*if(!empty($_POST["redirect"])){
+                            Header("Location: ".$_POST["redirect"]);
+                        }else{
+                            Header("Location: ".PAGE_DOMAIN);
+                        }*/
+                    } else {
+                        $this->render("error","404");
+                    }
             }
         }
     }

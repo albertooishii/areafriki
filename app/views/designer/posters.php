@@ -56,12 +56,13 @@
         <div class="form-group">
             <h4><i class="material-icons">print</i> FICHERO PARA IMPRIMIR</h4>
             <label class="control-label">* Formatos aceptados pdf, ai, eps, svg, psd, jpg y png</label>
-            <input id="file" type="file" class="file" accept="application/pdf, image/x-eps, application/illustrator, application/postscript, image/svg+xml,  application/octet-stream, image/photoshop, application/psd, image/x-psd, image/psd, image/jpeg, image/pjpeg, image/png" name="design_editable" data-allowed-file-extensions='["ai", "pdf", "eps", "ps", "svg", "psd", "jpg", "jpeg", "png"]' data-show-preview=false data-show-upload=false data-language=es
+            <input id="file" type="file" class="file" accept="application/pdf, image/x-eps, application/illustrator, application/postscript, image/svg+xml,  application/octet-stream, image/photoshop, application/psd, image/x-psd, image/psd, image/jpeg, image/pjpeg, image/png" name="design_editable" data-allowed-file-extensions='["ai", "pdf", "eps", "ps", "svg", "psd", "jpg", "jpeg", "png"]' data-show-preview=false data-show-remove=false data-show-upload=false data-language=es
                 data-fv-file-maxsize="101000000"
                 data-fv-file="true"
                 data-fv-file-message="El tamaño máximo permitido para el archivo es de 100MB, prueba a subirlo en otro formato o disminuir la calidad, gracias."
                 data-fv-notempty="true"
                 data-fv-notempty-message="El archivo editable con el diseño es obligatorio."/>
+            <label class="control-label">Es necesario que el fichero para imprimir cumpla los <a href='<?=PAGE_DOMAIN?>/plantillas/<?=$data['dg-nombre-cat']?>.zip'>estándares de calidad</a>.</label>
         </div>
     </div>
     <input type="hidden" name="token" id="token" value="<?=$data["token"]?>">

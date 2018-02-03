@@ -144,7 +144,6 @@
                                     <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
                                     <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
                                     <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
-                                    <li><a href='<?=PAGE_DOMAIN?>/stickers'>Stickers</a></li>
                                     <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
                                     <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>                   
                                 </ul>
@@ -191,7 +190,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="https://blog.areafriki.com" target="_blank">
+                        <a href="https://areafriki.com/blog">
                             BLOG
                         </a>
                     </li>

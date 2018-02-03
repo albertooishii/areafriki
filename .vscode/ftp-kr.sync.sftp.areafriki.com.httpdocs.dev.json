@@ -6,7 +6,7 @@
         {
             "type": "-",
             "name": ".htaccess",
-            "size": 7029
+            "size": 7145
         },
         {
             "type": "-",
@@ -80,20 +80,8 @@
         {
             "type": "d",
             "name": "app",
-            "size": 106,
+            "size": 117,
             "files": [
-                {
-                    "type": "d",
-                    "name": "controllers",
-                    "size": 0,
-                    "files": [
-                        {
-                            "type": "-",
-                            "name": "upload.php",
-                            "size": 19169
-                        }
-                    ]
-                },
                 {
                     "type": "d",
                     "name": "views",
@@ -101,147 +89,13 @@
                     "files": [
                         {
                             "type": "d",
-                            "name": "designer",
+                            "name": "home",
                             "size": 0,
                             "files": [
                                 {
                                     "type": "-",
-                                    "name": "secondhand.php",
-                                    "size": 8926
-                                },
-                                {
-                                    "type": "-",
-                                    "name": "secondhand.js",
-                                    "size": 4125
-                                },
-                                {
-                                    "type": "-",
-                                    "name": "handmades.php",
-                                    "size": 9093
-                                },
-                                {
-                                    "type": "-",
-                                    "name": "handmades.js",
-                                    "size": 4125
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "d",
-                    "name": "templates",
-                    "size": 0,
-                    "files": [
-                        {
-                            "type": "d",
-                            "name": "frontoffice",
-                            "size": 0,
-                            "files": [
-                                {
-                                    "type": "d",
-                                    "name": "img",
-                                    "size": 0,
-                                    "files": [
-                                        {
-                                            "type": "d",
-                                            "name": "layout",
-                                            "size": 0,
-                                            "files": [
-                                                {
-                                                    "type": "-",
-                                                    "name": "3d.png",
-                                                    "size": 33134
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "af_gamer_girl.jpg",
-                                                    "size": 183107
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "af_gamer_girl.png",
-                                                    "size": 2970344
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "background.jpg",
-                                                    "size": 41665
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "banner-upload.png",
-                                                    "size": 41624
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "design.png",
-                                                    "size": 34401
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "envio-gratis.jpg",
-                                                    "size": 67464
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "header-thumbnail.png",
-                                                    "size": 419383
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "home-banner.jpg",
-                                                    "size": 122952
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "logo-email.png",
-                                                    "size": 9714
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "logo-header.png",
-                                                    "size": 20651
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "rupia.png",
-                                                    "size": 233
-                                                },
-                                                {
-                                                    "type": "d",
-                                                    "name": "categorias",
-                                                    "size": 4096,
-                                                    "files": []
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "logo-mobile-navidad.png",
-                                                    "size": 22027
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "logo-header-navidad.png",
-                                                    "size": 21019
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "cta-dogswitch.jpg",
-                                                    "size": 90382
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "secondhand.png",
-                                                    "size": 88677
-                                                },
-                                                {
-                                                    "type": "-",
-                                                    "name": "handmades.png",
-                                                    "size": 78136
-                                                }
-                                            ]
-                                        }
-                                    ]
+                                    "name": "home_categorias.php",
+                                    "size": 5121
                                 }
                             ]
                         }
@@ -265,13 +119,18 @@
             "type": "d",
             "name": ".vscode",
             "size": 24,
-            "files": [
-                {
-                    "type": "-",
-                    "name": "ftp-kr.json",
-                    "size": 743
-                }
-            ]
+            "files": []
+        },
+        {
+            "type": "-",
+            "name": ".gitignore",
+            "size": 222
+        },
+        {
+            "type": "d",
+            "name": "blogbk",
+            "size": 4096,
+            "files": []
         }
     ]
 }

@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h1 class="title">¿Eres diseñador?</h1>
-                <h4>Vende productos personalizados con tus diseños: camisetas, sudaderas, tazas, lienzos, chapas, vinilos, stickers y pósters. Marca cuanto quieres ganar por cada venta · Totalmente gratis, sin comisiones adicionales.</h4>
+                <h4>Vende productos personalizados con tus diseños: camisetas, sudaderas, tazas, lienzos, chapas, vinilos y pósters. Marca cuanto quieres ganar por cada venta · Totalmente gratis, sin comisiones adicionales.</h4>
                 <br>
                 <iframe width="100%" height="340" src="https://www.youtube.com/embed/PQ1iQTx-jHM" frameborder="0" allowfullscreen class="nomobile notablet"></iframe>
             </div>

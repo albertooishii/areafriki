@@ -31,6 +31,9 @@
                                 $dg->genera_token();
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
+                                $cat->parent=$cat->id=$cat->getWhereNombre()["id"];
+                                $data["subcategorias"]=$cat->getChilds('enabled','producto');
+                                $data["tematicas"]=$cat->getCategorias('topic');
                                 $pr->user=$this->u->id;
                                 if($data["listas"]=$pr->getListas()){
                                     $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
@@ -45,6 +48,9 @@
                                 $dg->genera_token();
                                 $data["token"]=$dg->token;
                                 $data["dg-nombre-cat"]=$cat->nombre;
+                                $cat->parent=$cat->id=$cat->getWhereNombre()["id"];
+                                $data["subcategorias"]=$cat->getChilds('enabled','producto');
+                                $data["tematicas"]=$cat->getCategorias('topic');
                                 $pr->user=$this->u->id;
                                 if($data["listas"]=$pr->getListas()){
                                     $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);

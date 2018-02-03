@@ -64,21 +64,22 @@
         </script>
         <!-- Facebook Pixel Code -->
         <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window,document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-         fbq('init', '164226414047284');
-        fbq('track', 'PageView');
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window,document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '164226414047284');
+            fbq('track', 'PageView');
+            <?=@$data['fbevent']?>
         </script>
         <noscript>
-         <img height="1" width="1"
-        src="https://www.facebook.com/tr?id=164226414047284&ev=PageView
-        &noscript=1"/>
+            <img height="1" width="1"
+            src="https://www.facebook.com/tr?id=164226414047284&ev=PageView
+            &noscript=1"/>
         </noscript>
         <!-- End Facebook Pixel Code -->
         <!-- Hotjar Tracking Code for http://dev.areafriki.com -->
@@ -144,7 +145,7 @@
         <!--Bootstrap range slider -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css">
         <!--Bootstrap select-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
         <!--DropdownJs-->
 		<link rel="stylesheet" href="/vendor/dropdownjs/jquery.dropdown.css">
         <!--Bootstrap-tokenfield -->
@@ -162,8 +163,8 @@
         <!--Bootstrap-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!--Bootstrap select-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-es_CL.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-es_ES.min.js"></script>
         <!--Material design bootstrap-->
         <script type="text/javascript" src="/vendor/material-kit-pro/js/material.min.js"></script>
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
@@ -195,7 +196,6 @@
               'wrapAround': true
             });
             $.material.init();
-            $("select").dropdown();
         </script>
 	</body>
 </html>

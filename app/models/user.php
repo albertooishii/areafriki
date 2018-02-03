@@ -3,7 +3,7 @@
 
     class Users_Model extends Database{
 
-        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $pais, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $banco, $iban, $birthday, $idnum, $codigo_beta, $credito, $referral;
+        var $id, $user, $email, $pass, $name, $phone, $address, $cp, $pais, $provincia, $localidad, $rol, $ip, $descripcion, $ocupacion, $intereses, $paypal, $banco, $iban, $birthday, $idnum, $codigo_beta, $credito, $referral, $wp_id;
 
         function __construct(){
            parent::__construct();
@@ -126,6 +126,13 @@
         function updatePassword(){
             $pass=sha1(GLOBAL_TOKEN.$this->pass);
             $query="UPDATE users SET pass=UNHEX('$pass') WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
+        function setUserWPid() {
+            $query="UPDATE users SET wp_id = ".$this->wp_id." WHERE id='$this->id'";
             if ( $this->_db->query($query) )
             return true;
             return false;
@@ -300,6 +307,7 @@
                 //asignamos el nombre de usuario tal y como lo hemos leido en la base de datos (para evitar problemas de mayusculas y minúsculas)
                 $this->user=$answer["user"];
                 $this->id=$answer["id"];
+                $this->email=$answer["email"];
 
                 $this->updateUser_date();//actualiza ultimo acceso
                 $this->updateUser_ip();//actualiza ultima ip
@@ -308,9 +316,8 @@
                 $_SESSION['login']['pass']=$this->pass; //password solo con el md5
 
                 if($loginrec==1){
-                    //echo "hola";
-                    setcookie("user", $this->user, strtotime('+15 days'), '/');
-                    setcookie("pass", $this->pass, strtotime('+15 days'), '/');
+                    setcookie("user", $this->user, time()+2678400, '/');
+                    setcookie("pass", $this->pass, time()+2678400, '/');
                 }
                 return $answer;
             }
@@ -320,8 +327,8 @@
         //Logout user
         function logout(){
             unset($_SESSION["login"]);
-            setcookie("user", '', strtotime('-15 days'), '/');
-            setcookie("pass", '', strtotime('-15 days'), '/');
+            setcookie("user", '', time()-2678400, '/');
+            setcookie("pass", '', time()-2678400, '/');
             session_destroy();
             Header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
             Header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");

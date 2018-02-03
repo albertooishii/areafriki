@@ -6,7 +6,7 @@
 
         public function __construct(){
 
-            $this->_db = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+            $this->_db = new mysqli(DATABASE_SERVER, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);
             $this->_db->query("SET NAMES 'utf8'"); // so important..
             if ( $this->_db->connect_error ) {
                 die('Error de Conexión (' . $this->_db->connect_errno . ') '. $this->_db->connect_error);

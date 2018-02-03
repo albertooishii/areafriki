@@ -101,7 +101,7 @@
 
                 case 'checkout':
                     if(isset($_POST["token"])){
-                        $data["token"]=$car->token=$_POST["token"];
+                        $_SESSION['token_carrito']=$data["token"]=$car->token=$_POST["token"];
 
                         if($carrito=$car->get()){
                             $creador=New Users_Model();
@@ -281,6 +281,7 @@
                             $data["custom_js"]="<script type='text/javascript' src='https://js.stripe.com/v2/'></script>";
                             $data["custom_js"].=$this->minifyJs("forms", "pago");
                             $data["custom_js"].=$this->minifyJs("carrito", "carrito");
+                            $data["fbevent"]="fbq('track', 'InitiateCheckout')";
                             $this->render("carrito","checkout",$data);
                         }
                     }else{
@@ -335,6 +336,7 @@
                                     }else{
                                         $data["iban"]=$info_vendedor["iban"];
                                     }
+                                    $data["fbevent"]="fbq('track', 'AddPaymentInfo')";
                                     $this->render("pago","transferencia/transferencia",$data);
                                 break;
 
@@ -345,6 +347,7 @@
                                         $data["paypal_email"]=$info_vendedor["paypal"];
                                     }
                                     $data["custom_js"]=$this->minifyJs("pago", "paypal/paypal");
+                                    $data["fbevent"]="fbq('track', 'AddPaymentInfo')";
                                     $this->render("pago","paypal/paypal",$data);
                                 break;
 
@@ -439,7 +442,7 @@
                                         }
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->delete();
+                                            $car->pagar();
                                         }else{
                                             $data["titulo_mensaje"]="Error";
                                             $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
@@ -457,7 +460,7 @@
                                         $data["token"]=$ped->token;
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->delete();
+                                            $car->pagar();
                                         }else{
                                             $log.="No se ha podido dar de alta el pedido\n\r";
                                             $log.=print_r($ped,true);
@@ -471,7 +474,7 @@
                                         $data["iban"]=$_POST["iban"];
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->delete();
+                                            $car->pagar();
                                         }else{
                                             $data["titulo_mensaje"]="Error";
                                             $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
@@ -616,7 +619,19 @@
                 break;
 
                 case 'completed':
+                    if(isset($_SESSION["token_carrito"])){
+                        $car->token=$_SESSION["token_carrito"];
+                        $carrito=$car->get();
+                        $pedido=unserialize($carrito["pedido"]);
+                        $pr->pedido=$pedido;
+
+                        $pr->getPrecioPedido();
+
+                        $data["fbevent"]="fbq('track', 'Purchase', {value: '". $pr->precio_total ."', currency: 'EUR'});";
+                    }
                     $this->render("carrito","completed",$data);
+                    $car->delete();
+                    unset($_SESSION['token_carrito']);
                 break;
 
                 default:

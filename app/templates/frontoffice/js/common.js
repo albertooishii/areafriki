@@ -166,7 +166,7 @@ $(document).ready(function() {
                     $("#modalDg").modal('hide');
                     $("#add-list-confirm").remove();
                     $("#select-list").append(new Option($("input[name='list-name']").val(), response, true, true));
-                    $("#select-list .selected").change();
+                    $("#select-list").selectpicker('refresh');
                     //alert($("#select-list").val());
                 }
             });

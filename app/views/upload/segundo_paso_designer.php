@@ -89,7 +89,7 @@
                 </div>
                 <a class="btn btn-xs btn-default" href="<?=PAGE_DOMAIN?>/plantillas/chapas.zip"><i class="material-icons">&#xE2C4;</i> Plantilla e <br>instrucciones</a>
             </div>
-            <div class="col-sm-3 col-xs-6 product_card">
+            <!--<div class="col-sm-3 col-xs-6 product_card">
                 <div class="card card-plain">
                     <a href="<?=PAGE_DOMAIN?>/designer/stickers">
                         <div class="card-image">
@@ -99,7 +99,7 @@
                     </a>
                 </div>
                 <a class="btn btn-xs btn-default" href="<?=PAGE_DOMAIN?>/plantillas/stickers.zip"><i class="material-icons">&#xE2C4;</i> Plantilla e <br>instrucciones</a>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

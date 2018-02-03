@@ -14,6 +14,8 @@
             $cat = New Categoria_Model();
             $this->loadModel("notification");
             $notify = New Notification_Model();
+            $this->loadModel("blog");
+            $blog = New Blog_Model();
             @$action=$_GET["action"];
             $data["reg_msg"]=$data["login_msg"]="";
             switch($action){
@@ -31,17 +33,12 @@
                             $this->u->referral=$_COOKIE["referral"];
                         }
                         if($this->u->register()){
-                            if(isset($_POST["mailing"])){
-                                $this->loadModel("mailing");
-                                $mailing = New Mailing_Model();
-                                $mailing->user=$_POST["username"];
-                                $mailing->email=$_POST["email"];
-                                $mailing->set();
-                            }
+                            $this->registerWordpress($_POST["password"]);
+                            //Continuamos con el formulario de mailing
                             if(!empty($_POST["redirect"])){
-                                Header("Location: ".$_POST["redirect"]);
+                                Header("Location: ".PAGE_DOMAIN."/mailing?redirect=".$_POST["redirect"]);
                             }else{
-                                Header("Location: ".PAGE_DOMAIN);
+                                Header("Location: ".PAGE_DOMAIN."/mailing");
                             }
                         }else{
                             $data["reg_msg"]=$this->loadView('error','form_error',"Ya hay un usuario registrado con estos datos (email o nombre de usuario).");
@@ -68,6 +65,8 @@
                         }else{$loginrec=0;}
                         if(!isset($_REQUEST["activation_key"])){
                             if($this->u->login($loginrec)){
+                                $this->loginWordpress($_POST['password'], $loginrec);
+
                                 $this->loadModel('carrito');
                                 $car=New Carrito_Model();
                                 $car->user=$this->u->id;
@@ -89,6 +88,7 @@
                         }else{
                             if($this->u->activate($_REQUEST["activation_key"])){
                                 if($this->u->login($loginrec)){
+                                    $this->loginWordpress($_POST['password'], $loginrec);
                                     $this->loadModel('carrito');
                                     $car=New Carrito_Model();
                                     $car->user=$this->u->id;
@@ -149,7 +149,7 @@
 
                 break;
 
-                case 'login_api':
+                /*case 'login_api':
                     if(isset($_POST["username"]) && isset($_POST["password"])){
                         if(preg_match('#^[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,6}$#',$_POST["username"])){
                                 $this->u->email=$_POST["username"];
@@ -165,7 +165,7 @@
                     }else{
                         echo false;
                     }
-                break;
+                break;*/
 
                 case 'sendactivation':
                     if(isset($_SESSION["login"]) && !$this->u->getUser_activeaccount()){
@@ -230,6 +230,9 @@
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->email=$_POST["email"];
                         if($this->u->recoverPassword()){
+                            $info_user=$this->u->getUser();
+                            $this->u->wp_id=$info_user["wp_id"];
+                            $blog->recoverPassword($_POST['password'], $this->u->wp_id);
                             $data["titulo_mensaje"]="¡Enhorabuena!";
                             $data["texto_mensaje"]="Se ha cambiado la contraseña correctamente. Ya puedes iniciar sesión con la nueva clave que has configurado.";
                             $data["url"]=PAGE_DOMAIN."/login";
@@ -258,6 +261,7 @@
 
                 case 'logout':
                     $this->u->logout();
+                    //$blog->logoutWPUser();
                 break;
 
                 case 'uploadAvatar':
@@ -739,6 +743,26 @@
                         $this->render('error','404',$data);
                     }
             }
+        }
+
+        function loginWordpress($password, $loginrec) {
+            $this->loadModel("blog");
+            $blog = New Blog_Model();
+            if(!$blog->checkWPUser($this->u->user)) {
+                $this->registerWordpress($password);
+            } else {
+                $wpuser = $blog->loginWPUser($this->u->user, $password, $loginrec);
+                $this->u->wp_id = $wpuser->ID;
+                $this->u->setUserWPid();
+            }
+        }
+
+        function registerWordpress($password) {
+            $this->loadModel("blog");
+            $blog = New Blog_Model();
+            $wp_userid = $blog->registerWPUser($this->u->user, $password, $this->u->email);
+            $this->u->wp_id = $wp_userid;
+            $this->u->setUserWPid();
         }
 
     }
