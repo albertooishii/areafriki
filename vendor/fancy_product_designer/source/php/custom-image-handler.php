@@ -25,15 +25,15 @@ if(isset($_FILES) && sizeof($_FILES) > 0) {
 		$filename = $parts[0];
 		$ext = $parts[1];
 
-		//check if its an image
-		if(!getimagesize($file['tmp_name'][0]) && $ext !== 'svg') {
-			echo json_encode(array('error' => 'This file is not an image!', 'filename' => $filename));
+		//check for php errors
+		if( isset($file['error']) && $file['error'][0] !== UPLOAD_ERR_OK ) {
+			echo json_encode(array('error' => FPD_Image_Utils::file_upload_error_message($file['error'][0]), 'filename' => $filename));
 			die;
 		}
 
-		//check for php errors
-		if($file['error'][0] !== UPLOAD_ERR_OK) {
-			echo json_encode(array('error' => FPD_Image_Utils::file_upload_error_message($file['error']), 'filename' => $filename));
+		//check if its an image
+		if(!getimagesize($file['tmp_name'][0]) && $ext !== 'svg') {
+			echo json_encode(array('error' => 'This file is not an image!', 'filename' => $filename));
 			die;
 		}
 
@@ -47,8 +47,8 @@ if(isset($_FILES) && sizeof($_FILES) > 0) {
 			if($ext === 'jpg' || $ext === 'jpeg') {
 
 				if(  function_exists('exif_read_data') ) {
-					$exif = exif_read_data($image_path);
-				    if (!empty($exif['Orientation'])) {
+					$exif = @exif_read_data($image_path);
+				    if ($exif && isset($exif['Orientation']) && !empty($exif['Orientation'])) {
 
 				        $image = imagecreatefromjpeg($image_path);
 				        unlink($image_path);
@@ -82,7 +82,7 @@ if(isset($_FILES) && sizeof($_FILES) > 0) {
 		else {
 
 			echo json_encode( array(
-				'error' => 'PHP Issue - move_uploaed_file failed',
+				'error' => 'PHP Issue - move_upload_file failed.',
 				'filename' => $filename
 			) );
 
@@ -97,7 +97,8 @@ if(isset($_FILES) && sizeof($_FILES) > 0) {
 $url = $_POST['url'];
 $mime_type = FPD_Image_Utils::is_image($url);
 if ( $mime_type === false ) {
-	echo json_encode(array('error' => 'This is not an image file!'));
+	$last_error = error_get_last();
+	echo json_encode(array('error' => is_array($last_error) ?  $last_error['message'] : 'File is not an image!'));
     die;
 }
 

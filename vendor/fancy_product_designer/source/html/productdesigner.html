@@ -6,6 +6,9 @@
 			<div class="fpd-tool-fill fpd-tooltip" data-panel="fill" data-defaulttext="Fill" title="toolbar.fill">
 				<span class="fpd-current-fill" data-control="fill"></span>
 			</div>
+			<div class="fpd-tool-advanced-editing fpd-tooltip" data-defaulttext="Advanced Editing" title="toolbar.advanced_editing">
+				<span class="fpd-icon-advanced-editing"></span>
+			</div>
 			<div class="fpd-tool-transform fpd-tooltip" data-panel="transform" data-defaulttext="Transform" title="toolbar.transform">
 				<span class="fpd-icon-transform"></span>
 			</div>
@@ -23,12 +26,15 @@
 			</div>
 		</div>
 
-		<div class="fpd-text-tools fpd-row fpd-clearfix">
+		<div class="fpd-text-tools fpd-text-font-tools fpd-row fpd-clearfix">
 			<div class="fpd-tool-font-family fpd-dropdown fpd-search">
 				<input type="text" class="fpd-dropdown-current" data-control="fontFamily" value="Helvetica" />
 				<div class="fpd-dropdown-arrow"><span class="fpd-icon-arrow-dropdown"></span></div>
 				<div class="fpd-dropdown-list"></div>
 			</div>
+		</div>
+
+		<div class="fpd-text-tools fpd-text-size-tools fpd-row fpd-clearfix">
 			<div class="fpd-tool-text-size fpd-tooltip" data-defaulttext="Font Size" title="toolbar.font_size">
 				<span class="fpd-icon-format-size"></span>
 				<input type="number" class="fpd-number" value="12" step="1" min="1" max="1000" data-control="fontSize" />
@@ -37,9 +43,13 @@
 				<span class="fpd-icon-format-line-spacing"></span>
 				<input type="number" class="fpd-number" value="1" step="0.1" min="1" max="3" data-control="lineHeight" />
 			</div>
+			<div class="fpd-tool-text-letter-spacing fpd-tooltip" data-defaulttext="Letter Spacing" title="toolbar.letter_spacing">
+				<span class="fpd-icon-letter-spacing"></span>
+				<input type="number" class="fpd-number" value="0" step="1" min="0" max="100" data-control="letterSpacing" />
+			</div>
 		</div>
 
-		<div class="fpd-text-tools fpd-row fpd-clearfix">
+		<div class="fpd-text-tools fpd-text-random-tools fpd-row fpd-clearfix">
 			<div class="fpd-tool-text-bold fpd-toggle fpd-tooltip" data-defaulttext="Bold" data-control="fontWeight" data-enabled="bold" data-disabled="normal" title="toolbar.bold">
 				<span class="fpd-icon-format-bold"></span>
 			</div>
@@ -64,6 +74,26 @@
 					<span class="fpd-item" data-value="right">
 						<span class="fpd-icon-format-align-right"></span>
 					</span>
+					<span class="fpd-item" data-value="justify">
+						<span class="fpd-icon-format-align-justify"></span>
+					</span>
+				</div>
+			</div>
+			<div class="fpd-tool-text-transform fpd-dropdown">
+				<span class="fpd-dropdown-current fpd-tooltip" data-control="textTransform" data-defaulttext="Text Transform" title="toolbar.text_transform">
+					<span class=" fpd-icon-format-align-left"></span>
+				</span>
+				<div class="fpd-dropdown-arrow"><span class="fpd-icon-arrow-dropdown"></span></div>
+				<div class="fpd-dropdown-list">
+					<span class="fpd-item" data-value="none">
+						<span class="fpd-icon-text-transform"></span>
+					</span>
+					<span class="fpd-item" data-value="uppercase">
+						<span class="fpd-icon-uppercase"></span>
+					</span>
+					<span class="fpd-item" data-value="lowercase">
+						<span class="fpd-icon-lowercase"></span>
+					</span>
 				</div>
 			</div>
 			<div class="fpd-tool-text-stroke fpd-tooltip" data-panel="stroke" data-defaulttext="Stroke" title="toolbar.stroke">
@@ -83,7 +113,6 @@
 
 				<div class="fpd-panel-tabs">
 					<span id="color" data-defaulttext="Color">toolbar.color</span>
-					<span id="filter" data-defaulttext="Filters">toolbar.filters</span>
 					<span id="pattern" data-defaulttext="Patterns">toolbar.patterns</span>
 				</div>
 				<div class="fpd-panel-tabs-content">
@@ -96,14 +125,6 @@
 							     <input class="fpd-slider-range" type="range" value="1" step="0.01" min="0" max="1" data-control="opacity" />
 						    </div>
 					    </div>
-					</div>
-					<div class="fpd-filters" data-id="filter">
-						<div class="fpd-grid fpd-grid-cover fpd-clearfix">
-							<div class="fpd-filter-none fpd-item fpd-tooltip" data-filter="none" data-defaulttext="No Filter" title="toolbar.no_filter"><picture></picture></div>
-							<div class="fpd-filter-grayscale fpd-item fpd-tooltip" data-filter="grayscale" data-defaulttext="Grayscale" title="toolbar.grayscale"><picture></picture></div>
-							<div class="fpd-filter-sepia fpd-item fpd-tooltip" data-filter="sepia" data-defaulttext="Sepia" title="toolbar.sepia"><picture></picture></div>
-							<div class="fpd-filter-sepia2 fpd-item fpd-tooltip" data-filter="sepia2" data-defaulttext="Sepia Second" title="toolbar.sepia2"><picture></picture></div>
-						</div>
 					</div>
 					<div class="fpd-patterns" data-id="pattern">
 						<div class="fpd-grid fpd-clearfix"></div>
@@ -301,6 +322,18 @@
 		<div class="fpd-action-btn fpd-tooltip fpd-primary-text-color" data-action="preview-lightbox"  data-defaulttext="Preview" title="actions.preview_lightbox">
 			<span class="fpd-icon-preview-lightbox"></span>
 		</div>
+		<div class="fpd-action-btn fpd-tooltip fpd-primary-text-color" data-action="ruler"  data-defaulttext="Toggle Ruler" title="actions.ruler">
+			<span class="fpd-icon-ruler"></span>
+		</div>
+		<div class="fpd-action-btn fpd-tooltip fpd-disabled fpd-primary-text-color" data-action="previous-view"  data-defaulttext="Previous View" title="actions.previous_view">
+			<span class="fpd-icon-back"></span>
+		</div>
+		<div class="fpd-action-btn fpd-tooltip fpd-disabled fpd-primary-text-color" data-action="next-view"  data-defaulttext="Next View" title="actions.next_view">
+			<span class="fpd-icon-forward"></span>
+		</div>
+		<div class="fpd-action-btn fpd-tooltip fpd-primary-text-color" data-action="guided-tour"  data-defaulttext="Start Guided Tour" title="actions.start_guided_tour">
+			<span class="fpd-icon-guided-tour"></span>
+		</div>
 
 	</div><!-- Actions -->
 
@@ -330,6 +363,9 @@
                 <div data-context="instagram" class="fpd-hidden">
 	                 <span class="fpd-icon-instagram"></span>
                 </div>
+                <div data-context="pixabay" class="fpd-hidden">
+	                 <span class="fpd-icon-pixabay"></span>
+                </div>
 		    </div>
 
 		    <div class="fpd-module-tabs-content">
@@ -341,7 +377,7 @@
 								 <span data-defaulttext="Click or drop images here">modules.upload_zone</span>
 					        </div>
 				        </div>
-				        <input type="file" multiple="multiple" class="fpd-input-image" name="files[]" />
+				        <input type="file" multiple="multiple" class="fpd-input-image" name="files[]" accept=".jpg,.jpeg,.png,.svg" />
 		            </form>
 		            <div class="fpd-scroll-area">
 						<div class="fpd-grid fpd-grid-cover fpd-photo-grid"></div>
@@ -353,7 +389,7 @@
 					        <fb:login-button data-max-rows="1" data-show-faces="false" data-scope="user_photos"></fb:login-button>
 				        </div>
 						<div class="fpd-facebook-albums fpd-dropdown fpd-search fpd-on-loading">
-							<input type="text" class="fpd-dropdown-current"  data-defaulttext="Select An Album" placeholder="modules.facebook_select_album" />
+							<input type="text" class="fpd-dropdown-current" data-defaulttext="Select An Album" placeholder="modules.facebook_select_album" />
 							<div class="fpd-dropdown-arrow"><span class="fpd-icon-arrow-dropdown"></span></div>
 							<div class="fpd-dropdown-list"></div>
 						</div>
@@ -363,12 +399,18 @@
 					</div>
 		        </div>
 		        <div data-context="instagram">
-			        <!--<div class="fpd-head">
-			        	<div class="fpd-module-tabs">
-				        	 <div class="fpd-insta-recent-images" data-defaulttext="My Recent Photos">modules.instagram_recent_photos_button</div>
-			                <div class="fpd-insta-liked-images" data-defaulttext="My Liked Photos">modules.instagram_like_photos_button</div>
-					    </div>
-			        </div>-->
+			        <div class="fpd-scroll-area">
+						<div class="fpd-grid fpd-grid-cover fpd-photo-grid"></div>
+					</div>
+		        </div>
+		        <div data-context="pixabay">
+			        <div class="fpd-head">
+				        <a href="https://pixabay.com/" target="_blank" class="fpd-pixabay-logo"></a>
+				        <div class="fpd-input-search">
+							<input type="text" data-defaulttext="Search in Pixabay library" placeholder="modules.pixabay_search" />
+							<span class="fpd-icon-magnify"></span>
+						</div>
+			        </div>
 			        <div class="fpd-scroll-area">
 						<div class="fpd-grid fpd-grid-cover fpd-photo-grid"></div>
 					</div>
@@ -384,7 +426,11 @@
 
 		<div class="fpd-module" data-module="designs" data-moduleicon="fpd-icon-design-library" data-defaulttext="Choose From Designs" data-title="modules.designs">
 			<div class="fpd-head fpd-clearfix">
-				<div class="fpd-category-title"></div>
+				<div class="fpd-category-title-search">
+					<span class="fpd-toggle-search fpd-icon-magnify"></span>
+					<span class="fpd-category-title"></span>
+					<input type="text" class="fpd-search" />
+				</div>
 				<div class="fpd-back fpd-btn">
 					<span class="fpd-icon-back"></span>
 				</div>
@@ -401,6 +447,59 @@
 				</div>
 			</div>
 		</div><!-- Manage Layers Module -->
+
+		<div class="fpd-module" data-module="names-numbers" data-moduleicon="fpd-icon-name-number" data-defaulttext="Names & Numbers" data-title="plus.names_numbers">
+			<div class="fpd-names-numbers-panel">
+				<div class="fpd-scroll-area">
+					<div class="fpd-list"></div>
+					<div class="fpd-btn" data-defaulttext="Add New">plus.names_numbers_add_new</div>
+				</div>
+			</div>
+		</div><!-- Names & Numbers Module -->
+
+		<div class="fpd-module" data-module="drawing" data-moduleicon="fpd-icon-brush" data-defaulttext="Free Drawing" data-title="plus.drawing">
+			<div class="fpd-drawing-panel">
+				<div class="fpd-scroll-area">
+
+					<div class="fpd-drawing-tools">
+						<div class="fpd-label" data-defaulttext="Brush Type">plus.drawing_brush_type</div>
+						<div class="fpd-drawing-brush-type fpd-dropdown">
+							<span class="fpd-dropdown-current" title="">
+								<span data-value="pencil" data-defaulttext="Pencil">plus.drawing_pencil</span>
+							</span>
+							<div class="fpd-dropdown-arrow"><span class="fpd-icon-arrow-dropdown"></span></div>
+							<div class="fpd-dropdown-list">
+								<span class="fpd-item" data-value="Pencil" data-defaulttext="Pencil">plus.drawing_pencil</span>
+								<span class="fpd-item" data-value="Circle" data-defaulttext="Cirlce">plus.drawing_circle</span>
+								<span class="fpd-item" data-value="Spray" data-defaulttext="Spray">plus.drawing_spray</span>
+							</div>
+						</div>
+
+						<div class="fpd-label" data-defaulttext="Color">plus.drawing_color</div>
+						<div>
+							<input type="text" value="" class="fpd-drawing-line-color" />
+						</div>
+
+						<div class="fpd-label" data-defaulttext="Line Width">plus.drawing_line_width</div>
+						<div class="fpd-slider-group fpd-clearfix">
+						    <input class="fpd-slider-number fpd-number fpd-drawing-line-width" type="number" value="1" step="1" min="1" max="30" />
+						    <div class="fpd-range-wrapper">
+							     <input class="fpd-slider-range" type="range" value="1" step="1" min="1" max="30" />
+						    </div>
+					    </div>
+
+						<div class="fpd-label" data-defaulttext="Draw Here">plus.drawing_draw_here</div>
+					    <canvas class="fpd-drawing-canvas" width="100" height="150"></canvas>
+
+					    <div class="fpd-buttons fpd-clearfix">
+						    <span class="fpd-clear-drawing fpd-btn fpd-left fpd-secondary" data-defaulttext="Clear Drawing">plus.drawing_clear</span>
+						    <span class="fpd-add-drawing fpd-btn fpd-right" data-defaulttext="Add Drawing">plus.drawing_add</span>
+					    </div>
+					</div>
+
+				</div>
+			</div>
+		</div><!-- Drawing Module -->
 
 		<div class="fpd-module fpd-secondary-module" data-module="secondary">
 
@@ -443,6 +542,87 @@
 			</div>
 		</div>
 	</div><!-- Draggable Dialog -->
+
+	<div class="fpd-image-editor-container">
+
+		<div class="fpd-image-editor-menu">
+			<span data-id="mask" class="fpd-active" data-defaulttext="Mask">image_editor.mask</span>
+			<span data-id="filters" data-defaulttext="Filters">image_editor.filters</span>
+			<span data-id="color-manipulation" data-defaulttext="Color Manipulation">image_editor.color_manipulation</span>
+		</div>
+
+		<div class="fpd-tab-content">
+
+			<!-- MASK -->
+			<div data-id="mask" class="fpd-content-mask fpd-active">
+
+				<div class="fpd-mask-selection">
+					<span data-mask="custom-rect" class="fpd-tooltip" data-defaulttext="Custom Cropping" title="image_editor.custom_cropping"><span class="fpd-icon-crop"></span></span>
+				</div>
+				<div class="fpd-mask-tools">
+					<span class="fpd-mask-cancel fpd-btn fpd-dark"><span class="fpd-icon-close"></span></span>
+					<span class="fpd-mask-save fpd-btn"><span class="fpd-icon-done"></span></span>
+				</div>
+
+			</div>
+
+			<!-- FILTERS -->
+			<div data-id="filters" class="fpd-content-filters"></div>
+
+			<!-- COLOR MANIPULATION -->
+			<div data-id="color-manipulation" class="fpd-content-color-manipulation fpd-clearfix">
+
+				<div class="fpd-left fpd-filter-brightness">
+					<div class="fpd-switch-container fpd-left" data-enabled="true" data-disabled="false" data-filter="Brightness">
+						<div class="fpd-switch-bar"></div>
+						<div class="fpd-switch-toggle"></div>
+					</div>
+					<label data-defaulttext="Brightness">image_editor.brightness</label>
+					<div class="fpd-range-tooltip">
+						<span data-defaulttext="Brightness">image_editor.brightness</span>
+						<input type="range" name="brightness" class="fpd-input-range" value="0" min="-255" max="255" step="1" />
+						<div class="fpd-tooltip"></div>
+					</div>
+				</div>
+
+				<div class="fpd-left fpd-filter-contrast">
+					<div class="fpd-switch-container fpd-left" data-enabled="true" data-disabled="false"  data-filter="Contrast">
+						<div class="fpd-switch-bar"></div>
+						<div class="fpd-switch-toggle"></div>
+					</div>
+					<label data-defaulttext="Contrast">image_editor.contrast</label>
+					<div class="fpd-range-tooltip">
+						<span data-defaulttext="Contrast">image_editor.contrast</span>
+						<input type="range" name="contrast" class="fpd-input-range" value="0" min="-255" max="255" step="1" />
+						<div class="fpd-tooltip"></div>
+					</div>
+				</div>
+
+				<div class="fpd-left fpd-filter-remove-white">
+					<div class="fpd-switch-container fpd-left" data-enabled="true" data-disabled="false" data-filter="RemoveWhite" >
+						<div class="fpd-switch-bar"></div>
+						<div class="fpd-switch-toggle"></div>
+					</div>
+					<label data-defaulttext="Remove White">image_editor.remove_white</label>
+					<div class="fpd-range-tooltip">
+						<span data-defaulttext="Distance">image_editor.remove_white_distance</span>
+						<input type="range" class="fpd-input-range" name="distance" value="5" min="0" max="255" step="1" />
+						<div class="fpd-tooltip"></div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="fpd-image-editor-main"></div>
+
+		<div class="fpd-action-buttons">
+			<span class="fpd-action-restore fpd-btn fpd-dark" data-defaulttext="Restore Original">image_editor.restore</span>
+			<span class="fpd-action-save fpd-btn" data-defaulttext="Save">image_editor.save</span>
+		</div>
+
+	</div>
 
 </div>
 
