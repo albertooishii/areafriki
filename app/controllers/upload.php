@@ -1,333 +1,382 @@
 <?php
-    class Upload extends Controller{
-        function index_uploads(){
-            $this->loadModel("producto");
-            $pr = New Producto_Model();
-            $this->loadModel("design");
-            $dg = New Design_Model();
-            $this->loadModel("categoria");
-            $cat = New Categoria_Model();
-            $this->loadModel('tag');
-            $t = New Tag_Model();
-            $this->loadModel("email");
-            $mail=New Email();
+class Upload extends Controller
+{
+    function index_uploads()
+    {
+        $this->loadModel("producto");
+        $pr = new Producto_Model();
+        $this->loadModel("design");
+        $dg = new Design_Model();
+        $this->loadModel("categoria");
+        $cat = new Categoria_Model();
+        $this->loadModel('tag');
+        $t = new Tag_Model();
+        $this->loadModel("email");
+        $mail = new Email();
 
-            @$action=$_GET["action"];
-            switch($action){
+        @$action = $_GET["action"];
+        switch ($action) {
 
-                case 'step2':
-                    if(isset($_SESSION["login"])){
-                        $data["page_title"]="2º Paso";
-                        $cat->nombre=$_GET["node"];
-                        $data["dg-id-cat"]=$cat->id=$cat->getWhereNombre()["id"];
+            case 'step2':
+                if (isset($_SESSION["login"])) {
+                    $data["page_title"] = "2º Paso";
+                    $cat->nombre = $_GET["node"];
 
-                        switch($cat->nombre){
-                            case 'designs':
-                                $data["page_title"]="Vende productos personalizados con tus diseños: camisetas, sudaderas, vinilos, lienzos, tazas...";
-                                $this->render("upload","segundo_paso_designer",$data);
-                            break;
+                    switch ($cat->nombre) {
+                        case 'designs':
+                            $data["page_title"] = "Diseña tu producto";
 
-                            case 'handmades':
-                                $dg->genera_token();
-                                $data["token"]=$dg->token;
-                                $data["dg-nombre-cat"]=$cat->nombre;
-                                $cat->parent=$cat->id=$cat->getWhereNombre()["id"];
-                                $data["subcategorias"]=$cat->getChilds('enabled','producto');
-                                $data["tematicas"]=$cat->getCategorias('topic');
-                                $pr->user=$this->u->id;
-                                if($data["listas"]=$pr->getListas()){
-                                    $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
-                                }else{
-                                    $data["listas_productos"]="";
-                                }
-                                $data["custom_js"]=$this->minifyJs("designer", "handmades");
-                                $this->render('designer','handmades',$data);
-                            break;
-
-                            case 'secondhand':
-                                $dg->genera_token();
-                                $data["token"]=$dg->token;
-                                $data["dg-nombre-cat"]=$cat->nombre;
-                                $cat->parent=$cat->id=$cat->getWhereNombre()["id"];
-                                $data["subcategorias"]=$cat->getChilds('enabled','producto');
-                                $data["tematicas"]=$cat->getCategorias('topic');
-                                $pr->user=$this->u->id;
-                                if($data["listas"]=$pr->getListas()){
-                                    $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
-                                }else{
-                                    $data["listas_productos"]="";
-                                }
-                                $data["custom_js"]=$this->minifyJs("designer", "secondhand");
-                                $this->render('designer','secondhand',$data);
-                            break;
-
-                            default:
-                                $this->render("error","404",$data);
-                        }
-                    }else{
-                        //Redireccionamos a página de registro
-                        Header("Location: ".PAGE_DOMAIN."/login?redirect=".$this->getURL());
-                    }
-                break;
-
-                case 'step3':
-                    if(isset($_SESSION["login"])){
-                        if(isset($_GET["categoria"])){
-                            $data["page_title"]="3er Paso";
-                            $cat->nombre=$data["dg-nombre-cat"]=$_GET["categoria"];
-                            $info_cat=$cat->getWhereNombre();
-                            $data["dg-id-cat"]=$dg->categoria=$pr->categoria=$cat->id=$info_cat["id"];
-                            $data["cat_desc"]=$info_cat["descripcion"];
+                            $data['category_parent']= $cat->parent = $cat->getWhereNombre($cat->nombre)['id'];
+                            $categorias = $cat->getChilds();
+                            $data["tematicas"] = $cat->getCategorias('topic');
                             $dg->genera_token();
-                            $data["token"]=$dg->token;
-                            if($data["lista_colores"]=$pr->getColores()){
-                                $data["color_pick"]=$this->loadView('upload', 'color_picker', $data);
+                            $data["token"] = $dg->token;
+                            $pr->user = $dg->user = $this->u->id;
+                            if ($data["listas"] = $pr->getListas()) {
+                                $data["listas_productos"] = $this->loadView("uploader", "listas_productos", $data);
+                            } else {
+                                $data["listas_productos"] = "";
                             }
-                            $pr->user=$dg->user=$this->u->id;
-                            if($data["listas"]=$pr->getListas()){
-                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
-                            }else{
-                                $data["listas_productos"]="";
+                            $data['categorias'] = array();
+                            foreach ($categorias as $categoria) {
+                                $pr->categoria = $categoria['id'];
+                                $colores = $pr->getColores();
+
+                                $categoria_array = array(
+                                    'id' => $categoria['id'],
+                                    'nombre' => $categoria['nombre'],
+                                    'descripcion' => $categoria['descripcion'],
+                                    'precio_base' => $categoria['precio_base'],
+                                    'precio_base_formated' => str_replace('.', ',', $categoria['precio_base']),
+                                    'beneficio' => $categoria['beneficio'],
+                                    'beneficio_formated' => str_replace('.', ',', $categoria['beneficio']),
+                                    'precio_max' => $categoria['precio_base'] + $categoria['beneficio'],
+                                    'precio_max_formated' => str_replace('.', ',', $categoria['precio_base'] + $categoria['beneficio'])
+                                );
+
+                                $pr->categoria = $categoria['id'];
+                                if ($colores = $pr->getColores()) {
+                                    $categoria_array['colores'] = $colores;
+                                    $categoria_array['color_pick'] = $this->loadView('uploader', 'color_picker', $colores);
+                                }
+
+                                if (empty($categoria['precio_base'])) {
+                                    $precios_size = array();
+                                    $cat->id = $categoria['id'];
+                                    $cat->tipo_attr = "size";
+                                    $valores = $cat->getValoresByTipo();
+                                    $categoria_array['precios_slider'] = '';
+                                    foreach ($valores as $valor) {
+                                        $precio_size = array(
+                                            'orden' => $valor['orden'],
+                                            'valor' => $valor['valor'],
+                                            'beneficio' => $valor['beneficio'],
+                                            'beneficio_formated' => str_replace('.', ',', $valor['beneficio']),
+                                            'precio_base' => $valor['precio_base'],
+                                            'precio_base_formated' => str_replace('.', ',', $valor['precio_base']),
+                                            'precio_max' => $valor['precio_base'] + $valor['beneficio']
+                                        );
+                                        array_push($precios_size, $precio_size);
+                                        $categoria_array['precios_slider'] .= $this->loadView("uploader", "precios_sizes", $precio_size);
+                                    }
+                                    $categoria_array['precios_size'] = $precios_size;
+                                }
+                                array_push($data['categorias'], $categoria_array);
+                            }
+                            $data["custom_js"] = "<script src='" . PAGE_DOMAIN . "/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
+                            $data["custom_js"] .= "<script src='" . PAGE_DOMAIN . "/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
+                            $data['fpd'] = '';
+                            foreach ($data['categorias'] as $categoria) {
+                                $data['fpd'] .= $this->loadView('uploader/designer', $categoria['nombre'], $categoria);
+                                $data["custom_js"] .= $this->minifyJs("uploader/designer", $categoria['nombre']);
                             }
 
-                            if(!empty($info_cat["precio_base"])){
-                                $cat->precio_base=$info_cat["precio_base"];
-                                $data["precio_base"]=str_replace('.', ',', $cat->precio_base);
-                                $cat->beneficio=$info_cat["beneficio"];
-                                $data["precio_tope"]=str_replace('.', ',', $cat->precio_base + $cat->beneficio);
-                                $data["beneficio_max"]=$cat->beneficio;
-                            }else{
-                                $cat->tipo_attr="size";
-                                $valores=$cat->getValoresByTipo();
-                                $data["precios_sizes"]="";
-                                foreach($valores as $valor){
-                                    $data["orden"]=$valor["orden"];
-                                    $data["valor"]=$valor["valor"];
-                                    $data["beneficio_max"]=$valor["beneficio"];
-                                    $data["precio_base"]=$valor["precio_base"];
-                                    $data["precio_tope"]=$valor["precio_base"]+$valor["beneficio"];
-                                    $data["precios_sizes"].=$this->loadView("designer","precios_sizes",$data);
-                                }
+                            $data["custom_js"] .= $this->minifyJs("uploader", "designs");
+
+                            $data['designer'] = $this->loadView('uploader/designer', 'designer', $data);
+                            $data["custom_css"] = "<link rel='stylesheet' href='" . PAGE_DOMAIN . "/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
+                            $data["custom_css"] .= "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
+                            $this->render("uploader", 'designs', $data);
+                            break;
+
+                        case 'handmades':
+                            $data["dg-id-cat"] = $cat->id = $cat->getWhereNombre()["id"];
+                            $dg->genera_token();
+                            $data["token"] = $dg->token;
+                            $data["dg-nombre-cat"] = $cat->nombre;
+                            $cat->parent = $cat->id = $cat->getWhereNombre()["id"];
+                            $data["subcategorias"] = $cat->getChilds('enabled', 'producto');
+                            $data["tematicas"] = $cat->getCategorias('topic');
+                            $pr->user = $this->u->id;
+                            if ($data["listas"] = $pr->getListas()) {
+                                $data["listas_productos"] = $this->loadView("uploader", "listas_productos", $data);
+                            } else {
+                                $data["listas_productos"] = "";
                             }
-                            $data["custom_js"]=$this->minifyJs("designer", "designer");
-                            $data["custom_js"].=$this->minifyJs("designer", "handmades");
-                            $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";
-                            $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/FancyProductDesigner-all.min.js'></script>";
-                            $data["custom_js"].=$this->minifyJs("designer", $cat->nombre);
-                            $data["custom_css"]="<link rel='stylesheet' href='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
-                            $data["custom_css"].="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
-                            $data["designer"]=$this->loadView('designer',$cat->nombre,$data);
-                            $this->render("designer", 'designer',$data);
-                        }
-                    }else{
+                            $data["custom_js"] = $this->minifyJs("uploader", "handmades");
+                            $this->render('uploader', 'handmades', $data);
+                            break;
+
+                        case 'secondhand':
+                            $data["dg-id-cat"] = $cat->id = $cat->getWhereNombre()["id"];
+                            $dg->genera_token();
+                            $data["token"] = $dg->token;
+                            $data["dg-nombre-cat"] = $cat->nombre;
+                            $cat->parent = $cat->id = $cat->getWhereNombre()["id"];
+                            $data["subcategorias"] = $cat->getChilds('enabled', 'producto');
+                            $data["tematicas"] = $cat->getCategorias('topic');
+                            $pr->user = $this->u->id;
+                            if ($data["listas"] = $pr->getListas()) {
+                                $data["listas_productos"] = $this->loadView("uploader", "listas_productos", $data);
+                            } else {
+                                $data["listas_productos"] = "";
+                            }
+                            $data["custom_js"] = $this->minifyJs("uploader", "secondhand");
+                            $this->render('uploader', 'secondhand', $data);
+                            break;
+
+                        default:
+                            $this->render("error", "404", $data);
+                    }
+                } else {
                         //Redireccionamos a página de registro
-                        Header("Location: ".PAGE_DOMAIN."/login?redirect=".$this->getURL());
-                    }
-                break;
-
-                case 'publish':
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        set_time_limit(60*30);//Establece tiempo máximo de ejecuccion.
-                        $cat->id=$pr->categoria=$_POST["categoria"];
-                        $cat->nombre=$cat->get()["nombre"];
-                        if(!$cat->parent=$cat->get()["parent"]){
-                            $cat->parent=$cat->id;
-                        }
-                        $data["parent_nombre"]=$cat->getParent()["nombre"];
-                        $pr->nombre=$data["nombre"]=trim($_POST["nombre"]);
-                        $pr->descripcion=$_POST["descripcion"];
-                        $pr->beneficio=$_POST["beneficio"];
-                        $t->tags=$_POST["tags"];
-                        if(isset($_POST["listas_productos"])){
-                            $pr->token_lista=$_POST["listas_productos"];
-                        }
-                        $data["token"]=$pr->design=$dg->token=$_POST["token"];
-                        $upload_folder ='designs/'.$this->u->user2URL($this->u->user).'/'.$dg->token;
-                        $design_name = $dg->token;
-
-                        $height = 700;
-                        $thumbsize=512;
-                        $jpg_quality=100;
-                        $swerror=0;
-
-                        if (!file_exists($upload_folder.'/'.$cat->nombre)) {
-                            mkdir($upload_folder.'/'.$cat->nombre, 0777, true);
-                        }
-
-                        if($cat->parent==1){ //SUBIDA DE DISEÑOS
-                            #SUBIDA MONTAJE-------------###
-                            $img_montaje = new Imagick ($_FILES["montaje"]["tmp_name"]);
-                            $img_montaje->setImageFormat('jpeg');
-                            $img_montaje->scaleImage($height,0);
-                            //$img->setImageCompressionQuality(100);
-                            $img_montaje_dst=$upload_folder.'/'.$cat->nombre.'/MONTAJE-'.$design_name.'.jpg';
-                            if($img_montaje->writeImage ($img_montaje_dst)){
-                                #SUBIDA DEL THUMBNAIL--------------###
-                                $img_montaje->cropThumbnailImage($thumbsize, $thumbsize);
-                                $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
-                                $img_montaje->writeImage($img_thumb_dst);
-
-                                #SUBIDA DEL DISEÑO .PNG--------------###
-                                $img_dg = new Imagick($_FILES["design"]['tmp_name']);
-                                $img_dg_sizes=$img_dg->getImageGeometry();
-                                $pr->width=$img_dg_sizes["width"];
-                                $pr->height=$img_dg_sizes["height"];
-                                $pr->top=$_POST["top"];
-                                $pr->left=$_POST["left"];
-                                $pr->scale=$_POST["scale"];
-                                $img_dg->scaleImage(0, $height);
-                                $img_dg->writeImage($upload_folder."/thumb-".$design_name.'.png');
-                                $img_dg->scaleImage($pr->width*$pr->scale,0);
-
-                                if($img_dg->writeImage($upload_folder."/".$design_name.'.png')){//guardamos la imagen original como png
-                                #SUBIMOS EL FICHERO EDITABLE------------###
-                                    if($_FILES["design_editable"]["error"]==0){
-                                        $filename = $_FILES['design_editable']['name'];
-                                        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-                                        $tmp_name = $_FILES['design_editable']['tmp_name'];
-                                        $design_editable_name = $dg->token . "." . $ext;
-                                        if(move_uploaded_file($tmp_name, $upload_folder.'/'.$cat->nombre."/ORIGINAL-".$design_editable_name)){
-                                            $swerror=0;
-                                        }else{
-                                            $codigo_error= "No se ha podido mover el fichero editable a su carpeta";
-                                        }
-                                    }else{
-                                        $codigo_error= "Error al pasar el fichero por ajax (".$_FILES["design_editable"]["error"].")";
-                                    }
-                                }else{
-                                    $codigo_error= "No se ha podido subir el diseño a su carpeta";
-                                }
-                            }else{
-                                $codigo_error= "No se ha podido convertir a jpg y/o borrar el original png";
-                            }
-                        }else{ //SUBIDA DE ARTÍCULOS PARA VENTA (handmades Y BAÚL)
-                            if(isset($_POST["usado"])){$pr->usado=1;}else{$pr->usado=0;}
-                            if(!empty($_POST["stock"])){
-                                $pr->stock=$_POST["stock"];
-                                $pr->preparacion="NULL";
-                            }elseif(!empty($_POST["preparacion"])){
-                                $pr->stock="NULL";
-                                $pr->preparacion=$_POST["preparacion"];
-                            }
-                            if(!empty($_POST["gastos_envio"])){$pr->gastos_envio=$_POST["gastos_envio"];}else{$pr->gastos_envio="NULL";}
-                            if(!empty($_POST["tiempo_envio"])){$pr->tiempo_envio=$_POST["tiempo_envio"];}else{$pr->tiempo_envio="NULL";}
-
-                            $files = $this->reArrayFiles($_FILES['files']);
-                            $contador=0;
-
-                            foreach ($files as $file) {
-                                $img_venta = new Imagick ($file['tmp_name']);
-                                $img_venta->setImageFormat('jpeg');
-                                $img_venta->scaleImage($height,0);
-                                $img_venta_dst=$upload_folder.'/'.$cat->nombre."/".$design_name."-".$contador.".jpg";
-                                if($img_venta->writeImage ($img_venta_dst)){
-                                    #SUBIDA DEL THUMBNAIL--------------###
-                                    $img_venta->cropThumbnailImage($thumbsize, $thumbsize);
-                                    if($contador==0){
-                                        $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'.jpg';
-                                    }else{
-                                        $img_thumb_dst=$upload_folder.'/'.$cat->nombre.'/thumb-'.$design_name.'-'.$contador.'.jpg';
-                                    }
-                                    $img_venta->writeImage($img_thumb_dst);
-                                    $swerror=0;
-                                }else{
-                                    $swerror=1;
-                                }
-                                $contador++;
-                            }
-                        }
-
-                        if(empty($codigo_error)){
-                            $pr->tags=explode(',',$_POST["tags"]);
-                            $dg->user=$this->u->id;
-                            if(isset($_POST["publi"])){$dg->publi=1;}else{$dg->publi="NULL";}
-                            $data["user"]=$this->u->user;
-
-                            $pr->color = !empty($_POST["color"]) ? $_POST["color"] : '';
-                            $pr->modelo = !empty($_POST["modelo"]) ? $_POST["modelo"] : '';
-
-                            $dg->set();
-                            if($cat->parent==1){ //si es diseño
-                                if($pr->id=$pr->setDesign()){
-                                    $this->loadModel("email");
-                                    /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
-                                    $admail = new Email();
-                                    $admail->to = ADMIN_EMAIL;
-                                    $admail->subject = "Nuevo producto publicado por ".$this->u->user;
-                                    $admail->getEmail('adm_producto_publicado', $data);
-                                    if ($admail->sendEmail()){
-                                        echo true;
-                                    }else{
-                                       echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
-                                    }
-                                }else{
-                                    echo "No se ha podido dar de alta como producto.";
-                                }
-                            }else{ //si es para vender
-                                 if($pr->setCraft()){
-                                    $this->loadModel("email");
-                                    /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
-                                    $admail = new Email();
-                                    $admail->to = ADMIN_EMAIL;
-                                    $admail->subject = "Nuevo producto publicado por ".$this->u->user;
-                                    $admail->getEmail('adm_producto_publicado', $data);
-                                    if ($admail->sendEmail()){
-                                        echo true;
-                                    }else{
-                                       echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
-                                    }
-                                }else{
-                                    echo "No se ha podido dar de alta como producto.";
-                                }
-                            }
-                            //Si no tiene las opciones de pago configuradas le enviamos un email para que lo haga.
-                            if(!$this->u->puedeVender()){
-                                $mail->getEmail("pago/informacion_pago", $data);
-                                $mail->to=$this->u->getUser()["email"];
-                                $mail->subject=PAGE_NAME." | [IMPORTANTE: Información sobre ventas]";
-                                $mail->sendEmail();
-                            }
-                        }else{
-                            $this->loadModel("error");
-                            $error=New Error_Model();
-                            $error->codigo_error=$codigo_error;
-                            $error->from_name=$this->u->user;
-                            $error->from_email=$this->u->getUser()["email"];
-                            $error->send_email();
-                            //echo "Algunas de las imágenes no se han podido subir";
-                        }
-                    }else{
-                        $data["page_title"]="ERROR 404";
-                        $this->render("error", "404", $data);
-                    }
-                break;
-
-                case 'loadTagsQuery':
-                    $lista_tags=$t->getActiveTagsQuery($_GET["string"]);
-                    echo json_encode($lista_tags);
-                break;
-
-                default:
-                    if($this->getCountry()=="ES"){
-                        $data['page_title'] = "Vende camisetas personalizadas con tus diseños, manualidades y segunda mano.";
-                        $this->render('upload', 'primer_paso',$data);
-                    }else{
-                        Header("Location: ".PAGE_DOMAIN."/upload/designs");
-                    }
-            }
-        }
-
-        function reArrayFiles(&$file_post) {
-            $file_ary = array();
-            $file_count = count($file_post['name']);
-            $file_keys = array_keys($file_post);
-
-            for ($i=0; $i<$file_count; $i++) {
-                foreach ($file_keys as $key) {
-                    $file_ary[$i][$key] = $file_post[$key][$i];
+                    Header("Location: " . PAGE_DOMAIN . "/login?redirect=" . $this->getURL());
                 }
-            }
-            return $file_ary;
+                break;
+
+            case 'publish':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    set_time_limit(60 * 30);//Establece tiempo máximo de ejecuccion.
+                    $cat->parent = $cat->id = $_POST["categoria"];
+                    $cat->nombre = $cat->get()["nombre"];
+                    $data["parent_nombre"] = $cat->nombre;
+                    $pr->nombre = $data["nombre"] = trim($_POST["nombre"]);
+                    $pr->descripcion = $_POST["descripcion"];
+                    $pr->beneficio = $_POST["beneficio"];
+                    $topics = $_POST['topics'];
+                    $t->tags = $_POST["tags"];
+                    if (isset($_POST["listas_productos"])) {
+                        $pr->token_lista = $_POST["listas_productos"];
+                    }
+                    $data["token"] = $pr->design = $dg->token = $_POST["token"];
+                    $upload_folder = 'designs/' . $this->u->user2URL($this->u->user) . '/' . $dg->token;
+                    $design_name = $dg->token;
+
+                    $height = 700;
+                    $thumbsize = 512;
+                    $jpg_quality = 100;
+                    $swerror = 0;
+
+                    $codigo_error = Array();
+
+                    if ($cat->nombre == 'designs') { //SUBIDA DE DISEÑOS
+                        $categorias = $cat->getChilds();
+                        foreach($categorias as $categoria) {
+                            if (!empty($_FILES['montaje_'.$categoria['nombre']]['tmp_name'])){
+                                if (!file_exists($upload_folder . '/' . $categoria['nombre'])) {
+                                    mkdir($upload_folder . '/' . $categoria['nombre'], 0777, true);
+                                }
+                                #SUBIDA MONTAJE-------------###
+                                $img_montaje = new Imagick($_FILES["montaje_".$categoria['nombre']]["tmp_name"]);
+                                $img_montaje->setImageFormat('jpeg');
+                                $img_montaje->scaleImage($height, 0);
+                                    //$img->setImageCompressionQuality(100);
+                                $img_montaje_dst = $upload_folder . '/' . $categoria['nombre'] . '/MONTAJE-' . $design_name . '.jpg';
+                                if ($img_montaje->writeImage($img_montaje_dst)) {
+                                    
+                                    #SUBIDA DEL THUMBNAIL--------------###
+                                    $img_montaje->cropThumbnailImage($thumbsize, $thumbsize);
+                                    $img_thumb_dst = $upload_folder . '/' . $categoria['nombre'] . '/thumb-' . $design_name . '.jpg';
+                                    $img_montaje->writeImage($img_thumb_dst);
+                                } else {
+                                    array_push($codigo_error, "No se ha podido convertir a jpg y/o borrar el original png");
+                                }
+                            }
+                        }
+
+                        #SUBIDA DEL DISEÑO .PNG--------------###
+                        $img_dg = new Imagick($_FILES["design"]['tmp_name']);
+                        $img_dg_sizes = $img_dg->getImageGeometry();
+                        $pr->width = $img_dg_sizes["width"];
+                        $pr->height = $img_dg_sizes["height"];
+                        $img_dg->scaleImage(0, $height);
+                        $img_dg->writeImage($upload_folder . "/thumb-" . $design_name . '.png');
+                        // $img_dg->scaleImage($pr->width * $pr->scale, 0);
+
+                        if ($img_dg->writeImage($upload_folder . "/" . $design_name . '.png')) {//guardamos la imagen original como png
+                            #SUBIMOS EL FICHERO EDITABLE------------###
+                            if ($_FILES["design_editable"]["error"] == 0) {
+                                $filename = $_FILES['design_editable']['name'];
+                                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                                $tmp_name = $_FILES['design_editable']['tmp_name'];
+                                $design_editable_name = $dg->token . "." . $ext;
+                                if (move_uploaded_file($tmp_name, $upload_folder . "/ORIGINAL-" . $design_editable_name)) {
+                                    $swerror = 0;
+                                } else {
+                                    array_push($codigo_error, "No se ha podido mover el fichero editable a su carpeta");
+                                }
+                            } else {
+                                array_push($codigo_error, "Error al pasar el fichero por ajax (" . $_FILES["design_editable"]["error"] . ")");
+                            }
+                        } else {
+                            array_push($codigo_error, "No se ha podido subir el diseño a su carpeta");
+                        }
+                    } else { //SUBIDA DE ARTÍCULOS PARA VENTA (handmades Y BAÚL)
+                        if (!file_exists($upload_folder . '/' . $cat->nombre)) {
+                            mkdir($upload_folder . '/' . $cat->nombre, 0777, true);
+                        }
+
+                        if (isset($_POST["usado"])) {
+                            $pr->usado = 1;
+                        } else {
+                            $pr->usado = 0;
+                        }
+                        if (!empty($_POST["stock"])) {
+                            $pr->stock = $_POST["stock"];
+                            $pr->preparacion = "NULL";
+                        } elseif (!empty($_POST["preparacion"])) {
+                            $pr->stock = "NULL";
+                            $pr->preparacion = $_POST["preparacion"];
+                        }
+                        if (!empty($_POST["gastos_envio"])) {
+                            $pr->gastos_envio = $_POST["gastos_envio"];
+                        } else {
+                            $pr->gastos_envio = "NULL";
+                        }
+                        if (!empty($_POST["tiempo_envio"])) {
+                            $pr->tiempo_envio = $_POST["tiempo_envio"];
+                        } else {
+                            $pr->tiempo_envio = "NULL";
+                        }
+
+                        $files = $this->reArrayFiles($_FILES['files']);
+                        $contador = 0;
+
+                        foreach ($files as $file) {
+                            $img_venta = new Imagick($file['tmp_name']);
+                            $img_venta->setImageFormat('jpeg');
+                            $img_venta->scaleImage($height, 0);
+                            $img_venta_dst = $upload_folder . '/' . $cat->nombre . "/" . $design_name . "-" . $contador . ".jpg";
+                            if ($img_venta->writeImage($img_venta_dst)) {
+                                    #SUBIDA DEL THUMBNAIL--------------###
+                                $img_venta->cropThumbnailImage($thumbsize, $thumbsize);
+                                if ($contador == 0) {
+                                    $img_thumb_dst = $upload_folder . '/' . $cat->nombre . '/thumb-' . $design_name . '.jpg';
+                                } else {
+                                    $img_thumb_dst = $upload_folder . '/' . $cat->nombre . '/thumb-' . $design_name . '-' . $contador . '.jpg';
+                                }
+                                $img_venta->writeImage($img_thumb_dst);
+                                $swerror = 0;
+                            } else {
+                                $swerror = 1;
+                            }
+                            $contador++;
+                        }
+                    }
+
+                    if (empty($codigo_error)) {
+                        $dg->user = $this->u->id;
+                        $pr->tags = explode(',', $_POST["tags"]);
+                        $data["user"] = $this->u->user;
+
+                        $dg->set();
+                        if ($cat->nombre == 'designs') { //si es diseño
+                            foreach($categorias as $categoria) {
+                                if(!empty($_FILES['montaje_'.$categoria['nombre']]['tmp_name'])) {
+                                    $pr->top = $_POST["top_".$categoria['nombre']];
+                                    $pr->left = $_POST["left_".$categoria['nombre']];
+                                    $pr->scale = $_POST["scale_".$categoria['nombre']];
+                                    $pr->color = !empty($_POST["color_".$categoria['nombre']]) ? $_POST["color_".$categoria['nombre']] : '';
+                                    $pr->modelo = !empty($_POST["modelo_".$categoria['nombre']]) ? $_POST["modelo_".$categoria['nombre']] : '';
+                                    $pr->categoria = $categoria['id'];
+                                    if (!$pr->id = $pr->setDesign()) {
+                                        array_push($codigo_error, "Error al subir el producto de la categoría ".$categoria['nombre']);
+                                        print_r($codigo_error);
+                                    } else {
+                                        $dg->setTopicsDesign($topics);
+                                    }
+                                }
+                            }
+                            if (empty($codigo_error)) {
+                                $this->loadModel("email");
+                                /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
+                                $admail = new Email();
+                                $admail->to = ADMIN_EMAIL;
+                                $admail->subject = "Nuevo diseño publicado por " . $this->u->user;
+                                $admail->getEmail('adm_producto_publicado', $data);
+                                if ($admail->sendEmail()) {
+                                    echo true;
+                                } else {
+                                    echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
+                                }
+                            }
+                        } else { //si es para vender
+                            $pr->categoria = $cat->id;
+                            if ($pr->setCraft()) {
+                                $this->loadModel("email");
+                                    /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
+                                $admail = new Email();
+                                $admail->to = ADMIN_EMAIL;
+                                $admail->subject = "Nuevo producto publicado por " . $this->u->user;
+                                $admail->getEmail('adm_producto_publicado', $data);
+                                if ($admail->sendEmail()) {
+                                    echo true;
+                                } else {
+                                    echo "Se ha publicado un producto pero no se ha podido enviar la notificación por email";
+                                }
+                            } else {
+                                echo "No se ha podido dar de alta como producto.";
+                            }
+                        }
+                            //Si no tiene las opciones de pago configuradas le enviamos un email para que lo haga.
+                        if (!$this->u->puedeVender()) {
+                            $mail->getEmail("pago/informacion_pago", $data);
+                            $mail->to = $this->u->getUser()["email"];
+                            $mail->subject = PAGE_NAME . " | [IMPORTANTE: Información sobre ventas]";
+                            $mail->sendEmail();
+                        }
+                    } else {
+                        $this->loadModel("error");
+                        $error = new Error_Model();
+                        $error->codigo_error = $codigo_error;
+                        $error->from_name = $this->u->user;
+                        $error->from_email = $this->u->getUser()["email"];
+                        $error->send_email();
+                            //echo "Algunas de las imágenes no se han podido subir";
+                    }
+                } else {
+                    $data["page_title"] = "ERROR 404";
+                    $this->render("error", "404", $data);
+                }
+                break;
+
+            case 'loadTagsQuery':
+                $lista_tags = $t->getActiveTagsQuery($_GET["string"]);
+                echo json_encode($lista_tags);
+                break;
+
+            default:
+                if ($this->getCountry() == "ES") {
+                    $data['page_title'] = "Vende camisetas personalizadas con tus diseños, manualidades y segunda mano.";
+                    $this->render('upload', 'primer_paso', $data);
+                } else {
+                    Header("Location: " . PAGE_DOMAIN . "/upload/designs");
+                }
         }
     }
+
+    function reArrayFiles(&$file_post)
+    {
+        $file_ary = array();
+        $file_count = count($file_post['name']);
+        $file_keys = array_keys($file_post);
+
+        for ($i = 0; $i < $file_count; $i++) {
+            foreach ($file_keys as $key) {
+                $file_ary[$i][$key] = $file_post[$key][$i];
+            }
+        }
+        return $file_ary;
+    }
+}
 ?>

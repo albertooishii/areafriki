@@ -16,6 +16,10 @@ a{
     color:#fbb808;
 }
 
+.form-group label {
+    color: #444444;
+}
+
 .noscript{
     position: fixed;
     z-index: 9999;
@@ -1140,12 +1144,6 @@ footer .love {
 }
 
 /*EDITOR---------------------*/
-#design-info{
-    border-radius: 5px;
-    padding: 15px;
-    background-color: rgb(255, 255, 255);
-}
-
 #plantillas_links{
     display: none;
 }

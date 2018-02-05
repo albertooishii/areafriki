@@ -1,4 +1,4 @@
-var $fpd=$('#fpd'),
+var $fpdChapas=$('#fpd-chapas'),
     pluginOpts = {
     //editorMode: true,
     stageHeight: 700,
@@ -32,4 +32,4 @@ var $fpd=$('#fpd'),
     langJSON: '/vendor/fancy_product_designer/source/lang/es.json',
     templatesDirectory: '/vendor/fancy_product_designer/source/html/'
 },
-fpd = new FancyProductDesigner($fpd, pluginOpts);
+fpdChapas = new FancyProductDesigner($fpdChapas, pluginOpts);

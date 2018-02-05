@@ -215,7 +215,7 @@
 
                             $data["lista_producto"]=$p->token_lista=$producto["lista"];
                             if($data["listas"]=$p->getListas()){
-                                $data["listas_productos"]=$this->loadView("designer","listas_productos",$data);
+                                $data["listas_productos"]=$this->loadView("uploader","listas_productos",$data);
                             }else{
                                 $data["listas_productos"]="";
                             }

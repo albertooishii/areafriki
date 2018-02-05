@@ -1,4 +1,4 @@
-    var $fpd=$('#fpd'),
+var $fpdLienzos=$('#fpd-lienzos'),
         pluginOpts = {
         //editorMode: true,
         stageHeight: 700,
@@ -10,13 +10,15 @@
             removable: true,
             maxH:7000,
             maxW:7000,
-            minH:500,
-            minW:500,
-            resizeToH:400,
+            minH:400,
+            minW:400,
+            resizeToH:485,
+            resizeToW:485,
             resizable:true,
-            draggable:true,
+            draggable:false,
+            opacity:1,
             boundingBox: "Bounding",
-            boundingBoxMode: "clipping",
+            boundingBoxMode: "limitModify",
             z:1,
         },
         elementParameters:{
@@ -30,4 +32,4 @@
         langJSON: '/vendor/fancy_product_designer/source/lang/es.json',
         templatesDirectory: '/vendor/fancy_product_designer/source/html/'
     },
-    fpd = new FancyProductDesigner($fpd, pluginOpts);
+    fpdLienzos = new FancyProductDesigner($fpdLienzos, pluginOpts);
