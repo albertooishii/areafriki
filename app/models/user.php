@@ -52,6 +52,15 @@
             return false;
         }
 
+        // Leer info usuario desde id
+        function getUserFromEmail(){
+            $query = "SELECT * FROM users WHERE email='$this->email'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL)
+            return $answer;
+            return false;
+        }
+
         function isAdmin(){
             $query = "SELECT rol FROM users WHERE id='$this->id'";
             $answer = $this->_db->query($query)->fetch_assoc();

@@ -16,7 +16,7 @@
         <input type="hidden" name="rm" value="2">
         <input type="hidden" name="charset" value="UTF-8">
         <input type="hidden" name="item_name" value="Pedido de <?=PAGE_NAME?>">
-        <input type="hidden" name="item_number" value="<?=$data["token_carrito"]?>">
+        <input type="hidden" name="item_number" value="<?=$data["token_pedido"]?>">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="<?=$data["precio_total"]?>">
         <input type="hidden" name="notify_url" value="<?=PAGE_DOMAIN?>/carrito?action=notify&method=paypal" />

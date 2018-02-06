@@ -67,14 +67,14 @@
     $log.=$res;
 
     if (strcmp ($res, "VERIFIED") == 0) {
-        $token_carrito = $_POST['item_number'];
+        $token_pedido = $_POST['item_number'];
         if($_POST["payment_status"] == "completed" || $_POST["payment_status"]=="Completed"){
             $estado="pagado";
         } else{
             $estado="pendiente";
         }
         $log.=date('[Y-m-d H:i e] '). "Verified IPN: $req ". PHP_EOL;
-        $log.="estado: $estado - token: $token_carrito";
+        $log.="estado: $estado - token: $token_pedido";
     }elseif (strcmp ($res, "INVALID") == 0) {
         // log for manual investigation
         // Add business logic here which deals with invalid IPN messages

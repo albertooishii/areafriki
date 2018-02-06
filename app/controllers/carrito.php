@@ -16,10 +16,7 @@
             $this->loadModel('pedido');
             $ped=New Pedido_Model();
             $this->loadModel("notification");
-            $notify = New Notification_Model();
-            $this->loadModel("promo_code");
-            $promo = New Promo_code_Model();
-            
+            $notify = New Notification_Model();            
             
             $car->user=$this->u->id;
             @$action=$_GET["action"];
@@ -224,20 +221,6 @@
                                 }
                             }
                             
-                            //PromoCode
-                            if(isset($_COOKIE["promo"])){
-                                $data["promo_token"]=$promo->token=$_COOKIE["promo"];
-                                $promo->getPromo();
-                                if($_COOKIE["promo"]=="SWITCH2017"){
-                                    if($promo->vendedor==$vendedor->id){
-                                        $data["total_vendedor_float"]=$precio_total_vendedor + $total_envio_vendedor - ($promo->porcentaje_desc*($precio_total_vendedor+$total_envio_vendedor)/100);
-                                        $data["total_nodesc"]=$data["total_vendedor"];
-                                        $data["total_vendedor"]=number_format($data["total_vendedor_float"], 2, ',', ' ')."€";
-                                        $data["info_promo"]=$this->loadView("carrito","info_promo",$data);
-                                    }
-                                }
-                            }
-                            
                             $data["carrito_vendedor"]=$this->loadView("carrito","vendedor",$data);
 
                             if($pr->vendedor==0){
@@ -292,43 +275,69 @@
                 case 'pago':
                     if(isset($_POST["pay_method"])){
                         $vendedor=New Users_Model();
-                        $data["token_carrito"]=$car->token=$_POST["token"];
+                        $car->token=$_POST["token"];
                         $carrito=$car->get();
 
                         $pedido=unserialize($carrito["pedido"]);
-                        $pr->pedido=$pedido_vendedor=$pedido;
 
-                        $vendedor->id=$car->vendedor=$carrito["vendedor"];
-                        $info_vendedor=$vendedor->getUserFromID();
+                        $ped->genera_token();
+                        $data['token_pedido'] = $ped->token;
+                        $ped->metodo_pago = $_POST["pay_method"];
 
-                        $pr->getPrecioPedido();
-                        $data["precio_total"]=number_format($pr->precio_total, 2);
-                        //PromoCode
-                        if(isset($_COOKIE["promo"])){
-                            $data["promo_token"]=$promo->token=$_COOKIE["promo"];
-                            $promo->getPromo();
-                            if($_COOKIE["promo"]=="SWITCH2017"){
-                                if($promo->vendedor==$vendedor->id){
-                                    $data["precio_total"]=number_format($pr->precio_total - $promo->porcentaje_desc*$pr->precio_total/100, 2);
-                                }
+                        $ped->preparacion=0;
+                        $ped->referral=$carrito["referral"];
+                        foreach($pedido as $key => $linea){
+                            $p->id=$pr->producto=$linea["producto"];
+                            $producto=$p->get();
+                            $pr->categoria=$producto["categoria"];
+                            $precio=$pr->get($linea["size"]);
+                            $pedido[$key]["precio"]=$precio;
+                            $pedido[$key]["beneficio"]=$pr->beneficio;
+                            if($vendedor->id>0 || !is_null($producto["preparacion"])){
+                                $ped->preparacion+=$producto["preparacion"];
+                            }else{
+                                $ped->preparacion=PREPARACION;
+                            }
+                            //como tiempo de envio marcamos el mayor de los productos del vendedor
+                            if($producto["tiempo_envio"]>$ped->tiempo_envio){
+                                $ped->tiempo_envio=$producto["tiempo_envio"];
+                            }else{
+                                $ped->tiempo_envio=TIEMPO_ENVIO;
                             }
                         }
 
-                        //Guardamos en el carrito la información de envío
-                        $car->name=$_POST["name"];
-                        if(isset($_SESSION["login"])){
-                            $car->email=$this->u->getUser()["email"];
-                        }else{
-                            $car->email=$_POST["email"];
-                        }
-                        $car->address=$_POST["address"];
-                        $car->cp=$_POST["cp"];
-                        $car->provincia=$_POST["provincia"];
-                        $car->localidad=$_POST["localidad"];
-                        $car->phone=$_POST["phone"];
-                        $car->nota=$_POST["nota"];
+                        $ped->pedido=$pr->pedido=$pedido_vendedor=$pedido;
 
-                        if($car->setInfoEnvio()){
+                        $ped->vendedor=$vendedor->id=$car->vendedor=$carrito["vendedor"];
+                        $info_vendedor=$vendedor->getUserFromID();
+
+                        $pr->getPrecioPedido();
+                        $ped->gastos_envio=$pr->gastos_envio;
+                        $ped->precio=$pr->subtotal;
+                        $data["precio_total"]=number_format($pr->precio_total, 2);
+
+                        //Guardamos en el pedido la información de envío
+                        $ped->name=$_POST["name"];
+                        if(isset($_SESSION["login"])){
+                            $ped->email=$this->u->getUser()["email"];
+                            $ped->user=$this->u->id;
+                        }else{
+                            $comprador=New Users_Model();
+                            $comprador->email=$ped->email=$_POST["email"];
+                            if ($id=$comprador->getUserFromEmail()['id']) {
+                                $ped->user=$id;
+                            }
+                        }
+                        $ped->address=$_POST["address"];
+                        $ped->cp=$_POST["cp"];
+                        $ped->provincia=$_POST["provincia"];
+                        $ped->localidad=$_POST["localidad"];
+                        $ped->phone=$_POST["phone"];
+                        $ped->nota=$_POST["nota"];
+
+                        //Guardamos el pedido como incompleto para que no se pierda si hay algún problema en el proceso
+                        $ped->estado=$estado="incompleto";
+                        if($ped->set()){
                             switch($_POST["pay_method"]){
                                 case 'transferencia':
                                     if($vendedor->id==0){
@@ -355,7 +364,7 @@
                                     include_once DIR."/app/views/pago/stripe/stripe.php";
                                 break;
                             }
-                        }else{
+                        } else {
                             $data["titulo_mensaje"]="Error";
                             $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
                             $this->render('mensaje','mensaje',$data);
@@ -372,69 +381,34 @@
                     $this->loadModel("email");
                     $mail=New Email();
                     $log="";
+
                     if(isset($_GET["method"])){
                         if($_GET["method"]=="paypal"){
                             include_once DIR."/app/views/pago/paypal/notify.php";
-                            $car->token=$token_carrito;
+                            $ped->token=$token_pedido;
                         }else{
-                            $car->token=$_POST["token_carrito"];
+                            $ped->token=$_POST["token_pedido"];
                         }
 
-                        if(isset($car->token)){
-                            if($carrito=$car->get()){
-                                $vendedor->id=$ped->vendedor=$carrito["vendedor"];
-                                $pedido=unserialize($carrito["pedido"]);
-                                $ped->preparacion=0;
-                                $ped->referral=$carrito["referral"];
-                                foreach($pedido as $key => $linea){
-                                    $p->id=$pr->producto=$linea["producto"];
-                                    $producto=$p->get();
-                                    $pr->categoria=$producto["categoria"];
-                                    $precio=$pr->get($linea["size"]);
-                                    $pedido[$key]["precio"]=$precio;
-                                    $pedido[$key]["beneficio"]=$pr->beneficio;
-                                    if($vendedor->id>0 || !is_null($producto["preparacion"])){
-                                        $ped->preparacion+=$producto["preparacion"];
-                                    }else{
-                                        $ped->preparacion=PREPARACION;
-                                    }
-                                    //como tiempo de envio marcamos el mayor de los productos del vendedor
-                                    if($producto["tiempo_envio"]>$ped->tiempo_envio){
-                                        $ped->tiempo_envio=$producto["tiempo_envio"];
-                                    }else{
-                                        $ped->tiempo_envio=TIEMPO_ENVIO;
-                                    }
-                                }
-
-                                $ped->pedido=$pr->pedido=$pedido;
+                        if($info_pedido=$ped->get()){
+                            if ($info_pedido['estado'] == 'incompleto' || $info_pedido['estado'] == 'pendiente') {
+                                $vendedor->id=$ped->vendedor=$info_pedido["vendedor"];
+                                $pedido=unserialize($info_pedido["pedido"]);
+                                $pr->pedido=$pedido;
                                 $pr->getPrecioPedido();
-                                $ped->gastos_envio=$pr->gastos_envio;
-                                $ped->precio=$pr->subtotal;
                                 $data["precio_total"]=number_format($pr->precio_total, 2, ',', ' ')."€";
-
+                                $ped->token = $data['token'] = $info_pedido['token'];
                                 $ped->metodo_pago=$_GET["method"];
                                 if(!empty($carrito["user"])){
-                                    $comprador->id=$ped->user=$carrito["user"];
+                                    $comprador->id=$info_pedido["user"];
                                     $info_comprador=$comprador->getUserFromID();
                                     $data["user"]=$info_comprador["user"];
                                 }
 
-                                //Información de envío
-                                $data["nombre"]=$ped->name=$carrito["name"];
-                                $ped->email=$carrito["email"];
-                                $ped->address=$carrito["address"];
-                                $ped->cp=$carrito["cp"];
-                                $ped->provincia=$carrito["provincia"];
-                                $ped->localidad=$carrito["localidad"];
-                                $ped->phone=$carrito["phone"];
-                                $ped->nota=$carrito["nota"];
-
                                 $swpedido=0;
                                 switch($_GET["method"]){
                                     case 'stripe':
-                                        $ped->genera_token();
                                         $ped->metodo_pago="tarjeta";
-                                        $data["token"]=$ped->token;
                                         if($_POST["estado"]=="pagado"){
                                             $ped->estado="pagado";
                                         }else{
@@ -442,7 +416,6 @@
                                         }
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->pagar();
                                         }else{
                                             $data["titulo_mensaje"]="Error";
                                             $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
@@ -453,14 +426,11 @@
                                     case 'paypal':
                                         if($estado=="pagado"){
                                             $ped->estado="pagado";
-                                        }else{
+                                        } else {
                                             $ped->estado="pendiente";
                                         }
-                                        $ped->genera_token();
-                                        $data["token"]=$ped->token;
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->pagar();
                                         }else{
                                             $log.="No se ha podido dar de alta el pedido\n\r";
                                             $log.=print_r($ped,true);
@@ -469,12 +439,9 @@
 
                                     case 'transferencia':
                                         $ped->estado=$estado="pendiente";
-                                        $ped->genera_token();
-                                        $data["token"]=$ped->token;
                                         $data["iban"]=$_POST["iban"];
                                         if($ped->set()){
                                             $swpedido=1;
-                                            $car->pagar();
                                         }else{
                                             $data["titulo_mensaje"]="Error";
                                             $data["texto_mensaje"]="No se ha podido guardar la información de envío.";
@@ -494,7 +461,7 @@
                                     if($ped->estado=="pagado"){ //estado es pagado
                                         //Email para el comprador
                                         $mail->getEmail("pago/comprador", $data);
-                                        $mail->to=$ped->email;
+                                        $mail->to=$info_pedido['email'];
                                         $mail->subject=PAGE_NAME." | [Confirmación de pedido]";
                                         $mail->sendEmail();
 
@@ -548,8 +515,8 @@
                                             //Comisión de referral
                                             $this->loadModel("referer");
                                             $ref=New Referer_Model();
-                                            $ref->referral=$ped->referral;
-                                            $ref->precio=$ped->precio;
+                                            $ref->referral=$info_pedido['referral'];
+                                            $ref->precio=$info_pedido['precio'];
                                             $ref->addComision();                                            
                                         }else{
                                             //Email para el vendedor
@@ -603,19 +570,22 @@
                                         header('Location: '.PAGE_DOMAIN.'/carrito/completed');
                                     }
                                 }
-                            }else{
-                                $log.="No existe ningun carrito con este token";
+                            } else {
+                                $log.="El pedido con token $ped->token ya está pagado";
                                 $data["titulo_mensaje"]="Error";
-                                $data["texto_mensaje"]="No hay ningún carrito con este token.";
-                                $this->render('mensaje','mensaje',$data);
+                                $data["texto_mensaje"]="Este pedido ya se encuentra pagado.";
+                                $this->render('mensaje','mensaje',$data);                               
                             }
                         }else{
-                            $this->render("error","404",$data);
+                            $log.="No existe ningun pedido pendiente con este token: $ped->token";
+                            $data["titulo_mensaje"]="Error";
+                            $data["texto_mensaje"]="No hay ningún pedido pendiente con este identificador.";
+                            $this->render('mensaje','mensaje',$data);
                         }
-                        $this->write_log($log, "LOG", "log_payment");
                     }else{
                         $this->render("error","404",$data);
                     }
+                    $this->write_log($log, "LOG", "log_payment");
                 break;
 
                 case 'completed':
@@ -764,20 +734,6 @@
                                $data["total_envio_vendedor_float"]=$total_envio_vendedor;
                                 $data["total_vendedor_float"]=$precio_total_vendedor;
                                 $data["total_vendedor"]=number_format($precio_total_vendedor + $total_envio_vendedor, 2, ',', ' ')."€";
-                                
-                                //PromoCode
-                                if(isset($_COOKIE["promo"])){
-                                    $data["promo_token"]=$promo->token=$_COOKIE["promo"];
-                                    $promo->getPromo();
-                                    if($_COOKIE["promo"]=="SWITCH2017"){
-                                        if($promo->vendedor==$vendedor->id){
-                                            $data["total_vendedor_float"]=($precio_total_vendedor + $total_envio_vendedor) - (($promo->porcentaje_desc*($precio_total_vendedor + $total_envio_vendedor))/100);
-                                            $data["total_nodesc"]=$data["total_vendedor"];
-                                            $data["total_vendedor"]=number_format($data["total_vendedor_float"], 2, ',', ' ')."€";
-                                            $data["info_promo"]=$this->loadView("carrito","info_promo",$data);
-                                        }
-                                    }
-                                }
                                 
                                 $data["lista_productos"].=$this->loadView("carrito","vendedor",$data);
                                $data["total_preparacion_vendedor"]=$precio_total_vendedor=$total_envio_vendedor=0;

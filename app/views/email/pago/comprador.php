@@ -1,6 +1,6 @@
 <h3>COMPRA REALIZADA</h3>
 
-<p>¡Hola, <?=$data["nombre"]?>!</p>
+<p>¡Hola, <?=$data["user"]?>!</p>
 
 <p>Gracias por haber comprado en <?=PAGE_NAME?></p>
 

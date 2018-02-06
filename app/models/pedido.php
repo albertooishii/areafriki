@@ -23,7 +23,7 @@
             if(empty($this->user)){
                 $query = "SELECT * FROM pedidos ORDER BY fecha_pedido DESC";
             }else{
-                $query = "SELECT * FROM pedidos WHERE user= '".$this->user."' ORDER BY fecha_pedido DESC";
+                $query = "SELECT * FROM pedidos WHERE user= '".$this->user."' AND estado <> 'incompleto' ORDER BY fecha_pedido DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -93,12 +93,13 @@
                 $user='NULL';
             }
 
-            if($this->estado=="pendiente"){
-                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota, referral) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota', '$this->referral')";
+            if($this->estado=="incompleto"){
+                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota, referral) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', 'incompleto', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota', '$this->referral')";
+            }elseif($this->estado=="pendiente") {
+                $query="UPDATE pedidos SET estado='pendiente', metodo_pago='$this->metodo_pago' WHERE token = '$this->token'";
             }elseif($this->estado=="pagado"){
-                $query="INSERT INTO pedidos (token, vendedor, pedido, fecha_pedido, fecha_pago, estado, metodo_pago, precio, gastos_envio, preparacion, tiempo_envio, user, name, email, address, cp, provincia, localidad, phone, nota, referral) VALUES('$this->token', '$this->vendedor', '$pedido', '$fecha_pedido', '$fecha_pago', '$this->estado', '$this->metodo_pago', '$this->precio', '$this->gastos_envio', '$this->preparacion', '$this->tiempo_envio', $user, '$this->name', '$this->email', '$this->address', '$this->cp', '$this->provincia', '$this->localidad', '$this->phone', '$this->nota', '$this->referral')";
+                $query="UPDATE pedidos SET estado='pagado', metodo_pago='$this->metodo_pago', fecha_pago='$fecha_pago' WHERE token = '$this->token'";
             }
-
             if ($this->_db->query($query))
             return true;
             return false;

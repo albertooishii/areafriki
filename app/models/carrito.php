@@ -136,13 +136,6 @@
             return false;
         }
 
-        function pagar(){
-            $query="UPDATE carritos set pagado=1 WHERE token='$this->token'";
-            if ( $this->_db->query($query) )
-            return true;
-            return false;
-        }
-
         function delete(){
             if(!is_null($this->vendedor)){
                 if(isset($_SESSION["login"])){
