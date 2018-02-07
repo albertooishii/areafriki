@@ -504,7 +504,7 @@
                                                         $data["top"]=$producto["top_pos"];
                                                         $data["scale"]=$producto["scale"];
 
-                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $creador->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png";
+                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $creador->user2URL($data["username"])."/".$data["dg-token"]."/thumb-".$data["dg-token"].".png";
 
                                                         $data["width"]=$producto['width']/1;
                                                         $data["height"]=$producto['height']/1;
@@ -523,7 +523,7 @@
                                                         $data["top"]=$producto["top_pos"];
                                                         $data["scale"]=$producto["scale"];
 
-                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png";
+                                                        $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/thumb-".$data["dg-token"].".png";
 
                                                         $data["width"]=$width=$producto['width']/1.12;
                                                         $data["height"]=$height=$producto["height"]/1.12;
