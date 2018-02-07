@@ -96,7 +96,7 @@
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $p->categoria=$cat->id=$_POST["categoria"];
                         $data["dg-token"]=$p->token=$_POST["token"];
-                        $producto=$p->getProductoWhereToken();
+                        $producto=$p->getProductoWhereTokenAndCategoria();
                         $data["dg-categoria"]=$cat->get()["nombre"];
                         $data["dg-nombre"]=$producto["nombre"];
                         $data["dg-descripcion"]=$producto["descripcion"];
@@ -124,7 +124,7 @@
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $p->categoria=$cat->id=$_POST["categoria"];
                         $data["dg-token"]=$p->token=$_POST["token"];
-                        $p->id=$p->getProductoWhereToken()["id"];
+                        $p->id=$p->getProductoWhereTokenAndCategoria()["id"];
                         if($p->share()){
                             echo true;
                         }
@@ -185,9 +185,10 @@
                 break;
 
                 case 'edit':
-                    if(isset($_GET["token"])){
+                    if(isset($_GET["token"]) && isset($_GET["category"])){
                         $p->token=$_GET["token"];
-                        $producto=$p->getProductoWhereToken();
+                        $p->categoria=$_GET["category"];
+                        $producto=$p->getProductoWhereTokenAndCategoria();
                         $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
                         $dg->token=$producto["design"];
                         if($dg->get()["user"]==$this->u->id){
@@ -276,9 +277,10 @@
 
                 case 'savechanges':
                     //print_r($_POST);
-                    if(isset($_POST["token"])){
+                    if(isset($_POST["token"]) && isset($_POST["categoria"])){
                         $p->token=$_POST["token"];
-                        $producto=$p->getProductoWhereToken();
+                        $p->categoria=$_POST["categoria"];
+                        $producto=$p->getProductoWhereTokenAndCategoria();
                         $p->id=$producto["id"];
                         $dg->token=$producto["design"];
                         if($dg->get()["user"]==$this->u->id){
@@ -351,7 +353,7 @@
                             $data["producto"]=$pr->producto=$p->id=$producto["id"];
                             $data["dg_token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $pr->categoria=$cat->id=$p->categoria=$p->categoria=$producto["categoria"];
+                            $data["dg_id_categoria"]=$pr->categoria=$cat->id=$p->categoria=$p->categoria=$producto["categoria"];
                             $data["dg_categoria"]=$cat->get()["nombre"];
                             $data["dg_nombre"]=$producto["nombre"];
 
@@ -405,7 +407,7 @@
                                 if(isset($_GET["token"])){
 
                                     $data["dg-token"]=$p->token=$dg->token=$_GET["token"];
-                                    if($producto=$p->getProductoWhereToken()){
+                                    if($producto=$p->getProductoWhereTokenAndCategoria()){
                                         $data["id_producto"]=$dg->id=$p->id=$pr->producto=$producto["id"];
                                         $p->user=$this->u->id;
                                         $p->visitar();
@@ -471,7 +473,6 @@
 
                                             if($categoria["parent"]==1){
                                                 $data["atributos"]=$data["color_selector"]="";
-
                                                 if(!empty($producto["color"])){
                                                     $data["lista_colores"]=$p->getColores();
                                                     $data["color"]=$producto["color"];
@@ -504,11 +505,9 @@
                                                         $data["scale"]=$producto["scale"];
 
                                                         $data["img_design"] = PAGE_DOMAIN."/designs/". $creador->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png";
-                                                        $img_design = new Imagick($data["img_design"]);
 
-                                                        $img_design_sizes=$img_design->getImageGeometry();
-                                                        $data["width"]=$width=$img_design_sizes["width"];
-                                                        $data["height"]=$height=$img_design_sizes["height"];
+                                                        $data["width"]=$producto['width']/1;
+                                                        $data["height"]=$producto['height']/1;
 
                                                         $data["montaje"]=$this->loadView("product","camisetas",$data);
 
@@ -525,11 +524,9 @@
                                                         $data["scale"]=$producto["scale"];
 
                                                         $data["img_design"] = PAGE_DOMAIN."/designs/". $data["username"]."/".$data["dg-token"]."/".$data["dg-token"].".png";
-                                                        $img_design = new Imagick($data["img_design"]);
 
-                                                        $img_design_sizes=$img_design->getImageGeometry();
-                                                        $data["width"]=$width=$img_design_sizes["width"];
-                                                        $data["height"]=$height=$img_design_sizes["height"];
+                                                        $data["width"]=$width=$producto['width']/1.12;
+                                                        $data["height"]=$height=$producto["height"]/1.12;
 
                                                         $data["montaje"]=$this->loadView("product","sudaderas",$data);
                                                         $data["custom_js"].="<script src='".PAGE_DOMAIN."/vendor/fancy_product_designer/source/js/fabric.min.js'></script>";

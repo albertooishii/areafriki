@@ -1,8 +1,8 @@
 var $fpdSudaderas=$('#fpd-sudaderas'),
     pluginOpts = {
     //editorMode:true,
-    stageHeight: 700,
-    stageWidth: 700,
+    stageHeight: '700',
+    stageWidth: '700',
     hideDialogOnAdd:true,
     customImageParameters: {
         autoCenter: true,

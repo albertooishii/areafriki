@@ -68,6 +68,7 @@ class Upload extends Controller
                                     $categoria_array['precios_slider'] = '';
                                     foreach ($valores as $valor) {
                                         $precio_size = array(
+                                            'categoria' => $categoria['nombre'],
                                             'orden' => $valor['orden'],
                                             'valor' => $valor['valor'],
                                             'beneficio' => $valor['beneficio'],
@@ -152,7 +153,6 @@ class Upload extends Controller
                     $data["parent_nombre"] = $cat->nombre;
                     $pr->nombre = $data["nombre"] = trim($_POST["nombre"]);
                     $pr->descripcion = $_POST["descripcion"];
-                    $pr->beneficio = $_POST["beneficio"];
                     $topics = $_POST['topics'];
                     $t->tags = $_POST["tags"];
                     if (isset($_POST["listas_productos"])) {
@@ -288,6 +288,7 @@ class Upload extends Controller
                                     $pr->scale = $_POST["scale_".$categoria['nombre']];
                                     $pr->color = !empty($_POST["color_".$categoria['nombre']]) ? $_POST["color_".$categoria['nombre']] : '';
                                     $pr->modelo = !empty($_POST["modelo_".$categoria['nombre']]) ? $_POST["modelo_".$categoria['nombre']] : '';
+                                    $pr->beneficio = $_POST["beneficio_".$categoria['nombre']];
                                     $pr->categoria = $categoria['id'];
                                     if (!$pr->id = $pr->setDesign()) {
                                         array_push($codigo_error, "Error al subir el producto de la categoría ".$categoria['nombre']);

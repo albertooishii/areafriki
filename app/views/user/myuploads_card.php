@@ -8,5 +8,5 @@
     <td><h4><?=$data["beneficio"]?></h4></td>
     <td><h4><?=$data["precio_venta"]?></h4></td>
     <td><a class="remove" href="index.php?section=producto&action=delete&id=<?=$data["producto"]?>">Eliminar</a></td>
-    <td><a href="index.php?section=producto&action=edit&token=<?=$data["dg_token"]?>">Modificar</a></td>
+    <td><a href="index.php?section=producto&action=edit&token=<?=$data["dg_token"]?>&category=<?=$data['dg_id_categoria']?>">Modificar</a></td>
 </tr>

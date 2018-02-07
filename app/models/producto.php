@@ -195,9 +195,9 @@
             return $answer["count"];
         }
 
-        function getProductoWhereToken()
+        function getProductoWhereTokenAndCategoria()
         {
-            $query = "SELECT * FROM productos WHERE design = '$this->token'";
+            $query = "SELECT * FROM productos WHERE design = '$this->token' AND categoria = '$this->categoria'";
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL)
             return $answer;

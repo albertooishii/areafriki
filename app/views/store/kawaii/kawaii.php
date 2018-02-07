@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTDK/store/AFKAWTDK.jpg')">
-                    <div data-token="AFKAWTDK" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTDK" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTDK/store/AFKAWTDK-1.jpg" data-lightbox="AFKAWTDK">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTDK/store/thumb-AFKAWTDK-1.jpg">
@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTLP/store/AFKAWTLP.jpg')">
-                    <div data-token="AFKAWTLP" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTLP" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="content">
                             <h3 class="card-title">Taza I Love Lollipop</h3>
                             <p class="card-description">¿A quién no le gustan las piruletas? <small>(Solo incluye la taza)</small></p>
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTNO/store/AFKAWTNO.jpg')">
-                    <div href="#" data-token="AFKAWTNO" data-return="store/kawaii" class="product_file">
+                    <div href="#" data-token="AFKAWTNO" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTNO/store/AFKAWTNO-1.jpg" data-lightbox="AFKAWTNO">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTNO/store/thumb-AFKAWTNO-1.jpg">
@@ -85,7 +85,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTMK/store/AFKAWTMK.jpg')">
-                    <div data-token="AFKAWTMK" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTMK" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTMK/store/AFKAWTMK-1.jpg" data-lightbox="AFKAWTMK">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTMK/store/thumb-AFKAWTMK-1.jpg">
@@ -112,7 +112,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTGC/store/AFKAWTGC.jpg')">
-                    <div data-token="AFKAWTGC" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTGC" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTGC/store/AFKAWTGC-1.jpg" data-lightbox="AFKAWTGC">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTGC/store/thumb-AFKAWTGC-1.jpg">
@@ -141,7 +141,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTCP/store/AFKAWTCP.jpg')">
-                    <div data-token="AFKAWTCP" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTCP" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTCP/store/AFKAWTCP-1.jpg" data-lightbox="AFKAWTCP">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTCP/store/thumb-AFKAWTCP-1.jpg">
@@ -168,7 +168,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTIC/store/AFKAWTIC.jpg')">
-                    <div data-token="AFKAWTIC" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTIC" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="content">
                             <h3 class="card-title">Taza Love Ice Creams</h3>
                             <p class="card-description">Por que hay personas a las que nos gustan los helados todo el año <small>(Solo incluye la taza)</small></p>
@@ -188,7 +188,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTPC/store/AFKAWTPC.jpg')">
-                    <div data-token="AFKAWTPC" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTPC" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTPC/store/AFKAWTPC-1.jpg" data-lightbox="AFKAWTPC">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTPC/store/thumb-AFKAWTPC-1.jpg">
@@ -215,7 +215,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTKJ/store/AFKAWTKJ.jpg')">
-                    <div data-token="AFKAWTKJ" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTKJ" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTKJ/store/AFKAWTKJ-1.jpg" data-lightbox="AFKAWTKJ">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTKJ/store/thumb-AFKAWTKJ-1.jpg">
@@ -242,7 +242,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTLC/store/AFKAWTLC.jpg')">
-                    <div data-token="AFKAWTLC" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTLC" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="card-image imgthumb">
                             <a href="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTLC/store/AFKAWTLC-1.jpg" data-lightbox="AFKAWTLC">
                                 <img class="img" src="<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTLC/store/thumb-AFKAWTLC-1.jpg">
@@ -269,7 +269,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card card-background" style="background-image: url('<?=PAGE_DOMAIN?>/designs/areafriki/AFKAWTLL/store/AFKAWTLL.jpg')">
-                    <div data-token="AFKAWTLL" data-return="store/kawaii" class="product_file">
+                    <div data-token="AFKAWTLL" data-categoria="store" data-return="store/kawaii" class="product_file">
                         <div class="content">
                             <h3 class="card-title">Taza Liebre Campera</h3>
                             <p class="card-description">Ideal para los amantes de las liebres y los conejos <small>(Solo incluye la taza)</small></p>

@@ -32,6 +32,7 @@
         <div class="col-md-6 col-sm-12 col-xs-12">
             <form class="form-horizontal" method="post" action="index.php?section=producto&action=savechanges">
                 <input type="hidden" name="token" value="<?=$data["dg-token"]?>">
+                <input type="hidden" name="categoria" value="<?=$data["cat_id"]?>">
                 <div class="form-group">
                     <label for="nombre" class="col-lg-2 control-label">Nombre o título</label>
                     <div class="col-lg-10">

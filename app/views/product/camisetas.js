@@ -1,7 +1,7 @@
 var $fpd=$('#fpd'),
 pluginOpts = {
     stageHeight: '700',
-    width:'700',
+    stageWidth:'700',
     copyable:false,
     elementParameters:{
         draggable:false,

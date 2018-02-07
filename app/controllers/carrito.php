@@ -30,8 +30,10 @@
                             $p->id=$_POST["id"];
                             $producto=$p->get();
                         }elseif(isset($_POST["token"])){
+                            $cat->nombre = $_POST["categoria"];
+                            $p->categoria = $cat->getWhereNombre()["id"];
                             $p->token=$_POST["token"];
-                            $producto=$p->getProductoWhereToken();
+                            $producto=$p->getProductoWhereTokenAndCategoria();
                             $p->id=$producto["id"];
                         }
                         $cat->id=$producto["categoria"];

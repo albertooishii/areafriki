@@ -114,10 +114,11 @@
                     $data["pagination"]="";
                 }
                 $data["tag_list"]="";
-                $lista_tags=$t->getPopularTags(20);
-                foreach($lista_tags as $tag){
-                    $data["nombre_tag"]=$tag["tag"];
-                    $data["tag_list"].=$this->loadView("product","tag_list",$data);
+                if($lista_tags=$t->getPopularTags(20)) {
+                    foreach($lista_tags as $tag){
+                        $data["nombre_tag"]=$tag["tag"];
+                        $data["tag_list"].=$this->loadView("product","tag_list",$data);
+                    }
                 }
                 $data["custom_js"]=$this->minifyJs("home", "index_productos");
                 $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);

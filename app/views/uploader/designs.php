@@ -101,7 +101,7 @@
                     <div class="form-group">
                         <p>
                             <span class="precio_base" style="display:none"><?= $categoria["precio_base"] ?></span>
-                            Tu beneficio: <span class="beneficio"><input type="number" name="beneficio" step="0.01" min="0" max="<?= $categoria["beneficio"] ?>" class="form-control" value="0.00"
+                            Tu beneficio: <span class="beneficio"><input type="number" name="beneficio_<?=$categoria['nombre']?>" step="0.01" min="0" max="<?= $categoria["beneficio"] ?>" class="form-control" value="0.00"
                             data-fv-lessthan-message="El beneficio debe ser como máximo de <?= $categoria["beneficio_formated"] ?>€"></span><span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Al beneficio marcado se descontará el impuesto sobre el valor añadido correspondiente según la legislación vigente."><i class="material-icons">info_outline</i></span>
                             <br>
                             <input type="text" class="slider beneficio_range" data-slider-min="0" data-slider-max="<?= $categoria["beneficio"] ?>" data-slider-step="0.01" data-slider-value="0.00" style="padding-left:10px;" maxlength="4"

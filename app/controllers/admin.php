@@ -148,9 +148,9 @@
                                     else{
                                         $data["trclass"]="";
                                     }
-                                    $source_folder="designs/".$this->u->user2URL($data["username"])."/".$data["token"]."/".$data["categoria"];
+                                    $source_folder="designs/".$this->u->user2URL($data["username"])."/".$data["token"];
 
-                                    $data["file"]=glob($source_folder."/ORIGINAL-".$data["token"]."*")[0];
+                                    $data["file"]=glob($source_folder."/ORIGINAL-".$data["token"]."*")[0] ? glob($source_folder."/ORIGINAL-".$data["token"]."*")[0] : glob($source_folder."/".$data["categoria"]."/ORIGINAL-".$data["token"]."*")[0];
 
                                     $data["tbody"].=$this->loadView("admin/productos","designs_row",$data);
                                 }

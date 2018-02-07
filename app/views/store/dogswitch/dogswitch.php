@@ -1,6 +1,6 @@
 <div class="store-page" style="background-color: white;">
     <div class="container wrapper">
-        <div class="product_file product" data-token="AFDOGNSW">
+        <div class="product_file product" data-token="AFDOGNSW" data-categoria="store">
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="product-title title nodesktop text-center">Sticker Dog Switch</h1>

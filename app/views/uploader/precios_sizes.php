@@ -9,7 +9,7 @@
         <span style="float:right; margin:5px;">
             <label>Precio final: </label><span class="precio_venta"> <?=$data["precio_base_formated"]?> €</span>
         </span>
-        <input type="text" class="slider beneficio_range" name="beneficio[]" data-slider-min="0" data-slider-max="<?=$data["beneficio"]?>" data-slider-step="0.01" data-slider-value="0.00" style="padding-left:10px;" maxlength="4"
+        <input type="text" class="slider beneficio_range" name="beneficio_<?=$data['categoria']?>[]" data-slider-min="0" data-slider-max="<?=$data["beneficio"]?>" data-slider-step="0.01" data-slider-value="0.00" style="padding-left:10px;" maxlength="4"
     data-fv-between-message="El beneficio debe ser como máximo de <?=$data['beneficio_formated']?>€">
     </p>
 </div>

@@ -1,7 +1,7 @@
 var $fpd=$('#fpd'),
 pluginOpts = {
     stageHeight: '700',
-    width:'700',
+    stageWidth:'700',
     copyable:false,
     elementParameters:{
         draggable:false,
@@ -11,6 +11,9 @@ pluginOpts = {
         copyable:false,
         boundingBox: "Bounding",
         boundingBoxMode: "clipping",
+    },
+    actions:  {
+        'right': ['zoom'],
     },
     mainBarModules: [''],
     langJSON: '/vendor/fancy_product_designer/source/lang/es.json',

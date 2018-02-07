@@ -19,7 +19,8 @@ $(document).ready(function () {
     $(".add-product").click(function (event) {
         event.preventDefault();
         const category = $(this).data('category');
-        if (!$(this).hasClass('selected')) {
+
+        if (!$(".designer#" + category).is(":visible")) {
             $(".designer").hide();
             $("#" + category).show().resize();
             $(".product-info").hide();
@@ -29,8 +30,14 @@ $(document).ready(function () {
                 setImage(category);
             }
         } else {
-            $(this).removeClass('selected');
-            removeImage(category)
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                removeImage(category)
+                $(".add-product.selected").click();
+            } else if (customImage) {
+                $(this).addClass('selected');
+                setImage(category);
+            }
         }
     });
 
@@ -133,8 +140,12 @@ $(document).ready(function () {
             if (fpd.getCustomElements()[0]) {
                 fpd.getProductDataURL(function (dataURL){
                     fd.append('montaje_' + category, dataURLtoBlob(dataURL));
-                    fd.append('modelo_' + category, fpdVinilos.getProduct()[0]['title']);
-                    fd.append('color_' + category, fpd.getUsedColors() ? fpd.getUsedColors()[0] : '#ffffff');
+                    fd.append('modelo_' + category, fpd.getProduct()[0]['title']);
+                    if (fpd.getUsedColors() && fpd.getUsedColors()[0]) {
+                        fd.append('color_' + category, fpd.getUsedColors()[0])
+                    } else if (fpd.getElementByTitle("Base")["currentColor"]) {
+                        fd.append('color_' + category, fpd.getElementByTitle("Base")["currentColor"])
+                    }
                     fd.append('top_' + category, fpd.getCustomElements()[0]["element"].top);
                     fd.append('left_' + category, fpd.getCustomElements()[0]["element"].left);
                     fd.append('scale_' + category, fpd.getCustomElements()[0]["element"].scaleX);
