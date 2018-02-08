@@ -146,8 +146,10 @@
             }elseif(!empty($this->token)){
                 $query = "DELETE FROM carritos WHERE token='$this->token'";
             }
+            if (empty($query))
+                return false;
             if ( $this->_db->query($query) )
-            return true;
+                return true;
             return false;
         }
 

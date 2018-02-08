@@ -4,7 +4,7 @@
 <p>Se ha descontado el saldo correspondiente a tu cuenta según el beneficio marcado:</p>
 <ul>
     <li>Saldo anterior: <?=$data["credito_anterior"]?></li>
-    <li>Saldo descontado: <?=$data["credito"]?></li>
+    <li>Saldo descontado: <?=$data["descontado"]?></li>
     <li>Saldo actual: <?=$data["credito_actual"]?></li>
 </ul>
 <p>Sentimos las molestias causadas.</p>

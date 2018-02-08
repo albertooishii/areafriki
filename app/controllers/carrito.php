@@ -401,11 +401,12 @@
                                 $data["precio_total"]=number_format($pr->precio_total, 2, ',', ' ')."€";
                                 $ped->token = $data['token'] = $info_pedido['token'];
                                 $ped->metodo_pago=$_GET["method"];
-                                if(!empty($carrito["user"])){
+                                if(!empty($info_pedido["user"])){
                                     $comprador->id=$info_pedido["user"];
                                     $info_comprador=$comprador->getUserFromID();
-                                    $data["user"]=$info_comprador["user"];
+                                    $data["user"] = $info_comprador["user"];
                                 }
+                                $data['nombre'] = $info_pedido['name'];
 
                                 $swpedido=0;
                                 switch($_GET["method"]){
@@ -453,6 +454,7 @@
                                 }
 
                                 if($swpedido==1){ //pedido perfecto
+
                                     //Email para ÁreaFriki
                                     $mail->getEmail("pago/administrador",$data);
                                     $mail->to=CONTACT_EMAIL;
@@ -600,10 +602,10 @@
                         $pr->getPrecioPedido();
 
                         $data["fbevent"]="fbq('track', 'Purchase', {value: '". $pr->precio_total ."', currency: 'EUR'});";
+                        $car->delete();
+                        unset($_SESSION['token_carrito']);
                     }
                     $this->render("carrito","completed",$data);
-                    $car->delete();
-                    unset($_SESSION['token_carrito']);
                 break;
 
                 default:
