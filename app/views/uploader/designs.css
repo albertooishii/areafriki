@@ -25,13 +25,34 @@
     margin-bottom: -50px;
 }
 
+.cat-buttons {
+    margin-top: 10px;
+}
+
+.cat-buttons .col-md-2, .cat-buttons .col-sm-2, .cat-buttons .col-xs-3, .cat-buttons .card {
+    padding: 0;
+    margin: 0;
+}
+
+.cat-buttons h3.card-title {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 0;
+}
+
 .add-product{
     opacity: 0.4;
     display: block;
+    margin: 5px;
+}
+
+.add-product {
+    opacity: 0.2;
 }
 
 .add-product.selected{
     opacity: 1;
+    border:1px solid #fbb808;
 }
 
 #uploadprogress {

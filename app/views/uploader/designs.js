@@ -44,6 +44,7 @@ $(document).ready(function () {
     $(".fpd-container").bind('elementRemove', function (event, element) {
         if (element.hasControls) {
             $(this).find("[data-module=images]").removeClass("fpd-active").show();
+            $(".add-product." + event.target.parentElement.id).removeClass('selected');
         }
     });
 
@@ -172,20 +173,10 @@ $(document).ready(function () {
         } else {
             if (!(fpdCamisetas.getCustomElements()[0] || fpdSudaderas.getCustomElements()[0] || fpdVinilos.getCustomElements()[0] || fpdLienzos.getCustomElements()[0] || fpdChapas.getCustomElements()[0] || fpdTazas.getCustomElements()[0] || fpdPosters.getCustomElements()[0])) {
                 FPDUtil.showModal("ERROR: Es necesario al menos un tipo de producto.");
-            } else if (fpdCamisetas.getCustomElements()[0] && fpdCamisetas.getCustomElements()[0]["element"].isOut) {
+            /*} else if (fpdCamisetas.getCustomElements()[0] && fpdCamisetas.getCustomElements()[0]["element"].isOut) {
                 FPDUtil.showModal("ERROR: El diseño de la camiseta sobresale del área de impresión.");
             } else if (fpdSudaderas.getCustomElements()[0] && fpdSudaderas.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño de la sudadera sobresale del área de impresión.");
-            } else if (fpdVinilos.getCustomElements()[0] && fpdVinilos.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño del vinilo sobresale del área de impresión.");
-            } else if (fpdLienzos.getCustomElements()[0] && fpdLienzos.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño del lienzo sobresale del área de impresión.");
-            } else if (fpdChapas.getCustomElements()[0] && fpdChapas.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño de la chapa sobresale del área de impresión.");
-            } else if (fpdTazas.getCustomElements()[0] && fpdTazas.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño de la taza sobresale del área de impresión.");
-            } else if (fpdPosters.getCustomElements()[0] && fpdPosters.getCustomElements()[0]["element"].isOut) {
-                FPDUtil.showModal("ERROR: El diseño del póster sobresale del área de impresión.");
+                FPDUtil.showModal("ERROR: El diseño de la sudadera sobresale del área de impresión.");*/
             } else {
                 window.onbeforeunload = null;
                 var fd = new FormData(document.getElementById("designer"));
