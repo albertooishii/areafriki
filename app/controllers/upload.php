@@ -19,7 +19,6 @@ class Upload extends Controller
 
             case 'step2':
                 if (isset($_SESSION["login"])) {
-                    $data["page_title"] = "2º Paso";
                     $cat->nombre = $_GET["node"];
 
                     switch ($cat->nombre) {
@@ -97,28 +96,13 @@ class Upload extends Controller
                             $data['designer'] = $this->loadView('uploader/designer', 'designer', $data);
                             $data["custom_css"] = "<link rel='stylesheet' href='" . PAGE_DOMAIN . "/vendor/fancy_product_designer/source/css/FancyProductDesigner-all.min.css'>";
                             $data["custom_css"] .= "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
+                            $data["custom_css"] .= $this->minifyCss('uploader', 'designs');
                             $this->render("uploader", 'designs', $data);
                             break;
 
-                        case 'handmades':
-                            $data["dg-id-cat"] = $cat->id = $cat->getWhereNombre()["id"];
-                            $dg->genera_token();
-                            $data["token"] = $dg->token;
-                            $data["dg-nombre-cat"] = $cat->nombre;
-                            $cat->parent = $cat->id = $cat->getWhereNombre()["id"];
-                            $data["subcategorias"] = $cat->getChilds('enabled', 'producto');
-                            $data["tematicas"] = $cat->getCategorias('topic');
-                            $pr->user = $this->u->id;
-                            if ($data["listas"] = $pr->getListas()) {
-                                $data["listas_productos"] = $this->loadView("uploader", "listas_productos", $data);
-                            } else {
-                                $data["listas_productos"] = "";
-                            }
-                            $data["custom_js"] = $this->minifyJs("uploader", "handmades");
-                            $this->render('uploader', 'handmades', $data);
-                            break;
+                        case 'handmades': case 'secondhand':
+                            $data["page_title"] = "Configura tu producto";
 
-                        case 'secondhand':
                             $data["dg-id-cat"] = $cat->id = $cat->getWhereNombre()["id"];
                             $dg->genera_token();
                             $data["token"] = $dg->token;
@@ -132,8 +116,9 @@ class Upload extends Controller
                             } else {
                                 $data["listas_productos"] = "";
                             }
-                            $data["custom_js"] = $this->minifyJs("uploader", "secondhand");
-                            $this->render('uploader', 'secondhand', $data);
+                            $data["custom_js"] = $this->minifyJs("uploader", "products");
+                            $data["custom_css"] = $this->minifyCss('uploader', 'products');
+                            $this->render('uploader', 'products', $data);
                             break;
 
                         default:
@@ -226,28 +211,17 @@ class Upload extends Controller
                             mkdir($upload_folder . '/' . $cat->nombre, 0777, true);
                         }
 
-                        if (isset($_POST["usado"])) {
-                            $pr->usado = 1;
-                        } else {
-                            $pr->usado = 0;
-                        }
-                        if (!empty($_POST["stock"])) {
-                            $pr->stock = $_POST["stock"];
-                            $pr->preparacion = "NULL";
-                        } elseif (!empty($_POST["preparacion"])) {
-                            $pr->stock = "NULL";
-                            $pr->preparacion = $_POST["preparacion"];
-                        }
-                        if (!empty($_POST["gastos_envio"])) {
-                            $pr->gastos_envio = $_POST["gastos_envio"];
-                        } else {
-                            $pr->gastos_envio = "NULL";
-                        }
-                        if (!empty($_POST["tiempo_envio"])) {
-                            $pr->tiempo_envio = $_POST["tiempo_envio"];
-                        } else {
-                            $pr->tiempo_envio = "NULL";
-                        }
+                        $pr->beneficio = !empty($_POST["beneficio"]) ? $_POST['beneficio'] : 0;
+                        $pr->usado = !empty($_POST['usado']) ? 1 : 0;
+
+                        // print_r($_POST); print_r($_FILES);
+
+                        $pr->preparacion = !isset($_POST['stock']) && !empty($_POST['preparacion']) ? $_POST['preparacion'] : 'NULL';
+                        
+                        $pr->stock = !isset($_POST['preparacion']) && !empty($_POST['stock']) ? $_POST['stock'] : 'NULL';
+
+                        $pr->gastos_envio = !empty($_POST['gastos_envio']) ? $_POST['gastos_envio'] : 0;
+                        $pr->tiempo_envio = !empty($_POST['tiempo_envio']) ? $_POST['tiempo_envio'] : 0;
 
                         $files = $this->reArrayFiles($_FILES['files']);
                         $contador = 0;
@@ -314,6 +288,8 @@ class Upload extends Controller
                         } else { //si es para vender
                             $pr->categoria = $cat->id;
                             if ($pr->setCraft()) {
+                                $dg->setTopicsDesign($topics);
+                                $dg->setSubCategory($_POST["subcategoria"]);
                                 $this->loadModel("email");
                                     /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
                                 $admail = new Email();

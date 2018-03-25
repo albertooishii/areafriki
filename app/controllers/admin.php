@@ -616,6 +616,7 @@
                                         }
 
                                         $data["fecha_pedido"]=$this->format_date($pedido["fecha_pedido"]);
+                                        $data["date"] = $pedido["fecha_pedido"];
                                         $data["estado"]=$pedido["estado"];
                                         $data["class_estado"]=$this->classEstado($data["estado"]);
                                         $data["precio"]=number_format($pedido["precio"], 2, ',', ' ')."€";

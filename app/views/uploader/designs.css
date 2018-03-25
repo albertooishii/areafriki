@@ -1,6 +1,15 @@
 .container-fluid.wrapper {
-    padding: 30px;
     margin-top: 70px;
+}
+@media (min-width: 992px){
+    .container-fluid.wrapper {
+        padding: 30px 150px;
+    }
+}
+
+#upload-text {
+    margin: 10px 0;
+    font-size: 14px;
 }
 
 #vender-mobile {
@@ -27,6 +36,10 @@
 
 .cat-buttons {
     margin-top: 10px;
+}
+
+p {
+    font-size: 12px;
 }
 
 .cat-buttons .col-md-2, .cat-buttons .col-sm-2, .cat-buttons .col-xs-3, .cat-buttons .card {
@@ -87,4 +100,8 @@
 
 #uploadprogress input {
     width: 200px;
+}
+
+.designer:not(:first-of-type) {
+    display: none;
 }

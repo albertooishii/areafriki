@@ -101,6 +101,19 @@
             }
         }
         
+        function setSubCategory($subcategory){
+            $query="DELETE FROM product_subcategory WHERE token='$this->token'";
+            if ($this->_db->query($query)){
+                $query="INSERT INTO product_subcategory(token, subcategory) VALUES('$this->token', '$subcategory')";
+                if (!$this->_db->query($query)){
+                    return false;
+                }
+                return true;
+            }else{
+                return false;
+            }
+        }
+
         function genera_token() {
             $chars = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z');
 

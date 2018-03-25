@@ -1,33 +1,33 @@
 $(document).ready(function(){
+    var inputFiles = [];
+
     $(".next").click(function(e){
         e.preventDefault();
         $("a[href='#"+$(this).data("href")+"']").click();
     });
 
-    $(".stockswitch").change(function(){
-        if($(this).is(":checked")){ //automático
-            $(".descripcion_stock").html("STOCK AUTOMÁTICO: introduce la cantidad de unidades que tienes de este producto. Se irá descontando una por cada producto vendido, hasta que esté agotado.");
-            $("#stock_automatico").show();
+    $(".pill-stock, .pill-prepa").click(function(){
+        if ($(this).hasClass('pill-stock')) {
             $("#stock_automatico input").prop('disabled', false);
             $("#stock_manual input").prop('disabled', true);
-            $("#stock_manual").hide();
-        }else{ //manual
-            $(".descripcion_stock").html("STOCK MANUAL: el producto lo iré teniendo a medida que me lo vayan encargando, no tengo una cantidad fija.");
-            $("#stock_automatico").hide();
-            $("#stock_manual").show();
+        } else if ($(this).hasClass('pill-prepa')) {
             $("#stock_manual input").prop('disabled', false);
             $("#stock_automatico input").prop('disabled', true);
-
         }
     });
 
     $("#venta-submit").click(function(e){
+        e.preventDefault()
         $('form').data('formValidation').validate();
-        $('form').formValidation('revalidateField', 'files[]');
-        if($(".has-error").size()!=0 || $('form').find('input[name="tags"]').val()==''){
+
+        if($(".has-error").size()!=0 || $('form').find('input[name="tags"]').val()==='' || !$('form').find('select[name="subcategoria"]').val() || !$('form').find('select[name="topics[]"]').val() || $('form').find('input[name="beneficio"]').val()==='' || $('form').find('input[name="gastos_envio"]').val()==='' || $('form').find('input[name="tiempo_envio"]').val()===''){
             $(".modal-title").html("ERROR");
             $(".modal-body").html("Faltan campos obligatorios por rellenar.");
             $('#modalDg').modal() ;
+        } else if (!inputFiles.length) {
+            $(".modal-title").html("ERROR");
+            $(".modal-body").html("Al menos una imagen es obligatoria.");
+            $('#modalDg').modal();
         }else if($('textarea[name="descripcion"]').val().indexOf('[url') >= 0 ||
             $('textarea[name="descripcion"]').val().match(/http([s]?):\/\/.*/) ||
             $('textarea[name="descripcion"]').val().match(/www.[0-9a-zA-Z',-]./)) {
@@ -36,6 +36,9 @@ $(document).ready(function(){
             $('#modalDg').modal();
         }else{
             var fd = new FormData(document.getElementById("fileupload"));
+            $.each(inputFiles, function (i, file) {
+                fd.append('files[' + i + ']', file)
+            })
 
             //PUBLICAR PRODUCTOS VENTA (CRAFTS Y BAÚL)
 
@@ -62,6 +65,7 @@ $(document).ready(function(){
                     if(response==1){
                         productoPublicado();
                     }else{
+                        console.log(response)
                         //Enviamos error por email
                         $(".modal-title").html("ERROR");
                         $(".modal-body").html("Ha ocurrido un error al subir tu producto. Nuestro sistema recopilará la información sobre este error. Se te notificará por email cuando haya sido solucionado.");
@@ -75,35 +79,45 @@ $(document).ready(function(){
 
 //FOTO UPLOAD
     var names = [];
-    $('body').on('change', '.picupload', function(event) {
 
-        var files = event.target.files;
+    $('body').on('change', '.picupload', function(event) {
+        var files = [...event.target.files];
+        const maxFiles = 4
         var output = document.getElementById("media-list");
         var z = 0
+        files.splice(maxFiles, files.length - maxFiles)
+        inputFiles = files
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            names.push($(this).get(0).files[i].name);
-            var picReader = new FileReader();
-            picReader.fileName = file.name
-            picReader.addEventListener("load", function(event) {
+            if (names.length < maxFiles) {
+                names.push($(this).get(0).files[i].name);
+                var picReader = new FileReader();
+                picReader.fileName = file.name
+                picReader.addEventListener("load", function(event) {
 
-                var picFile = event.target;
+                    var picFile = event.target;
 
-                var div = document.createElement("li");
+                    var div = document.createElement("li");
 
-                div.innerHTML = "<img src='" + picFile.result + "'" +
-                    "title='" + picFile.name + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+                    div.innerHTML = "<img src='" + picFile.result + "'" +
+                        "title='" + event.target.fileName + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
 
-                $("#media-list").prepend(div);
+                    $("#media-list").prepend(div);
 
-            });
-            picReader.readAsDataURL(file);
-
+                });
+                picReader.readAsDataURL(file);
+            }
         }
-        // return array of file name
-        console.log(names);
 
+        inputFiles = files
+
+        //console.log(names);
+        if (names.length >= 4) {
+            $(".myupload").hide()
+        } else {
+            $(".myupload").show()
+        }
     });
 
     $('body').on('click', '.remove-pic', function() {
@@ -114,10 +128,13 @@ $(document).ready(function(){
         if (yet != -1) {
             names.splice(yet, 1);
         }
-        // return array of file name
-        console.log(names);
+        //console.log(names)
+        if (names.length >= 4) {
+            $(".myupload").hide()
+        } else {
+            $(".myupload").show()
+        }
     });
-
 });
 
 function unloadPage(){

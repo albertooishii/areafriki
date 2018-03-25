@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/app/views/uploader/designs.css">
 <div class="container-fluid wrapper">
     <!-- Modal -->
     <div class="modal fade" id="modalDg" tabindex="-1" role="dialog" aria-labelledby="modalDgLabel">
@@ -45,10 +44,12 @@
                         <label><small>Las etiquetas descriptivas ayudan mucho a mejorar la búsqueda de tu producto. Ejemplo: gato, negro, bigotes</small></label>
                     </div>
                     <div class="form-group">
-                        <label width="auto">
-                            <p><i class="material-icons">view_module</i> CATEGORÍA. Selecciona la categoría temática que mejor se adapte a tu producto.</p>
+                        <label class="control-label" width="auto">
+                            <p><i class="material-icons">view_module</i> *CATEGORÍA. Selecciona la categoría temática que mejor se adapte a tu producto.</p>
                         </label>
-                        <select class="selectpicker" multiple data-selected-text-format="count > 3" data-style="btn btn-primary btn-round" title="* Selecciona la temática" required data-width="100%" name="topics[]">
+                        <select class="selectpicker form-control" multiple data-selected-text-format="count > 3" data-style="btn btn-primary btn-round" title="Selecciona la temática" required data-width="100%" name="topics[]"
+                            data-fv-notempty="true"
+                            data-fv-notempty-message="La categoría temática es obligatoria">
                             <?php
                                 foreach($data["tematicas"] as $topic){
                             ?>
@@ -69,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <h4><i class="material-icons">print</i> Archivo para imprimir</h4>
-                        <label>Es necesario que el archivo para imprimir cumpla los <a href='<?= PAGE_DOMAIN ?>/plantillas/estandares_calidad.pdf' target="_blank">estándares de calidad<i class="material-icons small">open_in_new</i></a>. Un producto podrá ser rechazado si no pasa la revisión.</label>
+                        <p>Es necesario que el archivo para imprimir cumpla los estándares de calidad. Un producto podrá ser rechazado si no pasa la revisión.</p>
                         <label class="control-label">* Formatos aceptados pdf, ai, eps, svg, psd, jpg y png</label>
                         <input id="file" type="file" class="file" accept="application/pdf, image/x-eps, application/illustrator, application/postscript, image/svg+xml,  application/octet-stream, image/photoshop, application/psd, image/x-psd, image/psd, image/jpeg, image/pjpeg, image/png" name="design_editable" data-allowed-file-extensions='["ai", "pdf", "eps", "ps", "svg", "psd", "jpg", "jpeg", "png"]' data-show-preview=false data-show-remove=false data-show-upload=false data-language=es
                             data-fv-file-maxsize="101000000"
@@ -92,9 +93,7 @@
                     <h4 style="text-transform:capitalize;"><i class="material-icons">info</i> <?=$categoria['nombre']?></h4>
                     <p><?= $categoria['descripcion'] ?></p>
                     <header><h4><i class="fa fa-coffee"></i> Configura el precio de venta</h4></header>
-                    <label>
-                        <p>Indica cuanto quieres ganar por cada venta de <?=$categoria['nombre']?> con este diseño. Te recomendamos poner un precio justo para poder vender más unidades fácilmente.</p>
-                    </label>
+                    <p>Indica cuanto quieres ganar por cada venta de <?=$categoria['nombre']?> con este diseño. Te recomendamos poner un precio justo para poder vender más unidades fácilmente.</p>
                     <?php
                             if (!empty($categoria['precio_base'])) {
                     ?>
@@ -126,6 +125,7 @@
                         }
                     ?>
                 <div class="card">
+                    <p><b>Revisa que todo está correctamente antes de publicar.<br>¡Y no olvides indicar tu beneficio en cada producto!</b></p>
                     <button type="submit" id="form-submit" class="btn btn-primary btn-lg aligncentermobile btn-round btn-raised"><i class="fa fa-paper-plane"></i> Publicar</button>
                 </div>
             </div>

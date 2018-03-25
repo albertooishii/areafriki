@@ -4,6 +4,10 @@
         <span><?=$data["valor"]?></span><br>
         <span class="beneficio">
             <label>Beneficio: </label><input type="number" step="0.01" min="0" max="<?=$data["beneficio"]?>" class="form-control" value="0.00"
+                required
+                data-fv-greaterthan="true"
+                data-fv-greaterthan-value="0"
+                data-fv-greaterthan-message="No has indicado tu beneficio"
                 data-fv-lessthan-message="El beneficio debe ser como máximo de <?=$data["beneficio_formated"]?>">€
         </span>
         <span style="float:right; margin:5px;">

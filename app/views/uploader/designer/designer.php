@@ -1,4 +1,5 @@
 <?= $data['fpd'] ?>
+<p id="upload-text" class="text-center title">¡Sube tu diseño a tantos productos como quieras!</p>
 <div class="row cat-buttons">
     <?php
         foreach($data['categorias'] as $categoria) {

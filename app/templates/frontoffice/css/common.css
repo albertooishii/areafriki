@@ -47,8 +47,12 @@ main a, main a:focus, main a:hover {
     color: #353535!important;
 }
 
+.dropdown-menu, .dropdown-menu>ul {
+    background-color: #353535;
+}
+
 .dropdown-menu>li>a{
-    color: #fbb808 !important;
+    color: white !important;
 }
 
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
@@ -156,7 +160,7 @@ main a, main a:focus, main a:hover {
     background-color:#FF5722 !important;
 }
 
-.btn.btn-primary:hover, .navbar .navbar-nav > li > a.btn.btn-primary:hover{
+.btn.btn-primary:hover, .navbar .navbar-nav > li > a.btn.btn-primary:hover, .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
     background-color: #FF5722 !important;
     box-shadow: 0 14px 26px -12px rgba(255, 87, 34, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 87, 34, 0.2);
 }
@@ -1767,80 +1771,4 @@ img.store-icon{
 
 .modal-footer .btn{
     margin-bottom: 0;
-}
-
-/*
-Project: Jquery Plugin to select multiple media files (i.e. images and videos). v.1.0.0.1
-Project Description: using jquery and bootstrap by this you can create multiple file selector,preview
-on boostrap modal,also able to delete file.
-Author: Abhishek Mishra
-*/
-#media-list li img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-#media-list li {
-    height: 102px;
-}
-
-li.myupload span {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    display: block;
-    background: #fff
-}
-
-li.myupload span input {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0
-}
-
-li.myupload span i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ccc;
-    font-size: 54px
-}
-
-#media-list li {
-    float: left;
-    border: 1px solid #ccc;
-    background: #ccc;
-    position: relative;
-    margin: 0 5px 5px 0;
-    width: 102px
-}
-
-#media-list li:last-child {
-    margin-right: 0
-}
-
-a.remove-pic {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 12px;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    display: block;
-    height: 25px;
-    width: 25px;
-    text-align: center;
-    padding: 3px 0
-}
-
-ul#media-list {
-    list-style: none;
-    padding: 20px 0;
-    margin: 0;
 }

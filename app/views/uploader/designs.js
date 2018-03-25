@@ -10,12 +10,6 @@ $(document).ready(function () {
         }
     });
 
-    $(".fpd-container").bind('ready', function (event) {
-        if (event.target.parentElement.id !== 'camisetas') {
-            $(this).parent().hide();
-        }
-    });
-
     $(".add-product").click(function (event) {
         event.preventDefault();
         const category = $(this).data('category');
@@ -201,6 +195,7 @@ $(document).ready(function () {
 
     $("[name=tags]").change(function () {
         $('form').formValidation('revalidateField', 'tags');
+        $('form').formValidation('revalidateField', 'topics[]')
     });
 });
 

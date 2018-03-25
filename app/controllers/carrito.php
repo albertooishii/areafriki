@@ -533,7 +533,7 @@
                                         if($_GET["method"]=="transferencia"){
                                             //Email para comprador
                                             $mail->getEmail("pago/transferencia", $data);
-                                            $mail->to=$ped->email;
+                                            $mail->to=$info_pedido['email'];
                                             $mail->subject=PAGE_NAME." | [Pedido pendiente]";
                                             $mail->sendEmail();
 

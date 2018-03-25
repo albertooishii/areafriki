@@ -65,7 +65,7 @@
         function getProductosCategoria($limit=false, $order=false)
         {
             if(empty($order)){
-                $order="likes.date DESC, popularidad";
+                $order="popularidad DESC, likes.date";
             }else{
                 switch($order){
                     case 'likes':
@@ -81,14 +81,14 @@
                     break;
 
                     default:
-                        $order="likes.date DESC, popularidad";
+                        $order="popularidad DESC, likes.date";
                 }
             }
 
             if($limit){
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND (categoria=$this->categoria OR design IN (SELECT design FROM design_topic WHERE topic=$this->categoria)) GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND (categoria=$this->categoria OR design IN (SELECT design FROM design_topic WHERE topic=$this->categoria)) GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND (categoria=$this->categoria OR design IN (SELECT design FROM design_topic WHERE topic=$this->categoria)) GROUP BY productos.id ORDER BY $order DESC";
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 AND (categoria=$this->categoria OR design IN (SELECT design FROM design_topic WHERE topic=$this->categoria)) GROUP BY productos.id ORDER BY $order DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -151,7 +151,7 @@
         function getProductosTag($limit=false)
         {
             if(empty($order)){
-                $order="likes.date DESC, popularidad";
+                $order="popularidad DESC, likes.date";
             }else{
                 switch($order){
                     case 'likes':
@@ -167,14 +167,14 @@
                     break;
 
                     default:
-                        $order="likes.date DESC, popularidad";
+                        $order="popularidad DESC, likes.date";
                 }
             }
 
             if($limit){
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC";
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE productos.id IN (SELECT producto FROM producto_tag WHERE tag = '$this->tag') AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -314,9 +314,9 @@
             $week = date('Y-m-d', strtotime('-1 weeks', strtotime($today)));
 
             if(!empty($limit)){
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 GROUP BY productos.id ORDER BY likes.date DESC, popularidad DESC LIMIT ".$limit;
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 GROUP BY productos.id ORDER BY popularidad DESC, likes.date DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 GROUP BY productos.id ORDER BY likes.date DESC, popularidad DESC";
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE active =1 AND revisado =1 GROUP BY productos.id ORDER BY popularidad DESC, likes.date DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -495,7 +495,7 @@
             $search_keys=explode(" ", $this->search);
             
             if(empty($order)){
-                $order="likes.date DESC, popularidad";
+                $order="popularidad DESC, likes.date";
             }else{
                 switch($order){
                     case 'likes':
@@ -511,7 +511,7 @@
                     break;
 
                     default:
-                        $order="likes.date DESC, popularidad";
+                        $order="popularidad DESC, likes.date";
                 }
             }
 
@@ -524,9 +524,9 @@
             }
             
             if($limit){
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE ((".$string.") OR productos.id IN (SELECT producto FROM producto_tag WHERE tag LIKE '%".$this->search."%')) AND active=1 AND revisado=1 AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE ((".$string.") OR productos.id IN (SELECT producto FROM producto_tag WHERE tag LIKE '%".$this->search."%')) AND active=1 AND revisado=1 AND active =1 AND revisado =1 GROUP BY productos.id ORDER BY $order DESC LIMIT ".$limit;
             }else{
-                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE ((".$string.") OR productos.id IN (SELECT producto FROM producto_tag WHERE tag LIKE '%".$this->search."%')) AND active=1 AND revisado=1 GROUP BY productos.id ORDER BY $order DESC";
+                $query="SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) * 2 + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE ((".$string.") OR productos.id IN (SELECT producto FROM producto_tag WHERE tag LIKE '%".$this->search."%')) AND active=1 AND revisado=1 GROUP BY productos.id ORDER BY $order DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -592,7 +592,7 @@
         {
             $fecha=date ("Y-m-d H:i:s");
             $query="INSERT INTO productos (nombre, descripcion, beneficio, design, categoria, fecha_publicacion, usado, stock, preparacion, gastos_envio, tiempo_envio) VALUES('$this->nombre', '$this->descripcion', $this->beneficio, '$this->design', '$this->categoria', '$fecha', $this->usado, $this->stock, $this->preparacion, $this->gastos_envio, $this->tiempo_envio)";
-            //echo $query;
+            // echo $query;
             if ($this->_db->query($query)){
                 $this->id=mysqli_insert_id($this->_db);
                 $this->setProductoLista();
