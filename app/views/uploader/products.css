@@ -1,4 +1,8 @@
 @media (max-width: 768px) {
+    footer {
+        display: none;
+    }
+
     .container.wrapper {
         padding-top: 70px !important;
         padding-bottom: 0 !important;
@@ -7,6 +11,26 @@
 
     .nav-tabs {
         padding: 0 !important;
+    }
+
+    #tab-menu {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        height: 56px;
+        border-radius: 0;
+    }
+
+    #tab-menu li {
+        width: 33.33%;
+        text-align: center;
+    }
+
+    #tab-menu li a {
+        display: grid;
+        text-transform: capitalize;
     }
 }
 
@@ -43,12 +67,13 @@ li.myupload span {
 }
 
 li.myupload span input {
+    width: inherit;
     opacity: 0;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0
+    right: 0;
 }
 
 li.myupload span i {

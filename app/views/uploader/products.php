@@ -32,10 +32,10 @@
                     </ul>
                 </div>
                 <div class="col-md-7">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#info"><i class="material-icons">info</i><span class="text-tab nomobile">¿Qué quieres vender?</span></a></li>
-                        <li><a data-toggle="tab" href="#categories"><i class="material-icons">view_module</i><span class="text-tab nomobile">Categorías</span></a></li>
-                        <li><a data-toggle="tab" href="#precio"><i class="material-icons">shopping_cart</i><span class="text-tab nomobile">Precio y envío</span></a></li>
+                    <ul class="nav nav-tabs" id="tab-menu">
+                        <li class="active"><a data-toggle="tab" href="#info"><i class="material-icons">info</i><span class="text-tab">Información</span></a></li>
+                        <li><a data-toggle="tab" href="#categories"><i class="material-icons">view_module</i><span class="text-tab">Categorías</span></a></li>
+                        <li><a data-toggle="tab" href="#precio"><i class="material-icons">shopping_cart</i><span class="text-tab">Precio</span></a></li>
                     </ul>
 
                     <div class="tab-content">

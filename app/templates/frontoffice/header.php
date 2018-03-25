@@ -184,7 +184,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="vender" class="nomobile notablet">
+                    <li id="vender">
                         <a href="/upload" class="text-primary">
                             VENDER
                         </a>
