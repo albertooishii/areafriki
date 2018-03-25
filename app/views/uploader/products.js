@@ -86,7 +86,6 @@ $(document).ready(function(){
         var output = document.getElementById("media-list");
         var z = 0
         files.splice(maxFiles, files.length - maxFiles)
-        inputFiles = files
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
@@ -103,14 +102,15 @@ $(document).ready(function(){
                     div.innerHTML = "<img src='" + picFile.result + "'" +
                         "title='" + event.target.fileName + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='javascript:void(0);' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
 
-                    $("#media-list").prepend(div);
+                    $(".myupload").before(div);
 
                 });
                 picReader.readAsDataURL(file);
             }
         }
 
-        inputFiles = files
+        inputFiles = [...inputFiles, ...files]
+        inputFiles.splice(maxFiles, inputFiles.length - maxFiles)
 
         //console.log(names);
         if (names.length >= 4) {
@@ -127,6 +127,8 @@ $(document).ready(function(){
 
         if (yet != -1) {
             names.splice(yet, 1);
+            inputFiles.splice(yet, 1);
+            console.log(inputFiles)
         }
         //console.log(names)
         if (names.length >= 4) {
