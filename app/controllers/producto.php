@@ -549,6 +549,7 @@
 
                                                 $data["custom_js"].=$this->minifyJs("product", "product_file");
                                                 $data["custom_js"].=$this->minifyJs("product", "comment_card");
+                                                $data["custom_css"] .= $this->minifyCss('product', 'product_file');
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);
                                             }else{
@@ -600,6 +601,7 @@
                                                 $data["atributos"]="";
                                                 $data["custom_js"]=$this->minifyJs("product", "product_file");
                                                 $data["custom_js"].=$this->minifyJs("product", "comment_card");
+                                                $data["custom_css"] = $this->minifyCss('product', 'product_file');
                                                 $data["meta_tags"]=$this->loadView("meta","meta-producto",$data);
                                                 $this->render('product', 'product_file', $data);
                                             }

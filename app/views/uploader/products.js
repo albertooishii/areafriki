@@ -128,7 +128,6 @@ $(document).ready(function(){
         if (yet != -1) {
             names.splice(yet, 1);
             inputFiles.splice(yet, 1);
-            console.log(inputFiles)
         }
         //console.log(names)
         if (names.length >= 4) {

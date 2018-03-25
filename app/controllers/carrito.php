@@ -266,6 +266,8 @@
                             $data["custom_js"]="<script type='text/javascript' src='https://js.stripe.com/v2/'></script>";
                             $data["custom_js"].=$this->minifyJs("forms", "pago");
                             $data["custom_js"].=$this->minifyJs("carrito", "carrito");
+                            $data["custom_css"] = $this->minifyCss('carrito', 'vendedor');
+                            $data["custom_css"] .= $this->minifyCss('carrito', 'carrito');
                             $data["fbevent"]="fbq('track', 'InitiateCheckout')";
                             $this->render("carrito","checkout",$data);
                         }
@@ -745,6 +747,8 @@
                             }
 
                             $data["custom_js"]=$this->minifyJs("carrito", "carrito");
+                            $data["custom_css"] = $this->minifyCss('carrito', 'vendedor');
+                            $data["custom_css"] .= $this->minifyCss('carrito', 'carrito');
                             $this->render("carrito","carrito",$data);
                         }else{
                             $this->render("carrito","empty",$data);

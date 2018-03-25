@@ -121,6 +121,7 @@
                     }
                 }
                 $data["custom_js"]=$this->minifyJs("home", "index_productos");
+                $data["custom_css"] = $this->minifyCss('product', 'product_card');
                 $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
                 $this->render('home', 'index_productos', $data);
             }else{
@@ -244,6 +245,7 @@
 
                 $data['page_title'] = "Tienda friki de camisetas, manualidades y segunda mano.";
                 $data["custom_js"]=$this->minifyJs("home", "home");
+                $data["custom_css"] = $this->minifyCss('product', 'product_card');
                 $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
                 $this->render('home', 'home', $data);
             }

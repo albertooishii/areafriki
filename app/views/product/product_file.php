@@ -121,12 +121,14 @@
                             <?php
                                 if($data["stock"]>1){
                             ?>
+                            <div class="form-group">
                                 <label class="control-label"><p>Cantidad:</p></label>
                                 <input type="number" min="1" max="<?=$data["stock"]?>" name="cantidad" step="1" id="cantidad" class="form-control" value="1" style="width:100px;"
                                     data-fv-lessthan-message="El máximo de unidades de este producto es <?=$data["stock"]?>"
                                        data-fv-greaterthan="true"
                                        data-fv-greaterthan-value="1"
-                                       data-fv-greaterthan-message="La cantidad debe ser mayor o igual a 1" /><br>
+                                       data-fv-greaterthan-message="La cantidad debe ser mayor o igual a 1" />
+                            </div>
                             <?php
                                 }else{
                             ?>

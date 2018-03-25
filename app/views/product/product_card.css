@@ -1,0 +1,14 @@
+.product_buttons li {
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+    text-align: center;
+}
+
+.product_buttons p{
+    color: #4d4d4d !important;
+}
+
+.like-button .fa{
+    color: #F44336;
+}
