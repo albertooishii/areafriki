@@ -31,7 +31,7 @@
                 }
             ?>
                             </div>
-                            <div class="footer content">
+                            <div class="footer content nomobile">
                                 <div class="product_author author">
                                     <a href="/user/<?=$this->u->user2URL($data["username"])?>">
                                         <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">

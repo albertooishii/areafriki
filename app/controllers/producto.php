@@ -497,6 +497,8 @@
 
                                                 $data["custom_js"]="";
 
+                                                $data['montaje']='';
+
                                                 switch($data["nombre_categoria"]){
                                                     case 'camisetas':
                                                         $data["indicaciones_size"]="* Ancho: medidas desde el contorno 1cm por debajo de las mangas.<br>* Alto: medidas desde el punto más alto del hombro hasta el final de la prenda.";
@@ -537,8 +539,8 @@
 
                                                     default:
                                                         $data["indicaciones_size"]="";
-                                                        $data["montaje"]="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 }
+                                                $data["montaje"].="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 $data["stock"]=10000;
 
                                                 if(strpos(strtolower($data["dg-nombre"]), strtolower(substr($data["nombre_categoria"], 0, -1)))!==0){

@@ -208,7 +208,7 @@ main a, main a:focus, main a:hover {
 
 @media (max-width: 768px){
     .container.wrapper{
-        padding-top: 112px;
+        padding-top: 80px;
     }
 }
 

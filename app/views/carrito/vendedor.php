@@ -64,7 +64,7 @@
                     <?php
                         }
                     ?>
-                    <button type="submit" id="finish-order" class="btn btn-primary btn-round btn-md">Finalizar pedido</button>
+                    <button type="submit" id="finish-order" class="btn btn-primary btn-round btn-lg">Finalizar pedido</button>
                 </form>
             </div>
         </div>

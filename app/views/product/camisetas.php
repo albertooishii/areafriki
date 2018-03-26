@@ -1,4 +1,4 @@
-<div id="fpd" class="fpd-container fpd-shadow-0">
+<div id="fpd" class="fpd-container fpd-shadow-0" style="display:none">
     <div class="fpd-product" data-thumbnail="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/preview.png">
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350, "z": 0}' />
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/camisetas/base.png" title="Base" data-parameters='{"x": 350, "y": 350, "fill": "<?=$data["color"]?>", "z":1}' />

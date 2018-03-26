@@ -33,7 +33,7 @@
                         <div id="direccion">
                             <div class="form-group label-floating">
                                 <label for="inputName" class="control-label">Nombre y apellidos</label>
-                                <input type="text" class="form-control" id="inputName" value="<?=$data["nombre"]?>" required name="name"
+                                <input type="text" class="form-control" id="inputName" value="<?=$data["nombre"]?>" required name="name" autocorrect="off" autocomplete="name"
                                         data-fv-notempty="true"
                                         data-fv-notempty-message="El nombre es obligatorio" />
                             </div>
@@ -41,7 +41,7 @@
     if(!isset($_SESSION["login"])){
 ?>
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Correo electrónico"
+                                <input type="email" class="form-control" name="email" autocapitalize="off" autocorrect="off" autocomplete="email" placeholder="Correo electrónico"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="El e-mail es obligatorio"
                                     data-fv-emailaddress="true"
@@ -52,14 +52,14 @@
 ?>
                             <div class="form-group label-floating">
                                 <label for="inputDireccion" class="control-label">Dirección postal</label>
-                                <input type="text" class="form-control" id="inputDireccion" value="<?=$data["direccion"]?>" required name="address"
+                                <input type="text" class="form-control" id="inputDireccion" value="<?=$data["direccion"]?>" required name="address" autocorrect="off" autocomplete="address-line1"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="La dirección es obligatoria"   />
                             </div>
 
                             <div class="form-group label-floating">
                                 <label for="inputCP" class="control-label">Código Postal</label>
-                                <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" required name="cp" data-stripe="address_zip"
+                                <input type="text" class="form-control" id="inputCP" value="<?=$data["cp"]?>" required name="cp" data-stripe="address_zip" inputmode="numeric" pattern="[0-9]*" novalidate autocorrect="off" autocomplete="postal-code"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="El código postal es obligatorio"
                                     data-fv-stringlength-min="5"
@@ -68,7 +68,7 @@
 
                             <div class="form-group label-floating">
                                 <label for="inputLocalidad" class="control-label">Localidad</label>
-                                <input type="text" class="form-control" id="inputLocalidad" value="<?=$data["localidad"]?>" required name="localidad"
+                                <input type="text" class="form-control" id="inputLocalidad" value="<?=$data["localidad"]?>" required name="localidad" autocorrect="off" autocomplete="address-level2"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="La localidad es obligatoria"/>
                             </div>
@@ -80,14 +80,14 @@
 
                             <div class="form-group label-floating">
                                 <label for="inputTelefono" class="control-label">Número de teléfono</label>
-                                <input type="text" class="form-control" id="inputTelefono" value="<?=$data["phone"]?>" required name="phone"
+                                <input type="tel" autocorrect="off" autocomplete="tel" class="form-control" id="inputTelefono" value="<?=$data["phone"]?>" required name="phone"
                                     data-fv-notempty="true"
                                     data-fv-notempty-message="El número de teléfono es necesario">
                             </div>
                         </div>
                         <div class="form-group label-floating">
                             <label for="inputNombre" class="control-label">Si deseas dejar alguna aclaración sobre la dirección de envío escríbela a continuación</label>
-                            <textarea class="form-control" name="nota"><?=$data["nota"]?></textarea>
+                            <textarea class="form-control" name="nota" autocomplete="off"><?=$data["nota"]?></textarea>
                         </div>
                     </div>
                 </div>

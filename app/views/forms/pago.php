@@ -16,20 +16,20 @@
         <div id="stripe_inputs" class="pay_method_inputs" data-publickey="<?=STRIPE_PUBLIC?>" style="display:none;">
               <div class='col-xs-12 form-group required label-floating'>
                   <label class='control-label'>Número de tarjeta</label>
-                  <input autocomplete='off' class='form-control' name="ccNumber" data-stripe="number" size='20' type='text' required data-fv-creditcard="true"
+                  <input autocomplete='cc-number' class='form-control' name="ccNumber" data-stripe="number" size='20' type='number' inputmode="numeric" pattern="[0-9]*" autocorrect="off" required data-fv-creditcard="true"
                 data-fv-creditcard-message="El número de la tarjeta de crédito no es válido">
               </div>
               <div class='col-xs-4 form-group required'>
                   <label class='control-label'>Caducidad</label>
-                  <input class='form-control' placeholder='MM' size='2' type='text' data-stripe="exp_month" required data-fv-notempty="true" data-fv-notempty-message="Introduce el mes de expiración de la tarjeta. Ej. 09">
+                  <input class='form-control' placeholder='MM' size='2' type='number' data-stripe="exp_month" inputmode="numeric" pattern="[0-9]*" autocorrect="off" required data-fv-notempty="true" data-fv-notempty-message="Introduce el mes de expiración de la tarjeta. Ej. 09">
               </div>
               <div class='col-xs-4 form-group required'>
                   <label class='control-label'> </label>
-                  <input class='form-control' placeholder='AAAA' size='4' type='text' data-stripe="exp_year" required data-fv-notempty="true" data-fv-notempty-message="Introduce el año de expiración de la tarjeta. Ej. 2019">
+                  <input class='form-control' placeholder='AAAA' size='4' type='number' inputmode="numeric" pattern="[0-9]*" autocorrect="off" data-stripe="exp_year" required data-fv-notempty="true" data-fv-notempty-message="Introduce el año de expiración de la tarjeta. Ej. 2019">
               </div>
             <div class='col-xs-4 form-group required'>
                   <label class='control-label'>CVC</label>
-                  <input autocomplete='off' class='form-control' placeholder='ej. 311' size='4' type='text' data-stripe="cvc" required name="cvc" data-fv-cvv="true"
+                  <input autocomplete='off' class='form-control' placeholder='ej. 311' size='4' type='number' inputmode="numeric" pattern="[0-9]*" autocorrect="off" data-stripe="cvc" required name="cvc" data-fv-cvv="true"
                 data-fv-cvv-ccfield="ccNumber" data-fv-cvv-message="El código CVC no es válido.">
               </div>
               <div class='col-md-12'>

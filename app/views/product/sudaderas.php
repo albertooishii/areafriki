@@ -1,4 +1,4 @@
-<div id="fpd" class="fpd-container fpd-shadow-0">
+<div id="fpd" class="fpd-container fpd-shadow-0"  style="display:none">
     <?php
         if($data["modelo"]=="Capucha"){
     ?>
@@ -6,8 +6,8 @@
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350, "z":0}' />
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/base.png" title="Base" data-parameters='{"x": 350, "y": 350, "z":1, "fill": "<?=$data["color"]?>"}' />
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/shadow.png" title="Shadows" data-parameters='{"x": 350, "y": 350, "z": 2}' />
-        <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 320}' />
-        <img src="<?=$data["img_design"]?>" data-parameters='{"left": <?=$data["left"]?>, "top": <?=$data["top"]?>, "height": <?=$data["height"]?>, "width": <?=$data["width"]?>, "scale": <?=$data["scale"]?>, "z": 3}' title="CustomImage">
+        <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/capucha/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 320, "scale": 1.1}' />
+        <img src="<?=$data["img_design"]?>" data-parameters='{"left": <?=$data["left"]?>, "top": <?=$data["top"]?>, "height": <?=$data["height"]?>, "width": <?=$data["width"]?>, "scale": <?=$data["scale"]*1.12?>, "z": 3}' title="CustomImage">
     </div>
     <?php
         }elseif($data["modelo"]=="Normal"){
@@ -16,8 +16,8 @@
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/background.png" title="Fondo" data-parameters='{"x": 350, "y": 350, "z":0}' />
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/base.png" title="Base" data-parameters='{"x": 350, "y": 350, "z":1, "fill": "<?=$data["color"]?>"}' />
         <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/shadow.png" title="Shadows" data-parameters='{"x": 350, "y": 350, "z": 2}' />
-        <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 320}' />
-        <img src="<?=$data["img_design"]?>" data-parameters='{"left": <?=$data["left"]?>, "top": <?=$data["top"]?>, "height": <?=$data["height"]?>, "width": <?=$data["width"]?>, "scale": <?=$data["scale"]?>, "z": 3}' title="CustomImage">
+        <img src="<?=PAGE_DOMAIN?>/vendor/fancy_product_designer/source/images/sudaderas/normal/bounding.png" title="Bounding" data-parameters='{"x": 350, "y": 320, "scale": 1.02}' />
+        <img src="<?=$data["img_design"]?>" data-parameters='{"left": <?=$data["left"]?>, "top": <?=$data["top"]?>, "height": <?=$data["height"]?>, "width": <?=$data["width"]?>, "scale": <?=$data["scale"]*1.12?>, "z": 3}' title="CustomImage">
     </div>
     <?php
         }

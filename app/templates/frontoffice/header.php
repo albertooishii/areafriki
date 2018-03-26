@@ -148,7 +148,7 @@
                                     <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>                   
                                 </ul>
                             </li>
-                            <!--<li class="col-sm-3">
+                            <li class="col-sm-3">
                                 <ul>
                                     <li class="dropdown-header">Productos hechos a mano</li>
                                     <li><a href="<?=PAGE_DOMAIN?>/ropa-handmade">Ropa y moda</a></li>
@@ -173,7 +173,7 @@
                                     <li><a href="<?=PAGE_DOMAIN?>/toys-secondhand">Juegos, figuras y peluches</a></li>
                                     <li><a href="<?=PAGE_DOMAIN?>/otros-secondhand">Otros</a></li> 
                                 </ul>
-                            </li>-->
+                            </li>
                             <li class="col-sm-3">
                                 <ul>
                                     <li class="dropdown-header">Edición limitada</li>

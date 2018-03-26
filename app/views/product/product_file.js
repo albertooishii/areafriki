@@ -1,15 +1,28 @@
 $(document).ready(function() {
-    $(".color_selector").click(function(e){
-        e.preventDefault();
-        $(".color_selector").removeClass("selected");
-        $(this).addClass('selected');
-        var color = $(this).data("color");
+    $('#fpd').on('productCreate', function () {
+        getImage();
 
-        var target = fpd.getElementByTitle("Base");
-        fpd.currentViewInstance.changeColor(target,color,false,false);
+        $(".color_selector").click(function(e){
+            e.preventDefault();
+            $(".color_selector").removeClass("selected");
+            $(this).addClass('selected');
+            var color = $(this).data("color");
+    
+            var target = fpd.getElementByTitle("Base");
+            fpd.currentViewInstance.changeColor(target, color, false, false)
+            setTimeout(function() {
+                getImage()
+            }, 1)
 
-        $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
-    });
+            $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
+        });
+    
+        function getImage() {
+            fpd.currentViewInstance.toDataURL(function(dataURL) {
+                $("img#preview").attr('src', JSON.parse(JSON.stringify(dataURL)));
+            })
+        }
+    })
 
     $("#solicitar_producto").click(function(e){
         e.preventDefault();
