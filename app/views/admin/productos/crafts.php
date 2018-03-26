@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Crafts subidos</h1>
+        <h1 class="page-header">Handmades subidos</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Listado de crafts subidos
+                Listado de manualidades subidas
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -22,6 +22,7 @@
                                 <th>Descripción</th>
                                 <th>Autor</th>
                                 <th>Categoría</th>
+                                <th>Subcategoría</th>
                                 <th>Temática</th>
                                 <th>Beneficio</th>
                                 <th>Comprobación</th>

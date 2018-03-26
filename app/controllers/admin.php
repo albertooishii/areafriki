@@ -158,7 +158,7 @@
                             $this->render("admin/productos/","designs",$data);
                         break;
 
-                        case 'crafts':
+                        case 'handmades':
                             $data["tbody"]="";
                             $p->category_parent=2;
                             $data["lista_topics"]=$c->getCategorias('topic');
@@ -198,7 +198,7 @@
                             $this->render("admin/productos/","crafts",$data);
                         break;
 
-                         case 'baul':
+                         case 'secondhand':
                             $data["tbody"]="";
                             $p->category_parent=30;
                             $data["lista_topics"]=$c->getCategorias('topic');

@@ -27,8 +27,8 @@
 
                     <p class="category">VENTA</p>
                     <ul>
-                        <li><a href='<?=PAGE_DOMAIN?>/crafts'>Hecho a mano</a></li>
-                        <li><a href='<?=PAGE_DOMAIN?>/baul'>Nuevo y usado</a></li>
+                        <li><a href='<?=PAGE_DOMAIN?>/handmades'>Hecho a mano</a></li>
+                        <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Nuevo y usado</a></li>
                     </ul>
                 </div>
                 <div class="lista_etiquetas">
