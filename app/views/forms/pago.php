@@ -2,7 +2,7 @@
 <?php
     if($data["stripe"]==true){
 ?>
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="form-group radio">
             <label><i class="fa fa-credit-card" aria-hidden="true"></i> Tarjeta bancaria
                 <input type="radio" name="pay_method" value="stripe" id="checkbox_stripe"
@@ -43,7 +43,7 @@
     }
     if($data["paypal"]==true){
 ?>
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="form-group radio">
             <label><i class="fa fa-paypal" aria-hidden="true"></i> Paypal
                 <input type="radio" name="pay_method" value="paypal" id="checkbox_paypal"
@@ -59,7 +59,7 @@
     }
     if($data["iban"]==true){
 ?>
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="form-group radio">
             <label><i class="fa fa-exchange" aria-hidden="true"></i> Ingreso o transferencia bancaria
                 <input type="radio" name="pay_method" value="transferencia" id="checkbox_transferencia" required>
