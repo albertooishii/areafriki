@@ -735,6 +735,7 @@
                             }
 
                             $data["custom_js"]=$this->minifyJs("user/js", "user");
+                            $data["custom_css"] = $this->minifyCss('product', 'product_card');
                             $this->render('user', 'user', $data);
                         }else{
                             $this->render('error','404',$data);

@@ -1,6 +1,5 @@
 .container.wrapper {
     padding: 0 !important;
-    margin-top: 70px !important;
     margin-bottom: -12px !important;
 }
 
@@ -10,6 +9,7 @@
 
 .product-page .page-header {
     height: 350px !important;
+    margin-top: 69px !important;
 }
 
 .product-page .main-raised{

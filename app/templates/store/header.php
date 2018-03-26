@@ -48,7 +48,7 @@
                             <li><a href="/user/<?=$this->u->user2URL($_SESSION["login"]["user"])?>"><i class="material-icons">store</i> Mi tienda</a></li>
                             <li><a href="/myorders"><i class="material-icons">history</i> Mis pedidos</a></li>
                             <li><a href="/mysales"><i class="material-icons">monetization_on</i> Mis ventas</a></li>
-                            <li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>
+                            <!--<li><a href="/myuploads"><i class="material-icons">file_upload</i> Mis productos</a></li>-->
                             <li class="divider"></li>
                             <li><a href="/settings"><i class="material-icons">settings</i> Configuración</a></li>
                         <?php
