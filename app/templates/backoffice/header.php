@@ -55,10 +55,10 @@
                             <a href="/simbiosis/designs">Diseños</a>
                         </li>
                         <li>
-                            <a href="/simbiosis/crafts">Crafts</a>
+                            <a href="/simbiosis/handmades">Handmades</a>
                         </li>
                         <li>
-                            <a href="/simbiosis/baul">Baúl</a>
+                            <a href="/simbiosis/secondhand">Segunda Mano</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

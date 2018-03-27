@@ -104,7 +104,7 @@
                         $data["contador_shares"]=$p->getShares();
                         $data["contador_comments"]=0;
                         $data["product_card"]=$this->loadView('product','product_card',$data);
-                        $product_cards.=$this->loadView('product','product_card_col-xl-4',$data);
+                        $product_cards.=$this->loadView('product','product_card_col-xl-3',$data);
                     }
                     $data["last_uploads"]=$product_cards;
                     $data["pagination"]=$this->loadView("product", "pagination", $data);
@@ -121,7 +121,8 @@
                     }
                 }
                 $data["custom_js"]=$this->minifyJs("home", "index_productos");
-                $data["custom_css"] = $this->minifyCss('product', 'product_card');
+                $data["custom_css"] = $this->minifyCss('home', 'index_productos');
+                $data["custom_css"] .= $this->minifyCss('product', 'product_card');
                 $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
                 $this->render('home', 'index_productos', $data);
             }else{

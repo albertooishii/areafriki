@@ -589,6 +589,7 @@ footer .love {
     background-color: #ffb700;
     font-size: 16px;
     z-index: 99;
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.42), 0 8px 19px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 #feedback a{
@@ -779,47 +780,6 @@ footer .love {
 }
 
 /*LISTA DE PRODUCTOS (PRODUCT CARD)-------------------*/
-@media only screen and (max-width : 768px) {
-    #last-productos{
-        margin-top: 71px;
-    }
-}
-
-#last-productos .order{
-    text-align: right;
-}
-
-#last-productos .order p{
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#last-productos .order .form-group{
-    margin-top: 0;
-    display: inline-block;
-    margin-left: 15px;
-    width: 200px;
-    vertical-align: middle;
-}
-
-#last-productos .lista_categorias{
-    text-transform: uppercase;
-}
-
-#last-productos .lista_categorias ul{
-    list-style: none;
-    padding-left: 10px;
-}
-
-#last-productos .label.label-primary {
-    background-color: #bbb;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    display: inline-block;
-    color: #353535;
-    font-weight: 100;
-}
-
 .container.carousel_container{
     padding-right: 0;
     padding-left: 0;

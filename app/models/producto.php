@@ -11,14 +11,17 @@
 
 // Lectura-----------------------------------------------------//
 
-        function getProductos($limit=false)
+        function getProductos($limit=false, $active=false)
         {
+
+            $active = $active ? ' AND active = 1 ' : '' ;
+
             if(isset($this->category_parent)){
-                $query = "SELECT * FROM productos WHERE categoria =$this->category_parent OR categoria IN(SELECT id FROM categorias WHERE parent = $this->category_parent) ORDER BY fecha_publicacion DESC";
+                $query = "SELECT * FROM productos WHERE categoria =$this->category_parent OR categoria IN(SELECT id FROM categorias WHERE parent = $this->category_parent) $active ORDER BY fecha_publicacion DESC";
             }elseif($limit){
-                $query = "SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id ORDER BY fecha_publicacion DESC LIMIT $limit";
+                $query = "SELECT productos.id AS id, productos.nombre AS nombre, productos.descripcion AS descripcion, productos.design AS design, productos.categoria AS categoria, COUNT(distinct ventas.id) AS ventas, COUNT(distinct likes.user) AS likes, (COUNT( distinct ventas.id) + COUNT(distinct likes.user )) AS popularidad FROM productos LEFT JOIN ventas ON ventas.producto = productos.id LEFT JOIN likes ON likes.producto = productos.id WHERE id > 1 $active ORDER BY fecha_publicacion DESC LIMIT $limit";
             }else{
-                $query = "SELECT * FROM productos ORDER BY fecha_publicacion DESC";
+                $query = "SELECT * FROM productos WHERE id > 1 $active ORDER BY fecha_publicacion DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){

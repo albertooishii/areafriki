@@ -1,46 +1,32 @@
 <?=$data["secondary-navbar"]?>
-<div class="container">
+<div class="container-fluid">
     <div id="last-productos">
         <div class="row">
             <aside class="col-sm-4 col-md-3 col-lg-3 col-xl-3 nomobile">
                 <div class="lista_categorias">
                     <header>
-                        <h4 class="title">
-                            <i class="material-icons">label</i> Categorías:
-                        </h4>
+                        <h2 class="title">Categorías</h2>
                     </header>
-                    <p class="category">ROPA Y COMPLEMENTOS</p>
-                    <ul>
+                    <ul class="categories">
                         <li><a href='<?=PAGE_DOMAIN?>/camisetas'>Camisetas</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/sudaderas'>Sudaderas</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/chapas'>Chapas</a></li>
-                    </ul>
-
-                    <p class="category">DECORACIÓN</p>
-                    <ul>
                         <li><a href='<?=PAGE_DOMAIN?>/tazas'>Tazas</a></li>
-
                         <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
-                    </ul>
-
-                    <p class="category">VENTA</p>
-                    <ul>
                         <li><a href='<?=PAGE_DOMAIN?>/handmades'>Hecho a mano</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Nuevo y usado</a></li>
                     </ul>
                 </div>
                 <div class="lista_etiquetas">
                     <header class="inner">
-                        <h4 class="title">
-                            <i class="material-icons">local_offer</i> Etiquetas:
-                        </h4>
+                        <h2 class="title">Etiquetas</h2>
                     </header>
                     <?=$data["tag_list"]?>
                 </div>
             </aside>
-            <div class="col-sm-8 col-md-9 col-lg-9 col-xl-9">
+            <div class="index-productos col-sm-8 col-md-9 col-lg-9 col-xl-9">
                 <header>
                     <h1 class="title subhead"><?=$data["subhead"]?></h1>
                     <p class="subtitle"><?=$data["subtitle"]?></p>

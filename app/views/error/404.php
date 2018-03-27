@@ -1,3 +1,7 @@
+<?php
+    header("HTTP/1.0 404 Not Found");
+?>
+
 <style>
     body{background: black;}
     p,h3{color: white !important;}
