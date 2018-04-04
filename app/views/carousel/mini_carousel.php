@@ -7,4 +7,4 @@
             <?=$data["mini_carousel_item"]?>
         </div>
     </div>
-</section>
+</section> 

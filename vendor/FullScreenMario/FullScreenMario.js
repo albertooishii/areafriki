@@ -2030,7 +2030,7 @@ var FullScreenMario;
             // If there is a before, parse each command into the prethings array
             if (before) {
                 for (i = 0; i < before.length; i += 1) {
-                    // A copy of the command must be used to not modify the original
+                    // A copy of the command must be used to not modify the original 
                     command = FSM.proliferate({}, before[i]);
                     // The command's x must be shifted by the thing's placement
                     if (!command.x) {
@@ -2426,7 +2426,7 @@ var FullScreenMario;
                 }
                 return thing.FSM.collideShell(thing, other);
             }
-            // Hitting a solid (e.g. wall)
+            // Hitting a solid (e.g. wall) 
             if (thing.groupType === "Solid") {
                 return thing.FSM.collideShellSolid(thing, other);
             }
@@ -2489,7 +2489,7 @@ var FullScreenMario;
             if (other.landing) {
                 // Equal shelltoleft measurements: it's still being pushed
                 if (other.shelltoleft === shelltoleft) {
-                    // Tepmorarily increase the landing count of the shell; if it is
+                    // Tepmorarily increase the landing count of the shell; if it is 
                     // just being started, that counts as the score hit
                     other.landing += 1;
                     if (other.landing === 1) {
@@ -3206,7 +3206,7 @@ var FullScreenMario;
         FullScreenMario.prototype.moveFalling = function (thing) {
             // If a Player isn't resting on this thing (any more?), ignore it
             if (thing.FSM.player.resting !== thing) {
-                // Since a Player might have been on this thing but isn't anymore,
+                // Since a Player might have been on this thing but isn't anymore, 
                 // set the yvel to 0 just in case
                 thing.yvel = 0;
                 return;
@@ -5601,7 +5601,7 @@ var FullScreenMario;
             var FSM = FullScreenMario.prototype.ensureCorrectCaller(this), boundaries = FSM.AreaSpawner.getArea().boundaries, prething = prethingRaw instanceof String
                 ? { "thing": prething }
                 : prethingRaw, y = ((FSM.MapScreener.floor - prething.y)
-                * FSM.unitsize),
+                * FSM.unitsize), 
             // It is assumed the PreThing does have a .thing if it's a stretch
             thing = FSM.ObjectMaker.make(prething.thing, {
                 "width": boundaries.right - boundaries.left,
@@ -6156,7 +6156,7 @@ var FullScreenMario;
                 });
                 x += 8;
             }
-            // An ending column just reduces the width
+            // An ending column just reduces the width 
             if (reference.end) {
                 width -= 8;
                 output.push({
@@ -7022,8 +7022,8 @@ var FullScreenMario;
             }
             return current;
         };
-        // For the sake of reset functions, constants are stored as members of the
-        // FullScreenMario Function itself - this allows prototype setters to use
+        // For the sake of reset functions, constants are stored as members of the 
+        // FullScreenMario Function itself - this allows prototype setters to use 
         // them regardless of whether the prototype has been instantiated yet.
         /**
          * Static settings passed to individual reset Functions. Each of these

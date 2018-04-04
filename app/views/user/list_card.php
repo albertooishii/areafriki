@@ -6,7 +6,7 @@
                 <div class="card-title">
                     <?=$data["list_name"]?>
                 </div>
-            </div>
+            </div> 
         </a>
     </div>
 </article>

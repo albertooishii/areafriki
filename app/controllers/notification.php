@@ -43,7 +43,7 @@
                                         $from_user->user=$from_user->getUserFromID()["user"];
                                         $data["notification_icon"]=PAGE_DOMAIN."/".$from_user->getAvatar();
                                     break;
-                                    case 'compra': case 'aprobado':
+                                    case 'compra': case 'aprobado': 
                                         $data["id"]=$p->id=$notificacion["producto"];
                                         $producto=$p->get();
                                         $data["token"]=$dg->token=$producto["design"];

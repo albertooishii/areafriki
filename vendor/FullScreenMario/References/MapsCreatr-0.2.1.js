@@ -328,7 +328,7 @@ var MapsCreatr;
          * @param map   A map whose area settings should be parsed.
          */
         MapsCreatr.prototype.setMapAreas = function (map) {
-            var areasRaw = map.areas, locationsRaw = map.locations,
+            var areasRaw = map.areas, locationsRaw = map.locations, 
             // The parsed containers should be the same types as the originals
             areasParsed = new areasRaw.constructor(), locationsParsed = new locationsRaw.constructor(), area, location, i;
             // Parse all the Area objects (works for both Arrays and Objects)
@@ -378,7 +378,7 @@ var MapsCreatr;
          * @param {Map} map
          */
         MapsCreatr.prototype.setMapLocations = function (map) {
-            var locationsRaw = map.locations,
+            var locationsRaw = map.locations, 
             // The parsed container should be the same type as the original
             locationsParsed = new locationsRaw.constructor(), location, i;
             // Parse all the keys in locasRaw (works for both Arrays and Objects)

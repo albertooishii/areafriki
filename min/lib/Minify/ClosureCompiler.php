@@ -85,12 +85,12 @@ class Minify_ClosureCompiler {
         unlink($tmpFile);
         if ($result_code != 0) {
             $message = 'Minify_ClosureCompiler : Closure Compiler execution failed.';
-            if (self::$isDebug) {
+            if (self::$isDebug) { 
                 exec($cmd . ' 2>&1', $error);
                 if ($error) {
                     $message .= "\nReason:\n" . join("\n", $error);
                 }
-            }
+            } 
             throw new Minify_ClosureCompiler_Exception($message);
         }
         return implode("\n", $output);

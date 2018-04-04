@@ -12,7 +12,7 @@
                 $data["phone"]=$_POST["phone"];
                 $data["text"]=$_POST["text"];
                 $mail->subject="[FORMULARIO] - ".$_POST["subject"];
-
+                
                 switch ($_POST["email-destino"]){
                     case 'ERROR_EMAIL':
                         $mail->to=ERROR_EMAIL;

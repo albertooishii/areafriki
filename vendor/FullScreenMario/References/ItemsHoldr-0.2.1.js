@@ -36,7 +36,7 @@ var ItemsHoldr;
                 }));
             }
             if (this.storeLocally) {
-                // If there exists an old version of this property, get it
+                // If there exists an old version of this property, get it 
                 if (ItemsHolder.getLocalStorage().hasOwnProperty(ItemsHolder.getPrefix() + key)) {
                     this.value = this.retrieveLocalStorage();
                     this.update();

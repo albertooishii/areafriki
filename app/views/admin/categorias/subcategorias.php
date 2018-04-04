@@ -17,24 +17,24 @@
                     <table class="table table-striped table-bordered table-hover data-table" id="categorias">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Descripción Corta</th>
-                                <th>Precio base</th>
-                                <th>Beneficio</th>
-                                <th>Modificar</th>
+                                <th>#</th>  
+                                <th>Nombre</th>  
+                                <th>Descripción</th>  
+                                <th>Descripción Corta</th>  
+                                <th>Precio base</th>  
+                                <th>Beneficio</th>  
+                                <th>Modificar</th> 
                                 <!--<th>Eliminar</th>-->
-                                <th>Desactivar</th>
-                                <th>Activar</th>
+                                <th>Desactivar</th> 
+                                <th>Activar</th> 
                             </tr>
                         </thead>
                         <tbody>
                             <?=$data["datos_subcategorias"]?>
-                        </tbody>
+                        </tbody> 
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> 

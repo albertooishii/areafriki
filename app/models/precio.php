@@ -52,7 +52,7 @@
                     $this->gastos_envio=GASTOS_ENVIO;
                 }else{
                     $this->gastos_envio=0;
-                }
+                } 
             }
         }
 

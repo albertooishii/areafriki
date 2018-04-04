@@ -179,7 +179,7 @@ var PixelDrawr;
             // PixelRender does most of the work in fetching the rendered sprite
             thing.sprite = this.PixelRender.decode(this.generateObjectKey(thing), thing);
             // To do: remove dependency on .numSprites
-            // For now, it's used to know whether it's had its sprite set, but
+            // For now, it's used to know whether it's had its sprite set, but 
             // wouldn't physically having a .sprite do that?
             if (thing.sprite.constructor === PixelRendr.SpriteMultiple) {
                 thing.numSprites = 0;
@@ -240,7 +240,7 @@ var PixelDrawr;
             if (typeof thing.numSprites === "undefined") {
                 this.setThingSprite(thing);
             }
-            // Whether or not the thing has a regular sprite or a SpriteMultiple,
+            // Whether or not the thing has a regular sprite or a SpriteMultiple, 
             // that sprite has already been drawn to the thing's canvas, unless it's
             // above the cutoff, in which case that logic happens now.
             if (thing.canvas[this.keyWidth] > 0) {
@@ -498,7 +498,7 @@ var PixelDrawr;
             context.globalAlpha = opacity;
             context.translate(left, top);
             context.fillStyle = context.createPattern(source, "repeat");
-            context.fillRect(0, 0,
+            context.fillRect(0, 0, 
             // Math.max(width, left - MapScreener[keyRight]),
             // Math.max(height, top - MapScreener[keyBottom])
             width, height);

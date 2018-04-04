@@ -22,7 +22,7 @@ var GroupHoldr;
             if (typeof settings.groupTypes === "undefined") {
                 throw new Error("No groupTypes given to GroupHoldr.");
             }
-            // These functions containers are filled in setGroupNames
+            // These functions containers are filled in setGroupNames 
             this.functions = {
                 "setGroup": {},
                 "getGroup": {},

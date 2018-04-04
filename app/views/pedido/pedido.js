@@ -12,7 +12,7 @@ $(document).ready(function(){
         $("body").on("submit",".modal form", function(event){
             event.preventDefault();
         });
-
+        
         $("body").on("click", "#confirmar", function(e){
             $('form').formValidation('revalidateField', 'observaciones');
             if($(".has-error").size()==0){

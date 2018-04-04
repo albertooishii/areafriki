@@ -173,7 +173,7 @@
           $ul.find("li").not(".dropdownjs-add").attr("tabindex", 0);
 
         });
-
+        
         // Update dropdown when using val, need to use .val("value").trigger("change");
         $select.on("change", function(e) {
           var $this = $(e.target);
@@ -316,7 +316,7 @@
           $select.addClass("empty");
         }
       }
-
+      
        // Call the callback
         if (this.options.onSelected) {
             this.options.onSelected($target.attr("value"));

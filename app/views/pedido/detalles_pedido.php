@@ -6,4 +6,4 @@
             <?=$data["datos_envio"]?>
         </div>
     </div>
-</div>
+</div> 

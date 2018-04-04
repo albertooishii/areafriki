@@ -89,7 +89,7 @@ var EightBittr;
          * @returns A canvas of the given width and height height.
          */
         EightBittr.prototype.createCanvas = function (width, height) {
-            var canvas = document.createElement("canvas"),
+            var canvas = document.createElement("canvas"), 
             // context: CanvasRenderingContext2D = canvas.getContext("2d");
             context = canvas.getContext("2d");
             canvas.width = width;

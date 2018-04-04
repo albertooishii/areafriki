@@ -65,7 +65,7 @@ label{
 
 .buypreview{
     position: relative !important;
-    bottom: 20px !important;
+    bottom: 20px !important;  
 }
 
 .store-page .card:hover .buypreview {

@@ -39,7 +39,7 @@ var FullScreenMario;
             "decreasePlayerRunningXvel": function (constants, equations, player) {
                 // If a button is pressed, hold/increase speed
                 if (player.keys.run !== 0 && !player.crouching) {
-                    var dir = player.keys.run,
+                    var dir = player.keys.run, 
                     // No sprinting underwater
                     sprinting = Number(player.keys.sprint && !player.FSM.MapScreener.underwater) || 0, adder = dir * (.098 * (Number(sprinting) + 1)), decel = 0, skiddingChanged = false;
                     // Reduce the speed, both by subtracting and dividing a little

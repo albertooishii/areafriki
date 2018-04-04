@@ -23,20 +23,20 @@ FullScreenMario.FullScreenMario.settings.maps = {
         "bottomPlatformMax": function (GameStarter) {
             var area = GameStarter.AreaSpawner.getArea(),
                 diff = GameStarter.MapScreener.bottomDeathDifference;
-
+                
             if (!area) {
                 return -1;
             }
-
+                
             return (area.floor + diff) * GameStarter.unitsize;
         },
         "gravity": function (GameStarter) {
             var area = GameStarter.AreaSpawner.getArea();
-
+            
             if (area && area.underwater) {
                 return GameStarter.gravity / 2.8;
             }
-
+            
             return GameStarter.gravity;
         }
     },
@@ -89,7 +89,7 @@ FullScreenMario.FullScreenMario.settings.maps = {
                 if (!pattern.length) {
                     continue;
                 }
-
+                
                 // Pattern's last array should previously be ["blank", width]
                 pattern.width = pattern[pattern.length - 1][1];
                 pattern.pop();

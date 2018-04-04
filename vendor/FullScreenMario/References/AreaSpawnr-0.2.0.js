@@ -279,7 +279,7 @@ var AreaSpawnr;
                 mid = (group.length / 2) | 0;
                 start = this.findPreThingsSpawnStart(direction, group, mid, top, right, bottom, left);
                 end = this.findPreThingsSpawnEnd(direction, group, mid, top, right, bottom, left);
-                // Loop through all the directionally valid PreThings, spawning if
+                // Loop through all the directionally valid PreThings, spawning if 
                 // they're within the bounding box
                 for (i = start; i <= end; i += 1) {
                     prething = group[i];

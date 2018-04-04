@@ -115,7 +115,7 @@ var notify = function(title, text, url, type, from, icon, classattr=false, time=
 	if (!time)time=7000;
 
     var message = $("<div class='notification "+ type +" "+ classattr +"'><a href='" + url + "'><div class='row'><div class='col-md-4 col-sm-4 col-xs-4'>" + iconhtml + "</div><div class='col-md-8 col-sm-8 col-xs-8'><div class='notification-text'><div class='row'><div class='col-md-10 col-sm-10 col-xs-10'>" + htmltitle + "</div><div class='col-md-2 col-sm-2 col-xs-2 text-right'><div class='remove-push'><p><i class='material-icons'>close</i></p></div></div></div>" + htmltext + "</div></div></div></a></div>");
-    sendnotify(message);
+    sendnotify(message); 
 
 	function sendnotify(message){
         //Notificacion web

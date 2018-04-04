@@ -8,6 +8,6 @@
 
 <p>Te recomendamos  configurar estas opciones para poder disfrutar de las ventajas que te ofrece <?=PAGE_NAME?>.</p>
 
-<p>Para ello inicia sesión en tu cuenta y entra en <a href="<?=PAGE_DOMAIN?>/settings">CONFIGURACIÓN</a>.</p>
+<p>Para ello inicia sesión en tu cuenta y entra en <a href="<?=PAGE_DOMAIN?>/settings">CONFIGURACIÓN</a>.</p> 
 
 <p>¡Muchas gracias!</p>

@@ -340,7 +340,7 @@ var WorldSeedr;
          */
         WorldSeedr.prototype.generateRandom = function (contents, position, direction, spacing) {
             var children = [], child;
-            // Continuously add random choices to the output children as long as
+            // Continuously add random choices to the output children as long as 
             // there's room in the position's bounding box
             while (this.positionIsNotEmpty(position, direction)) {
                 child = this.generateChild(contents, position, direction);

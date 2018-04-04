@@ -16,8 +16,8 @@
             if ($answer!=NULL)
             return $answer;
             return false;
-        }
-
+        } 
+        
         //Escritura-----------------------------------------------------//
         function set()
         {
@@ -31,7 +31,7 @@
             return true;
             return false;
         }
-
+        
         //Borrado---------------------------------------------------------//
         function remove()
         {

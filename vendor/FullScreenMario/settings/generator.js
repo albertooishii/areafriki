@@ -1,9 +1,9 @@
 FullScreenMario.FullScreenMario.settings.generator = {
     "possibilities": {
-
+        
         /* Overworld
         */
-
+        
         "Overworld": {
             "height": 80,
             "width": 2992,
@@ -382,11 +382,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Areas Segway floors
         */
-
+        
         "OverworldSegway": {
             "width": 112,
             "height": 80,
@@ -596,7 +596,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "title": "RampUpSmallFloor"
                 }, {
                     "type": "Random",
-                    "title": "OverworldSegwayWateryBridge",
+                    "title": "OverworldSegwayWateryBridge", 
                 }, {
                     "type": "Random",
                     "title": "RampDownSmallFloor"
@@ -810,11 +810,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* General obstacles
         */
-
+        
         "LandObstacleGroup": {
             "width": 160,
             "height": 80,
@@ -1150,11 +1150,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Underworld
         */
-
+        
         "Underworld": {
             "width": 1520,
             "height": 88,
@@ -1193,7 +1193,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "arguments": [{
                         "percent": 25,
                         "values": {
-                            "macro": "Floor",
+                            "macro": "Floor", 
                             "width": 80
                         }
                     }, {
@@ -1264,7 +1264,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "title": "UnderworldObstacleGroup"
                 }, {
                     "type": "Random",
-                    "title": "Brick",
+                    "title": "Brick", 
                     "sizing": {
                         "width": 160
                     }
@@ -1560,7 +1560,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
+        
         // OverworldSegwaySpring is 112
         // platgen is 24
         "UnderworldEnd": {
@@ -1748,11 +1748,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Sky
         */
-
+        
         "Sky": {
             "width": 1400, // ???
             "height": 80,
@@ -1860,7 +1860,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "type": "Random",
                     "title": "Nothing",
                     "sizing": {
-                        "height": 32
+                        "height": 32 
                     }
                 }, {
                     "type": "Known",
@@ -2089,11 +2089,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Castle
         */
-
+        
         "Castle": {
             "height": 80,
             "width": 2000,
@@ -2776,7 +2776,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 "direction": "top",
                 "children": [{
                     "type": "Known",
-                    "title": "Floor",
+                    "title": "Floor", 
                     "arguments": {
                         "macro": "Floor",
                         "width": 80
@@ -2831,11 +2831,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Enemy groups
         */
-
+        
         "EnemyEasy": {
             "width": 8,
             "height": 12,
@@ -2950,11 +2950,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Solid groups
         */
-
+        
         "SolidSmall": {
             "width": 8,
             "height": 12,
@@ -3036,7 +3036,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "percent": 40,
                     "type": "Random",
                     "title": "CannonLarge"
-                }]
+                }]    
             }
         },
         "CannonStack": {
@@ -3429,10 +3429,10 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
+        
         /* Scenery groups
         */
-
+        
         "OverworldScenery": {
             "width": 160,
             "height": 80,
@@ -3639,11 +3639,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Characters
         */
-
+        
         "Goomba": {
             "width": 8,
             "height": 8,
@@ -3794,11 +3794,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Solids
         */
-
+        
         "Brick": {
             "width": 8,
             "height": 8,
@@ -3936,7 +3936,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
             "height": 8,
             "contents": {
                 "mode": "Certain",
-                "direction": "right",
+                "direction": "right", 
                 "snap": "top",
                 "children": [{
                     "type": "Known",
@@ -4398,7 +4398,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "source": "CannonLarge",
                     "title": "Cannon",
                     "arguments": {
-                        "height": 24
+                        "height": 24 
                     }
                 }]
             }
@@ -4497,11 +4497,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Scenery
         */
-
+        
         "Bush1": {
             "width": 16,
             "height": 8,
@@ -4650,11 +4650,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* General macros & helpers
         */
-
+        
         "LakituStop": {
             "width": 8,
             "height": 8,
@@ -4741,7 +4741,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
             "contents": {
                 "mode": "Certain",
                 "children": [{
-                    "type": "Random",
+                    "type": "Random", 
                     "title": "Floor"
                 }]
             }
@@ -4757,7 +4757,7 @@ FullScreenMario.FullScreenMario.settings.generator = {
                     "type": "Random",
                     "title": "LakituStop"
                 }, {
-                    "type": "Random",
+                    "type": "Random", 
                     "title": "RampUpLarge"
                 }, {
                     "type": "Random",
@@ -4941,11 +4941,11 @@ FullScreenMario.FullScreenMario.settings.generator = {
                 }]
             }
         },
-
-
+        
+        
         /* Misc.
         */
-
+        
         "Nothing": {
             "width": 8,
             "height": 8,

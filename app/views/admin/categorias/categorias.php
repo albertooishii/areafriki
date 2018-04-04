@@ -18,22 +18,22 @@
                     <table class="table table-striped table-bordered table-hover data-table" id="categorias">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
+                                <th>#</th>  
+                                <th>Nombre</th>  
                                 <th>Descripción</th>
-                                <th>Descripción corta</th>
-                                <th>Modificar</th>
-                                <!--<th>Desactivar</th>
-                                <th>Activar</th>
+                                <th>Descripción corta</th> 
+                                <th>Modificar</th> 
+                                <!--<th>Desactivar</th> 
+                                <th>Activar</th> 
                                 <th>Eliminar</th>-->
                             </tr>
                         </thead>
                         <tbody>
                             <?=$data["datos_categorias"]?>
-                        </tbody>
+                        </tbody> 
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> 

@@ -33,7 +33,7 @@
     </div>
     <div class="col-xs-12">
         <!-- Copiar enlace -->
-        <a href="#" class="btn btn-share btn-copy btn-default"><i class="material-icons">content_copy</i> <input type="hidden" value="<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>">Copiar enlace</a>
+        <a href="#" class="btn btn-share btn-copy btn-default"><i class="material-icons">content_copy</i> <input type="hidden" value="<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>">Copiar enlace</a> 
     </div>
     <span id="info_creador" data-user="<?=$data["dg-user"]?>"></span>
 </div>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Used in combination with TableTools and selectable rows, this will allow you
  * to switch between showing all rows and just the selected ones.
  *
@@ -78,7 +78,7 @@
         var $lengthSelect = $('select[name="' + oSettings.sTableId + '_length"]', nLength);
         if ($lengthSelect.length == 0)
             $lengthSelect = $('select :eq(0)', nLength);
-
+        
         /*
          * Set the length to the current display length - thanks to Andrea Pavlovic for this fix,
          * and Stefan Skopnik for fixing the fix!
@@ -127,7 +127,7 @@
             oSettings._sFilterSelected = $(this).val();
             $('#' + oSettings.sTableId).dataTable().fnDraw();
         });
-
+        
 
         $('select', nLength).attr('aria-controls', oSettings.sTableId);
 
@@ -162,7 +162,7 @@
         "cFeature": "O",
         "sFeature": "SelectedLengthMenu"
     });
-
+    
 
 
 })(window, document, jQuery);

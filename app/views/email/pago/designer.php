@@ -8,4 +8,4 @@
     <li>Saldo actual: <?=$data["credito_actual"]?></li>
 </ul>
 <p>Te recordamos que el pago del saldo acumulado se realizará entre los primeros 10 días de cada mes.</p>
-<p>¡Muchas gracias!</p>
+<p>¡Muchas gracias!</p> 

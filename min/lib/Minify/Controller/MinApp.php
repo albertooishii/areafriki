@@ -1,20 +1,20 @@
 <?php
 /**
- * Class Minify_Controller_MinApp
+ * Class Minify_Controller_MinApp  
  * @package Minify
  */
 
 /**
  * Controller class for requests to /min/index.php
- *
+ * 
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
 class Minify_Controller_MinApp extends Minify_Controller_Base {
-
+    
     /**
      * Set up groups of files as sources
-     *
+     * 
      * @param array $options controller and Minify options
      *
      * @return array Minify options
@@ -98,7 +98,7 @@ class Minify_Controller_MinApp extends Minify_Controller_Base {
             // try user files
             // The following restrictions are to limit the URLs that minify will
             // respond to.
-            if (// verify at least one file, files are single comma separated,
+            if (// verify at least one file, files are single comma separated, 
                 // and are all same extension
                 ! preg_match('/^[^,]+\\.(css|js)(?:,[^,]+\\.\\1)*$/', $_GET['f'], $m)
                 // no "//"
@@ -127,7 +127,7 @@ class Minify_Controller_MinApp extends Minify_Controller_Base {
                     && false === strpos($_GET['b'], '..')
                     && $_GET['b'] !== '.') {
                     // valid base
-                    $base = "/{$_GET['b']}/";
+                    $base = "/{$_GET['b']}/";       
                 } else {
                     $this->log("GET param 'b' was invalid");
                     return $options;

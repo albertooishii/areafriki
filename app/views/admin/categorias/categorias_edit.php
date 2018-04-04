@@ -4,7 +4,7 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-<?=$data["mensaje"]?>
+<?=$data["mensaje"]?> 
 <form id="categoriaForm" class="form-horizontal" method="post" action="<?=PAGE_DOMAIN?>/simbiosis/categorias?action=edit&id=<?=$data["id"]?>"
     data-fv-framework="bootstrap"
     data-fv-icon-valid="glyphicon glyphicon-ok"
@@ -69,7 +69,7 @@
 <?php
     }else{
 ?>
-            <a href="<?=PAGE_DOMAIN?>/simbiosis/categorias" class="btn btn-default">Volver</a>
+            <a href="<?=PAGE_DOMAIN?>/simbiosis/categorias" class="btn btn-default">Volver</a>         
 <?php
     }
 ?>

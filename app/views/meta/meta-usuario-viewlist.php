@@ -1,7 +1,7 @@
 <?php
     $data["page_title"]="Lista de ".$data["nombre_lista"]." en la tienda friki de ".$data["username"];
     $data["descripcion"]="Entra para ver la lista de ".$data["nombre_lista"]." en la tienda friki de ".$data["username"]." en ".PAGE_NAME.".";
-?>
+?> 
 <title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
 <meta name="description" content="<?=$data["descripcion"]?>">
 

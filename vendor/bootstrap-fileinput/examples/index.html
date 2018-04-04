@@ -45,7 +45,7 @@
                 <hr>
                 <div class="form-group">
                     <input id="file-2" type="file" class="file" readonly data-show-upload="false">
-                </div>
+                </div> 
                 <hr>
                 <div class="form-group">
                     <label>Preview File Icon</label>
@@ -72,8 +72,8 @@
                     <input id="file-5" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="#">
                 </div>
             </form>
-
-
+            
+            
             <hr>
             <h4>Multi Language Inputs</h4>
             <form enctype="multipart/form-data">
@@ -133,7 +133,7 @@
         } else {
             $('#file-4').fileinput('disable');
         }
-    });
+    });    
     $(".btn-info").on('click', function() {
         $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
     });

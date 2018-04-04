@@ -11,12 +11,12 @@ var stripeResponseHandler = function(status, response) {
     }
 };
 
-function handleCall(token) {
-    if (!appendedStripeToken) {
+function handleCall(token) { 
+    if (!appendedStripeToken) { 
         $form.append($('<input type="hidden" name="stripeToken">').val(token));
-        appendedStripeToken = true;
+        appendedStripeToken = true; 
         $form.get(0).submit();
-    }
+    } 
 }
 
 $(document).ready(function() {

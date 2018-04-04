@@ -32,7 +32,7 @@
                                                     data-fv-regexp="true"
                                                     data-fv-regexp-regexp="^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_. +@]+$"
                                                     data-fv-regexp-message="Solo puede tener letras, números, guiones bajos, espacios y puntos" />
-                                            </div>
+                                            </div> 
                                         </div>
 
                                         <div class="form-group">
@@ -77,7 +77,7 @@
                                     </div>
                                 </form>
                                 <div class="footer text-center">
-                                    <a href="/register" class="btn btn-primary btn-round">REGISTRARSE</a>
+                                    <a href="/register" class="btn btn-primary btn-round">REGISTRARSE</a> 
                                 </div>
                             </div>
                         </div>

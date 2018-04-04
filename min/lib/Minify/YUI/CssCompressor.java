@@ -39,9 +39,9 @@ public class CssCompressor {
 
         Pattern p = Pattern.compile("url\\(\\s*([\"']?)data\\:");
         Matcher m = p.matcher(css);
-
-        /*
-         * Since we need to account for non-base64 data urls, we need to handle
+        
+        /* 
+         * Since we need to account for non-base64 data urls, we need to handle 
          * ' and ) being part of the data string. Hence switching to indexOf,
          * to determine whether or not we have matching string terminators and
          * handling sb appends directly, instead of using matcher.append* methods.
@@ -51,7 +51,7 @@ public class CssCompressor {
 
         	int startIndex = m.start() + 4;  	// "url(".length()
     		String terminator = m.group(1);     // ', " or empty (not quoted)
-
+    		
     		if (terminator.length() == 0) {
     		 	terminator = ")";
     		}
@@ -65,7 +65,7 @@ public class CssCompressor {
     			if ((endIndex > 0) && (css.charAt(endIndex-1) != '\\')) {
     				foundTerminator = true;
     				if (!")".equals(terminator)) {
-    					endIndex = css.indexOf(")", endIndex);
+    					endIndex = css.indexOf(")", endIndex); 
     				}
     			}
     		}
@@ -302,7 +302,7 @@ public class CssCompressor {
 
         	sb.append(css.substring(index, m.start()));
 
-        	boolean isFilter = (m.group(1) != null && !"".equals(m.group(1)));
+        	boolean isFilter = (m.group(1) != null && !"".equals(m.group(1))); 
 
         	if (isFilter) {
         		// Restore, as is. Compression will break filters

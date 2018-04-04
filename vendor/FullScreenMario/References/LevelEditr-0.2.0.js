@@ -1207,7 +1207,7 @@ var LevelEditr;
          * this.onThingIconClick on the Thing's title.
          */
         LevelEditr.prototype.resetDisplayOptionsListSubOptionsThings = function () {
-            var scope = this,
+            var scope = this, 
             // Without these references, tslint complaints the private functions aren't used
             argumentGetter = this.getPrethingSizeArguments.bind(this), clicker = this.onThingIconClick;
             if (this.display.sections.ClickToPlace.Things) {
@@ -1376,7 +1376,7 @@ var LevelEditr;
          *
          */
         LevelEditr.prototype.setVisualOptions = function (name, description, options) {
-            var visual = this.display.sections.ClickToPlace.VisualOptions,
+            var visual = this.display.sections.ClickToPlace.VisualOptions, 
             // Without clicker, tslint complains createVisualOption isn't being used...
             clicker = this.createVisualOption.bind(this), scope = this;
             visual.textContent = "";

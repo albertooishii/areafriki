@@ -33,13 +33,13 @@
                                 <label for="inputName" class="control-label">Nombre y apellidos o nombre de usuario</label>
                                 <input type="text" class="form-control" id="inputName" name="name" maxlength="255" required value="<?=$this->u->user?>">
                             </div>
-
+                            
                             <div class="form-group label-floating">
                                 <label for="inputEmail" class="control-label">Correo electrónico</label>
                                 <input type="email" class="form-control" id="inputEmail" maxlength="255" data-error="Error, este email es inválido" name="email" required value="<?=$this->u->email?>">
                                 <div class="help-block with-errors"></div>
                             </div>
-
+                            
                              <div class="form-group label-floating">
                                 <label for="inputTel" class="control-label">Teléfono de contacto</label>
                                 <input type="tel" class="form-control" id="inputTel" name="phone" maxlength="12">

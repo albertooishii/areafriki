@@ -24,7 +24,7 @@ $(document).ready(function(){
         $("body").on("submit",".modal form", function(event){
             event.preventDefault();
         });
-
+        
         $("body").on("click", "#confirmar", function(event){
             $('form').formValidation('revalidateField', 'observaciones');
             if($(".has-error").size()==0){
@@ -57,8 +57,8 @@ $(document).ready(function(){
             }
             event.stopPropagation();
         });
-
-        $('#modalDg').on('hidden.bs.modal', function () {
+        
+        $('#modalDg').on('hidden.bs.modal', function () { 
             select.selectpicker('val', antiguo_estado);
             select.selectpicker('refresh');
             e.stopPropagation();

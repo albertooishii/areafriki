@@ -1,5 +1,5 @@
 .container-fluid {
-    background: #fab800;
+    background: #353535;
     min-height: 900px;
 }
 
@@ -7,6 +7,7 @@ h2{
     font-size: 180%;
     line-height: 1.4em;
     margin: 20px 0 10px !important;
+    color: #e5e5e5 !important;
 }
 
 @media only screen and (max-width : 768px) {
@@ -23,12 +24,12 @@ h2{
     display: block;
     padding: 10px 0;
     font-size: 180%;
-    color: #353535;
+    color: #e5e5e5;
 }
 
 @media only screen and (min-width : 769px) {
     aside {
-        background: #fab800;
+        background: #353535;
         padding: 0px 60px !important;
         width: 20vh;
         min-height: 900px;

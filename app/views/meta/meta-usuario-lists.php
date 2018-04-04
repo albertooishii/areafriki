@@ -1,7 +1,7 @@
 <?php
     $data["page_title"]="Listas personalizadas creadas por ".$data["username"]." en ".PAGE_NAME;
     $data["descripcion"]="Entra para ver las listas personalizadas en la tienda friki de ".$data["username"]." de ".PAGE_NAME.".";
-?>
+?> 
 <title><?=$data['page_title']?> | <?=PAGE_NAME?></title>
 <meta name="description" content="<?=$data["descripcion"]?>">
 

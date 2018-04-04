@@ -17,21 +17,21 @@
                     <table class="table table-striped table-bordered table-hover data-table">
                         <thead>
                             <tr>
-                                <th>Valor</th>
-                                <th>Código</th>
+                                <th>Valor</th>  
+                                <th>Código</th>  
                                 <th>Precio base</th>
-                                <th>Beneficio máximo</th>
-                                <th>Precio máximo total</th>
-                                <th>Modificar</th>
+                                <th>Beneficio máximo</th> 
+                                <th>Precio máximo total</th> 
+                                <th>Modificar</th> 
                                 <!--<th>Eliminar</th>-->
                             </tr>
                         </thead>
                         <tbody>
                             <?=$data["valores"]?>
-                        </tbody>
+                        </tbody> 
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> 

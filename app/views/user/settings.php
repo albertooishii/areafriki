@@ -40,12 +40,12 @@
                             data-fv-notempty="true"
                             data-fv-notempty-message="Introduce tu fecha de nacimiento">
                     </div>
-
+                    
                     <div class="form-group">
                         <label class="control-label" for="inputLocalidad">País</label>
                         <?=$data["pais"]?>
                     </div>
-
+                    
                     <div id="info_spain">
                         <div class="form-group">
                             <label class="control-label" for="inputDireccion">Dirección</label>

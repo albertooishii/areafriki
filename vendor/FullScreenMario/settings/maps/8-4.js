@@ -3,7 +3,7 @@ FullScreenMario.FullScreenMario.settings.maps.library["8-4"] = {
     "locations": [
         { "entry": "Castle" },
         { "entry": "PipeVertical" },  // 1: Pipe 1
-        { "area": 1, "entry": "PipeVertical" }, // 2: Past B
+        { "area": 1, "entry": "PipeVertical" }, // 2: Past B 
         { "area": 2, "entry": "PipeVertical" }, // 3: Past C
         { "area": 3, "entry": "PipeVertical", "xloc": 0 }, // 4: Underwater
         { "area": 4, "entry": "PipeVertical" } // 5: Past E

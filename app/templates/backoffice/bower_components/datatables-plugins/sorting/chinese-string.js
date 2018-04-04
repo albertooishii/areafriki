@@ -6,7 +6,7 @@
  *
  * Please note that `localeCompare` is not implemented in the same way in all
  * browsers, potentially leading to different results (particularly in IE).
- *
+ * 
  *  @name Chinese (string)
  *  @summary Sort Chinese characters
  *  @author [Patrik Lindström](http://www.lcube.se/sorting-chinese-characters-in-javascript/)

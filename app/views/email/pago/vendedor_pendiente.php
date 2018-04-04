@@ -1,5 +1,5 @@
 <h3>PEDIDO REALIZADO EN <?=PAGE_NAME?></h3>
-<p><?=$data["nombre"]?>
+<p><?=$data["nombre"]?> 
 <?php
   if(isset($data["user"])){
 ?>

@@ -31,7 +31,7 @@
             return $answer["nombre"];
             return false;
         }
-
+        
         //Provincias
         function getProvincias(){
             $query="SELECT * FROM provincias";

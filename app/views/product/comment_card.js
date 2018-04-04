@@ -23,6 +23,6 @@ $(".new-comment-edit").keyup(function(e){
             error: function (){
                 alert('Error al comentar');
             }
-        });
+        });               
      }
 });

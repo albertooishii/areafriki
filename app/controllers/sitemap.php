@@ -13,45 +13,45 @@
             $this->loadModel("design");
             $dg = New Design_Model();
             $creador = New Users_Model();
-
-            $sitemap->setPath(DIR.'/sitemaps/');
-
+            
+            $sitemap->setPath(DIR.'/sitemaps/'); 
+            
             //Páginas estáticas
             $sitemap->addItem('/', '1.0', 'hourly', 'Today');
             $sitemap->addItem('/upload', '.05', 'weekly', 'Today');
             $sitemap->addItem('/info/registro_designer', '0.5', 'weekly', 'Today');
             $sitemap->addItem('/info/registro_crafter', '0.5', 'weekly', 'Today');
             $sitemap->addItem('/info/registro_baul', '0.5', 'weekly', 'Today');
-
+            
             //Listado de categorías
             $categorias=$cat->getCategorias();
             foreach ($categorias as $categoria) {
                 $sitemap->addItem('/' . $categoria['nombre'], '0.9', 'hourly', 'Today');
             }
-
+            
             //Listado de etiquetas
             $tags=$t->getPopularTags();
             foreach ($tags as $tag) {
                 $sitemap->addItem('/tag/' . $tag["tag"], '0.6', 'hourly', 'Today');
             }
-
+            
             //Listado de productos
-            $productos=$p->getProductos(false, true);
+            $productos=$p->getProductos();
             foreach ($productos as $producto) {
                 $cat->id=$producto["categoria"];
                 $sitemap->addItem('/'. $cat->get()["nombre"] . '/' .  $producto["design"], '0.7', 'daily', 'Today');
             }
-
+            
             //Listado de usuarios
             $usuarios=$creador->getUsers();
             foreach ($usuarios as $usuario) {
                 $sitemap->addItem('/user/' . $creador->user2URL($usuario["user"]), '0.8', 'daily', 'Today');
             }
-
+            
             $sitemap->createSitemapIndex(PAGE_DOMAIN.'/sitemaps/', 'Today');
             $this->pingSitemap();
         }
-
+        
         function pingSitemap(){
             //Set this to be your site map URL
             $sitemapUrl = PAGE_DOMAIN."/sitemaps/sitemap-index.xml";
@@ -64,7 +64,7 @@
               $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
               curl_close($ch);
               return $httpCode;
-            }
+            } 
 
             //Google
             $url = "http://www.google.com/webmasters/sitemaps/ping?sitemap=".$sitemapUrl;
@@ -81,6 +81,6 @@
             $returnCode = myCurl($url);
             echo "<p>ASK.com Sitemaps has been pinged (return code: $returnCode).</p>";
         }
-
+        
     }
 ?>

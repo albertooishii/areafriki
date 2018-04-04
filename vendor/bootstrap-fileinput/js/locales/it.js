@@ -1,6 +1,6 @@
 /*!
  * FileInput Italian Translation
- *
+ * 
  * Author: Lorenzo Milesi <maxxer@yetopen.it>
  *
  * This file must be loaded after 'fileinput.js'. Patterns in braces '{}', or

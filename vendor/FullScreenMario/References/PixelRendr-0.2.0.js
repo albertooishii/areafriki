@@ -292,7 +292,7 @@ var PixelRendr;
             colorsGrayscale.sort(function (a, b) {
                 return a[0] - b[0];
             });
-            // For regular colors, sort by the first color that's not equal, so in
+            // For regular colors, sort by the first color that's not equal, so in 
             // order red, green, blue, alpha.
             colorsGeneral.sort(function (a, b) {
                 for (i = 0; i < 4; i += 1) {

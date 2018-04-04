@@ -23,7 +23,7 @@
     //$mail->AddAttachment("ruta/archivoadjunto.jpg");
     $mail->CharSet = "UTF-8";
     //$mail->Encoding = "quotedprintable";
-    echo "llega";
+    echo "llega"; 
     if ($mail->Send())
     {return true;}
     else

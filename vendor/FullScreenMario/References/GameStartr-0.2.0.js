@@ -625,7 +625,7 @@ var GameStartr;
             if (cycle = thing.spriteCycleSynched) {
                 thing.GameStarter.TimeHandler.addClassCycleSynched(thing, cycle[0], cycle[1] || null, cycle[2] || null);
             }
-            // flipHoriz and flipVert initially
+            // flipHoriz and flipVert initially 
             if (thing.flipHoriz) {
                 thing.GameStarter.flipHoriz(thing);
             }

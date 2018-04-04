@@ -1,4 +1,4 @@
-var time = Date.now();
+﻿var time = Date.now();
 
 document.onreadystatechange = function (event) {
     if (event.target.readyState !== "complete") {
@@ -11,6 +11,6 @@ document.onreadystatechange = function (event) {
         }, FullScreenMario.FullScreenMario.settings.ui, true));
 
     console.log("It took " + (Date.now() - time) + " milliseconds to start.");
-
+    
     UserWrapper.GameStarter.UsageHelper.displayHelpMenu();
 };

@@ -1,14 +1,14 @@
 /*
  * jquery.flot.tooltip
- *
+ * 
  * description: easy-to-use tooltips for Flot charts
  * version: 0.8.5
  * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
  * website: https://github.com/krzysu/flot.tooltip
- *
+ * 
  * build on 2015-05-11
  * released under MIT License, 2012
-*/
+*/ 
 (function ($) {
     // plugin options, default values
     var defaultOptions = {
@@ -344,7 +344,7 @@
             p = item.series.percent;
         } else if (typeof (item.series.percents) !== 'undefined') {
             p = item.series.percents[item.dataIndex];
-        }
+        }        
         if (typeof p === 'number') {
             content = this.adjustValPrecision(percentPattern, content, p);
         }
@@ -356,7 +356,7 @@
             //remove %s if label is undefined
             content = content.replace(seriesPattern, "");
         }
-
+        
         // color match
         if (typeof(item.series.color) !== 'undefined') {
             content = content.replace(colorPattern, item.series.color);

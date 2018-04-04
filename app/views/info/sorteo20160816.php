@@ -26,7 +26,7 @@
                 <h4>También es posible adquirir las tazas y camisetas PokémonGO exclusivas de <?=PAGE_NAME?> en: </h4>
                 <div id="home_banner">
                     <a href="<?=PAGE_DOMAIN?>/areastore/pokemongo">
-                        <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/home-banner.jpg); margin-top:0px; max-height:200px;"></div>
+                        <div id="home_banner_bg" class="container-fluid" style="background-image:url(<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/home-banner.jpg); margin-top:0px; max-height:200px;"></div> 
                     </a>
                 </div>
 

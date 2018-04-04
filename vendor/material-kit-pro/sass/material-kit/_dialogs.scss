@@ -29,11 +29,11 @@
   .modal-footer {
     border-top: none;
     padding: 7px;
-
+    
     &.text-center{
         text-align: center;
     }
-
+    
     button {
       margin: 0;
       padding-left: 16px;
@@ -69,7 +69,7 @@
         &:focus{
             opacity: 1;
         }
-
+        
         i{
             font-size: 16px;
         }
@@ -92,7 +92,7 @@
 }
 
 .modal-small{
-    width: 300px;
+    width: 300px;    
     .modal-body{
         margin-top: 20px;
     }

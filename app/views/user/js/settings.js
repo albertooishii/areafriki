@@ -36,16 +36,16 @@ $(document).ready(function() {
             }
         }
     });
-
+    
     if($("select[name='pais']").val()!=28){
-        $("#info_spain").slideUp();
+        $("#info_spain").slideUp(); 
     }
-
+    
     $("select[name='pais']").change(function(){
         if($(this).val()==28){//Es España
-            $("#info_spain").slideDown();
+            $("#info_spain").slideDown(); 
         }else{
-            $("#info_spain").slideUp();
+            $("#info_spain").slideUp(); 
         }
     });
 });
