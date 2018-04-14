@@ -15,8 +15,8 @@
                         <li><a href='<?=PAGE_DOMAIN?>/vinilos'>Vinilos</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/lienzos'>Lienzos</a></li>
                         <li><a href='<?=PAGE_DOMAIN?>/posters'>Pósters</a></li>
-                        <li><a href='<?=PAGE_DOMAIN?>/handmades'>Hecho a mano</a></li>
-                        <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Nuevo y usado</a></li>
+                        <li><a href='<?=PAGE_DOMAIN?>/handmades'>Manualidades</a></li>
+                        <li><a href='<?=PAGE_DOMAIN?>/secondhand'>Nuevo y Segunda Mano</a></li>
                     </ul>
                 </div>
                 <div class="lista_etiquetas">

@@ -75,6 +75,9 @@
                 <li>
                     <a href="/simbiosis/categorias"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Categorias</a>
                 </li>
+                <li>
+                    <a href="/simbiosis/tools"><i class="fa fa-wrench"></i> Herramientas muy pros</a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

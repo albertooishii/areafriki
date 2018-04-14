@@ -5,7 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="robots" content="NOINDEX,NOFOLLOW">
-		<title>PANEL DE CONTROL | <?=PAGE_NAME?></title>
+		<title>BackOffice de <?=PAGE_NAME?></title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/app/templates/frontoffice/img/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/app/templates/frontoffice/img/icons/manifest.json">
+        <link rel="mask-icon" href="/app/templates/frontoffice/img/icons/safari-pinned-tab.svg" color="#353535">
+        <link rel="shortcut icon" href="/app/templates/frontoffice/img/icons/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="<?=PAGE_NAME?>">
+        <meta name="application-name" content="<?=PAGE_NAME?>">
+        <meta name="msapplication-config" content="/app/templates/frontoffice/img/icons/browserconfig.xml">
+        <meta name="theme-color" content="#353535">
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>

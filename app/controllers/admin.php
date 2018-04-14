@@ -657,6 +657,31 @@
                             }
                         break;
 
+                        case 'liquidaciones':
+                            if(isset($_GET["action"])){
+
+                            }else{
+                                $data["tbody"]="";
+                                $lista_usuarios=$this->u->getUsers();
+                                foreach($lista_usuarios as $usuario){
+                                    $data["id"]=$usuario["id"];
+                                    $data["user"]=$usuario["user"];
+                                    $data["email"]=$usuario["email"];
+                                    $data["nombre"]=$usuario["name"];
+                                    $data["telefono"]=$usuario["phone"];
+                                    $data["idnum"]=$usuario["idnum"];
+                                    $data["banco"]=$usuario["banco"]. " ".$usuario["iban"];
+                                    $data["paypal"]=$usuario["paypal"];
+                                    $data["credito"]=number_format($usuario["credit"],2,',','');
+                                    $data["referral"]=$usuario["referral"];
+
+                                    $data["tbody"].=$this->loadView("admin", "liquidaciones/liquidaciones_row", $data);
+                                }
+
+                                $this->render('admin','liquidaciones/liquidaciones',$data);
+                            }
+                        break;
+
                         case 'tags':
                             $this->loadModel('tags');
                             $t = New Tag_Model;
