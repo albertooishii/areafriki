@@ -12,14 +12,14 @@ $(document).ready(function() {
             fpd.currentViewInstance.changeColor(target, color, false, false)
             setTimeout(function() {
                 getImage()
-            }, 1)
+            }, 200)
 
             $('.product-page style').replaceWith('<style>.header-filter::before {background-color: '+ color +'; opacity: 0.4;}</style>');
         });
     
         function getImage() {
             fpd.currentViewInstance.toDataURL(function(dataURL) {
-                $("img#preview").attr('src', JSON.parse(JSON.stringify(dataURL)));
+                $("img#preview").attr('src', dataURL);
             })
         }
     })
