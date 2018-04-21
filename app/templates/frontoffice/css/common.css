@@ -685,6 +685,7 @@ footer .love {
 
 #home_posts .card-content {
     padding: 15px 30px;
+    min-height: 300px;
 }
 
 #home_posts .card-content .footer .material-icons {
