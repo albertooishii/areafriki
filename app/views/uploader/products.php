@@ -156,7 +156,7 @@
                                 <div class="tab-pane" id="pill-prepa">
                                     El producto lo iré teniendo a medida que me lo vayan encargando, no tengo una cantidad fija.
                                     <div class="form-group" id="stock_manual">
-                                        <p>Tiempo de preparación: <input type="number" class="form-control" id="preparacion" name="preparacion" disabled min="0" max="365" value="1" step="1" style="width:150px; display:inline-block;"> Días</p>
+                                        <p>Tiempo de preparación: <input type="number" class="form-control" id="preparacion" name="preparacion" disabled min="0" max="365" value="1" step="1" style="width:150px; display:inline-block;"> Días aprox.</p>
                                     </div>
                                 </div>
                             </div>

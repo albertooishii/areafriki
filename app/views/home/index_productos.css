@@ -1,5 +1,5 @@
-.container-fluid {
-    background: #353535;
+main .container-fluid {
+    background-color: #353535;
     min-height: 900px;
 }
 
@@ -11,7 +11,7 @@ h2{
 }
 
 @media only screen and (max-width : 768px) {
-    .container-fluid {
+    main .container-fluid {
         background-color: #e5e5e5;
     }
 

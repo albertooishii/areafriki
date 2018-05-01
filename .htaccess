@@ -136,6 +136,9 @@ RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=home&search=$1&page=1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/$ index.php?section=producto&categoria=$1&token=$2 [QSA,L]
 
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/edit$ index.php?section=producto&action=edit&categoria=$1&token=$2 [QSA,L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/edit/$ index.php?section=producto&action=edit&categoria=$1&token=$2 [QSA,L]
+
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?section=$1 [QSA,L]
 RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?section=$1 [QSA,L]
 

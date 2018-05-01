@@ -70,6 +70,21 @@
                     </div>
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
+                        <?php
+                            if($this->u->id === $data['creador_id'] || $this->u->isAdmin()){
+                        ?>
+                        <li class="dropdown pull-right" id="product-options">
+                            <a class='dropdown-toggle' href="#" data-toggle="dropdown">
+                                <i class="material-icons">&#xE5D4;</i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-dark">
+                                <li><a href="/<?=$data['nombre_categoria']?>/<?=$data['dg-token']?>/edit"><i class="material-icons">&#xE254;</i>Editar producto</a></li>
+                                <!--<li><a href="#"><i class="material-icons">&#xE872;</i>Eliminar producto</a></li>-->
+                            </ul>
+                        </li>
+                        <?php
+                            }
+                        ?>
                         <form>
                             <h2 class="product-title title nomobile"><?=$data["dg-nombre"]?></h2>
                             <p class="product-category nomobile">Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["cat_short_desc"]?></a> <!--Etiquetas: <?=$data["tags"]?>--></p>

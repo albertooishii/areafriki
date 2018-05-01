@@ -41,8 +41,8 @@
                             $mailing->set();
                         }
 
-                        if(!empty($_POST["redirect"])){
-                            $data['skip'] = $_POST["redirect"];
+                        if(!empty($_GET["redirect"])){
+                            $data['skip'] = $_GET["redirect"];
                         }else{
                             $data['skip'] = PAGE_DOMAIN;
                         }

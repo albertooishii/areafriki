@@ -80,7 +80,7 @@
                         $creador = New Users_Model();
                         $data["dg-token"]=$dg->token=$producto["design"];
                         $design=$dg->get();
-                        $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
+                        $data['creadorid']=$creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                         $infocreador=$creador->getUserFromID();
                         $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
                         $categoria=$cat->get();
@@ -134,7 +134,7 @@
                         if($p->isActive() && $p->isRevisado()){
                             $data["dg-token"]=$dg->token=$producto["design"];
                             $design=$dg->get();
-                            $creador->id=$p->creador=$design["user"]; //asignamos el id del creador
+                            $data['creadorid']=$creador->id=$p->creador=$design["user"]; //asignamos el id del creador
                             $infocreador=$creador->getUserFromID();
                             $data["id_producto"]=$pr->producto=$p->id;
                             $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];

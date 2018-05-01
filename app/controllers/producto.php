@@ -185,15 +185,17 @@
                 break;
 
                 case 'edit':
-                    if(isset($_GET["token"]) && isset($_GET["category"])){
+                    if(isset($_GET["token"]) && isset($_GET["categoria"])){
                         $p->token=$_GET["token"];
-                        $p->categoria=$_GET["category"];
+                        $cat->nombre=$_GET["categoria"];
+                        $p->categoria=$cat->getWhereNombre()['id'];
                         $producto=$p->getProductoWhereTokenAndCategoria();
                         $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
                         $dg->token=$producto["design"];
-                        if($dg->get()["user"]==$this->u->id){
-                            $p->user=$this->u->id;
-                            $data["username"]=$this->u->user;
+                        $creador->id=$dg->get()["user"];
+                        if($creador->id===$this->u->id || $this->u->isAdmin()){
+                            $p->user=$creador->id;
+                            $data["username"]=$creador->getUserFromID()['user'];
                             $data["dg-token"]=$_GET["token"];
                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
                             $data["dg-descripcion"]=$producto["descripcion"];
@@ -221,6 +223,10 @@
                                 $data["listas_productos"]="";
                             }
 
+                            $data["tematicas"] = $cat->getCategorias('topic');
+                            if(!$data["topics_design"]=$dg->getTopicsDesign()){
+                                $data["topics_design"]=array();
+                            }
 
                             if(!empty($producto["beneficio"])){
                                 $data["beneficio_producto"]=$producto["beneficio"];
@@ -263,7 +269,10 @@
                                     $data["thumbnail-number"]++;
                                 }
                             }
+                            $data["color"]=$producto["color"];
+                            $data['banner']=$creador->getBanner();
                             $data["custom_css"]="<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/css/bootstrap-slider.min.css'>";
+                            $data["custom_css"].=$this->minifyCss("product", "product_edit");
                             $this->render("product","product_edit",$data);
                         }else{
                             $data["page_title"]="ERROR 404";
@@ -276,20 +285,24 @@
                 break;
 
                 case 'savechanges':
-                    //print_r($_POST);
+                    print_r($_POST);
+                    //die();
                     if(isset($_POST["token"]) && isset($_POST["categoria"])){
                         $p->token=$_POST["token"];
-                        $p->categoria=$_POST["categoria"];
+                        $cat->id=$p->categoria=$_POST["categoria"];
                         $producto=$p->getProductoWhereTokenAndCategoria();
                         $p->id=$producto["id"];
                         $dg->token=$producto["design"];
-                        if($dg->get()["user"]==$this->u->id){
+                        $creador->id=$dg->get()["user"];
+                        if($creador->id===$this->u->id || $this->u->isAdmin()){
+                            $p->user=$creador->id;
                             $p->nombre=$_POST["nombre"];
                             $p->descripcion=$_POST["descripcion"];
                             $p->tags=explode(',',$_POST["tags"]);
                             if(isset($_POST["listas_productos"])){
                                 $p->token_lista=$_POST["listas_productos"];
                             }
+                            $dg->setTopicsDesign($_POST["topics"]);
                             $p->beneficio=$_POST["beneficio"];
                             if(isset($_POST["stock"])){
                                 $p->stock=$_POST["stock"];
@@ -304,7 +317,7 @@
                                 $p->gastos_envio=$_POST["gastos_envio"];
                             }
                             if($p->update()){
-                                header("Location:".PAGE_DOMAIN.'/myuploads');
+                                header("Location: /".$cat->get()['nombre']."/".$producto["design"]);
                             }else{
                                 echo "error";
                             }
@@ -414,7 +427,7 @@
                                         $design=$dg->get();
                                         $producto=$p->get();
                                         if($p->isActive() && $p->isRevisado()){
-                                            $creador->id=$design["user"];
+                                            $data["creador_id"]=$creador->id=$design["user"];
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
                                             $data["creador_avatar"]=$creador->getAvatar(64);

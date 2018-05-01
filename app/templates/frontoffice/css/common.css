@@ -275,6 +275,16 @@ a.well{
     background-color: #ff5722;
 }
 
+.tokenfield .token {
+    background-color: #ff5722 !important;
+    color: white;
+    border-radius: 80px !important;
+}
+
+.slider .tooltip {
+    z-index: 1 !important;
+}
+
 .pagination > .active > a, .pagination > .active > a:hover{
     border-color: #ff5722;
     background-color: #ff5722;
@@ -929,6 +939,10 @@ footer .love {
         padding-left: 5px;
         padding-right: 5px;
     }
+}
+
+.product_card_col.col-xl-2 .edit-button{
+    display: none;
 }
 
 .product_card.zoom .product_url{

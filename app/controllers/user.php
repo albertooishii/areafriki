@@ -619,7 +619,7 @@
 
                         $creador->user=$creador->URL2user($_GET["user"]);//nombre del creador
                         if($infocreador=$creador->getUser()){
-                            $data["userid"]=$p->creador=$creador->id=$infocreador["id"];
+                            $data['creadorid']=$data["userid"]=$p->creador=$creador->id=$infocreador["id"];
                             $data["creador_user"]=$data["username"]=$creador->user=$infocreador["user"];
                             $data["edit_button"]="";
                             $data['description']=$infocreador["description"];

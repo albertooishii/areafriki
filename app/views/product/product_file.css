@@ -143,3 +143,12 @@
     padding-top:20px;
     word-wrap: break-word;
 }
+
+#product-options{
+    list-style: none;
+}
+
+#product-options a.dropdown-toggle, #product-options a.dropdown-toggle:hover {
+    color: #353535 !important;
+    background-color: transparent !important;
+}

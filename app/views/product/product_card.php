@@ -18,6 +18,17 @@
                 <li class="precio_card">
                     <?=$data["precio"]?>
                 </li>
+<?php
+    if ($this->u->id == $data['creadorid']){
+?>
+                <li class="edit-button">
+                    <a href="/<?=$data['cat_nombre']?>/<?=$data["dg-token"]?>/edit">
+                        <i class="material-icons">&#xE254;</i>
+                    </a>
+                </li>
+<?php
+    }
+?>
                 <li class="<?=$data["like_class"]?>-button">
                     <a href="#">
                         <i class="material-icons">&#xE87D;</i>
