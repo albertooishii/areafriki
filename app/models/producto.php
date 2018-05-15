@@ -276,9 +276,9 @@
 
         function getMasVendidos($limit=false){
             if($limit){
-                $query = "SELECT * FROM productos WHERE ventas > 1 AND  active=1 and revisado=1 ORDER BY ventas DESC limit $limit";
+                $query = "SELECT * FROM productos WHERE ventas >= 1 AND  active=1 and revisado=1 ORDER BY ventas DESC limit $limit";
             }else{
-                $query = "SELECT * FROM productos WHERE ventas > 1 AND  active=1 and revisado=1 ORDER BY ventas DESC";
+                $query = "SELECT * FROM productos WHERE ventas >= 1 AND  active=1 and revisado=1 ORDER BY ventas DESC";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){
@@ -791,11 +791,43 @@
             return false;
         }
 
-        function delete(){
-            $query="DELETE FROM productos WHERE id='".$this->id."'";
-             if ( $this->_db->query($query) )
-            return true;
-            return false;
+        function delete($username, $token, $categoria){
+            //Primero vemos si hay alguna venta de este producto
+            $query = "SELECT count(*) as count FROM productos WHERE ventas >=1 AND design = '".$token."'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            //Si no hay venta
+            if (!$answer['count']){
+                //Primero eliminamos producto de la base de datos
+                $query="DELETE FROM productos WHERE id='".$this->id."'";
+                if ( $this->_db->query($query) ) {
+                    //Borramos la carpeta de este producto
+                    $source="designs/".$username."/".$token."/".$categoria."/";
+                    $this->rmrf($source);
+
+                    //Vemos si hay más productos con este diseño
+                    $query = "SELECT count(*) AS count FROM productos WHERE design = '".$token."'";
+                    $answer = $this->_db->query($query)->fetch_assoc();
+                    if (!$answer['count']){ //Si no hay más productos con este diseño
+                        //Borramos en base de datos el diseño
+                        $query="DELETE FROM designs WHERE token='".$token."'";
+                        if($this->_db->query($query)) {
+                            //Borramos la carpeta completa del diseño
+                            $source="designs/".$username."/".$token."/";
+                            $this->rmrf($source);
+                        } else {
+                            return false;
+                        }
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //Si hay venta lo desactivamos en lugar de eliminar
+                //if($this->deactivate())
+                return true;
+                return false;
+            }
         }
 
 //Comentarios

@@ -79,8 +79,6 @@
                             $data["nombre"]=$producto["nombre"];
                             $c->id=$producto["categoria"];
                             $data["categoria"]=$c->get()["nombre"];
-                            $source="designs/".$data["user"]."/".$data["token"]."/".$data["categoria"];
-                            $this->rmrf($source);
 
                             $this->loadModel("email");
                             /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
@@ -89,7 +87,7 @@
                             $mail->subject = "Producto denegado - ".PAGE_NAME;
                             $mail->getEmail('producto_denegado', $data);
 
-                            if ($mail->sendEmail() && $p->delete()){
+                            if ($p->delete($data['user'], $data['token'], $data['categoria']) && $mail->sendEmail()){
                                 echo true;
                             }else{
                                echo "Se ha eliminado el producto pero ha fallado al notificar por email a su creador";

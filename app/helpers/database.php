@@ -1,7 +1,7 @@
 <?php
 
-    class Database
-    {
+    class Database extends Controller{
+
         protected $_db;
 
         public function __construct(){

@@ -164,19 +164,27 @@
                     }
                 break;
 
-                case 'delete'://deactivate
-                    if(isset($_GET["id"])){
-                        $p->id=$_GET["id"];
-                        $dg->token=$p->get()["design"];
-                        if($dg->get()["user"]==$this->u->id){
-                            if($p->deactivate()){
-                                header("Location:".$_SERVER['HTTP_REFERER']);
+                case 'delete':
+                    if(isset($_GET["token"]) && isset($_GET["categoria"])){
+                        $p->token=$_GET["token"];
+                        $cat->nombre=$_GET["categoria"];
+                        $p->categoria=$cat->getWhereNombre()['id'];
+                        if($producto=$p->getProductoWhereTokenAndCategoria()){
+                            $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
+                            $dg->token=$producto["design"];
+                            $creador->id=$dg->get()["user"];
+                            if($creador->id===$this->u->id || $this->u->isAdmin()){
+                                $creador->user=$creador->getUserFromID()['user'];
+                                if($p->delete($creador->user, $dg->token, $cat->nombre)){
+                                    header("Location: ".PAGE_DOMAIN."/user/".$creador->user);
+                                }else{
+                                    header("Location:".$_SERVER['HTTP_REFERER']);
+                                }
                             }else{
-
+                                header("Location:".$_SERVER['HTTP_REFERER']);
                             }
-                        }else{
-                            $data["page_title"]="ERROR 404";
-                            $this->render("error","404",$data);
+                        } else {
+                            header("Location:".$_SERVER['HTTP_REFERER']);
                         }
                     }else{
                         $data["page_title"]="ERROR 404";
@@ -195,7 +203,7 @@
                         $creador->id=$dg->get()["user"];
                         if($creador->id===$this->u->id || $this->u->isAdmin()){
                             $p->user=$creador->id;
-                            $data["username"]=$creador->getUserFromID()['user'];
+                            $data["username"]=$creador->user=$creador->getUserFromID()['user'];
                             $data["dg-token"]=$_GET["token"];
                             $data["page_title"]=$data["dg-nombre"]=$producto["nombre"];
                             $data["dg-descripcion"]=$producto["descripcion"];
@@ -509,6 +517,7 @@
                                                 $data["thumbnails"]="";
 
                                                 $data["custom_js"]="";
+                                                $data["custom_css"]="";
 
                                                 $data['montaje']='';
 

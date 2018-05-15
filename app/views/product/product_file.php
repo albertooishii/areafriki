@@ -79,7 +79,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-dark">
                                 <li><a href="/<?=$data['nombre_categoria']?>/<?=$data['dg-token']?>/edit"><i class="material-icons">&#xE254;</i>Editar producto</a></li>
-                                <!--<li><a href="#"><i class="material-icons">&#xE872;</i>Eliminar producto</a></li>-->
+                                <li><a class="remove" href="/<?=$data['nombre_categoria']?>/<?=$data['dg-token']?>/delete"><i class="material-icons">&#xE872;</i>Eliminar producto</a></li>
                             </ul>
                         </li>
                         <?php
