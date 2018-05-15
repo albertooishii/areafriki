@@ -1,4 +1,5 @@
 <?php
+    set_time_limit(30 * 60);
     class Sitemapgen extends Controller{
 
         function index_sitemapgen(){
@@ -36,7 +37,7 @@
             }
             
             //Listado de productos
-            $productos=$p->getProductos();
+            $productos=$p->getProductos(false, true);
             foreach ($productos as $producto) {
                 $cat->id=$producto["categoria"];
                 $sitemap->addItem('/'. $cat->get()["nombre"] . '/' .  $producto["design"], '0.7', 'daily', 'Today');
