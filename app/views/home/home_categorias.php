@@ -107,7 +107,7 @@
             <h1 class="text-center">La tienda friki<br> donde puedes <strong>comprar</strong></h1>
         </header>
         <h2 class="text-center">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>
-        <h1 class="text-center">...y <strong>vender</strong></h1>
+        <h2 class="text-center" style="font-size:160%;">...y <strong>vender</strong></h2>
         <a href="<?=PAGE_DOMAIN?>/upload" class="btn btn-round btn-primary text-center aligncenter">¡Adelante!</a>
     </div>
 </article>

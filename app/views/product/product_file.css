@@ -75,7 +75,8 @@
 
 .product_file .product_card .author{
     position: relative;
-    bottom: 60px;
+    bottom: 40px;
+    left: 15px;
 }
 
 .product_file .product_card .author a{

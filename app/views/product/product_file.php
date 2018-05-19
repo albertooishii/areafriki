@@ -31,13 +31,13 @@
                 }
             ?>
                             </div>
+                            <div class="product_author author">
+                                <a href="/user/<?=$this->u->user2URL($data["username"])?>">
+                                    <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
+                                    <span><?=$data["username"]?></span>
+                                </a>
+                            </div>
                             <div class="footer content nomobile">
-                                <div class="product_author author">
-                                    <a href="/user/<?=$this->u->user2URL($data["username"])?>">
-                                        <img class='avatar img-raised' src="<?=PAGE_DOMAIN."/".$data["creador_avatar"]?>">
-                                        <span><?=$data["username"]?></span>
-                                    </a>
-                                </div>
                                 <ul class="stats product_buttons">
                                     <li class="<?=$data["like_class"]?>-button">
                                         <a href="#">
@@ -63,10 +63,10 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="thumbnails image-set row">
+                                <?=$data["thumbnails"]?>
+                            </div>
                         </article>
-                        <div class="thumbnails image-set row">
-                            <?=$data["thumbnails"]?>
-                        </div>
                     </div>
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -88,8 +88,8 @@
                         <form>
                             <h2 class="product-title title nomobile"><?=$data["dg-nombre"]?></h2>
                             <p class="product-category nomobile">Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["cat_short_desc"]?></a> <!--Etiquetas: <?=$data["tags"]?>--></p>
-                           <h4 class="product-description"><?=$data["dg-descripcion"]?></h4>
-                           <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
+                            <p class="product-description"><?=$data["dg-descripcion"]?></p>
+                            <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
                             <?php
                             if($data["cat_parent"]==1){
                             ?>
@@ -186,7 +186,7 @@
                     <?php
                         if($data["cat_parent"]==1){
                     ?>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12 inner">
                         <header>
                             <p><i class="material-icons">&#xE88E;</i> Características del producto:</p>
                             <p><small><?=$data["cat_desc"]?></small></p>

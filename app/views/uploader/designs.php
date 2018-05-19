@@ -33,7 +33,12 @@
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label">* Describe tu diseño</label>
-                        <p><textarea maxlength="250" name="descripcion" style="width:100%;height: 60px; resize:none; overflow:auto;" required class="form-control"></textarea></p>
+                        <p><textarea maxlength="250" minlength="20" name="descripcion" style="width:100%;height: 60px; resize:none; overflow:auto;" class="form-control"
+                            required
+                            data-fv-notempty="true"
+                            data-fv-notempty-message="La descripción es obligatoria"
+                            data-fv-stringlength-trim="true"
+                            data-fv-stringlength-message="La descripción debe tener entre 20 y 250 caracteres"></textarea></p>
                         <label><small>Poner una descripción única y bien detallada es muy importante.</small></label>
                     </div>
                     <div class="form-group">

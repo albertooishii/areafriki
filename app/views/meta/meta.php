@@ -1,7 +1,7 @@
-<title><?=PAGE_NAME?>: <?=$data['page_title']?></title>
-<meta name="description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis.">
+<title><?=PAGE_NAME?>, <?=$data['page_title']?></title>
+<meta name="description" content="La tienda friki donde comprar y vender camisetas personalizadas de tus juegos, películas, series y mangas favoritos.">
 <meta property="og:title" content="<?=PAGE_NAME?> | <?=$data["page_title"]?>" />
-<meta property="og:description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." />
+<meta property="og:description" content="La tienda friki donde comprar y vender camisetas personalizadas de tus juegos, películas, series y mangas favoritos." />
 
 <!--facebook-->
 <meta property="og:url" content="<?=PAGE_DOMAIN?>" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@frikiarea" />
 <meta name="twitter:title" content="<?=PAGE_NAME?> | <?=$data["page_title"]?>" />
-<meta name="twitter:description" content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." />
+<meta name="twitter:description" content="<?=PAGE_NAME?>, la tienda friki donde comprar y vender camisetas personalizadas de tus juegos, películas, series y mangas favoritos." />
 <meta name="twitter:creator" content="@frikiarea" />
 <meta name="twitter:image" content="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" />
 
@@ -24,7 +24,7 @@
 
 <!--<meta itemtype="http://schema.org/Product" itemscope="itemscope" />-->
 <meta content="Camisetas, sudaderas, tazas, pósters, vinilos de decoración, cuadros de lienzo, chapas, skins para consolas, handmades, etc..." itemprop="headline" />
-<meta content="<?=PAGE_NAME?>, tienda friki de camisetas, sudaderas, tazas, vinilos, lienzos, manualidades y segunda mano. Vende tus productos frikis en <?=PAGE_NAME?> gratis." itemprop="description" />
+<meta content="<?=PAGE_NAME?>, la tienda friki donde comprar y vender camisetas personalizadas de tus juegos, películas, series y mangas favoritos." itemprop="description" />
 <meta content="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/icons/android-chrome-192x192.png" itemprop="image" />
 
 <script type="application/ld+json">

@@ -515,6 +515,17 @@
                                                 $data["tiempo_envio"]=TIEMPO_ENVIO;
                                                 $data["modelo"]=$producto["modelo"];
                                                 $data["thumbnails"]="";
+                                                //muestras
+                                                $data["muestras"]="";
+                                                $source_folder="muestras/".$data["nombre_categoria"];
+                                                $data["muestras-number"]=0;
+                                                foreach(glob($source_folder."/muestra-*") as $file){
+                                                    if($data["muestras-number"]>0){
+                                                        $data["thumbnails"].=$this->loadView("product", "muestras", $data);
+                                                    }
+                                                    $data["muestras-number"]++;
+                                                }
+
 
                                                 $data["custom_js"]="";
                                                 $data["custom_css"]="";
@@ -562,7 +573,7 @@
                                                     default:
                                                         $data["indicaciones_size"]="";
                                                 }
-                                                $data["montaje"].="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='image-1' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
+                                                $data["montaje"].="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='thumbnail' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 $data["stock"]=10000;
 
                                                 if(strpos(strtolower($data["dg-nombre"]), strtolower(substr($data["nombre_categoria"], 0, -1)))!==0){

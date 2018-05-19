@@ -1,16 +1,16 @@
 <?php
-    $data["page_title"]=$data['dg-nombre'];
-    if(!empty($data["description"])){
-        $descripcion=$data["description"];
-    }else{
-        $descripcion=$data['dg-nombre']." por ".$data["username"]." en ".PAGE_NAME.". Personaliza productos con tus diseños, vende tus manualidades y artículos de segunda mano.";
+    $data['page_title'] = rtrim($data["dg-nombre"], '.')." por ".$data["username"]." en ". PAGE_NAME .".";
+    if(!empty($data["dg-descripcion"]) && strlen($data["dg-descripcion"]) >= 20){
+        $descripcion = rtrim($data["dg-descripcion"], '.') . ". Tus ".$data['nombre_categoria']. " frikis, en ".PAGE_NAME.".";
+    } else{
+        $descripcion = rtrim($data["dg-nombre"], '.').". Tus ".$data['nombre_categoria']." frikis, en ".PAGE_NAME.".";
     }
 ?>
-<title><?=PAGE_NAME?>: <?=$data["page_title"]?></title>
+<title><?=$data["page_title"]?></title>
 <meta name="description" content="<?=$descripcion?>">
 
 <!--OpenGraph/facebook-->
-<meta property="og:title" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta property="og:title" content="<?=$data["page_title"]?>" />
 <meta property="og:description" content="<?=$descripcion?>" />
 <meta property="fb:app_id" content="1215279765157571"/>
 <meta property="og:url" content="<?=PAGE_DOMAIN?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>"/>
@@ -28,7 +28,7 @@
 <!--twitter-->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@frikiarea" />
-<meta name="twitter:title" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta name="twitter:title" content="<?=$data["page_title"]?>" />
 <meta name="twitter:description" content="<?=$descripcion?>" />
 <meta name="twitter:creator" content="@frikiarea" />
 <meta name="twitter:image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg" />
@@ -39,7 +39,7 @@
 
 <!--Google plus-->
 <link rel="publisher" href="https://plus.google.com/113929769526461516040">
-<meta itemprop="name" content="<?=PAGE_NAME?>: <?=$data["page_title"]?>" />
+<meta itemprop="name" content="<?=$data["page_title"]?>" />
 <meta itemprop="description" content="<?=$descripcion?>"/>
 <meta itemprop="image" content="<?=PAGE_DOMAIN?>/designs/<?=$data["username"]?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg"/>
 

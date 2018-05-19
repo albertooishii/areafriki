@@ -86,6 +86,25 @@
             return false;
         }
 
+        function getPopularTagsFromSearch($query, $limit=false){
+            if($limit){
+                $query = "SELECT tag, count(tag) as count FROM producto_tag WHERE producto IN (SELECT id FROM productos WHERE revisado=1 AND active=1 AND (nombre LIKE '%$query%' OR descripcion LIKE '%$query%')) GROUP BY tag ORDER BY count DESC LIMIT $limit";
+            }else{
+                $query = "SELECT tag, count(tag) as count FROM producto_tag WHERE producto IN (SELECT id FROM productos WHERE revisado=1 AND active=1 AND (nombre LIKE '%$query%' OR descripcion LIKE '%$query%')) GROUP BY tag ORDER BY count DESC";
+            }
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_tags[]=$fila;
+                }
+                if(!empty($lista_tags)){
+                  return $lista_tags;                  
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
         function set()
         {
             $query="INSERT INTO tags(nombre) VALUES('$this->nombre')";

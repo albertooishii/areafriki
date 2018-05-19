@@ -1,0 +1,3 @@
+<a href="<?=PAGE_DOMAIN?>/muestras/<?=$data["nombre_categoria"]?>/muestra-<?=$data["muestras-number"]?>.jpg" class='col-xs-2' data-lightbox="thumbnail" data-title="Muestra de <?=$data["nombre_categoria"]?> <?=$data["muestras-number"]?>">
+    <img src="<?=PAGE_DOMAIN?>/muestras/<?=$data["nombre_categoria"]?>/muestra-<?=$data["muestras-number"]?>.jpg" class="img img-raised img-rounded" alt="Muestra de <?=$data["nombre_categoria"]?> Número <?=$data["muestras-number"]?>">
+</a>
