@@ -519,11 +519,9 @@
                                                 $data["muestras"]="";
                                                 $source_folder="muestras/".$data["nombre_categoria"];
                                                 $data["muestras-number"]=0;
-                                                foreach(glob($source_folder."/muestra-*") as $file){
-                                                    if($data["muestras-number"]>0){
-                                                        $data["thumbnails"].=$this->loadView("product", "muestras", $data);
-                                                    }
+                                                foreach(glob($source_folder."/muestra-*") as $data['file']){
                                                     $data["muestras-number"]++;
+                                                    $data["thumbnails"].=$this->loadView("product", "muestras", $data);
                                                 }
 
 
