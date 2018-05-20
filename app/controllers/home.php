@@ -117,6 +117,7 @@
                     $data["last_uploads"]=$product_cards;
                     $data["pagination"]=$this->loadView("product", "pagination", $data);
                 }else{
+                    header("HTTP/1.0 404 Not Found");
                     $data["subtitle"]="<p class='alert text-danger'>No se han encontrado productos que coincidan con esta búsqueda.</p>";
                     $data["last_uploads"]="";
                     $data["pagination"]="";
