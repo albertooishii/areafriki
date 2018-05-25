@@ -56,7 +56,20 @@
                             </div>
                             <input type="hidden" id="email-destino" name="email-destino">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-raised">Enviar</button>
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="accept-tos" type="checkbox" name="accept-tos"
+                                        data-fv-icon="false"
+                                        data-fv-notempty="true"
+                                        data-fv-notempty-message="Acepta las condiciones para continuar"> He leído y acepto la <a href="/info/proteccion-datos" target="_blank">política de privacidad<i class="fa fa-external-link"></i></a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-round btn-raised">Enviar</button>
+                            </div>
+                            <div>
+                                <p><?=PAGE_NAME?> te informa que los datos de carácter personal que nos proporciones rellenando el presente formulario serán tratados por Jorge Manuel Bueno Méndez (80079483-S) como responsable de esta web. La finalidad de la recogida y tratamiento de los datos personales que te solicitamos en este formulario es para poder contactar contigo. La legitimación se realiza a través del consentimiento del interesado. ​Podrás ejercer tus derechos de acceso, rectificación, limitación y suprimir los datos en central@areafriki.com así como el derecho a presentar una reclamación ante una autoridad de control. Puedes consultar la información adicional y detallada sobre Protección de Datos en nuestra <a href="/info/proteccion-datos" target="_blank">política de privacidad<i class="fa fa-external-link"></i>.</p>
                             </div>
                         </form>
                     </div>
