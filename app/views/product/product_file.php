@@ -89,7 +89,21 @@
                             <h2 class="product-title title nomobile"><?=$data["dg-nombre"]?></h2>
                             <p class="product-category nomobile">Categoría: <a href="/<?=$data["nombre_categoria"]?>"><?=$data["cat_short_desc"]?></a> <!--Etiquetas: <?=$data["tags"]?>--></p>
                             <p class="product-description"><?=$data["dg-descripcion"]?></p>
-                            <h3 class="main-price" id="precio"><?=$data["precio"]?>€</h3>
+                            <h4 class="text-danger" id="promo-countdown"></h4>
+                            <h3 class="main-price" id="precio">
+                                <span class="<?=$data['precio_promo']?'tachado':''?>">
+                                    <?=$data["precio"]?>€
+                                </span>
+                        <?php
+                            if (isset($data['precio_promo'])) {
+                        ?>
+                                <span id="promo" class="precio_promo" data-nowtime="<?=$data['nowtime']?>" data-endtime="<?=$data['endtime']?>">
+                                    - <?=$data["precio_promo"]?>€
+                                </span>
+                        <?php
+                            }
+                        ?>
+                            </h3>
                             <?php
                             if($data["cat_parent"]==1){
                             ?>

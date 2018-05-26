@@ -434,7 +434,7 @@
                                         $p->visitar();
                                         $design=$dg->get();
                                         $producto=$p->get();
-                                        if($p->isActive() && $p->isRevisado()){
+                                        if(($p->isActive() && $p->isRevisado()) || $this->u->isAdmin()){
                                             $data["creador_id"]=$creador->id=$design["user"];
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
@@ -502,6 +502,17 @@
                                                 if($precio=$pr->get()){
                                                     $data["precio_float"]=number_format($precio, 2);
                                                     $data["precio"] = number_format($data["precio_float"] ,2,',','');
+                                                }
+
+                                                $this->loadModel("promo");
+                                                $promo = New Promo_Model();
+                                                $promo->producto=$p->id;
+                                                if($promo->getProductPromo()) {
+                                                    $precio_promo = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                                                    $data["precio_promo_float"]=number_format($precio_promo, 2);
+                                                    $data["precio_promo"] = number_format($data["precio_promo_float"] ,2,',','');
+                                                    $data['nowtime'] = date ("Y-m-d H:i:s");
+                                                    $data['endtime'] = $promo->caducidad;
                                                 }
 
                                                 $data["modelo"]=$p->modelo=$producto["modelo"];

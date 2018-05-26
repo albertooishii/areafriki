@@ -1,5 +1,8 @@
 <?php
-
+    putenv("TZ=".TIMEZONE);
+    date_default_timezone_set(TIMEZONE);
+    ini_set('date.timezone', TIMEZONE);
+    
     class Email
     {
         var $to;//receptor

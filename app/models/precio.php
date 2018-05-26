@@ -23,6 +23,9 @@
 
         function getPrecioPedido()
         {
+            $this->loadModel("promo");
+            $promo = New Promo_Model(); 
+
             $precio=$total_af=0;
             foreach($this->pedido as $linea){
                 $this->producto=$linea["producto"];
@@ -31,6 +34,10 @@
                 $this->categoria=$answer["categoria"];
                 $orden=$linea["size"];
                 $precio=$this->get($orden)*$linea["cantidad"];
+                $promo->producto=$this->producto;
+                if($promo->getProductPromo()) {
+                    $precio = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                }
                 $this->subtotal+=$precio;
             }
             $this->getGastosEnvio();

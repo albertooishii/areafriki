@@ -42,7 +42,7 @@
                 <?php
                         }else{
                 ?>
-                <p>¡Con <?=$diferencia?>€ más, tus gastos de envío gratis!</p>
+                <h4 class="text-warning">¡Con <?=$diferencia?>€ más, tus gastos de envío gratis!</h4>
                 <?php
                         }
                     }

@@ -1,4 +1,8 @@
 <?php
+    putenv("TZ=".TIMEZONE);
+    date_default_timezone_set(TIMEZONE);
+    ini_set('date.timezone', TIMEZONE);
+    
     require_once 'app/helpers/database.php';
 
     class Mailing_Model extends Database{

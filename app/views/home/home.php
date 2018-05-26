@@ -6,7 +6,12 @@
 
 <div id="home">
     <?=$data["secondary-navbar"]?>
-    <div id="home_categories">
+    <div>
+        <div class="container carousel_container">
+            <?=$data["home_promos"]?>
+        </div>
+    </div>
+    <div class="dark">
         <div class="container carousel_container">
                 <!--<header>
                     <h1 class="text-center">La tienda friki donde puedes <strong>Comprar</strong> y <strong><a href="<?=PAGE_DOMAIN?>/upload">Vender</strong></h1>
@@ -14,15 +19,28 @@
             <?=$data["home_categorias"]?>
         </div>
     </div>
-    <div id="home_posts" class="container">
-        <header>
-            <h2 class="title aligncentermobile"><i class="material-icons">art_track</i>Últimas entradas del blog</h2>
-        </header>
-        <div class="row">
-            <?=$data["home_posts"]?>
+    <div>
+        <div class="container carousel_container">
+            <header>
+                <h2 class="title aligncentermobile"><i class="material-icons">whatshot</i>On fire</h2>
+            </header>
+            <?=$data["mas_populares"]?>
         </div>
-        <h3 class="aligncenter"><a href="<?=BLOG_DOMAIN?>" class="btn btn-round btn-primary">Más entradas</a></h3>
     </div>
+    <?php
+        if(isset($data["visitas_recientes"])){
+    ?>
+    <div>
+        <div class="container carousel_container inner">
+            <header>
+                <h2 class="title aligncentermobile"><i class="material-icons">history</i> Productos vistos recientemente</h2>
+            </header>
+            <?=$data["visitas_recientes"]?>
+        </div>
+    </div>
+    <?php
+        }
+    ?>
     <div class="container-fluid nomobile" id="banner_upload">
         <div class="container">
             <a href="<?=PAGE_DOMAIN?>/upload">
@@ -36,14 +54,16 @@
             <a href="<?=PAGE_DOMAIN?>/upload" class="btn btn-round btn-primary btn-lg">¡EMPIEZA AHORA!</a>
         </div>
     </div>
-    <div class="container carousel_container">
-        <div>
-            <header>
-                <h2 class="title aligncentermobile"><i class="material-icons">whatshot</i>On fire</h2>
-            </header>
-            <?=$data["mas_populares"]?>
+    <div id="home_posts" class="container">
+        <header>
+            <h2 class="title aligncentermobile"><i class="material-icons">art_track</i>Últimas entradas del blog</h2>
+        </header>
+        <div class="row">
+            <?=$data["home_posts"]?>
         </div>
+        <h3 class="aligncenter"><a href="<?=BLOG_DOMAIN?>" class="btn btn-round btn-primary">Más entradas</a></h3>
     </div>
+    <!--
     <?php
         if(isset($_SESSION["login"])){
     ?>
@@ -63,15 +83,6 @@
     </div>
     <?php
         }
-        if(isset($data["visitas_recientes"])){
     ?>
-    <div class="container carousel_container inner">
-        <header>
-            <h2 class="title aligncentermobile"><i class="material-icons">history</i> Productos vistos recientemente</h2>
-        </header>
-        <?=$data["visitas_recientes"]?>
-    </div>
-    <?php
-        }
-    ?>
+    -->
 </div>

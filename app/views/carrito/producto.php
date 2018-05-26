@@ -30,7 +30,21 @@
         </div>
         <div class="col-md-2 col-sm-2 col-xs-3 inner">
             <label>Precio</label>
-            <h4><?=$data["precio"]?></h4>
+            <h4>
+                <span class="<?=$data['precio_promo']?'tachado':''?>">
+                    <?=$data["precio"]?>€
+                </span>
+
+<?php
+    if (isset($data['precio_promo'])) {
+?>
+                <span id="promo" class="precio_promo" data-nowtime="<?=$data['nowtime']?>" data-endtime="<?=$data['endtime']?>">
+                    - <?=$data["precio_promo"]?>€
+                </span>
+<?php
+    }
+?>
+            </h4>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-5">
 <?php
@@ -53,7 +67,7 @@
         </div>
         <div class="col-md-2 col-sm-2 col-xs-3 inner">
             <label>Total</label>
-            <h4><?=$data["total_producto"]?></h4>
+            <h4><?=$data["total_producto"]?>€</h4>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-1 inner">
             <a href="#" rel="tooltip" data-placement="left" title="" class="btn btn-simple remove-producto" data-original-title="Eliminar del carrito">

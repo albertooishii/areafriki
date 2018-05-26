@@ -28,7 +28,7 @@
                         if($_POST["token"]){
                             $data["token"]=$ped->token=$_POST["token"];
                             $ar_pedido=$ped->get();
-                            if($ar_pedido["vendedor"]==$this->u->id || $ar_pedido["vendedor"]==0){
+                            if($this->u->isAdmin() || $ar_pedido["vendedor"]===$this->u->id || $ar_pedido["vendedor"]===0){
                                 $ped->email=$ar_pedido["email"];
                                 $data["nombre"]=$ar_pedido["name"];
 

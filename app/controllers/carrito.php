@@ -16,7 +16,9 @@
             $this->loadModel('pedido');
             $ped=New Pedido_Model();
             $this->loadModel("notification");
-            $notify = New Notification_Model();            
+            $notify = New Notification_Model();   
+            $this->loadModel("promo");
+            $promo = New Promo_Model();         
             
             $car->user=$this->u->id;
             @$action=$_GET["action"];
@@ -165,8 +167,14 @@
 
                                     /*PRECIO----------*/
                                     $precio=$pr->get($linea["size"]);
-                                    $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                                    $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                    $data["precio"]=number_format($precio, 2, ',', ' ');
+                                    $promo->producto=$p->id;
+                                    if($promo->getProductPromo()) {
+                                        $precio = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                                        $data["precio_promo"] = number_format($precio ,2,',','');
+                                    }
+
+                                    $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ');
                                     $precio_total_vendedor+=$precio*$linea["cantidad"];
                                     $subtotal+=$precio*$linea["cantidad"];
 
@@ -295,6 +303,10 @@
                             $producto=$p->get();
                             $pr->categoria=$producto["categoria"];
                             $precio=$pr->get($linea["size"]);
+                            $promo->producto=$p->id;
+                            if($promo->getProductPromo()) {
+                                $precio = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                            }
                             $pedido[$key]["precio"]=$precio;
                             $pedido[$key]["beneficio"]=$pr->beneficio;
                             if($vendedor->id>0 || !is_null($producto["preparacion"])){
@@ -678,8 +690,15 @@
 
                                         /*PRECIO----------*/
                                         $precio=$pr->get($linea["size"]);
-                                        $data["precio"]=number_format($precio, 2, ',', ' ')."€";
-                                        $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ')."€";
+                                        $data["precio"]=number_format($precio, 2, ',', ' ');
+
+                                        $promo->producto=$p->id;
+                                        if($promo->getProductPromo()) {
+                                            $precio = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                                            $data["precio_promo"] = number_format($precio ,2,',','');
+                                        }
+                                        $data["total_producto"]=number_format($precio*$linea["cantidad"], 2, ',', ' ');
+
                                         $precio_total_vendedor+=$precio*$linea["cantidad"];
                                         $subtotal+=$precio*$linea["cantidad"];
 

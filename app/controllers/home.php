@@ -15,6 +15,7 @@
             $creador = New Users_Model();
             $this->loadModel("blog");
             $blog = New Blog_Model();
+            $this->loadModel("promo");
             if(isset($_SESSION["login"])){
                 $p->user=$this->u->id;//asignamos el id del usuario de sesion
             }else{
@@ -219,7 +220,7 @@
 
 
                 /*Mostrar productos que no has dado like (6)*/
-                $data["ruleta"]="";
+                /*$data["ruleta"]="";
                 if($lista_not_like=$p->userNotLikeProducto(6)){
                     foreach($lista_not_like as $key => $producto){
                         $p->id=$producto["id"];
@@ -238,8 +239,67 @@
                     }
                 }else{
                     $data["ruleta"]="¡Eres un ansias! ¡Ya le has dado like a todos los productos!";
+                }*/
+
+                /*HOME PROMOS*/
+                $promo = New Promo_Model();
+                $promo->tipo = 'home';
+
+                //NOW PROMO
+                if($promo->getNowPromo()) {
+                    $data['promo']['nowtime'] = date ("Y-m-d H:i:s");
+                    $data['promo']['endtime'] = $promo->caducidad;
+                    $data['promo']['now'] = $promo;
+                    $pr->producto = $p->id = $promo->producto;
+                    $producto = $p->get();
+                    $cat->id = $pr->categoria = $producto['categoria'];
+                    $data['promo']['now']->nombre_categoria = $nombre_categoria = $cat->get()['nombre'];
+
+                    if(strpos(strtolower($producto["nombre"]), strtolower(substr($nombre_categoria, 0, -1)))!==0){
+                        $data['promo']['now']->nombre=ucwords(substr($nombre_categoria, 0, -1)." ".$producto["nombre"]);
+                    }else{
+                        $data['promo']['now']->nombre=$producto["nombre"];
+                    }
+                    $precio = $pr->get();
+                    $data['promo']['now']->precio=number_format($precio,2,',','')."€";
+                    $precio_promo = $precio - ($promo->porcentaje_desc ? (($promo->porcentaje_desc * $precio) / 100) : $promo->cantidad_desc);
+                    $data['promo']['now']->precio_promo=number_format($precio_promo,2,',','')."€";
+                    $data['promo']['now']->color = $producto['color'] ?: '#222222';
+                    $creador = New Users_Model();
+                    $data['promo']['now']->dg_token=$dg->token=$producto["design"];
+                    $design=$dg->get();
+                    $creador->id=$p->creador=$design["user"];
+                    $data['promo']['now']->user = $creador->getUserFromID()['user'];
                 }
 
+                //NEXT PROMO
+                $promo = New Promo_Model();
+                $promo->tipo = 'home';
+                if ($promo->getNextPromo()) {
+                    $data['promo']['next'] = $promo;
+                    $pr->producto = $p->id = $promo->producto;
+                    $producto = $p->get();
+                    $cat->id = $pr->categoria = $producto['categoria'];
+                    $data['promo']['next']->nombre_categoria = $nombre_categoria = $cat->get()['nombre'];
+                    if(strpos(strtolower($producto["nombre"]), strtolower(substr($nombre_categoria, 0, -1)))!==0){
+                        $data['promo']['next']->nombre=ucwords(substr($nombre_categoria, 0, -1)." ".$producto["nombre"]);
+                    }else{
+                        $data['promo']['next']->nombre=$producto["nombre"];
+                    }
+                    $data['promo']['next']->color = $producto['color'] ?: '#222222';
+                    $creador = New Users_Model();
+                    $data['promo']['next']->dg_token=$dg->token=$producto["design"];
+                    $design=$dg->get();
+                    $creador->id=$p->creador=$design["user"];
+                    $data['promo']['next']->user = $creador->getUserFromID()['user'];
+                }
+
+                if (isset($data['promo'])) {
+                    $data["home_promos"]=$this->loadView("home","home_promos", $data['promo']);
+                    $data["custom_js"]=$this->minifyJs("home", "home_promos");
+                    $data["custom_css"] = $this->minifyCss('home', 'home_promos');
+                }
+                
                 /*HOME CATEGORIAS*/
                 $data["home_categorias"]=$this->loadView("home","home_categorias", $data);
 
@@ -254,8 +314,8 @@
                 }
 
                 $data['page_title'] = "tienda de regalos originales y camisetas personalizadas.";
-                $data["custom_js"]=$this->minifyJs("home", "home");
-                $data["custom_css"] = $this->minifyCss('product', 'product_card');
+                $data["custom_js"].=$this->minifyJs("home", "home");
+                $data["custom_css"] .= $this->minifyCss('product', 'product_card');
                 $data["secondary-navbar"]=$this->loadView("home","secondary-navbar",$data);
                 $this->render('home', 'home', $data);
             }

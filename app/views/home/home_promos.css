@@ -1,0 +1,195 @@
+#now_promo > .card {
+    height: 300px !important;
+}
+
+#now_promo a, #now_promo .card-image {
+    height: inherit !important;
+}
+
+#now_promo .card-background {
+    height: 100%;
+    background-size: 250px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+#now_promo .card-background:after, #next_promo .card-background:after {
+    background-color: transparent;
+}
+
+#now_promo .card-footer {
+    position: absolute;
+    bottom: 0 !important;
+    padding: 2px 0 2px 10px !important;
+    margin: 0 !important;
+    left: 0 !important;
+    background-color: rgba(51, 51, 51, 0.65) !important;
+    width: 100% !important;
+    height: auto;
+    border-radius: 0px 0px 3px 3px;
+}
+
+#now_promo .product-image {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 13px;
+    left: 20px;
+}
+
+#now_promo .while {
+    position: absolute;
+    right: 42px;
+    top: 90px;
+    color: white;
+    font-weight: bold;
+}
+
+#now_promo .countdown {
+    position: absolute;
+    right: 40px;
+    bottom: 150px;
+    font-size: 5.5vmin;
+    color: white;
+    font-weight: bold;
+    text-shadow: black 0px 0px 8px;
+}
+
+#now_promo .card-title {
+    color: white;
+    font-size: 20pt !important;
+    margin: 10px;
+}
+
+#now_promo .card-subtitle {
+    color: white;
+    text-shadow: none !important;
+    font-size: 14pt !important;
+    margin: 10px;
+    font-weight: bold;
+}
+
+#now_promo .price-promo {
+    font-size: 26pt;
+    font-weight: bold;
+    position: absolute;
+    right: 30px;
+    bottom: 25px;
+    color: white;
+    text-shadow: black 0px 0px 2px;
+}
+
+@media only screen and (max-width : 768px) {
+    #now_promo .product-image {
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        margin: 0 !important;
+        border-radius: 0px;
+    }
+
+    #now_promo .countdown {
+        position: absolute;
+        top: 0 !important;
+        padding: 5px 10px !important;
+        margin: 0 !important;
+        left: 0 !important;
+        bottom: 270px;
+        background-color: rgba(51, 51, 51, 0.65) !important;
+        width: 100% !important;
+        height: auto;
+        border-radius: 3px 3px 0px 0px;
+        color: white;
+        font-size: 12pt !important;
+        font-weight: bold;
+        text-shadow: none;
+    }
+
+    #now_promo .card-title {
+        font-size: 16pt !important;
+    }
+
+    #now_promo .while, #now_promo .tachado {
+        display: none;
+    }
+
+    #now_promo .price-promo {
+        font-size: 18pt;
+        right: 15px;
+        bottom: 13px;
+        text-shadow: none;
+    }
+}
+
+#next_promo > .card{
+    height: 300px !important;
+}
+
+#next_promo a, #next_promo .card-image {
+    height: inherit !important;
+}
+
+#next_promo .card-background {
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+#next_promo .card-header {
+    position: absolute;
+    top: 0 !important;
+    padding: 5px 10px !important;
+    margin: 0 !important;
+    left: 0 !important;
+    background-color: rgba(51, 51, 51, 0.95) !important;
+    width: 100% !important;
+    height: auto;
+    border-radius: 3px 3px 0px 0px;
+    color: white;
+    font-size: 12pt !important;
+    font-weight: bold;
+}
+
+#next_promo .card-footer {
+    position: absolute;
+    bottom: 0 !important;
+    padding: 2px 0 2px 10px !important;
+    margin: 0 !important;
+    left: 0 !important;
+    background-color: rgba(51, 51, 51, 0.95) !important;
+    width: 100% !important;
+    height: auto;
+    border-radius: 0px 0px 3px 3px;
+}
+
+#next_promo .card-title {
+    color: white;
+    font-size: 16pt !important;
+    margin: 10px;
+}
+
+#next_promo .card-subtitle {
+    color: white;
+    text-shadow: none !important;
+    font-size: 12pt !important;
+    margin: 10px;
+    font-weight: bold;
+}
+
+#next_promo .since {
+    position: absolute;
+    right: 88px;
+    top: 177px;
+    color: white;
+    font-weight: bold;
+    font-size: 40pt;
+    text-shadow: black 1px 1px 8px;
+}

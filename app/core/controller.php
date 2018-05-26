@@ -31,8 +31,8 @@
                 $ref = new Referer_Model();
             }
             if(!empty($_GET["promo"])){
-                $this->loadModel("promo_code");
-                $promo = new Promo_code_Model();
+                $this->loadModel("promo");
+                $promo = new Promo_Model();
             }
         }
 
@@ -144,10 +144,12 @@
         }
 
         public function getCountry(){
-            $adapter     = new \Ivory\HttpAdapter\CurlHttpAdapter();
-            $geocoder = new \Geocoder\Provider\IpInfoDb($adapter, '00e5547711eec5d70d9e0fa575417329cd176f88ae3af16c86a5984c1dbe2963');
-            $countryCode = $geocoder->geocode($this->getIP())->get(0)->getCountryCode();
-            return $countryCode;
+            @$adapter     = new \Ivory\HttpAdapter\CurlHttpAdapter();
+            if($geocoder = new \Geocoder\Provider\IpInfoDb($adapter, '00e5547711eec5d70d9e0fa575417329cd176f88ae3af16c86a5984c1dbe2963')) {
+                return $geocoder->geocode($this->getIP())->get(0)->getCountryCode() ?: 'ES';
+            } else {
+                return 'ES';
+            }
         }
 
         public function getURL(){

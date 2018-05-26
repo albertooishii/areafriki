@@ -683,7 +683,7 @@ footer .love {
     margin: 20px 0 10px;
 }
 
-#home_categories{
+#home .dark{
     padding-top: 10px;
     background-color: #353535 !important;
     color:white;
@@ -845,31 +845,6 @@ footer .love {
 .product_card .fa, .product_file .fa, .product_card .material-icons{
     font-size: 26px !important;
     vertical-align: top;
-}
-
-.product_file .product-title{
-    font-size: 190%;
-    margin-top: 0;
-}
-
-.product_file .product-category{
-    font-size: 85%;
-}
-
-.product_file .product-description{
-    font-size: 100%;
-    color: #353535;
-    line-height: initial;
-}
-
-.product_file #precio{
-    font-weight: bold;
-    color: #353535;
-    margin-bottom: 0;
-}
-
-.product_file .product_buttons{
-    margin-top: -25px;
 }
 
 .like-button .fa, .like-button .material-icons{
@@ -1652,4 +1627,24 @@ img.store-icon{
 
 .modal-footer .btn{
     margin-bottom: 0;
+}
+
+.tachado {
+    position: relative;
+}
+ 
+.tachado:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 50%;
+    right: 0;
+    border-top: 3px solid;
+    border-color: red;
+     
+    -webkit-transform:rotate(-10deg);
+    -moz-transform:rotate(-10deg);
+    -ms-transform:rotate(-10deg);
+    -o-transform:rotate(-10deg);
+    transform:rotate(-10deg);
 }

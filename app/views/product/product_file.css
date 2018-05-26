@@ -88,6 +88,31 @@
     text-align: center;
 }
 
+.product_file .product-title{
+    font-size: 190%;
+    margin-top: 0;
+}
+
+.product_file .product-category{
+    font-size: 85%;
+}
+
+.product_file .product-description{
+    font-size: 100%;
+    color: #353535;
+    line-height: initial;
+}
+
+.product_file .main-price{
+    font-weight: bold;
+    color: #353535;
+    margin-bottom: 0;
+}
+
+.product_file .product_buttons{
+    margin-top: -25px;
+}
+
 .product_buttons li {
     display: inline-block;
     margin-left: 2px;
@@ -152,4 +177,10 @@
 #product-options a.dropdown-toggle, #product-options a.dropdown-toggle:hover {
     color: #353535 !important;
     background-color: transparent !important;
+}
+
+.tachado {
+    position: relative;
+    display: initial;
+    font-weight: normal !important;
 }
