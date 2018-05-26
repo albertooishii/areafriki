@@ -206,6 +206,13 @@ main a, main a:focus, main a:hover {
     min-height: 700px;
 }
 
+.container.wrapper.center{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 768px){
     .container.wrapper{
         padding-top: 80px;
