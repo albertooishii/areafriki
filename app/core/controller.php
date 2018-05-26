@@ -144,12 +144,25 @@
         }
 
         public function getCountry(){
-            @$adapter     = new \Ivory\HttpAdapter\CurlHttpAdapter();
+            $response = json_decode($this->curl('http://api.ipinfodb.com/v3/ip-city/?key=00e5547711eec5d70d9e0fa575417329cd176f88ae3af16c86a5984c1dbe2963&format=json&ip=80.29.173.172'), true);
+            return $response['countryCode'] ?: 'ES';
+
+            /*$adapter     = new \Ivory\HttpAdapter\CurlHttpAdapter();
             if($geocoder = new \Geocoder\Provider\IpInfoDb($adapter, '00e5547711eec5d70d9e0fa575417329cd176f88ae3af16c86a5984c1dbe2963')) {
                 return $geocoder->geocode($this->getIP())->get(0)->getCountryCode() ?: 'ES';
             } else {
                 return 'ES';
-            }
+            }*/
+        }
+
+        function curl($url){
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return $result;
         }
 
         public function getURL(){
