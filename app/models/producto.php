@@ -155,6 +155,28 @@
 
         }
 
+        function countProductosCategoryParentUser()
+        {
+            $query="SELECT count(*) as count FROM productos WHERE categoria IN (SELECT id FROM categorias WHERE parent=$this->category_parent) AND design IN(SELECT token FROM designs WHERE user=$this->creador)";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL){
+                return $answer["count"];
+            }else{
+                return 0;
+            }
+        }
+
+        function countProductosCategoryUser()
+        {
+            $query="SELECT count(*) as count FROM productos WHERE categoria = $this->categoria AND design IN(SELECT token FROM designs WHERE user=$this->creador)";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL){
+                return $answer["count"];
+            }else{
+                return 0;
+            }
+        }
+
         function getProductosTag($limit=false)
         {
             if(empty($order)){
@@ -385,14 +407,9 @@
         function getLastViewsUser($limit)
         {
             if(!empty($this->user)){
-                $query = "SELECT DISTINCT * FROM productos WHERE id IN(SELECT producto FROM visitas WHERE user='$this->user' ORDER BY date DESC) LIMIT $limit";
+                $query = "SELECT productos.* from productos INNER JOIN visitas on productos.id = visitas.producto where visitas.id in (SELECT MAX(visitas.id) from visitas where visitas.user='".$this->user."' GROUP BY visitas.producto) ORDER BY visitas.date DESC LIMIT $limit";
             }else{
-                if (preg_match( "/^([d]{1,3}).([d]{1,3}).([d]{1,3}).([d]{1,3})$/", getenv('HTTP_X_FORWARDED_FOR'))){
-                    $ip=getenv('HTTP_X_FORWARDED_FOR');
-                }else{
-                    $ip=getenv('REMOTE_ADDR');
-                }
-                $query = "SELECT DISTINCT * FROM productos WHERE id IN(SELECT producto FROM visitas WHERE ip='$ip' ORDER BY date DESC) LIMIT $limit";
+                $query = "SELECT productos.* from productos INNER JOIN visitas on productos.id = visitas.producto where visitas.id in (SELECT MAX(visitas.id) from visitas where visitas.ip='".$this->getIP()."' GROUP BY visitas.producto) ORDER BY visitas.date DESC LIMIT $limit";
             }
             if($answer=$this->_db->query($query)){
                 while($fila = $answer->fetch_assoc()){

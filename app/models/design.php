@@ -46,23 +46,6 @@
             return false;
         }
 
-        function getMyDesigns()
-        {
-            $query = "SELECT * FROM designs WHERE user = $this->user AND token NOT IN (SELECT design FROM productos WHERE categoria=$this->categoria)";
-            //echo $query;
-            if($answer=$this->_db->query($query)){
-                while($fila = $answer->fetch_assoc()){
-                    $lista_designs[]=$fila;
-                }
-                if(!empty($lista_designs)){
-                    return $lista_designs;
-                }else{
-                    return false;
-                }
-            }
-            return false;
-        }
-        
         function getTopicsDesign(){
             $query="SELECT topic FROM design_topic WHERE design='$this->token'";
             if($answer=$this->_db->query($query)){

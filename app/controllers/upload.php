@@ -25,7 +25,7 @@ class Upload extends Controller
                         case 'designs':
                             $data["page_title"] = "Diseña tu producto";
 
-                            $data['category_parent']= $cat->parent = $cat->getWhereNombre($cat->nombre)['id'];
+                            $data['category_parent']= $pr->category_parent = $cat->parent = $cat->getWhereNombre($cat->nombre)['id'];
                             $categorias = $cat->getChilds();
                             $data["tematicas"] = $cat->getCategorias('topic');
                             $dg->genera_token();
@@ -249,7 +249,7 @@ class Upload extends Controller
                     }
 
                     if (empty($codigo_error)) {
-                        $dg->user = $this->u->id;
+                        $dg->user = $pr->creador = $this->u->id;
                         $pr->tags = explode(',', $_POST["tags"]);
                         $data["user"] = $this->u->user;
 
@@ -273,6 +273,16 @@ class Upload extends Controller
                                 }
                             }
                             if (empty($codigo_error)) {
+                                //Si es su primer diseño
+                                if($pr->countProductosCategoryParentUser() == 1) {
+                                    $this->loadModel("mailing");
+                                    $mailing = New Mailing_Model();
+                                    $mailing->email=$this->u->email;
+                                    $mailing->name=$this->u->user;
+                                    $mailing->list = 8; //Lista informativa para vendedores de productos con diseños
+                                    $mailing->set();
+                                }
+
                                 $this->loadModel("email");
                                 /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
                                 $admail = new Email();
@@ -290,8 +300,23 @@ class Upload extends Controller
                             if ($pr->setCraft()) {
                                 $dg->setTopicsDesign($topics);
                                 $dg->setSubCategory($_POST["subcategoria"]);
+
+                                //Si es su producto de handmade/segundamano
+                                if($pr->countProductosCategoryUser() == 1) {
+                                    $this->loadModel("mailing");
+                                    $mailing = New Mailing_Model();
+                                    $mailing->email=$this->u->email;
+                                    $mailing->name=$this->u->user;
+                                    if ($cat->nombre == 'handmades') {
+                                        $mailing->list = 9; //Lista informativa para vendedores de productos de handmade
+                                    } else if($cat->nombre == 'secondhand') {
+                                        $mailing->list = 11; //Lista informativa para vendedores de productos de seconcdhand
+                                    }
+                                    $mailing->set();
+                                }
+
                                 $this->loadModel("email");
-                                    /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
+                                /*PREPARAMOS EMAIL PARA EL ADMINISTRADOR*/
                                 $admail = new Email();
                                 $admail->to = ADMIN_EMAIL;
                                 $admail->subject = "Nuevo producto publicado por " . $this->u->user;

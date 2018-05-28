@@ -14,8 +14,6 @@
             $cat = New Categoria_Model();
             $this->loadModel("notification");
             $notify = New Notification_Model();
-            $this->loadModel("blog");
-            $blog = New Blog_Model();
             @$action=$_GET["action"];
             $data["reg_msg"]=$data["login_msg"]="";
             switch($action){
@@ -34,6 +32,14 @@
                         }
                         if($this->u->register()){
                             $this->registerWordpress($_POST["password"]);
+
+                            $this->loadModel("mailing");
+                            $mailing = New Mailing_Model();
+                            $mailing->email=$this->u->email;
+                            $mailing->name=$this->u->user;
+                            $mailing->list = 4; //Lista informativa para todos los usuarios
+                            $mailing->set();
+
                             //Continuamos con el formulario de mailing
                             if(!empty($_POST["redirect"])){
                                 Header("Location: ".PAGE_DOMAIN."/mailing?redirect=".$_POST["redirect"]);
@@ -230,6 +236,9 @@
                         $this->u->pass=md5($_POST["password"]);
                         $this->u->email=$_POST["email"];
                         if($this->u->recoverPassword()){
+                            $this->loadModel("blog");
+                            $blog = New Blog_Model();
+
                             $info_user=$this->u->getUser();
                             $this->u->wp_id=$info_user["wp_id"];
                             $blog->recoverPassword($_POST['password'], $this->u->wp_id);
@@ -261,6 +270,8 @@
 
                 case 'logout':
                     $this->u->logout();
+                    //$this->loadModel("blog");
+                    //$blog = New Blog_Model();
                     //$blog->logoutWPUser();
                 break;
 
@@ -558,7 +569,8 @@
                         $data["mensaje"]="";
                         if(!empty($_POST)){
                             //print_r($_POST);
-                            $this->u->email=trim($_POST["email"]);
+                            //TODO: Desactivo la edición de email porque hay que cambiar las subscripciones a la nueva cuenta que añadan y enviar email de confirmación al nuevo email para verificarlo.
+                            //$this->u->email=trim($_POST["email"]);
                             $this->u->address=trim($_POST["address"]);
                             $this->u->cp=trim($_POST["cp"]);
                             $this->u->localidad=trim($_POST["localidad"]);
@@ -605,6 +617,12 @@
                         $data["iban"]=$user["iban"];
                         $data["credit"]=number_format($user["credit"], 2, ',', ' ');
                         $data["provincia_selected"]=$user["provincia"];
+
+                        $this->loadModel("mailing");
+                        $mailing = New Mailing_Model();
+                        $mailing->email = $user["email"];
+                        $data['lists'] = $mailing->getSubscriberLists();
+
                         $data["provincia"]=$this->loadView("forms","provincia",$data);
                         $data["custom_js"]=$this->minifyJs("user/js", "settings");
                         $this->render("user","settings",$data);

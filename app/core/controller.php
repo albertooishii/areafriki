@@ -264,5 +264,11 @@
             fwrite($arch, "[".date("Y-m-d H:i:s.u")." - ".$type." - ".$_SERVER['REMOTE_ADDR']."] ".$cadena."\n");
             fclose($arch);
         }
+
+        public function print_r2($value) {
+            echo "<pre>";
+            print_r($value);
+            echo "</pre>";
+        }
     }
 ?>

@@ -2,6 +2,7 @@
     <ul class="nav nav-pills nav-pills-danger">
         <li class="active"><a href="#personal_information" data-toggle="tab" aria-expanded="false">DATOS PERSONALES</a></li>
         <li class=""><a href="#cash_information" data-toggle="tab" aria-expanded="false">CONFIGURACIÓN DE PAGOS</a></li>
+        <li class=""><a href="#mailing_notifications" data-toggle="tab" aria-expanded="false">GESTIÓN DE NOTIFICACIONES</a></li>
         <li class=""><a href="#change_password" data-toggle="tab" aria-expanded="true">CAMBIAR CONTRASEÑA</a></li>
     </ul>
     <div class="tab-content tab-space">
@@ -22,7 +23,7 @@
 
                     <div class="form-group label-floating">
                         <label class="control-label">Correo electrónico</label>
-                        <input type="email" class="form-control" name="email" value="<?=$data["email"]?>"
+                        <input type="email" class="form-control" name="email" disabled value="<?=$data["email"]?>"
                             data-fv-notempty="true"
                             data-fv-notempty-message="El e-mail es obligatorio"
                             data-fv-emailaddress="true"
@@ -141,6 +142,57 @@
                             data-fv-iban-message="El IBAN introducido no es correcto" />
                     </div>
 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-raised btn-round" name="signup" value="Sign up"><i class="material-icons">save</i> Guardar los cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div id="mailing_notifications" class="card card-raised tab-pane fade">
+            <div class="content">
+                <form action="<?=PAGE_DOMAIN?>/mailing/update" method="post">
+                    <header>
+                        <h3 class="title text-primary"><i class="material-icons">notifications_active</i> Gestión de notificaciones</h3>
+                        <p>Aquí puedes gestionar que tipo de notificaciones por email quieres recibir.</p>
+                    </header>
+
+                    <input type="hidden" name="lists[]" value="1">
+
+                    <h4 class="title">Novedades de <?=PAGE_NAME?></h4>
+                    <p>Te mantendremos informado/a sobre actualizaciones y mejoras de interés general sobre <?=PAGE_NAME?>. Nuevas funcionalidades y mejoras de la web, curiosidades del ámbito friki, eventos, etc.</p>
+                    <ul class="col-md-12">
+                        <li><div class="checkbox"><label><input type="checkbox" <?=in_array(4, $data['lists'])?'checked':''?> value="4" name="lists[]">Nuevas funcionalidades y curiosidades</label></div></li>
+                    </ul>
+
+                    <h4 class="title">Novedades de interés para vendedores</h4>
+                    <p>Te mantendremos informado/a sobre actualizaciones y mejoras de <?=PAGE_NAME?> relacionados con el tipo de producto que vendes: nuevas utilidades y opciones, facilidades de venta, sugerencias para vender más, etc.</p>
+                    <ul class="col-md-12">
+                        <li><div class="checkbox"><label><input type="checkbox" <?=in_array(8, $data['lists'])?'checked':''?> value="8" name="lists[]">Productos personalizados con diseños</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" <?=in_array(9, $data['lists'])?'checked':''?> value="9" name="lists[]">Manualidades, artesanía, handmades</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" <?=in_array(11, $data['lists'])?'checked':''?> value="11" name="lists[]">Productos nuevos y de segunda mano</label></div></li>
+                    </ul>
+
+                    <h4 class="title">Descuentos y promociones sobre productos de tu interés</h4>
+                    <p>Marca las categorías temáticas que sean de tu interés y te mantendremos al tanto de todas las novedades adaptadas a tus gustos. ¡Serás el primero en enterarte!</p>
+                        <div class="form-group">
+                            <ul class="col-md-4">
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(12, $data['lists'])?'checked':''?> value="12" name="lists[]">Cine</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(13, $data['lists'])?'checked':''?> value="13" name="lists[]">Videojuegos</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(14, $data['lists'])?'checked':''?> value="14" name="lists[]">Series</label></div></li>
+                            </ul>
+                            <ul class="col-md-4">
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(15, $data['lists'])?'checked':''?> value="15" name="lists[]">Manga & Anime (japonés)</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(16, $data['lists'])?'checked':''?> value="16" name="lists[]">Cómics</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(17, $data['lists'])?'checked':''?> value="17" name="lists[]">Animación Occidental</label></div></li>
+                            </ul>
+                            <ul class="col-md-4">
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(18, $data['lists'])?'checked':''?> value="18" name="lists[]">Literatura fantástica</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(19, $data['lists'])?'checked':''?> value="19" name="lists[]">Kawaii</label></div></li>
+                                <li><div class="checkbox"><label><input type="checkbox" <?=in_array(20, $data['lists'])?'checked':''?> value="20" name="lists[]">Cultura Friki</label></div></li>
+                            </ul>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-raised btn-round" name="signup" value="Sign up"><i class="material-icons">save</i> Guardar los cambios</button>
                     </div>

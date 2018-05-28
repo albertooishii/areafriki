@@ -24,7 +24,7 @@
             $lista_productos=$product_cards="";
 
             if(!empty($_GET["search"])){
-                $items=30;
+                $items=32;
                 if(isset($_GET["page"])){
                     $data["curpage"]=$page=$_GET["page"];
                 }else{
