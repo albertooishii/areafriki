@@ -36,7 +36,8 @@
                     if(isset($_SESSION["login"])) {
                         $this->render('mailing', 'mailing', $data);
                     } else {
-                        $this->render("error","404");
+                        //redirigimos al login con redireccion de vuelta para aca
+                        header('Location: '.PAGE_DOMAIN.'/login?redirect='.$this->getURL());
                     }
             }
         }
