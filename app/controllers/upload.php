@@ -133,7 +133,7 @@ class Upload extends Controller
             case 'publish':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_time_limit(60 * 30);//Establece tiempo máximo de ejecuccion.
-                    $cat->parent = $cat->id = $_POST["categoria"];
+                    $cat->parent = $pr->category_parent = $cat->id = $_POST["categoria"];
                     $cat->nombre = $cat->get()["nombre"];
                     $data["parent_nombre"] = $cat->nombre;
                     $pr->nombre = $data["nombre"] = trim($_POST["nombre"]);

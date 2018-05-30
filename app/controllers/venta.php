@@ -108,7 +108,7 @@
                                     break;
 
                                     case 'procesado':
-                                        if(($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA){
+                                        if((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA) || $this->u->isAdmin()){
                                             $ped->estado=$_POST["estado"];
                                             if($ped->changeEstado()){
                                                 echo true;
@@ -121,7 +121,7 @@
                                     break;
 
                                     case 'enviado':
-                                        if(((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA)) || ($ar_pedido["estado"]=="procesado")){
+                                        if(((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA)) || ($ar_pedido["estado"]=="procesado") || $this->u->isAdmin()){
                                             $data["localizador"]=$ped->localizador=$_POST["localizador"];
                                             $mail->getEmail("pedido/enviado", $data);
                                             $mail->to=$ped->email;
@@ -136,7 +136,7 @@
                                     break;
 
                                     case 'completado':
-                                        if((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA) || $ar_pedido["estado"]=="procesado" || $ar_pedido["estado"]=="enviado"){
+                                        if(((($ar_pedido["estado"]=="pendiente" || $ar_pedido["estado"]=="pagado") && $horas>=TIEMPO_ESPERA) || $ar_pedido["estado"]=="procesado" || $ar_pedido["estado"]=="enviado") || $this->u->isAdmin()){
                                             if($ped->completar()){
                                                 echo true;
                                             }else{
