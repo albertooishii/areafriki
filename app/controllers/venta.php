@@ -44,6 +44,19 @@
                                 }
 
                                 switch($_POST["estado"]){
+                                    case 'pendiente':
+                                        if($ar_pedido["estado"]=="incompleto" && $this->u->isAdmin()){
+                                            $ped->estado=$_POST["estado"];
+                                            if($ped->changeEstado()){
+                                                echo true;
+                                            }else{
+                                                echo "No se ha podido cambiar el estado a este pedido";
+                                            }
+                                        } else {
+                                            echo "No puedes cambiar este estado";
+                                        }
+                                    break;
+
                                     case 'pagado':
                                         $mail->getEmail("pedido/pagado", $data);
                                         $mail->to=$ped->email;
