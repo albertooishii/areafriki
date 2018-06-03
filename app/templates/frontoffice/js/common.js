@@ -192,7 +192,7 @@ $(document).ready(function() {
                 }else{
                     $(".modal-title").html("¡Aviso!");
                     $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
-                    $(".modal-footer").html("<a href='/login' class='btn btn-primary btn-round'>Iniciar sesión</a>");
+                    $(".modal-footer").html("<a href='/login?redirect=" + window.location + "' class='btn btn-primary btn-round'>Iniciar sesión</a>");
                     $(".modal").modal();
                 }
             }
@@ -218,7 +218,7 @@ $(document).ready(function() {
                 }else{
                     $(".modal-title").html("¡Aviso!");
                     $(".modal-body").html("<h4>Tienes que estar registrado/a para hacer esta acción</h4>");
-                    $(".modal-footer").html("<a href='/login' class='btn btn-primary btn-round'>Iniciar sesión</a>");
+                    $(".modal-footer").html("<a href='/login?redirect=" + window.location + "' class='btn btn-primary btn-round'>Iniciar sesión</a>");
                     $(".modal").modal();
                 }
             }

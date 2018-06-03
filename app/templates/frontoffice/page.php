@@ -9,13 +9,14 @@
         <?=$data["meta_tags"]?>
 
         <link rel="apple-touch-icon" sizes="180x180" href="/app/templates/frontoffice/img/icons/apple-touch-icon.png">
-        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/app/templates/frontoffice/img/icons/favicon-16x16.png" sizes="16x16">
-        <link rel="manifest" href="/app/templates/frontoffice/img/icons/manifest.json">
-        <link rel="mask-icon" href="/app/templates/frontoffice/img/icons/safari-pinned-tab.svg" color="#353535">
+        <link rel="icon" type="image/png" sizes="32x32" href="/app/templates/frontoffice/img/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/app/templates/frontoffice/img/icons/favicon-16x16.png">
+        <link rel="manifest" href="/app/templates/frontoffice/img/icons/site.webmanifest">
+        <link rel="mask-icon" href="/app/templates/frontoffice/img/icons/safari-pinned-tab.svg" color="#fab809">
         <link rel="shortcut icon" href="/app/templates/frontoffice/img/icons/favicon.ico">
         <meta name="apple-mobile-web-app-title" content="<?=PAGE_NAME?>">
         <meta name="application-name" content="<?=PAGE_NAME?>">
+        <meta name="msapplication-TileColor" content="#fab809">
         <meta name="msapplication-config" content="/app/templates/frontoffice/img/icons/browserconfig.xml">
         <meta name="theme-color" content="#353535">
 

@@ -579,7 +579,7 @@
                             $this->u->pais=$_POST["pais"];
                             $this->u->idnum=trim($_POST["idnum"]);
                             $this->u->birthday=date("Y-m-d", strtotime(str_replace('/', '-', $_POST["birthday"])));
-                            if(!empty($_POST["email"]) && !empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
+                            if(/*!empty($_POST["email"]) && */!empty($_POST["address"]) && !empty($_POST["cp"]) && !empty($_POST["localidad"]) && !empty($_POST["provincia"]) && !empty($_POST["phone"])){
                                 if($this->u->updateUserInformation()){
                                     $data["mensaje"]=$this->loadView('success','form_success','Información actualizada correctamente');
                                 }else{
