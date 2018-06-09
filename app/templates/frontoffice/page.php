@@ -29,7 +29,7 @@
             </div>
         </noscript>
         <!--Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <!-- Material Kit -->
         <!--<link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>-->
         <!--Fonts and icons -->
@@ -143,7 +143,7 @@
         <!--Cropper -->
         <link rel="stylesheet" href="/vendor/cropper/cropper.min.css">
         <!--Animate -->
-        <link rel="stylesheet" href="/vendor/animate.css">
+        <!--<link rel="stylesheet" href="/vendor/animate.css">-->
         <!--PerfectScrollbar -->
         <link rel="stylesheet" href="/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css">
         <!--Bootstrap range slider -->
@@ -165,7 +165,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.1.5/bootstrap-slider.min.js"></script>
         <!--Bootstrap-->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <!--Bootstrap select-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-es_ES.min.js"></script>

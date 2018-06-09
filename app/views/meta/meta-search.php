@@ -1,6 +1,6 @@
 <?php
-    $data['page_title'] ="Resultados de búsqueda de ".$data["search"]." en ". PAGE_NAME. ".";
-    $descripcion = "Se han encontrado ".$data['totalitems']." resultados relacionados con: ".$data["lista_tags_populares"];
+    $data['page_title'] ="Artículos frikis y originales de ".ucwords($data["search"])." en ". PAGE_NAME. ".";
+    $descripcion = "Descubre los Regalos más Frikis y Originales de ".ucwords($data["search"]).". Para ti, para tus amigos.";
 
     if($data["curpage"]>1){
         $descripcion.=". Página ".$data["curpage"];

@@ -247,6 +247,7 @@
 
                 //NOW PROMO
                 if($promo->getNowPromo()) {
+                    $this->print_r2($promo);die();
                     $data['promo']['nowtime'] = date ("Y-m-d H:i:s");
                     $data['promo']['endtime'] = $promo->caducidad;
                     $data['promo']['now'] = $promo;

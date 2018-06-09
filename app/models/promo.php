@@ -57,7 +57,7 @@
         function getNowPromo()
         {
             $now = date ("Y-m-d H:i:s");
-            $query="SELECT * FROM promo WHERE tipo = '$this->tipo' AND fecha_inicio <= '$now' ORDER BY fecha_inicio ASC limit 1";
+            $query="SELECT * FROM promo WHERE tipo = '$this->tipo' AND fecha_inicio <= '$now' AND caducidad > '$now' ORDER BY fecha_inicio ASC limit 1";
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL){
                 foreach($answer as $key => $value) {
@@ -72,7 +72,7 @@
         function getNextPromo()
         {
             $now = date ("Y-m-d H:i:s");
-            $query="SELECT * FROM promo WHERE tipo = '$this->tipo' AND fecha_inicio > '$now' ORDER BY fecha_inicio ASC limit 1";
+            $query="SELECT * FROM promo WHERE tipo = '$this->tipo' AND fecha_inicio > '$now' AND caducidad > '$now' ORDER BY fecha_inicio ASC limit 1";
             $answer = $this->_db->query($query)->fetch_assoc();
             if ($answer!=NULL){
                 foreach($answer as $key => $value) {
