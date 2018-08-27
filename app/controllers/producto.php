@@ -598,7 +598,7 @@
                                                     default:
                                                         $data["indicaciones_size"]="";
                                                 }
-                                                $data["montaje"].="<a class='zoom-preview' href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='montaje' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
+                                                $data["montaje"].="<a class='zoom-preview' href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-toggle='lightbox'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 $data["stock"]=10000;
 
                                                 if(strpos(strtolower($data["dg-nombre"]), strtolower(substr($data["nombre_categoria"], 0, -1)))!==0){

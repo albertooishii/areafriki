@@ -1,7 +1,7 @@
 <div class="row" id="share-dialog" data-categoria="<?=$data["dg-categoria"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="col-xs-12">
         <!-- Twitter -->
-        <a href="http://twitter.com/home?status=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=$data['url']?>" title="Share on Twitter" target="_blank" class="btn btn-share btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+        <a href="http://twitter.com/home?status=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=$data['url']?> @frikiarea" title="Share on Twitter" target="_blank" class="btn btn-share btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
     </div>
     <div class="col-xs-12">
          <!-- Facebook -->
