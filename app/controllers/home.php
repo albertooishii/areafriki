@@ -36,7 +36,7 @@
                     $data["order"]=false;
                 }
                 
-                $cat->nombre=$creador->user=$p->search=trim(str_replace("-"," ",urldecode($_GET["search"])));
+                $p->token=$cat->nombre=$creador->user=$p->search=trim(str_replace("-"," ",urldecode($_GET["search"])));
                 
                 if($info_categoria=$cat->getWhereNombre()){ //Primero comprobamos si es una categoria
                     $t->categoria=$p->categoria=$info_categoria["id"];
@@ -63,7 +63,25 @@
                     $data["meta_tags"]=$this->loadView("meta","meta-categoria",$data);
                 }elseif($info_creador=$creador->getUser()){ //Comprobamos si es un usuario
                     Header("Location: ".PAGE_DOMAIN."/user/".$creador->user2URL($info_creador["user"]));
-                }else{
+                }elseif($lista_productos=$p->getProductosDesign()){ //comprobamos si es un token de diseño
+                    $data["search"]=$lista_productos[0]['nombre'];
+                    $data["sourcepage"]=PAGE_DOMAIN."/".$p->token;
+                    $limit1=$items*($page-1);
+                    $data['totalitems']=$p->countProductosDesign();
+                    $data["totalpages"]=$totalpages=ceil($totalitems/$items);
+                    $data["subhead"] = "Resultados de búsqueda de ".$data["search"];
+                    $data["subtitle"]="Total de productos encontrados: ". $data['totalitems']; 
+                    if($popular_tags=$t->getPopularTagsFromSearch($data['search'],6)){
+                        $data["lista_tags_populares"]='';
+                        foreach($popular_tags as $tag_popular){
+                            $data["lista_tags_populares"].=" ".str_replace("-"," ",$tag_popular["tag"]). ",";
+                        }
+                        $data["lista_tags_populares"]=trim($data["lista_tags_populares"],',')."...";
+                    }else{
+                        $data["lista_tags_populares"]="";
+                    }
+                    $data["meta_tags"]=$this->loadView("meta","meta-search",$data);
+                } else {
                     $data["search"]=$p->search;
                     $data["sourcepage"]=PAGE_DOMAIN."/".$_GET["search"];
                     $limit1=$items*($page-1);

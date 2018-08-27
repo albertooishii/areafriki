@@ -63,7 +63,7 @@ $(document).ready(function(){
                 },
                 success: function (response){
                     if(response==1){
-                        productoPublicado();
+                        productoPublicado($("#token").val(), $("input[name='categoria']").val());
                     }else{
                         console.log(response)
                         //Enviamos error por email

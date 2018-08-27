@@ -1,39 +1,39 @@
 <div class="row" id="share-dialog" data-categoria="<?=$data["dg-categoria"]?>" data-token="<?=$data["dg-token"]?>">
     <div class="col-xs-12">
         <!-- Twitter -->
-        <a href="http://twitter.com/home?status=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" title="Share on Twitter" target="_blank" class="btn btn-share btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+        <a href="http://twitter.com/home?status=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=$data['url']?>" title="Share on Twitter" target="_blank" class="btn btn-share btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
     </div>
     <div class="col-xs-12">
          <!-- Facebook -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" data-href="<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" title="Share on Facebook" target="_blank" class="btn btn-share btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=<?=$data['url']?>" data-href="<?=$data['url']?>" title="Share on Facebook" target="_blank" class="btn btn-share btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
     </div>
     <div class="col-xs-12">
         <!-- Google+ -->
-        <a href="https://plus.google.com/share?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" title="Share on Google+" target="_blank" class="btn btn-share btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
+        <a href="https://plus.google.com/share?url=<?=$data['url']?>" title="Share on Google+" target="_blank" class="btn btn-share btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
     </div>
     <div class="col-xs-12">
         <!-- Pinterest -->
-        <a href="https://pinterest.com/pin/create/button/?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>&media=<?=PAGE_DOMAIN?>/designs/<?=$data["dg-user"]?>/<?=$data["dg-token"]?>/<?=$data["dg-categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg&description=<?=$data["dg-nombre"]?>" title="Share on Pinterest" target="_blank" class="btn btn-share btn-pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> Pinterest</a>
+        <a href="https://pinterest.com/pin/create/button/?url=<?=$data['url']?>&media=<?=PAGE_DOMAIN?>/designs/<?=$data["dg-user"]?>/<?=$data["dg-token"]?>/<?=$data["dg-categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg&description=<?=$data["dg-nombre"]?>" title="Share on Pinterest" target="_blank" class="btn btn-share btn-pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> Pinterest</a>
     </div>
     <div class="col-xs-12">
         <!-- Tumblr -->
-        <a href="http://www.tumblr.com/share/link?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="blank_" class="btn btn-share btn-tumblr"><i class="fa fa-tumblr"></i> Tumblr</a>
+        <a href="http://www.tumblr.com/share/link?url=<?=$data['url']?>" target="blank_" class="btn btn-share btn-tumblr"><i class="fa fa-tumblr"></i> Tumblr</a>
     </div>
     <div class="col-xs-12">
         <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>&title=¡<?=$data["dg-text"]?>!&summary=<?=$data["dg-descripcion"]?>" title="Share on LinkedIn" target="_blank" class="btn btn-share btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?=$data['url']?>&title=¡<?=$data["dg-text"]?>!&summary=<?=$data["dg-descripcion"]?>" title="Share on LinkedIn" target="_blank" class="btn btn-share btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
     </div>
     <div class="col-xs-12 nodesktop">
         <!-- WhatsApp -->
-        <a href="whatsapp://send?text=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="_blank" class="btn btn-share btn-whatsapp" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+        <a href="whatsapp://send?text=¡<?=$data["dg-text"]?>!, <?=$data["dg-nombre"]?>: <?=$data['url']?>" target="_blank" class="btn btn-share btn-whatsapp" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i> WhatsApp</a>
     </div>
     <div class="col-xs-12">
         <!-- Telegram -->
-        <a href="https://telegram.me/share/url?url=<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>" target="_blank" class="btn btn-share btn-telegram"><i class="fa fa-paper-plane" aria-hidden="true"></i> Telegram</a>
+        <a href="https://telegram.me/share/url?url=<?=$data['url']?>" target="_blank" class="btn btn-share btn-telegram"><i class="fa fa-paper-plane" aria-hidden="true"></i> Telegram</a>
     </div>
     <div class="col-xs-12">
         <!-- Copiar enlace -->
-        <a href="#" class="btn btn-share btn-copy btn-default"><i class="material-icons">content_copy</i> <input type="hidden" value="<?=PAGE_DOMAIN?>/<?=$data["dg-categoria"]?>/<?=$data["dg-token"]?>">Copiar enlace</a> 
+        <a href="#" class="btn btn-share btn-copy btn-default"><i class="material-icons">content_copy</i> <input type="hidden" value="<?=$data['url']?>">Copiar enlace</a> 
     </div>
     <span id="info_creador" data-user="<?=$data["dg-user"]?>"></span>
 </div>

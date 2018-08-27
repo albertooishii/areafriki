@@ -101,6 +101,12 @@
                 $sm->index_sitemapgen();
             break;
 
+            case 'lab':
+                include_once 'app/controllers/lab.php';
+                $lab = new Lab();
+                $lab->index_lab();
+            break;
+
             default:
                 $controller = new Controller();
                 $controller->render('error','404');

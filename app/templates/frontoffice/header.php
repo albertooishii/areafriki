@@ -194,8 +194,8 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="https://areafriki.com/blog">
-                            BLOG
+                        <a href="https://areafriki.com/space">
+                            SPACE
                         </a>
                     </li>
                     <li class="dropdown">

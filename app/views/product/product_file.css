@@ -184,3 +184,44 @@
     display: initial;
     font-weight: normal !important;
 }
+
+.zoom-preview {
+    display: block;
+    overflow: hidden;
+}
+
+#preview {
+    transition: all 0.5s ease;
+}
+
+#preview:hover {
+    transform: scale(1.5);
+}
+
+#breadcrumb, #breadcrumb a {
+    color: #555555;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.montaje .thumbnails {
+    top: 60px;
+    position: absolute;
+    width: 10%;
+    right: 30px;
+}
+
+.thumbnails a {
+    margin-bottom: 15px;
+    display: block;
+}
+
+.play-icon {
+    position: absolute;
+    top: 0;
+}
+
+.play-icon i {
+    color: white;
+    text-shadow: 4px 4px 2px rgba(150, 150, 150, 0.5);
+}

@@ -224,6 +224,28 @@
             return $answer["count"];
         }
 
+        function getProductosDesign()
+        {
+            $query = "SELECT * FROM productos WHERE design = '$this->token'";
+            if($answer=$this->_db->query($query)){
+                while($fila = $answer->fetch_assoc()){
+                    $lista_productos[]=$fila;
+                }
+                if(!empty($lista_productos)){
+                    return $lista_productos;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function countProductosDesign(){
+            $query = "SELECT count(*) as count FROM productos WHERE design = '$this->token' AND revisado=1 AND active=1 ";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            return $answer["count"];
+        }
+
         function getProductoWhereTokenAndCategoria()
         {
             $query = "SELECT * FROM productos WHERE design = '$this->token' AND categoria = '$this->categoria'";

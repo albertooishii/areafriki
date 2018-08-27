@@ -33,7 +33,7 @@
         <!-- Material Kit -->
         <!--<link href="/vendor/material-kit-pro/css/material-kit.css" rel="stylesheet"/>-->
         <!--Fonts and icons -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
         <?=@$data["custom_css"]?>
         <?=$data["min_css"]?>
@@ -138,8 +138,8 @@
         <link rel="stylesheet" href="/vendor/formvalidation/css/formValidation.min.css">
         <!--FileInput -->
         <link rel="stylesheet" href="/vendor/bootstrap-fileinput/css/fileinput.min.css">
-        <!--Lightbox2 -->
-        <link rel="stylesheet" href="/vendor/lightbox2/dist/css/lightbox.min.css">
+        <!--Lightbox -->
+        <link rel="stylesheet" href="/vendor/lightbox/dist/ekko-lightbox.css">
         <!--Cropper -->
         <link rel="stylesheet" href="/vendor/cropper/cropper.min.css">
         <!--Animate -->
@@ -174,7 +174,7 @@
         <script type="text/javascript" src="/vendor/snackbarjs/dist/snackbar.min.js"></script>
         <script type="text/javascript" src="/vendor/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
 
-        <script type="text/javascript" src="/vendor/lightbox2/dist/js/lightbox.min.js"></script>
+        <script type="text/javascript" src="/vendor/lightbox/dist/ekko-lightbox.min.js"></script>
 
         <!--FormValidation -->
         <script type="text/javascript" src="/vendor/formvalidation/js/formValidation.min.js"></script>
@@ -195,9 +195,9 @@
         <?=$data["min_js"]?>
         <?=@$data["custom_js"]?>
         <script>
-            lightbox.option({
-              'resizeDuration': 200,
-              'wrapAround': true
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
             });
             $.material.init();
         </script>

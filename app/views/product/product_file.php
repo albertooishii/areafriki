@@ -15,6 +15,7 @@
                 <section class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12 img-design">
                         <article class="product_card product" data-id="<?=$data["id_producto"]?>" data-categoria="<?=$data["cat_id"]?>" data-token="<?=$data["dg-token"]?>">
+                            <nav id="breadcrumb"><a href="<?=PAGE_DOMAIN?>">Inicio</a> / <a href="<?=PAGE_DOMAIN?>/<?=$data["nombre_categoria"]?>"><?=$data["cat_short_desc"]?></a> / <?=$data["dg-nombre"]?></nav>
                             <h2 class="product-title title nodesktop notablet text-center"><?=$data["dg-nombre"]?></h2>
                             <div class="montaje">
             <?php
@@ -24,9 +25,12 @@
             <?php
                 }else{
             ?>
-                                <a href="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-lightbox="thumbnail" data-title="<?=$data["dg-nombre"]?>">
+                                <a href="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/<?=$data["dg-token"]?>-0.jpg" data-toggle="lightbox" data-gallery="thumbnail">
                                     <img src="<?=PAGE_DOMAIN?>/designs/<?=$this->u->user2URL($data["username"])?>/<?=$data["dg-token"]?>/<?=$data["nombre_categoria"]?>/thumb-<?=$data["dg-token"]?>.jpg">
                                 </a>
+                                <div class="thumbnails">
+                                    <?=@$data["thumbnails"]?>
+                                </div>
             <?php
                 }
             ?>
@@ -55,18 +59,65 @@
                                             <span class="contador"><?=$data["contador_shares"]?></span>
                                         </a>
                                     </li>
-                                    <li class="coments-button">
+                                    <!--<li class="coments-button">
                                         <a href="#coments">
                                             <i class="material-icons">&#xE560;</i>
                                             <span class="contador"><?=$data["contador_comments"]?></span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
-                            <div class="thumbnails image-set row">
-                                <?=$data["thumbnails"]?>
-                            </div>
+                            <?php
+                                    if($data["cat_parent"]==1){
+                                ?>
+                                <div>
+                                    <header>
+                                        <h4>Características del producto</h4>
+                                    </header>
+                                    <p><small><?=$data["cat_desc"]?></small></p>
+
+                                    <?php
+                                        if ($data["samples"] || $data["sample-video"]) {
+                                    ?>
+                                    <div class="thumbnails image-set">
+                                        <header><h4>Muestras</h4></header>
+                                        <?=@$data["samples"]?>
+                                        <?=@$data['sample-video']?>
+                                    </div>
+                                    <?php
+                                        }
+                                    ?>
+                                </div>
+                                <?php
+                                    }
+                                ?>
                         </article>
+                        <!--<div id="coments">
+                            <section id="comments_area">
+                                <header>
+                                    <p><i class="material-icons">forum</i> Comentarios:</p>
+                                </header>
+                <?php
+                    if(isset($_SESSION["login"])){
+                ?>
+                                <div class="media media-post">
+                                    <a class="pull-left author" href="/user/<?=$this->u->user2URL($this->u->user)?>">
+                                        <div class="avatar">
+                                            <img class="media-object" alt="avatar de <?=$this->u->user?>" src="/<?=$data["avatar"]?>">
+                                        </div>
+                                    </a>
+                                    <div class="media-body" id="new_comment_text">
+                                        <div contenteditable="true" class="new-comment-edit" placeholder="Escribe un comentario"></div>
+                                    </div>
+                                </div>
+                <?php
+                                                }
+                ?>
+                                <div id="comments_list">
+                                    <?=$data["comments_list"]?>
+                                </div>
+                            </section>
+                        </div>-->
                     </div>
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -177,6 +228,15 @@
                             ?>
                             <div>
                                 <button id="add-cart" type="submit" class="btn btn-primary btn-round aligncentermobile"><i class="material-icons">add_shopping_cart</i> Añadir al carrito</button>
+
+                                <?php
+                                    if(!empty($data["preparacion"])){
+                                ?>
+                                <p><small><i class="material-icons">local_printshop</i> El producto estará terminado en <b><?=$data["preparacion"]?> días</b> aproximadamente.</small></p>
+                                <?php
+                                    }
+                                ?>
+                                <p><small><i class="material-icons">local_shipping</i> El producto te llegará en <b><?=$data["tiempo_envio"]?> días</b> aproximadamente<?=!empty($data["preparacion"])?' desde su finalización':''?>. <?=isset($data["gastos_envio"]) ? '<br>Los <b>gastos de envío</b> son de <b>'.$data["gastos_envio"].'</b>.':''?></small></p>
                             </div>
                             <?php
                                 }else{
@@ -195,73 +255,6 @@
                             ?>
                         </form>
                     </div>
-                </section>
-                <section class="row">
-                    <?php
-                        if($data["cat_parent"]==1){
-                    ?>
-                    <div class="col-md-6 col-sm-12 col-xs-12 inner">
-                        <header>
-                            <p><i class="material-icons">&#xE88E;</i> Características del producto:</p>
-                            <p><small><?=$data["cat_desc"]?></small></p>
-                        </header>
-                    </div>
-                    <?php
-                        }else{
-                    ?>
-                    <?php
-                        }
-                    ?>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <p><i class="material-icons">local_shipping</i> Envío y preparación:</p>
-                        <?php
-                         if(!empty($data["preparacion"])){
-                        ?>
-                        <p><small>Tiempo de preparación: <?=$data["preparacion"]?> días aprox.</small></p>
-                        <?php
-                            }
-                        ?>
-                        <p><small>Tiempo de envío: <?=$data["tiempo_envio"]?> días aprox.</small></p>
-                        <?php
-                            if(isset($data["gastos_envio"])){
-                        ?>
-                        <p><small>Gastos de envío: <?=$data["gastos_envio"]?></small></p>
-                        <?php
-                            }
-
-                        ?>
-                    </div>
-                </section>
-                <section class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-12" id="coments">
-                        <section id="comments_area">
-                            <header>
-                                <p><i class="material-icons">forum</i> Comentarios:</p>
-                            </header>
-            <?php
-                if(isset($_SESSION["login"])){
-            ?>
-                            <div class="media media-post">
-                                <a class="pull-left author" href="/user/<?=$this->u->user2URL($this->u->user)?>">
-                                    <div class="avatar">
-                                        <img class="media-object" alt="avatar de <?=$this->u->user?>" src="/<?=$data["avatar"]?>">
-                                    </div>
-                                </a>
-                                <div class="media-body" id="new_comment_text">
-                                    <div contenteditable="true" class="new-comment-edit" placeholder="Escribe un comentario"></div>
-                                </div>
-                            </div>
-            <?php
-                                             }
-            ?>
-                            <div id="comments_list">
-                                <?=$data["comments_list"]?>
-                            </div>
-                        </section>
-                    </div>
-                    <!--<div class="col-md-6">
-                        Sugerencias
-                    </div>-->
                 </section>
             </div>
         </div>

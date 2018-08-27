@@ -94,13 +94,24 @@
 
                 case 'share':
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $p->categoria=$cat->id=$_POST["categoria"];
-                        $data["dg-token"]=$p->token=$_POST["token"];
-                        $producto=$p->getProductoWhereTokenAndCategoria();
-                        $data["dg-categoria"]=$cat->get()["nombre"];
-                        $data["dg-nombre"]=$producto["nombre"];
-                        $data["dg-descripcion"]=$producto["descripcion"];
-                        $dg->token=$producto["design"];
+                        if (!empty($_POST['categoria']) && !empty($_POST['token'])) {
+                            $p->categoria=$cat->id=$_POST["categoria"];
+                            $dg->token=$data["dg-token"]=$p->token=$_POST["token"];
+                            $producto=$p->getProductoWhereTokenAndCategoria();
+                            $data["dg-categoria"]=$cat->get()["nombre"];
+                            $data['url'] = PAGE_DOMAIN.'/'.$data["dg-categoria"].'/'.$data["dg-token"];
+                            $data["dg-nombre"]=$producto["nombre"];
+                            $data["dg-descripcion"]=$producto["descripcion"];
+                        } elseif(!empty($_POST['token'])) {
+                            $dg->token=$data["dg-token"]=$p->token=$_POST["token"];
+                            $productos = $p->getProductosDesign();
+                            $data['url'] = PAGE_DOMAIN.'/'.$data["dg-token"];
+                            $data["dg-nombre"]=$productos[0]["nombre"];
+                            $cat->id=$productos[0]['categoria'];
+                            $data["dg-categoria"]=$cat->get()["nombre"];
+                            $data["dg-descripcion"]=$productos[0]["descripcion"];
+                        }
+
                         $design=$dg->get();
                         $creador->id=$design["user"];
                         $infouser=$creador->getUserFromID();
@@ -434,7 +445,7 @@
                                         $p->visitar();
                                         $design=$dg->get();
                                         $producto=$p->get();
-                                        if(($p->isActive() && $p->isRevisado()) || $this->u->isAdmin()){
+                                        if($p->isActive()){
                                             $data["creador_id"]=$creador->id=$design["user"];
                                             $infouser=$creador->getUserFromID();
                                             $data["username"]=$creador->user=$infouser["user"];
@@ -525,14 +536,19 @@
                                                 $data["preparacion"]=PREPARACION;
                                                 $data["tiempo_envio"]=TIEMPO_ENVIO;
                                                 $data["modelo"]=$producto["modelo"];
-                                                $data["thumbnails"]="";
+                                                $data["samples"]="";
                                                 //muestras
                                                 $data["muestras"]="";
                                                 $source_folder="muestras/".$data["nombre_categoria"];
                                                 $data["muestras-number"]=0;
                                                 foreach(glob($source_folder."/muestra-*") as $data['file']){
                                                     $data["muestras-number"]++;
-                                                    $data["thumbnails"].=$this->loadView("product", "muestras", $data);
+                                                    $data["samples"].=$this->loadView("product", "muestras", $data);
+                                                }
+                                                if(file_exists($source_folder."/".$data["nombre_categoria"].".mp4")) {
+                                                    $data['file'] = $source_folder."/".$data["nombre_categoria"].".mp4";
+                                                    $data['th_video'] = $source_folder."/".$data["nombre_categoria"].".jpg";
+                                                    $data["sample-video"]=$this->loadView("product", "muestras_video", $data);
                                                 }
 
 
@@ -582,7 +598,7 @@
                                                     default:
                                                         $data["indicaciones_size"]="";
                                                 }
-                                                $data["montaje"].="<a href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='thumbnail' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
+                                                $data["montaje"].="<a class='zoom-preview' href='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["dg-token"].".png' data-lightbox='montaje' data-title='".$data["dg-nombre"]."'><img id='preview' src='".PAGE_DOMAIN."/designs/".$this->u->user2URL($data["username"])."/".$data["dg-token"]."/".$data["nombre_categoria"]."/MONTAJE-".$data["dg-token"].".jpg'></a>";
                                                 $data["stock"]=10000;
 
                                                 if(strpos(strtolower($data["dg-nombre"]), strtolower(substr($data["nombre_categoria"], 0, -1)))!==0){

@@ -104,6 +104,9 @@ RewriteRule ^crafts/(.*)$ https://dev.areafriki.com/handmades/$1 [L,R=301]
 RewriteRule ^baul$ https://dev.areafriki.com/secondhand [L,R=301]
 RewriteRule ^baul/(.*)$ https://dev.areafriki.com/secondhand/$1 [L,R=301] 
 
+RewriteRule ^blog$ https://areafriki.com/space [L,R=301]
+RewriteRule ^blog/(.*)$ https://areafriki.com/space/$1 [L,R=301] 
+
 RewriteRule ^myorders$ index.php?section=pedido&action=myorders [QSA,L]
 RewriteRule ^myorders/$ index.php?section=pedido&action=myorders [QSA,L]
 

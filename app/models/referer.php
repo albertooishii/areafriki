@@ -9,7 +9,7 @@
             parent::__construct();
             if(isset($_GET["ref"])){
                 setcookie("referral", '', strtotime('-1 days'), '/');
-                setcookie("referral", $_GET["ref"], strtotime('+1 days'), '/');
+                setcookie("referral", $_GET["utm_source"], strtotime('+1 days'), '/');
                 header('Location: '.PAGE_DOMAIN.parse_url(PAGE_DOMAIN.$_SERVER["REQUEST_URI"])["path"]);
             }
         }

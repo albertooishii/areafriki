@@ -264,7 +264,7 @@ $(document).ready(function() {
             success: function (response){
                 if(response==1){
                     $(".share-button-selected").find('.contador').html((parseInt($(".share-button-selected").find('.contador').html()) + 1));
-                    $("#modalDg").modal("hide");
+                    //$("#modalDg").modal("hide");
                 }
                 event.stopPropagation();
             }
@@ -346,12 +346,24 @@ function tosnackbar(string){
     $("#"+elementid).snackbar("show");
 }
 
-function productoPublicado(){
+function productoPublicado(token, categoria = null){
     $(".modal-title").html("Producto publicado correctamente");
-    $(".modal-body").html("Tu producto se ha publicado correctamente. Nuestros moderadores comprobarán que cumple todas las normas de uso de la plataforma al producto antes de que sea visible públicamente. Se te avisará mediante un correo electrónico cuando sea aprobado.");
-    $('#modalDg').modal({backdrop: 'static', keyboard: false});
-    $(".close, .close-modal").click(function(){
-        window.location.href="/user/"+$("#login_user").data("userurl");
+    $(".modal-body").html("<p>Compártelo en las redes sociales</p>");
+    var parametros={
+        "token": token,
+        "categoria": categoria
+    };
+    $.ajax({
+        method: "POST",
+        url: "/index.php?section=producto&action=share",
+        data: parametros,
+        success: function (response){
+            $(".modal-body").append(response + '<p><small>Tu producto se ha publicado correctamente. Nuestros moderadores comprobarán que cumple todas las normas de uso de la plataforma y se te avisará mediante un correo electrónico en caso de se que incumpla alguna.</small></p>');
+            $('#modalDg').modal({backdrop: 'static', keyboard: false});
+            $(".close, .close-modal").click(function(){
+                window.location.href="/user/"+$("#login_user").data("userurl");
+            });
+        }
     });
 }
 

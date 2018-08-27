@@ -644,6 +644,8 @@
                             $data['id']=$infocreador["id"];
                             $data['ocupacion']=$infocreador["ocupacion"];
                             $data['intereses']=$infocreador["intereses"];
+                            $data['facebook']=$infocreador['facebook'];
+                            $data['views']=$infocreador['views'];
                             $data['avatar']=$creador->getAvatar(300);
                             $data['meta-avatar']=$creador->getAvatar(500);
                             $data["creador_avatar"]=$creador->getAvatar(64);
@@ -718,7 +720,7 @@
                                 $data["lista_productos"]="";
                                 foreach($lista_productos as $producto){
                                     $p->id=$producto["id"];
-                                    if($p->isActive() && ($creador->user==$this->u->user) || ($p->isRevisado() && $creador->user!=$this->u->user)){
+                                    if($p->isActive()){
                                         $data["revisado"]=$producto["revisado"];
                                         $data["id_producto"]=$pr->producto=$p->id=$producto["id"];
                                         $data["cat_id"]=$pr->categoria=$cat->id=$producto["categoria"];
@@ -737,13 +739,13 @@
                                         $data["contador_likes"]=$p->getLikes();
                                         $data["contador_shares"]=$p->getShares();
                                         $data["contador_comments"]=$p->getContComentarios();
-                                        if($producto["revisado"]==1){
+                                        // if($producto["revisado"]==1){
                                             $data["product_card"]=$this->loadView('product','product_card',$data);
                                             $data["lista_productos"].=$this->loadView('product','product_card_col-xl-4',$data);
-                                        }else{
+                                        /*}else{
                                             $data["product_card"]=$this->loadView('product','product_card_norevisado',$data);
                                             $data["lista_productos"].=$this->loadView('product','product_card_col-xl-4',$data);
-                                        }
+                                        }*/
                                     }
                                 }
                             }elseif(!empty($lists)){
@@ -758,7 +760,9 @@
                         }else{
                             $this->render('error','404',$data);
                         }
-                    }else{
+                    }else if(isset($_SESSION["login"]["user"])){
+                        Header("Location: ".PAGE_DOMAIN."/user/".$this->u->user2URL($_SESSION["login"]["user"]));
+                    } else {
                         $this->render('error','404',$data);
                     }
             }
@@ -782,6 +786,7 @@
             $wp_userid = $blog->registerWPUser($this->u->user, $password, $this->u->email);
             $this->u->wp_id = $wp_userid;
             $this->u->setUserWPid();
+            $this->loginWordpress($password, true);
         }
 
     }

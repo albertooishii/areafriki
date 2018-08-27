@@ -263,7 +263,7 @@ function publicarDesign(data, token) {
         },
         success: function (response) {
             if (response == 1) {
-                productoPublicado();
+                productoPublicado(token);
             } else {
                 console.log(response);
                 $(".modal-title").html("ERROR");

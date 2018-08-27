@@ -53,19 +53,23 @@
                             <i class="material-icons">sms</i><span placeholder="Intereses"><?=$data["intereses"]?></span>
                         </div>
                     </li>
+                    <?php
+                        if($data["username"]==$this->u->user){
+                    ?>
+                    <!--<li>
+                        <i class="material-icons">visibility</i>Total de visitas: <?=$data['views']?></span>
+                    </li>-->
                     <li>
-                        <?php
-                            if($data["username"]==$this->u->user){
-                        ?>
+
                         <i class="material-icons">&#xE157;</i>Enlace de referido <span data-container="body" data-toggle="tooltip" data-placement="top" title="" data-original-title="Si compartes este enlace ganarás una comisión entre el 2% y 6% por cada persona que traigas a <?=PAGE_NAME?>."><i class="material-icons">info_outline</i></span>
                         <span class="text-primary btn-copy">
-                            <?=PAGE_DOMAIN?>?ref=<?=$this->u->user2URL($this->u->user)?>
-                            <input type="hidden" value="<?=PAGE_DOMAIN?>?ref=<?=$this->u->user2URL($this->u->user)?>">
+                            <?=PAGE_DOMAIN?>?utm_source=<?=$this->u->user2URL($this->u->user)?>
+                            <input type="hidden" value="<?=PAGE_DOMAIN?>?utm_source=<?=$this->u->user2URL($this->u->user)?>">
                         </span>
-                        <?php
-                            }
-                        ?>
                     </li>
+                    <?php
+                        }
+                    ?>
                     <li class="aligncenter"><?=$data["edit_button"]?></li>
                </ul>
             </section>
