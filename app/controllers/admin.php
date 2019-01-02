@@ -657,7 +657,43 @@
 
                         case 'liquidaciones':
                             if(isset($_GET["action"])){
-
+                                switch($_GET["action"]) {
+                                    case 'liquidar':
+                                        if (isset($_POST["id"])) {
+                                            $vendedor=New Users_Model();
+                                            $vendedor->id = $_POST["id"];
+                                            $info_vendedor=$vendedor->getUserFromID();
+                                            if ($vendedor->liquidar()) {
+                                                $this->loadModel("email");
+                                                /*PREPARAMOS EMAIL PARA EL PUBLICADOR*/
+                                                $mail = new Email();
+                                                $data['credito']=$info_vendedor['credit'];
+                                                $data['nombre_vendedor']=$info_vendedor['user'];
+                                                $mail->to = $info_vendedor["email"];
+                                                $mail->subject = "Liquidación realizada - ".PAGE_NAME;
+                                                $mail->getEmail('liquidaciones/liquidado', $data);
+            
+                                                $notify->to=$vendedor->id;
+                                                $notify->from=0;
+                                                $notify->titulo="Liquidación realizada";
+                                                $notify->texto="Te acabamos de realizar el pago del saldo acumulado por tus ventas en la web a través del método de pago que configuraste (paypal o transferencia bancaria).";
+                                                $notify->url="settings";
+                                                $notify->tipo="liquidacion";
+                                                $notify->set();
+            
+                                                if ($mail->sendEmail()){
+                                                    echo true;
+                                                }else{
+                                                   echo "Se ha liquidado al usuario pero no se ha podido enviar la notificación por email";
+                                                }
+                                            } else {
+                                                echo false;
+                                            }
+                                        } else {
+                                            echo "Error al liquidar";
+                                        }
+                                    break;
+                                }
                             }else{
                                 $data["tbody"]="";
                                 $lista_usuarios=$this->u->getUsers();
@@ -670,7 +706,8 @@
                                     $data["idnum"]=$usuario["idnum"];
                                     $data["banco"]=$usuario["banco"]. " ".$usuario["iban"];
                                     $data["paypal"]=$usuario["paypal"];
-                                    $data["credito"]=number_format($usuario["credit"],2,',','');
+                                    $data["credito"]=$usuario["credit"];
+                                    $data["credito_format"]=number_format($usuario["credit"],2,',','');
                                     $data["referral"]=$usuario["referral"];
 
                                     $data["tbody"].=$this->loadView("admin", "liquidaciones/liquidaciones_row", $data);

@@ -714,6 +714,24 @@
             return false;
         }
 
+        function enVenta() {
+            $query = "SELECT fecha_publicacion, fecha_actualizacion, stock FROM productos WHERE id = '$this->id'";
+            $answer = $this->_db->query($query)->fetch_assoc();
+            if ($answer!=NULL) {
+                $today = new DateTime ('now');
+                $fecha_publicacion = $answer['fecha_publicacion'] ? new DateTime($answer['fecha_publicacion']) : null;
+                $fecha_actualizacion = $answer['fecha_actualizacion'] ? new DateTime($answer['fecha_actualizacion']) : null;
+                $diferencia = is_null($fecha_actualizacion) ? $fecha_publicacion->diff($today) : $today->diff($fecha_actualizacion);
+                if ($diferencia->days < 15) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
 // Actualizado -----------------------------------------------------//
 
         function revisar()

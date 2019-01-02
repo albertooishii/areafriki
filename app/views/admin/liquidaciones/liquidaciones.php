@@ -19,14 +19,14 @@
                             <tr>
                                 <th>Usuario</th>
                                 <th>E-Mail</th>
-                                <th>Estado</th>
                                 <th>Importe</th>
                                 <th>Banco</th>
                                 <th>Paypal</th>
-                                <th>Pedidos</th>
+                                <th>Estado</th>
+                                <!--<th>Pedidos</th>
                                 <th>Fecha Liquidación</th>
                                 <th>Fecha Límite de pago</th>
-                                <th>Liquidar</th>
+                                <th>Liquidar</th>-->
                             </tr>
                         </thead>
                         <tbody>

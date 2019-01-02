@@ -97,17 +97,17 @@
             </div>
         </div>
     </div>
-    <!--<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <a href="<?=PAGE_DOMAIN?>/store/dogswitch">
-            <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/cta-dogswitch.jpg" style="width:100%;height:100%;">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <a href="<?=PAGE_DOMAIN?>/space/packs-stickers/">
+            <img src="<?=PAGE_DOMAIN?>/app/templates/frontoffice/img/layout/cta-stickers.jpg" style="width:100%;height:100%;">
         </a>
-    </div>-->
-    <div class="col-md-4 col-sm-12 col-xs-12 inner">
+    </div>
+    <!--<div class="col-md-4 col-sm-12 col-xs-12 inner">
         <header>
             <h1 class="text-center">La tienda friki<br> donde puedes <strong>comprar</strong></h1>
         </header>
         <h2 class="text-center">Camisetas, sudaderas, tazas, vinilos, lienzos, manualidades, segunda mano...</h2>
         <h2 class="text-center" style="font-size:160%;">...y <strong>vender</strong></h2>
         <a href="<?=PAGE_DOMAIN?>/upload" class="btn btn-round btn-primary text-center aligncenter">¡Adelante!</a>
-    </div>
+    </div>-->
 </article>

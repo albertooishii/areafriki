@@ -1,41 +1,35 @@
 <div class="container wrapper">
-    <h1 class="aligncenter">NORMAS DE USO</h1>
-    <P>(El incumplimiento de estas normas puede llevar a la cancelación de un producto o diseño o incluso al vaneo de nuestra web y redes sociales)</P>
+    <h2 class="title">CONDICIONES DE COMPRA Y ENVÍOS.</h2>
 
-    <ul>
-    <li>Todos los diseños y productos presentados no pueden infringir normas de copyright.</li>
-    <li> Los productos presentados que sean ofensivos o hieran a la sensibilidad de terceros podrán ser borrados .</li>
-    <li>Puede ser motivo de baneo la falta de respeto y palabras mal sonante a otros usuarios de areafriki.com. </li>
-    </ul>
 
-    <p>¿Has localizado algo que incumplan las normas de uso? Contacta con nosotros <a href="mailto:<?=CONTACT_EMAIL?>"><?=CONTACT_EMAIL?></a></p>
-</div>
-<div class="container">
-    <h1 class="aligncenter">CONDICIONES DE COMPRA</h1>
+    <p>La simple aceptación de la compra mediante la confirmación del pedido realizado, implica que usted acepta las presentes condiciones, creando una relación entre usted y areafriki.com</p>
+    <p>Todos los pedidos tienen un tiempo de cancelación, ese periodo de cancelación es de 18H transcurrido ese tiempo areafriki.com y todos los usuarios comenzaran ha trabajar en el producto (días laborables).</p>
+    <p>El plazo de envió de los productosde la areafriki.com una vez terminado la preparación de dicho producto es de 48H a 72H. Los gastos de envío dependen del tamaño y cantidad. Podéis ver el gasto de envió antes de pagar.</p>
 
-    <h3>CONDICIONES DE COMPRA Y ENVIOS.</h3>
-    <P>La simple aceptación de la compra mediante la confirmación del pedido realizado, implica que usted acepta las presentes condiciones, creando una relación entre usted y areafriki.com.</P>
-    <P>Todos los pedidos tienen un tiempo de cancelación, ese periodo de cancelación es de 18H transcurrido ese tiempo areafriki.com y todos los usuarios handmades comenzaran ha trabajar en el producto (días laborables).</P>
-    <P>El plazo de envió de los productos de areafriki.com una vez terminado la preparación de dicho producto es de 48H. Los gastos de envió dependerán de tamaño y cantidad. Podéis ver el gasto de envió antes de pagar.</P>
 
-    <h3>PRODUCTOS DEFECTUOSOS</h3>
-    <P>ATENCIÓN: TODO AVISO DE PRODUCTO DEFECTUOSO TIENE QUE IR ACOMPAÑADO DE UNA FOTO E INDICACIÓN DE DICHO DEFECTO.</P>
-    <P>En caso de recibir un producto defectuoso por parte de areafriki.com pónganse en contacto al correo: contacto@areafriki.com.</P>
-    <P>En caso de recibir un producto defectuoso de un usuario handmades pónganse en contacto directo con dicho usuario. Sus datos aparecerán en el correo de confirmación de compra.</P>
-</div>
-<div class="container">
-    <h1 class="aligncenter">CONDICIONES DE VENTA</h1>
-    <h3>CONDICIONES DE VENTA (areafriki.com)</h3>
-    <p>Todos los precios aparecen en la página con el IVA INCLUIDO (Salvo por error informático). Los precios de los artículos son exclusivos para pedidos por web, pudiendo no coincidir con los precios que hay en nuestra tienda.</p>
+    <h4 class="title">PRODUCTOS DEFECTUOSOS O DAÑADOS POR VENDEDORES VERIFICADOS</h4>
 
-    <h3>CONDICIONES DE VENTA  (usuarios de la web)</h3>
+    <p>TODO AVISO DE PRODUCTO DEFECTUOSO TIENE QUE IR ACOMPAÑADO DE UNA FOTO E INDICACIÓN DE DICHO DEFECTO.</p>
+    <p>En caso de recibir un producto defectuoso vendidos por vendedores verificados por Área Friki <i class="material-icons">&#xE8E8;</i> pónganse en contacto al correo: <a href="mailto:central@areafriki.com">central@areafriki.com</a></p>
 
-    <h4>ARTICULOS DE areafriki.com</h4>
+    <p>El plazo para el cambio de los productos será de 30 días a partir de la fecha de su recepción. </p>
 
-    <p>La ganancia recibida por venta de los productos de areafriki.com se calcularan a raíz de la cantidad elegida por el usuario sobre el precio base ( Ej: precio base camiseta 11€ precio de venta elegido por el vendedor 15€ lo que deja una ganancia de 4€ por cada venta para el vendedor). La venta de los productos de areafriki.com como lienzos, camisetas etc. no tiene limite de unidades, el único limite que existe es la cancelación del productos por aparte del diseñador o incumplimiento de nuestras normas.</p>
-    <P>TODOS LOS DISEÑOS SIGUEN MANTENIENDO LA PROPIEDAD INTELECTUAL, DERECHO DEL AUTO Y EXPLOTACIÓN DE LA IMAGEN DEL PROPIO AUTOR, PUDIENDO CANCELAR LA IMAGEN CUANDO QUIERA .</P>
+    <p>Nota: cuando Área Friki. te envíe un reemplazo por un producto dañado o defectuoso, deberás devolver el producto original al mismo repartidor que le entregue el nuevo producto.</p>
+    <p>Área Friki no presenta la posibilidad de devoluciones, sólo presenta la posibilidad de cambiar un producto defectuoso o dañado por otro en buen estado.</p>
+    <p>Se recomienda la comprobación del producto a la hora de su recepción. En caso de estar defectuosos entregadlo de vuelta al mensajero.</p>
 
-    <h4>HANDMADES</h4>
-    <p>La comisión por venta realizada es, para handmaden es del 7.5% iva incluido del precio de venta final del artículo en la página. Esta comisión se te cargará solo si se ha vendido el artículo.</p>
-    <p>Si tu artículo se vende a través  de PayPal, se te podrían cargar las tarifas correspondientes de PayPal.</p>
+
+    <h4 class="title">PRODUCTOS DEFECTUOSOS O DAÑADOS POR VENDEDORES NO VERIFICADOS</h4>
+
+    <p>En caso de recibir un producto defectuoso de un usuario no verificado, deberá solicitarnos sus datos para ponerse en contacto directo con el vendedor. <a href="mailto:central@areafriki.com">central@areafriki.com</a>.</p>
+    <p>Área Friki se exime de toda responsabilidad con los artículos de usuarios no verificado solo podemos proporcionar los datos necesario para que realices el trámite.</p>
+
+    <p>El plazo para el cambio de los productos será de 30 días a partir de la fecha de su recepción. </p>
+
+
+    <h4 class="title">NO SE ADMITIRÁN CAMBIOS</h4>
+
+    <p>Cada producto está hecho a medida de tus indicaciones por eso tienes que estar seguro de lo que vas a comprar. Revisa bien Tallas, Colores, Diseño… NO SE ADMITEN CAMBIOS NI DEVOLUCIONES POR PRODUCTOS QUE NO ESTÉ NI DEFECTUOSOS O DAÑADOS.</p>
+
+    <p>POR OTROS MOTIVOS NO ESPECIFICADOS CONTACTAD CON <a href="mailto:central@areafriki.com">CENTRAL@AREAFRIKI.COM</a> Y DAREMOS UNA CONSULTA MAS PERSONALIZADA </p>
 </div>

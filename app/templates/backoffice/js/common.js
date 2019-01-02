@@ -96,5 +96,28 @@ $(document).ready(function() {
         "order": [[ 0, "desc" ]]
     });
 
+    $('.liquidar').click(function(e){
+        var element = $(this)
+        e.preventDefault();
+        var parametros = {
+            id: $(this).closest(".liquidacion").data("id")
+        }
+
+        $.ajax({
+            method: "POST",
+            url: '/simbiosis/designs?node=liquidaciones&action=liquidar',
+            data: parametros,
+            success: function(response){
+                if(response==1){
+                    element.replaceWith("<i>Liquidado</i>")
+                }else{
+                    alert(response);
+                }
+            },
+            error: function(){
+                alert("error ajax");
+            }
+        })
+    })
 });
 

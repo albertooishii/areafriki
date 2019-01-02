@@ -63,15 +63,20 @@
                         $notify->from=$this->u->id;
                         $notify->producto=$p->id;
                         $notify->titulo="Solicitud de compra";
-                        $notify->texto="Un usuario quiere comprar ".$producto["nombre"]." pero no tienes configuradas las opciones de pago.";
-                        $notify->url="settings";
+                        if (empty($info_creador["paypal"]) || empty($info_creador["iban"])) {
+                            $notify->texto="Un usuario quiere comprar ".$producto["nombre"]." pero no tienes configuradas las opciones de pago.";
+                            $notify->url="settings";
+                        } else {
+                            $notify->texto="Un usuario quiere comprar ".$producto["nombre"]." pero han pasado más de 15 días desde la publicación o última actualización.";
+                            $notify->url=$data["cat_nombre"].'/'.$data["token"].'/edit'; 
+                        }
                         $notify->tipo="compra";
                         $notify->set();
 
                         //Email para el vendedor
                         $this->loadModel("email");
                         $mail=New Email();
-                        $mail->getEmail("solicitar_producto", $data);
+                        $mail->getEmail(empty($info_creador["paypal"]) || empty($info_creador["iban"]) ? "solicitar_producto" : "solicitar_producto_caducado", $data);
                         $mail->to=$info_creador["email"];
                         $mail->subject=PAGE_NAME." | [Solicitud de compra]";
                         if($mail->sendEmail()){
@@ -654,7 +659,7 @@
                                                 }
                                                 $data["tiempo_envio"]=$producto["tiempo_envio"];
 
-                                                if(!$creador->puedeVender()){
+                                                if(!$creador->puedeVender() || !$p->enVenta()){
                                                     $data["puedevender"]=false;
                                                 }
 

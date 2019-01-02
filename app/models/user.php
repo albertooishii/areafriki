@@ -502,6 +502,14 @@
             return false;
         }
 
+        function liquidar()
+        {
+            $query = "UPDATE users SET credit=0 WHERE id='$this->id'";
+            if ( $this->_db->query($query) )
+            return true;
+            return false;
+        }
+
         function genera_codigos_registro() {
             $chars = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z');
 
