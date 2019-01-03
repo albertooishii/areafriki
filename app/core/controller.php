@@ -92,6 +92,8 @@
                 $cat = new Categoria_Model();
                 $this->loadModel("notification");
                 $notify = new Notification_Model();
+                $this->loadModel("blog");
+                $blog = new Blog_Model();
 
                 $notify->to=$car->user=$this->u->id;
                 $data["contador-carrito"]=$car->countCarrito();
@@ -101,6 +103,9 @@
                 if(!$this->u->getUser_activeaccount() && isset($_SESSION["login"])){
                     $data["header_advertencia"]=$this->loadView("header","advertencia");
                 }
+
+                $data["store_notice"] = $blog->getStoreNotice();
+
                 if(@$_GET["section"]=='store'){
                     $header=$this->loadTemplate("store", "header", $data);
                     $footer=$this->loadTemplate("store", "footer", $data);

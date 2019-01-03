@@ -85,5 +85,9 @@
         function getCategorySlug($id) {
             return get_the_category($id)[0]->slug;
         }
+
+        function getStoreNotice() {
+            return get_option('woocommerce_demo_store_notice');
+        }
     }
 ?>

@@ -222,8 +222,11 @@
     <div id="vender-mobile">
         <a href="/upload" class="btn btn-primary btn-fab"><i class="material-icons">&#xE2C6;</i></a>
     </div>
-    <!--<div id="primerlogin" class="container-fluid">
-        <div class="alert alert-danger">
+    <?php 
+        if ($data["store_notice"]) {
+    ?>
+    <div id="primerlogin" class="container-fluid">
+        <div class="alert alert-warning">
             <div class="container-fluid">
             <div class="alert-icon">
                 <i class="material-icons">error_outline</i>
@@ -231,11 +234,12 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="material-icons">clear</i></span>
             </button>
-            <p style="color: white; font-size:14px; text-align: center;">Todos los pedidos realizados durante el mes de noviembre serán enviados a partir del 3 de diciembre, disculpad las molestias.</p>
+            <p style="color: white; font-size:14px; text-align: center;"><?=$data['store_notice']?></p>
             </div>
         </div>
-    </div>-->
+    </div>
     <?php
+        }
         if(isset($data["primer_login"])){
     ?>
     <div id="primerlogin" class="container-fluid">
