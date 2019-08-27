@@ -1,5 +1,5 @@
 <?php
-    require_once('vendor/stripe-php-4.0.0/init.php');
+    require_once('vendor/stripe-php-6.43.0/init.php');
     // Set your secret key: remember to change this to your live secret key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     \Stripe\Stripe::setApiKey(STRIPE_SECRET);
