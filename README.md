@@ -22,7 +22,7 @@
 - Stripe, PayPal, PHPMailer
 
 ### Historia
-El proyecto estuvo activo entre 2017 y 2022, con cientos de productos publicados y una comunidad de usuarios activos. Actualmente está discontinuado y no recibe soporte ni actualizaciones.
+El proyecto estuvo activo entre 2015 y 2022, con cientos de productos publicados y una comunidad de usuarios activos. Actualmente está discontinuado y no recibe soporte ni actualizaciones.
 
 ## Instalación
 Este repositorio no está preparado para producción. Requiere configuración manual de base de datos y variables en `app/core/config.php`. No se recomienda su uso en entornos reales.
